@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1f2937;
+        font-size: 28px;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        font-weight: 700;
+      }
+
+      .cls-1, .cls-5, .cls-10, .cls-9, .cls-11, .cls-12 {
+        isolation: isolate;
+      }
+
+      .cls-1, .cls-5, .cls-9 {
+        font-family: Arial-BoldMT, Arial;
+      }
+
+      .cls-13 {
+        fill: #fff3cd;
+      }
+
+      .cls-14 {
+        fill: #d1fae5;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-6, .cls-7, .cls-8 {
+        font-family: Inter-Bold, Inter;
+        font-variation-settings: 'opsz' 14, 'wght' 700;
+      }
+
+      .cls-2, .cls-15 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-3 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-4, .cls-16, .cls-17 {
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        font-size: 18px;
+        text-decoration: underline;
+      }
+
+      .cls-5, .cls-9 {
+        fill: #374151;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+
+      .cls-18 {
+        fill: #dbeafe;
+      }
+
+      .cls-10, .cls-11 {
+        fill: #111827;
+        font-size: 14px;
+      }
+
+      .cls-8 {
+        letter-spacing: 0em;
+      }
+
+      .cls-9 {
+        font-size: 24.78px;
+      }
+
+      .cls-19, .cls-16, .cls-20, .cls-11, .cls-12 {
+        font-family: Inter-Regular, Inter;
+        font-variation-settings: 'opsz' 14, 'wght' 400;
+      }
+
+      .cls-21 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-22, .cls-20 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-23 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-24 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-25 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-26 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-27 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-28 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-29 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-12 {
+        fill: #6b7280;
+        font-size: 16px;
+      }
+
+      .cls-30 {
+        letter-spacing: .02em;
+      }
+
+      .cls-31 {
+        letter-spacing: .02em;
+      }
+
+      .cls-32 {
+        fill: #f3f4f6;
+      }
+
+      .cls-33 {
+        letter-spacing: 0em;
+      }
+
+      .cls-34 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(438.41 60.01)"><tspan x="0" y="0">Interview Notes Clustering</tspan></text>
+  <text class="cls-12" transform="translate(280.87 90.01)"><tspan x="0" y="0">A</tspan><tspan class="cls-27" x="11.04" y="0">f</tspan><tspan class="cls-17" x="16.41" y="0">t</tspan><tspan x="21.49" y="0">er g</tspan><tspan class="cls-22" x="51.16" y="0">r</tspan><tspan x="56.91" y="0">ouping the in</tspan><tspan class="cls-17" x="155.26" y="0">t</tspan><tspan x="160.34" y="0">e</tspan><tspan class="cls-31" x="169.66" y="0">r</tspan><tspan x="175.94" y="0">vi</tspan><tspan class="cls-15" x="188.8" y="0">e</tspan><tspan x="197.84" y="0">w no</tspan><tspan class="cls-17" x="234.48" y="0">t</tspan><tspan x="239.56" y="0">es du</tspan><tspan class="cls-34" x="281.09" y="0">r</tspan><tspan x="287.27" y="0">ing a</tspan><tspan class="cls-28" x="323.9" y="0">f</tspan><tspan x="329.2" y="0">fini</tspan><tspan class="cls-30" x="352.32" y="0">t</tspan><tspan x="357.87" y="0">y mapping, s</tspan><tspan class="cls-23" x="454.65" y="0">ev</tspan><tspan x="472.34" y="0">eral </tspan><tspan class="cls-21" x="505.05" y="0">k</tspan><tspan class="cls-23" x="513.48" y="0">e</tspan><tspan x="522.49" y="0">y themes eme</tspan><tspan class="cls-22" x="628.97" y="0">r</tspan><tspan x="634.73" y="0">ged.</tspan></text>
+  <g>
+    <text class="cls-5" transform="translate(126.55 136.88)"><tspan x="0" y="0">Unclear Starting Point</tspan></text>
+    <text class="cls-5" transform="translate(126.55 266.36)"><tspan x="0" y="0">Lack of Progress </tspan><tspan class="cls-15" x="151.06" y="0">V</tspan><tspan x="162.74" y="0">isibility</tspan></text>
+    <text class="cls-5" transform="translate(126.55 394.84)"><tspan x="0" y="0">Need Clear Next</tspan><tspan class="cls-25" x="138.06" y="0"> </tspan><tspan x="142.39" y="0">Action</tspan></text>
+    <g>
+      <rect class="cls-13" x="126.55" y="160.28" width="946.9" height="60" rx="11.24" ry="11.24"/>
+      <text class="cls-11" transform="translate(147.38 195.45)"><tspan x="0" y="0">Studen</tspan><tspan class="cls-17" x="46.85" y="0">t</tspan><tspan x="51.29" y="0">s struggled </tspan><tspan class="cls-17" x="129.37" y="0">t</tspan><tspan x="133.81" y="0">o identify whe</tspan><tspan class="cls-22" x="227.4" y="0">r</tspan><tspan x="232.44" y="0">e </tspan><tspan class="cls-17" x="244.54" y="0">t</tspan><tspan x="248.98" y="0">o begin a</tspan><tspan class="cls-27" x="310.09" y="0">f</tspan><tspan class="cls-17" x="314.79" y="0">t</tspan><tspan x="319.24" y="0">er logging in</tspan><tspan class="cls-17" x="401.41" y="0">t</tspan><tspan x="405.86" y="0">o the po</tspan><tspan class="cls-31" x="460.11" y="0">r</tspan><tspan class="cls-33" x="465.6" y="0">t</tspan><tspan x="470.25" y="0">al, especial</tspan><tspan class="cls-33" x="544.4" y="0">l</tspan><tspan x="547.86" y="0">y du</tspan><tspan class="cls-34" x="576.52" y="0">r</tspan><tspan x="581.92" y="0">ing the </tspan><tspan class="cls-34" x="631.07" y="0">e</tspan><tspan x="639.37" y="0">a</tspan><tspan class="cls-31" x="647.23" y="0">r</tspan><tspan class="cls-33" x="652.72" y="0">l</tspan><tspan x="656.17" y="0">y onb</tspan><tspan class="cls-34" x="693.22" y="0">o</tspan><tspan x="701.75" y="0">a</tspan><tspan class="cls-22" x="709.61" y="0">r</tspan><tspan x="714.65" y="0">ding phase.</tspan></text>
+    </g>
+    <g>
+      <rect class="cls-14" x="126.55" y="418.26" width="946.9" height="100" rx="14.51" ry="14.51"/>
+      <text class="cls-11" transform="translate(147.38 445.25)"><tspan x="0" y="0">Ma</tspan><tspan class="cls-24" x="20.51" y="0">n</tspan><tspan x="28.57" y="0">y studen</tspan><tspan class="cls-17" x="85.63" y="0">t</tspan><tspan x="90.08" y="0">s </tspan><tspan class="cls-21" x="101.4" y="0">e</tspan><tspan x="109.25" y="0">xpec</tspan><tspan class="cls-17" x="141.63" y="0">t</tspan><tspan x="146.07" y="0">ed the sys</tspan><tspan class="cls-17" x="214.35" y="0">t</tspan><tspan x="218.79" y="0">em </tspan><tspan class="cls-17" x="243.15" y="0">t</tspan><tspan x="247.6" y="0">o guide them </tspan><tspan class="cls-17" x="338.08" y="0">t</tspan><tspan class="cls-15" x="342.52" y="0">o</tspan><tspan x="350.66" y="0">wa</tspan><tspan class="cls-22" x="369.98" y="0">r</tspan><tspan x="375.02" y="0">d the n</tspan><tspan class="cls-21" x="420.76" y="0">e</tspan><tspan class="cls-30" x="428.61" y="0">x</tspan><tspan x="436.52" y="0">t action ins</tspan><tspan class="cls-17" x="508.53" y="0">t</tspan><tspan class="cls-34" x="512.97" y="0">e</tspan><tspan x="521.27" y="0">ad of </tspan><tspan class="cls-22" x="559.15" y="0">r</tspan><tspan x="564.19" y="0">equi</tspan><tspan class="cls-34" x="592.59" y="0">r</tspan><tspan x="598" y="0">ing them </tspan><tspan class="cls-17" x="659.41" y="0">t</tspan><tspan x="663.85" y="0">o s</tspan><tspan class="cls-34" x="683.57" y="0">e</tspan><tspan x="691.87" y="0">a</tspan><tspan class="cls-22" x="699.73" y="0">r</tspan><tspan x="704.77" y="0">ch ac</tspan><tspan class="cls-22" x="740.84" y="0">r</tspan><tspan x="745.88" y="0">oss di</tspan><tspan class="cls-28" x="784.96" y="0">f</tspan><tspan class="cls-29" x="789.59" y="0">f</tspan><tspan x="794.36" y="0">e</tspan><tspan class="cls-22" x="802.53" y="0">r</tspan><tspan x="807.56" y="0">ent sections.</tspan><tspan x="0" y="26.8">These clus</tspan><tspan class="cls-17" x="72.02" y="26.8">t</tspan><tspan x="76.47" y="26.8">ers </tspan><tspan class="cls-22" x="101.23" y="26.8">r</tspan><tspan class="cls-23" x="106.26" y="26.8">ev</tspan><tspan class="cls-34" x="121.75" y="26.8">e</tspan><tspan x="130.05" y="26.8">aled a c</tspan><tspan class="cls-34" x="181.77" y="26.8">r</tspan><tspan x="187.17" y="26.8">iti</tspan><tspan class="cls-34" x="198.54" y="26.8">c</tspan><tspan x="206.67" y="26.8">al gap in the </tspan><tspan class="cls-21" x="291.38" y="26.8">e</tspan><tspan x="299.22" y="26.8">xpe</tspan><tspan class="cls-34" x="323.6" y="26.8">r</tspan><tspan x="329.01" y="26.8">ience:</tspan><tspan x="0" y="53.6">the po</tspan><tspan class="cls-31" x="41.92" y="53.6">r</tspan><tspan class="cls-33" x="47.41" y="53.6">t</tspan><tspan x="52.06" y="53.6">al p</tspan><tspan class="cls-22" x="75.82" y="53.6">r</tspan><tspan x="80.86" y="53.6">esen</tspan><tspan class="cls-17" x="112.85" y="53.6">t</tspan><tspan x="117.29" y="53.6">ed in</tspan><tspan class="cls-29" x="149.62" y="53.6">f</tspan><tspan x="154.4" y="53.6">o</tspan><tspan class="cls-31" x="162.79" y="53.6">r</tspan><tspan x="168.28" y="53.6">mation but did not guide studen</tspan><tspan class="cls-17" x="378.18" y="53.6">t</tspan><tspan x="382.63" y="53.6">s th</tspan><tspan class="cls-22" x="406.81" y="53.6">r</tspan><tspan x="411.85" y="53.6">ough a structu</tspan><tspan class="cls-22" x="507.5" y="53.6">r</tspan><tspan x="512.54" y="53.6">ed onb</tspan><tspan class="cls-34" x="558.45" y="53.6">o</tspan><tspan x="566.98" y="53.6">a</tspan><tspan class="cls-22" x="574.84" y="53.6">r</tspan><tspan x="579.88" y="53.6">ding jou</tspan><tspan class="cls-31" x="632.7" y="53.6">r</tspan><tspan x="638.19" y="53.6">n</tspan><tspan class="cls-23" x="646.46" y="53.6">e</tspan><tspan class="cls-26" x="654.35" y="53.6">y</tspan><tspan x="661.6" y="53.6">.</tspan></text>
+    </g>
+    <g>
+      <rect class="cls-18" x="126.55" y="289.76" width="946.9" height="60" rx="11.24" ry="11.24"/>
+      <text class="cls-11" transform="translate(147.38 323.72)"><tspan x="0" y="0">Studen</tspan><tspan class="cls-17" x="46.85" y="0">t</tspan><tspan x="51.29" y="0">s wan</tspan><tspan class="cls-17" x="90.21" y="0">t</tspan><tspan x="94.65" y="0">ed cl</tspan><tspan class="cls-34" x="126.71" y="0">e</tspan><tspan x="135.01" y="0">a</tspan><tspan class="cls-22" x="142.87" y="0">r</tspan><tspan x="147.91" y="0">er visibili</tspan><tspan class="cls-30" x="206.06" y="0">t</tspan><tspan x="210.92" y="0">y in</tspan><tspan class="cls-17" x="234.38" y="0">t</tspan><tspan x="238.83" y="0">o their l</tspan><tspan class="cls-34" x="288.17" y="0">e</tspan><tspan x="296.47" y="0">a</tspan><tspan class="cls-31" x="304.33" y="0">r</tspan><tspan x="309.82" y="0">ning p</tspan><tspan class="cls-22" x="350.85" y="0">r</tspan><tspan x="355.89" y="0">og</tspan><tspan class="cls-22" x="372.87" y="0">r</tspan><tspan x="377.9" y="0">ess and miles</tspan><tspan class="cls-17" x="468.02" y="0">t</tspan><tspan x="472.47" y="0">ones within the p</tspan><tspan class="cls-22" x="585.46" y="0">r</tspan><tspan x="590.5" y="0">ogram.</tspan></text>
+    </g>
+  </g>
+  <g>
+    <rect class="cls-32" x="310.24" y="556.19" width="607.04" height="109.63" rx="11" ry="11"/>
+    <g>
+      <text class="cls-9" transform="translate(528.62 601.04)"><tspan x="0" y="0">Design Insight</tspan></text>
+      <text class="cls-10" transform="translate(345.41 637.72)"><tspan class="cls-19" x="0" y="0">This insight led </tspan><tspan class="cls-16" x="103.92" y="0">t</tspan><tspan class="cls-19" x="108.36" y="0">o the int</tspan><tspan class="cls-20" x="161.9" y="0">r</tspan><tspan class="cls-19" x="166.93" y="0">oduction of a </tspan><tspan class="cls-6" x="258.06" y="0">miles</tspan><tspan class="cls-4" x="294.61" y="0">t</tspan><tspan class="cls-6" x="299.6" y="0">one-d</tspan><tspan class="cls-8" x="340.61" y="0">r</tspan><tspan class="cls-6" x="346.38" y="0">i</tspan><tspan class="cls-2" x="350.17" y="0">v</tspan><tspan class="cls-6" x="358.31" y="0">en student jou</tspan><tspan class="cls-7" x="455.79" y="0">r</tspan><tspan class="cls-6" x="461.59" y="0">n</tspan><tspan class="cls-2" x="470.31" y="0">e</tspan><tspan class="cls-6" x="478.39" y="0">y model</tspan><tspan class="cls-3" x="532.46" y="0">.</tspan></text>
+    </g>
+  </g>
+</svg>

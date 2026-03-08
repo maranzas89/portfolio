@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 959.1 520">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f9d2b7;
+      }
+
+      .cls-2 {
+        fill: #f6b892;
+      }
+
+      .cls-3 {
+        font-size: 27.43px;
+      }
+
+      .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        isolation: isolate;
+      }
+
+      .cls-3, .cls-5, .cls-7 {
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+
+      .cls-3, .cls-7 {
+        fill: #1f2937;
+      }
+
+      .cls-4, .cls-5 {
+        font-size: 22px;
+      }
+
+      .cls-4, .cls-6 {
+        fill: #fff;
+        font-family: Inter-SemiBold, Inter;
+        font-variation-settings: 'opsz' 14, 'wght' 600;
+        font-weight: 600;
+      }
+
+      .cls-5, .cls-8 {
+        fill: #d34508;
+      }
+
+      .cls-6, .cls-7 {
+        font-size: 18px;
+      }
+
+      .cls-9 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-10 {
+        fill: #fde7d8;
+      }
+
+      .cls-11 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <text class="cls-3" transform="translate(294.76 64.88)"><tspan x="0" y="0">Onboarding Funnel Drop-off</tspan></text>
+  <g>
+    <polygon class="cls-10" points="58.05 105.01 901.05 105.01 816.75 185.01 142.35 185.01 58.05 105.01"/>
+    <polygon class="cls-1" points="142.35 185.01 816.75 185.01 732.45 265.01 226.65 265.01 142.35 185.01"/>
+    <polygon class="cls-2" points="226.65 265.01 732.45 265.01 648.15 345.01 310.95 345.01 226.65 265.01"/>
+    <polygon class="cls-8" points="310.95 345.01 648.15 345.01 563.85 455.03 395.25 455.03 310.95 345.01"/>
+    <text class="cls-7" transform="translate(403.53 140.7)"><tspan x="0" y="0">Engagement Rate</tspan></text>
+    <text class="cls-5" transform="translate(457.53 168.01)"><tspan x="0" y="0">41%</tspan></text>
+    <text class="cls-7" transform="translate(380.54 220.59)"><tspan x="0" y="0">Orientation Scheduling</tspan></text>
+    <text class="cls-5" transform="translate(457.53 248.01)"><tspan x="0" y="0">58%</tspan></text>
+    <text class="cls-7" transform="translate(398.03 300.85)"><tspan x="0" y="0">Rage Click Friction</tspan></text>
+    <text class="cls-5" transform="translate(457.53 328.01)"><tspan x="0" y="0">12%</tspan></text>
+    <text class="cls-6" transform="translate(378.37 395.01)"><tspan x="0" y="0">Onb</tspan><tspan class="cls-11" x="36.08" y="0">o</tspan><tspan x="47.21" y="0">a</tspan><tspan class="cls-9" x="57.55" y="0">r</tspan><tspan x="64.3" y="0">ding Completion</tspan></text>
+    <text class="cls-4" transform="translate(454.82 425.02)"><tspan x="0" y="0">46%</tspan></text>
+  </g>
+</svg>
