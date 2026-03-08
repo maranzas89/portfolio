@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import HeroGlow from "@/components/HeroGlow";
 
 export default function Page() {
@@ -28,32 +29,18 @@ export default function Page() {
             Wen Liu
           </a>
           <div className="hidden md:flex items-center gap-12 text-base font-semibold uppercase tracking-widest text-muted">
-            <a
-              href="#work"
-              className="nav-link-underline"
-            >
+            <a href="#work" className="nav-link-underline active text-text">
               Work
             </a>
-            <a
-              href="#approach"
-              className="nav-link-underline"
-            >
-              Approach
-            </a>
-            <a
-              href="#about"
-              className="nav-link-underline"
-            >
-              About
-            </a>
-            <a
-              href="/WenLiu_Resume.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="nav-link-underline"
-            >
-              Resume
-            </a>
+            <Link href="/ai-explorations" className="nav-link-underline">
+              AI Explorations
+            </Link>
+            <Link href="/experience" className="nav-link-underline">
+              Experience
+            </Link>
+            <Link href="/kind-words" className="nav-link-underline">
+              Kind Words
+            </Link>
           </div>
         </div>
       </nav>

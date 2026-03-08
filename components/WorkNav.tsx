@@ -2,9 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { NAV_LINKS } from "@/lib/nav-config";
 
 export default function WorkNav({ embed = false }: { embed?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -13,10 +16,8 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const linkBase =
-    "nav-link-underline";
-  const workActive =
-    "nav-link-underline active text-text cursor-pointer";
+  const linkBase = "nav-link-underline";
+  const linkActive = "nav-link-underline active text-text cursor-pointer";
 
   return (
     <nav
@@ -36,30 +37,29 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
           Wen Liu
         </Link>
         <div className="hidden md:flex items-center gap-12 text-base font-semibold uppercase tracking-widest text-muted">
-          <Link
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className={workActive}
-          >
-            Work
-          </Link>
-          <Link href="/#approach" className={linkBase}>
-            Approach
-          </Link>
-          <Link href="/#about" className={linkBase}>
-            About
-          </Link>
-          <Link
-            href="/WenLiu_Resume.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className={linkBase}
-          >
-            Resume
-          </Link>
+          {NAV_LINKS.map(({ href, label }) => {
+            const isWork = href === "/#work";
+            const isActive =
+              (isWork && pathname === "/") ||
+              (href.startsWith("/") && href !== "/#work" && pathname === href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                onClick={
+                  isWork && pathname === "/"
+                    ? (e) => {
+                        e.preventDefault();
+                        document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+                      }
+                    : undefined
+                }
+                className={isActive ? linkActive : linkBase}
+              >
+                {label}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </nav>
