@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { Layout, Sparkles, GitBranch, Beaker } from "lucide-react";
 import HeroGlow from "@/components/HeroGlow";
 
 export default function Page() {
@@ -49,52 +50,62 @@ export default function Page() {
       <header className="relative overflow-hidden bg-black text-white border-b border-white/20">
         <HeroGlow />
         <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-32 pb-16 md:pt-40 md:pb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-center">
-            <div className="lg:col-span-4 flex items-center justify-center lg:justify-start order-2 lg:order-1">
-              <div className="bg-gray-200 rounded-2xl overflow-hidden">
-                <img
-                  src="/avatar.png"
-                  alt="Wen Liu"
-                  className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 object-cover"
-                />
-              </div>
-            </div>
-            <div className="lg:col-span-8 order-1 lg:order-2">
-              <p className="text-sm font-bold tracking-widest text-white/80 mb-3">
-                Product Design
-                <span className="inline-block text-2xl mx-2 align-middle">·</span>
-                Web Design
-                <span className="inline-block text-2xl mx-2 align-middle">·</span>
-                Mobile Design
-                <span className="inline-block text-2xl mx-2 align-middle">·</span>
-                User Research
-                <span className="inline-block text-2xl mx-2 align-middle">·</span>
-                Webflow
+          <div className="max-w-6xl">
+              <p className="text-xs font-semibold tracking-widest text-white/70 mb-4">
+                Product Design · AI-Native Building · Systems
               </p>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium leading-snug text-white mb-10 max-w-2xl lg:max-w-none">
-                Hi, I&apos;m Wen, a product designer
-                <br />
-                working at staff-level scope
-                <br />
-                across complex systems and AI-driven enterprise platforms.
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-snug text-white mb-4 max-w-3xl">
+                Hi, I&apos;m Wen, <span className="whitespace-nowrap">a product designer and AI-native builder</span>
               </h1>
-              <div className="flex flex-wrap items-center gap-6">
+              <p className="text-base md:text-lg text-white/80 font-light leading-relaxed mb-6 max-w-4xl">
+                I design at staff-level scope across complex systems and enterprise experiences, using AI to prototype, explore, and build faster while bridging product thinking, design craft, front-end fluency, and iterative testing.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 w-full">
+                <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-4 px-5 lg:py-5 lg:px-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Layout className="w-5 h-5 text-blue-400 shrink-0" />
+                    <p className="text-white/90 font-semibold text-base">Product Design</p>
+                  </div>
+                  <p className="text-white/60 text-sm font-light">Complex systems & platforms</p>
+                </div>
+                <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-4 px-5 lg:py-5 lg:px-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Sparkles className="w-5 h-5 text-blue-400 shrink-0" />
+                    <p className="text-white/90 font-semibold text-base">AI-Native Builder</p>
+                  </div>
+                  <p className="text-white/60 text-sm font-light">Prototype, explore, build</p>
+                </div>
+                <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-4 px-5 lg:py-5 lg:px-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                  <div className="flex items-center gap-3 mb-3">
+                    <GitBranch className="w-5 h-5 text-blue-400 shrink-0" />
+                    <p className="text-white/90 font-semibold text-base">Systems Thinking</p>
+                  </div>
+                  <p className="text-white/60 text-sm font-light">Flows, logic, scalability</p>
+                </div>
+                <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-4 px-5 lg:py-5 lg:px-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Beaker className="w-5 h-5 text-blue-400 shrink-0" />
+                    <p className="text-white/90 font-semibold text-base">Research-Driven Design</p>
+                  </div>
+                  <p className="text-white/60 text-sm font-light">Insights, testing, iteration</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-4">
                 <a
                   href="mailto:williamliu_1989@hotmail.com"
-                  className="inline-block rounded-xl bg-blue-600 px-10 py-5 text-xl font-semibold text-white transition hover:bg-blue-700"
+                  className="inline-block rounded-xl bg-blue-600 px-8 py-4 text-base font-semibold text-white transition hover:bg-blue-700"
                 >
                   Let&apos;s talk
                 </a>
                 <a
                   href="#work"
-                  className="inline-flex items-center gap-2 text-white font-semibold hover:underline transition-colors"
+                  className="inline-flex items-center gap-2 text-white/90 font-medium text-sm hover:underline transition-colors"
                 >
                   View Featured Work
                   <span className="inline-block" aria-hidden>↓</span>
                 </a>
               </div>
             </div>
-          </div>
         </div>
       </header>
 
@@ -121,20 +132,20 @@ export default function Page() {
               className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999] block"
             >
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-[340px]">
-                <div>
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-snug">
+                <div className="-mt-2">
+                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 leading-snug">
                     Shaping a More Guided Student Portal Experience
                   </h3>
                   <p className="text-muted leading-relaxed font-light text-base md:text-lg">
-                    Designing a more supportive student experience around clarity, action, and progress—making the portal a more guided experience for learners.
+                    Designing a more supportive student experience around clarity, action, and progress—helping learners better understand what matters, what comes next, and how to move forward.
                   </p>
                 </div>
-                <div className="mt-14 md:mt-auto flex items-end gap-6">
+                <div className="mt-28 md:mt-auto flex items-center gap-6">
                   <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
                     8k+
                   </span>
-                  <span className="text-sm md:text-base text-muted max-w-[180px] leading-snug pb-2">
-                    Students supported statewide across learning programs
+                  <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
+                    Students supported statewide<br />across learning programs
                   </span>
                 </div>
               </div>
@@ -142,45 +153,44 @@ export default function Page() {
                 <img
                   src="/images/calbright/calbright-landing.svg"
                   alt="Calbright Student Portal redesigned dashboard"
-                  className="absolute inset-0 w-full h-full object-cover object-center bg-[#8a9bb8] group-hover:scale-[1.05] transition-transform duration-500"
+                  className="absolute inset-0 w-full h-full object-cover object-[30%_center] bg-[#8a9bb8] group-hover:scale-[1.05] transition-transform duration-500"
                 />
               </div>
             </a>
 
-            {/* Project 2: Cisco (图在左) */}
-            <div className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999]">
+            {/* Project 2: Calbright Staff Portal (图在左) */}
+            <a
+              href="/work/calbright/staff-portal"
+              className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999] block"
+            >
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-[340px]">
-                <div>
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-snug">
-                    Cisco · Network Assurance Intelligence
+                <div className="-mt-2">
+                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 leading-snug">
+                    Shaping the Staff Portal for Operational Workflows
                   </h3>
                   <p className="text-muted leading-relaxed font-light text-base md:text-lg">
-                    Designed telemetry dashboards and alert-to-resolution workflows
-                    for Cisco&apos;s network assurance platform. Built a design system
-                    that improved consistency and sped up delivery across the
-                    product suite.
+                    Designed a 0→1 staff platform to support cross-functional workflows,
+                    improve visibility into student context, and create a more effective
+                    operational experience for internal teams.
                   </p>
                 </div>
-                <div className="mt-14 md:mt-auto flex items-end gap-6">
+                <div className="mt-14 md:mt-auto flex items-center gap-6">
                   <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
-                    $15M+
+                    35%
                   </span>
-                  <span className="text-sm md:text-base text-muted max-w-[180px] leading-snug pb-2">
-                    Business impact attributed to product adoption
+                  <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
+                    Measured efficiency gains across <span className="whitespace-nowrap">core staff workflows</span>
                   </span>
                 </div>
               </div>
-              <div className="flex-1 w-full bg-[#E8EBED] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center border border-gray-200">
-                <div className="mockup-image absolute inset-4 bg-white rounded-xl shadow-sm flex flex-row gap-4 p-4 border border-gray-200 group-hover:scale-[1.05]">
-                  <div className="w-1/4 h-full bg-gray-50 rounded" />
-                  <div className="flex-1 h-full bg-slate-100/50 rounded flex items-center justify-center">
-                    <span className="text-slate-400 font-medium tracking-widest text-sm text-center">
-                      [ CISCO MOCKUP ]
-                    </span>
-                  </div>
-                </div>
+              <div className="flex-1 w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center border border-gray-200">
+                <img
+                  src="/images/calbright/staff-portal-mock.png"
+                  alt="Calbright Staff Portal - Student profile view"
+                  className="absolute inset-0 w-full h-full object-cover object-center bg-[#8a9bb8] group-hover:scale-[1.05] transition-transform duration-500"
+                />
               </div>
-            </div>
+            </a>
 
             {/* Project 3: DiDi (图在右) */}
             <a
@@ -199,23 +209,21 @@ export default function Page() {
                     live incidents.
                   </p>
                 </div>
-                <div className="mt-36 md:mt-auto flex items-end gap-6">
+                <div className="mt-36 md:mt-auto flex items-center gap-6">
                   <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
                     +75%
                   </span>
-                  <span className="text-sm md:text-base text-muted max-w-[180px] leading-snug pb-2">
-                    Increase in enterprise trial-to-paid conversion
+                  <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
+                    Increase in enterprise trial-to-paid<br />conversion performance
                   </span>
                 </div>
               </div>
               <div className="flex-1 w-full bg-white rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
-                <div className="mockup-image absolute inset-0 overflow-hidden group-hover:scale-[1.05] transition-transform duration-500">
-                  <img
-                    src="/images/didi/aa.svg"
-                    alt="EagleEye enterprise security platform on laptop"
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
+                <img
+                  src="/images/didi/eagleeye-dashboard.png"
+                  alt="EagleEye enterprise security platform dashboard"
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.05] transition-transform duration-500"
+                />
               </div>
             </a>
 
