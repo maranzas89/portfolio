@@ -49,9 +49,9 @@ function PlaceholderModal({
           ×
         </button>
         <div className="bg-white rounded-2xl overflow-hidden shadow-2xl max-h-[92vh] flex flex-col w-full flex-1 min-h-0">
-          <div className="w-full flex-1 min-h-0 overflow-y-auto bg-white max-h-[85vh]">
-            <div className="px-4 py-4 flex justify-center items-start">
-              {children ?? <p className="text-muted text-lg">占位图</p>}
+          <div className="w-full flex-1 min-h-0 overflow-y-auto bg-white max-h-[88vh]">
+            <div className="flex justify-center items-start">
+              {children ?? <p className="text-muted text-lg p-4">占位图</p>}
             </div>
           </div>
           {caption && (
@@ -65,11 +65,11 @@ function PlaceholderModal({
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import AnnotatedImage, { type Annotation } from "@/components/AnnotatedImage";
+import AnnotatedImage from "@/components/AnnotatedImage";
 import CalbrightCaseStudyLayout from "@/components/CalbrightCaseStudyLayout";
+import CplDecisionLifecycleFlowchart from "@/components/CplDecisionLifecycleFlowchart";
 import HeroGlow from "@/components/HeroGlow";
 import { ScrollReveal, ScrollRevealStagger } from "@/components/ScrollReveal";
-import CPLDecisionLifecycleDiagram from "@/components/CPLDecisionLifecycleDiagram";
 import {
   Layout,
   Users,
@@ -99,6 +99,14 @@ const PROTOTYPE_URL = "https://xd.adobe.com/view/cf29073b-7df1-41c8-8e84-bf8b891
 const PROTOTYPE_VIDEO_PLAYBACK_RATE = 0.5; // 1 = 正常, 0.75 = 稍慢, 0.5 = 半速
 
 const EXISTING_REALITY_IMG = "/images/calbright/existing-reality-vs-opportunity.svg";
+const EXISTING_REALITY_ANNOTATIONS = [
+  { id: 1, title: "Scattered context", explanation: "Key student information is spread across multiple horizontal bands.", x: 32, y: 10, side: "right" as const },
+  { id: 2, title: "Fragmented links", explanation: "Routine records and actions are split across too many destinations.", x: 22, y: 22, side: "left" as const },
+  { id: 3, title: "Dense fields", explanation: "Important details are buried in a form-heavy layout.", x: 28, y: 48, side: "left" as const },
+  { id: 4, title: "Buried actions", explanation: "High-frequency actions exist, but lack workflow priority.", x: 88, y: 16, side: "left" as const },
+  { id: 5, title: "Disconnected history", explanation: "Follow-up activity is separated from the main case context.", x: 88, y: 58, side: "left" as const },
+  { id: 6, title: "Record-keeping focus", explanation: "The system captures data well, but offers limited workflow guidance.", x: 50, y: 92, side: "right" as const },
+];
 const CPL_CROSS_PORTAL_IMG = "/images/calbright/CPL.svg";
 const STUDENT_VIEW_IMG = "/images/calbright/student-submission.svg";
 const STAFF_VIEW_IMG = "/images/calbright/staff-view.svg";
@@ -109,15 +117,6 @@ const ITERATION_IMGS = [
   "/images/calbright/iteration-4.svg",
   "/images/calbright/iteration-2.svg",
   "/images/calbright/iteration-1.svg",
-];
-
-const EXISTING_SALESFORCE_ANNOTATIONS: Annotation[] = [
-  { id: 1, title: "Scattered context", explanation: "Key student context is too spread out to scan efficiently.", x: 50, y: 12, side: "top" },
-  { id: 2, title: "Fragmented links", explanation: "Too many fragmented links for routine casework.", x: 35, y: 28, side: "left" },
-  { id: 3, title: "Dense fields", explanation: "Dense fields make routine work harder to scan.", x: 45, y: 52, side: "left" },
-  { id: 4, title: "Buried actions", explanation: "Actions exist, but lack workflow priority.", x: 82, y: 22, side: "right" },
-  { id: 5, title: "Disconnected history", explanation: "Follow-up history is disconnected from core case context.", x: 88, y: 58, side: "right" },
-  { id: 6, title: "Record-keeping focus", explanation: "Built for record-keeping, not workflow guidance.", x: 50, y: 88, side: "top" },
 ];
 
 function StaffDashboardMockup() {
@@ -459,7 +458,7 @@ export default function StaffPortalCaseStudyPage() {
                 <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">02. Why This Portal</h2>
               </div>
               <h3 className="text-3xl md:text-4xl font-semibold text-text mb-12">Existing Salesforce</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 items-start">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 items-stretch">
                 <ScrollReveal direction="right" className="md:order-2 flex flex-col gap-6">
                   <div className="p-8 py-10 rounded-2xl bg-red-50 border border-red-100 min-h-[140px]">
                     <h4 className="flex items-center gap-2 font-semibold text-red-800 mb-4">
@@ -496,29 +495,30 @@ export default function StaffPortalCaseStudyPage() {
                     </p>
                   </div>
                 </ScrollReveal>
-                <ScrollReveal direction="left" className="flex-1 min-w-0">
+                <ScrollReveal direction="left" className="flex-1 min-w-0 flex flex-col min-h-0">
                   <AnnotatedImage
+                    className="flex-1 min-h-0 flex flex-col min-w-0"
                     src={EXISTING_REALITY_IMG}
                     alt="Calbright Staff — Keith Charles Smith contact profile (Existing Reality)"
                     caption="Legacy Salesforce was powerful, but too dense and fragmented for everyday staff workflows."
-                    annotations={EXISTING_SALESFORCE_ANNOTATIONS}
-                    storageKey="staff-portal-existing-salesforce"
+                    storageKey="existing-reality-annotations"
+                    annotations={EXISTING_REALITY_ANNOTATIONS}
                     variant="neutral"
-                    thumbnailContainerClass="aspect-[4/3] min-h-[160px] md:min-h-[280px]"
+                    thumbnailContainerClass="flex-1 min-h-[200px] md:min-h-[320px] w-full min-h-0"
+                    objectFit="cover"
                     onClick={() =>
                       setPlaceholderModal({
                         open: true,
                         caption: "Legacy Salesforce was powerful, but too dense and fragmented for everyday staff workflows.",
                         content: (
                           <AnnotatedImage
+                            className="w-full"
                             src={EXISTING_REALITY_IMG}
                             alt="Calbright Staff — Keith Charles Smith contact profile (Existing Reality)"
-                            caption=""
-                            annotations={EXISTING_SALESFORCE_ANNOTATIONS}
-                            storageKey="staff-portal-existing-salesforce"
-                            variant="neutral"
+                            annotations={EXISTING_REALITY_ANNOTATIONS}
+                            storageKey="existing-reality-annotations"
                             inModal
-                            className="!mt-0"
+                            thumbnailContainerClass="w-full max-h-[88vh]"
                           />
                         ),
                       })
@@ -588,7 +588,7 @@ export default function StaffPortalCaseStudyPage() {
               <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">04. Research + Workflow Complexity</h2>
             </div>
               <h3 className="text-3xl md:text-4xl font-semibold text-text mb-12">Staff Responsibilities Identified Through Internal Conversations</h3>
-              <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-line mb-12 overflow-hidden bg-card">
+              <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-line mb-12 overflow-hidden">
                 {[
                   {
                     title: "Case Management",
@@ -611,7 +611,7 @@ export default function StaffPortalCaseStudyPage() {
                     items: ["approval history", "ownership", "escalations"],
                   },
                 ].map((col, index) => (
-                  <div key={col.title} className="p-6 bg-card">
+                  <div key={col.title} className="p-6">
                     <h4 className="font-semibold text-text mb-4 flex items-center gap-2">
                       <col.icon className="w-5 h-5 shrink-0 text-blue-600" />
                       {col.title}
@@ -755,35 +755,35 @@ export default function StaffPortalCaseStudyPage() {
                   )}
                 >
                   {cplTab === "cpl-diagram" ? (
-                    <div className="absolute inset-0 bg-white">
+                    <div className="absolute inset-0 bg-white overflow-hidden">
                       <img
                         src={CPL_CROSS_PORTAL_IMG}
                         alt="CPL Cross-Portal Workflow"
-                        className="w-full h-full object-cover object-left scale-[1.54]"
+                        className="w-full h-full object-cover object-center scale-[1.2]"
                       />
                     </div>
                   ) : cplTab === "student" ? (
-                    <div className="absolute inset-0 bg-white">
+                    <div className="absolute inset-0 bg-white overflow-hidden">
                       <img
                         src={STUDENT_VIEW_IMG}
                         alt="Student View"
-                        className="w-full h-full object-cover object-center scale-[1.342]"
+                        className="w-full h-full object-cover object-center scale-[1.2]"
                       />
                     </div>
                   ) : cplTab === "staff" ? (
-                    <div className="absolute inset-0 bg-white">
+                    <div className="absolute inset-0 bg-white flex items-center justify-center overflow-hidden">
                       <img
                         src={STAFF_VIEW_IMG}
                         alt="Staff View"
-                        className="w-full h-full object-cover object-center scale-[1.188]"
+                        className="w-full h-full object-contain object-center scale-[1.08]"
                       />
                     </div>
                   ) : cplTab === "manager" ? (
-                    <div className="absolute inset-0 bg-white">
+                    <div className="absolute inset-0 bg-white overflow-hidden">
                       <img
                         src={STAFF_MANAGER_VIEW_IMG}
                         alt="Staff Manager View"
-                        className="w-full h-full object-cover object-center scale-[1.188]"
+                        className="w-full h-full object-cover object-center scale-[1.2]"
                       />
                     </div>
                   ) : (
@@ -834,13 +834,15 @@ export default function StaffPortalCaseStudyPage() {
                 A closed-loop process showing how student requests move through review, reporting, and program evolution.
               </p>
 
-              <div className="mb-10">
-                <CPLDecisionLifecycleDiagram />
-              </div>
+              <div className="-mt-[40px]">
+                <div className="mb-[10px]">
+                  <CplDecisionLifecycleFlowchart />
+                </div>
 
-              <p className="text-muted text-sm font-medium max-w-4xl">
-                Individual CPL decisions can surface broader signals that inform future program design.
-              </p>
+                <p className="text-muted text-sm font-medium max-w-4xl -mt-[30px]">
+                  Individual CPL decisions can surface broader signals that inform future program design.
+                </p>
+              </div>
             </ScrollReveal>
           </section>
 

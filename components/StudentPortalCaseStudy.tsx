@@ -1,24 +1,10 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import CalbrightCaseStudyLayout from "@/components/CalbrightCaseStudyLayout";
 import HeroGlow from "@/components/HeroGlow";
-import type { DraggableAnnotation } from "@/components/ImageAnnotations";
-
-const ImageAnnotations = dynamic(() => import("@/components/ImageAnnotations").then((m) => m.default), {
-  ssr: false,
-  loading: () => (
-    <div className="flex-1 min-h-0 aspect-[4/3] min-h-[280px] md:min-h-[360px] rounded-2xl bg-white border border-gray-200 flex items-center justify-center">
-      <div className="animate-pulse bg-gray-200 rounded-lg w-24 h-6" />
-    </div>
-  ),
-});
-const ImageAnnotationsModal = dynamic(
-  () => import("@/components/ImageAnnotations").then((m) => ({ default: m.ImageAnnotationsModal })),
-  { ssr: false }
-);
+import AnnotatedImage, { AnnotatedImageModal } from "@/components/AnnotatedImage";
 import {
   TrendingUp,
   ArrowRight,
@@ -72,11 +58,11 @@ const LUCAS_DESOUZA_IMG = "/images/calbright/lucas-desouza.svg";
 const KIMBERLEY_FLORES_IMG = "/images/calbright/kimberley-flores.svg";
 const STUDENT_JOURNEY_1_IMG = "/images/calbright/student-journey-1.svg";
 
-const LEGACY_PORTAL_ANNOTATIONS: DraggableAnnotation[] = [
-  { id: "info-guidance", title: "Information ≠ Guidance", body: "Students could see their coursework and updates, but the portal rarely told them what action to take next.", x: 43, y: 24 },
-  { id: "system-driven-nav", title: "System-Driven Navigation", body: "The navigation reflected internal service categories instead of how students actually progress through learning.", x: 10, y: 20 },
-  { id: "missing-next-step", title: "Missing Next-Step Signals", body: "Critical moments like onboarding, orientation, and course start lacked clear next-step cues.", x: 75, y: 22 },
-  { id: "high-cognitive-load", title: "High Cognitive Load", body: "New students had to interpret multiple pieces of information before understanding how to move forward.", x: 52, y: 60 },
+const LEGACY_PORTAL_ANNOTATIONS = [
+  { id: 1, title: "Information ≠ Guidance", explanation: "Students could see their coursework and updates, but the portal rarely told them what action to take next.", x: 43, y: 24, side: "left" as const },
+  { id: 2, title: "System-Driven Navigation", explanation: "The navigation reflected internal service categories instead of how students actually progress through learning.", x: 10, y: 20, side: "right" as const },
+  { id: 3, title: "Missing Next-Step Signals", explanation: "Critical moments like onboarding, orientation, and course start lacked clear next-step cues.", x: 75, y: 22, side: "left" as const },
+  { id: 4, title: "High Cognitive Load", explanation: "New students had to interpret multiple pieces of information before understanding how to move forward.", x: 52, y: 60, side: "bottom" as const },
 ];
 
 function ImagePreviewModal({
@@ -281,10 +267,10 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
         src={preview.src}
         caption={preview.caption}
       />
-      <ImageAnnotationsModal
+      <AnnotatedImageModal
         open={legacyAnnotatedModalOpen}
         onClose={() => setLegacyAnnotatedModalOpen(false)}
-        imageSrc={LEGACY_HOMEPAGE_IMG}
+        src={LEGACY_HOMEPAGE_IMG}
         alt="Legacy student portal homepage"
         annotations={LEGACY_PORTAL_ANNOTATIONS}
         storageKey="legacy-portal-annotations"
@@ -436,15 +422,15 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           {/* Section 2 — Legacy Experience */}
           <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-stretch">
             <Reveal direction="right" className="md:col-span-6 md:pr-6 flex flex-col">
-              <ImageAnnotations
-                imageSrc={LEGACY_HOMEPAGE_IMG}
+              <AnnotatedImage
+                src={LEGACY_HOMEPAGE_IMG}
                 alt="Legacy student portal homepage"
                 annotations={LEGACY_PORTAL_ANNOTATIONS}
                 storageKey="legacy-portal-annotations"
-                editable
                 onClick={() => setLegacyAnnotatedModalOpen(true)}
-                className="flex-1 min-h-0"
-                containerClass="aspect-[4/3] min-h-[280px] md:min-h-[360px] [&_img]:object-contain [&>div]:border [&>div]:border-gray-200"
+                className="flex-1 min-h-0 flex flex-col min-w-0"
+                thumbnailContainerClass="aspect-[4/3] min-h-[280px] md:min-h-[360px] flex-1 min-h-0"
+                objectFit="contain"
               />
             </Reveal>
             <Reveal direction="left" className="md:col-span-6 md:pl-6 flex flex-col">

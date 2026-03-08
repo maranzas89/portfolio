@@ -1,0 +1,88 @@
+.box {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.box.arrowRight::after,
+.box.arrowLeft::after,
+.box.arrowDown::after,
+.box.arrowUp::after {
+  content: '';
+  position: absolute;
+  background-color: #94a3b8;
+  z-index: 1;
+}
+
+.box.arrowRight::before,
+.box.arrowLeft::before,
+.box.arrowDown::before,
+.box.arrowUp::before {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  z-index: 2;
+}
+
+.box.arrowRight::after {
+  top: 50%;
+  right: -44px;
+  width: 36px;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.box.arrowRight::before {
+  top: 50%;
+  right: -52px;
+  transform: translateY(-50%);
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent #94a3b8;
+}
+
+.box.arrowLeft::after {
+  top: 50%;
+  left: -44px;
+  width: 36px;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.box.arrowLeft::before {
+  top: 50%;
+  left: -52px;
+  transform: translateY(-50%);
+  border-width: 6px 8px 6px 0;
+  border-color: transparent #94a3b8 transparent transparent;
+}
+
+.box.arrowDown::after {
+  bottom: -44px;
+  left: 50%;
+  width: 2px;
+  height: 36px;
+  transform: translateX(-50%);
+}
+
+.box.arrowDown::before {
+  bottom: -52px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 6px 0 6px;
+  border-color: #94a3b8 transparent transparent transparent;
+}
+
+.box.arrowUp::after {
+  top: -44px;
+  left: 50%;
+  width: 2px;
+  height: 36px;
+  transform: translateX(-50%);
+}
+
+.box.arrowUp::before {
+  top: -52px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 6px 8px 6px;
+  border-color: transparent transparent #94a3b8 transparent;
+}

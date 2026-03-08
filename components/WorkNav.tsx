@@ -31,7 +31,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
       <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 py-8 flex justify-between items-center">
         <Link
           href="/"
-          className="text-xl md:text-2xl font-semibold tracking-tight uppercase text-text"
+          className="text-xl md:text-2xl font-semibold tracking-tight uppercase text-text transition-colors hover:text-blue-600"
         >
           Wen Liu
         </Link>

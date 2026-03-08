@@ -2,6 +2,40 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+const DRAG_THRESHOLD = 5;
+
+function loadPositions(storageKey: string, annotations: { id: number; x: number; y: number }[]): Record<number, { x: number; y: number }> {
+  if (!storageKey || typeof window === "undefined") return {};
+  try {
+    const stored = localStorage.getItem(`${storageKey}-positions`);
+    if (stored) {
+      const parsed = JSON.parse(stored) as Record<string, { x: number; y: number }>;
+      const result: Record<number, { x: number; y: number }> = {};
+      annotations.forEach((a) => {
+        const key = String(a.id);
+        if (parsed[key]) result[a.id] = parsed[key];
+      });
+      return result;
+    }
+  } catch {
+    // ignore
+  }
+  return {};
+}
+
+function savePositions(storageKey: string, positions: Record<number, { x: number; y: number }>) {
+  if (!storageKey || typeof window === "undefined") return;
+  try {
+    const toStore: Record<string, { x: number; y: number }> = {};
+    Object.entries(positions).forEach(([k, v]) => {
+      toStore[k] = v;
+    });
+    localStorage.setItem(`${storageKey}-positions`, JSON.stringify(toStore));
+  } catch {
+    // ignore
+  }
+}
+
 export type Annotation = {
   id: number;
   title: string;
@@ -19,6 +53,7 @@ export type AnnotatedImageProps = {
   storageKey?: string;
   variant?: "neutral" | string;
   thumbnailContainerClass?: string;
+  objectFit?: "contain" | "cover";
   onClick?: () => void;
   inModal?: boolean;
   className?: string;
@@ -32,12 +67,14 @@ function AnnotatedImageInner({
   storageKey,
   variant = "neutral",
   thumbnailContainerClass,
+  objectFit = "contain",
   onClick,
   inModal = false,
   className = "",
 }: AnnotatedImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [positions, setPositions] = useState<Record<number, { x: number; y: number }>>({});
 
   useEffect(() => {
     if (!storageKey || typeof window === "undefined") return;
@@ -53,6 +90,29 @@ function AnnotatedImageInner({
       // ignore
     }
   }, [storageKey, annotations]);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || annotations.length === 0) return;
+    const stored = loadPositions(storageKey ?? "", annotations);
+    const merged: Record<number, { x: number; y: number }> = {};
+    annotations.forEach((a) => {
+      merged[a.id] = stored[a.id] ?? { x: a.x, y: a.y };
+    });
+    setPositions(merged);
+  }, [storageKey, annotations.length]);
+
+  const handlePositionChange = useCallback(
+    (id: number, x: number, y: number) => {
+      const clampedX = Math.max(2, Math.min(98, x));
+      const clampedY = Math.max(2, Math.min(98, y));
+      setPositions((prev) => {
+        const next = { ...prev, [id]: { x: clampedX, y: clampedY } };
+        if (storageKey) savePositions(storageKey, next);
+        return next;
+      });
+    },
+    [storageKey]
+  );
 
   const handleExpand = useCallback(
     (id: number) => {
@@ -92,16 +152,18 @@ function AnnotatedImageInner({
           <img
             src={src}
             alt={alt}
-            className="w-full h-full object-contain object-center select-none"
+            className={`w-full h-full object-center select-none ${objectFit === "cover" ? "object-cover" : "object-contain"}`}
             draggable={false}
           />
           {annotations.map((a) => (
             <AnnotationMarker
               key={a.id}
               annotation={a}
+              position={positions[a.id] ?? { x: a.x, y: a.y }}
               isExpanded={expandedId === a.id}
               onToggle={() => handleExpand(a.id)}
               onExpand={() => setExpandedId(a.id)}
+              onPositionChange={(x, y) => handlePositionChange(a.id, x, y)}
               onClick={(e) => e.stopPropagation()}
             />
           ))}
@@ -119,18 +181,27 @@ function AnnotatedImageInner({
 
 function AnnotationMarker({
   annotation,
+  position,
   isExpanded,
   onToggle,
   onExpand,
+  onPositionChange,
   onClick,
 }: {
   annotation: Annotation;
+  position: { x: number; y: number };
   isExpanded: boolean;
   onToggle: () => void;
   onExpand: () => void;
+  onPositionChange: (x: number, y: number) => void;
   onClick: (e: React.MouseEvent) => void;
 }) {
-  const { id, title, explanation, x, y, side } = annotation;
+  const markerRef = useRef<HTMLDivElement>(null);
+  const { id, title, explanation, side } = annotation;
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartRef = useRef<{ x: number; y: number; startX: number; startY: number } | null>(null);
+  const didDragRef = useRef(false);
+
   const tooltipPos =
     side === "left"
       ? "right-full mr-2 top-1/2 -translate-y-1/2"
@@ -140,37 +211,80 @@ function AnnotationMarker({
           ? "bottom-full mb-2 left-1/2 -translate-x-1/2"
           : "top-full mt-2 left-1/2 -translate-x-1/2";
 
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      e.stopPropagation();
+      e.preventDefault();
+      dragStartRef.current = { x: position.x, y: position.y, startX: e.clientX, startY: e.clientY };
+      didDragRef.current = false;
+      markerRef.current?.setPointerCapture?.(e.pointerId);
+    },
+    [position]
+  );
+
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      if (!dragStartRef.current) return;
+      const { x, y, startX, startY } = dragStartRef.current;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      const pastThreshold = Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD;
+      if (pastThreshold) {
+        didDragRef.current = true;
+        if (!isDragging) setIsDragging(true);
+        const rect = markerRef.current?.closest(".relative")?.getBoundingClientRect();
+        if (!rect) return;
+        const deltaXPct = (dx / rect.width) * 100;
+        const deltaYPct = (dy / rect.height) * 100;
+        onPositionChange(x + deltaXPct, y + deltaYPct);
+        dragStartRef.current = { x: x + deltaXPct, y: y + deltaYPct, startX: e.clientX, startY: e.clientY };
+      }
+    },
+    [isDragging, onPositionChange]
+  );
+
+  const handlePointerUp = useCallback(
+    (e: React.PointerEvent) => {
+      markerRef.current?.releasePointerCapture?.(e.pointerId);
+      const wasDragging = didDragRef.current;
+      setIsDragging(false);
+      dragStartRef.current = null;
+      if (!wasDragging) onToggle();
+    },
+    [onToggle]
+  );
+
   return (
     <div
+      ref={markerRef}
       onClick={onClick}
-      className="absolute z-10"
+      className="absolute z-10 cursor-grab active:cursor-grabbing"
       style={{
-        left: `${x}%`,
-        top: `${y}%`,
+        left: `${position.x}%`,
+        top: `${position.y}%`,
         transform: "translate(-50%, -50%)",
       }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
     >
       <button
         type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          onToggle();
-        }}
-        onMouseEnter={onExpand}
-        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-blue-500 bg-white text-xs font-bold text-blue-600 shadow-sm hover:bg-blue-50 transition-colors"
+        className={`flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-red-500 bg-white text-xs font-bold text-red-600 shadow-sm transition-colors ${
+          isDragging ? "ring-2 ring-red-200 scale-110" : "hover:bg-red-50"
+        }`}
         aria-label={title}
         aria-expanded={isExpanded}
       >
         {id}
       </button>
-      {isExpanded && (
-        <div
-          className={`absolute z-20 w-56 rounded-lg border border-line bg-white p-3 text-left text-xs font-medium text-muted shadow-lg ${tooltipPos}`}
-        >
-          <p className="font-semibold text-text mb-1">{title}</p>
-          <p className="text-muted">{explanation}</p>
-        </div>
-      )}
+      <div
+        className={`absolute z-20 w-56 rounded-lg border border-line bg-white p-3 text-left text-xs font-medium text-muted shadow-lg ${tooltipPos}`}
+      >
+        <p className="font-semibold text-text mb-1">{title}</p>
+        <p className="text-muted">{explanation}</p>
+      </div>
     </div>
   );
 }
@@ -186,6 +300,7 @@ export function AnnotatedImageModal({
   alt,
   caption,
   annotations = [],
+  storageKey,
 }: {
   open: boolean;
   onClose: () => void;
@@ -193,6 +308,7 @@ export function AnnotatedImageModal({
   alt: string;
   caption?: string;
   annotations?: Annotation[];
+  storageKey?: string;
 }) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -241,6 +357,7 @@ export function AnnotatedImageModal({
                 alt={alt}
                 caption=""
                 annotations={annotations}
+                storageKey={storageKey}
                 inModal
                 className="!mt-0 w-full"
                 thumbnailContainerClass="min-h-[90vh] w-full max-w-[95vw]"
