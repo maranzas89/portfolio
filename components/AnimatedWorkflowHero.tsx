@@ -175,7 +175,7 @@ export default function AnimatedWorkflowHero({
           <button
             onClick={() => setMode("before")}
             className={[
-              "rounded-full px-3 py-1 text-xs font-semibold transition",
+              "rounded-full px-3 py-1 text-xs font-semibold transition cursor-pointer",
               mode === "before" ? "bg-white/15 text-white" : "text-white/60 hover:text-white",
             ].join(" ")}
           >
@@ -184,7 +184,7 @@ export default function AnimatedWorkflowHero({
           <button
             onClick={() => setMode("after")}
             className={[
-              "rounded-full px-3 py-1 text-xs font-semibold transition",
+              "rounded-full px-3 py-1 text-xs font-semibold transition cursor-pointer",
               mode === "after" ? "bg-white/15 text-white" : "text-white/60 hover:text-white",
             ].join(" ")}
           >

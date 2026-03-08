@@ -18,7 +18,7 @@ export default function Page() {
     <div className="relative bg-bg text-text">
       {/* Navigation */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 border-b border-gray-200 transition-all duration-300 ${
           scrolled
             ? "bg-white/70 backdrop-blur-xl backdrop-saturate-150"
             : "bg-white"
@@ -49,8 +49,17 @@ export default function Page() {
       <header className="relative overflow-hidden bg-black text-white border-b border-white/20">
         <HeroGlow />
         <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-32 pb-16 md:pt-40 md:pb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end">
-            <div className="lg:col-span-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-center">
+            <div className="lg:col-span-4 flex items-center justify-center lg:justify-start order-2 lg:order-1">
+              <div className="bg-gray-200 rounded-2xl overflow-hidden">
+                <img
+                  src="/avatar.png"
+                  alt="Wen Liu"
+                  className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 object-cover"
+                />
+              </div>
+            </div>
+            <div className="lg:col-span-8 order-1 lg:order-2">
               <p className="text-sm font-bold tracking-widest text-white/80 mb-3">
                 Product Design
                 <span className="inline-block text-2xl mx-2 align-middle">·</span>
@@ -85,13 +94,6 @@ export default function Page() {
                 </a>
               </div>
             </div>
-            <div className="lg:col-span-4 flex items-end justify-center lg:justify-end">
-              <img
-                src="/avatar.png"
-                alt="Wen Liu"
-                className="w-72 h-72 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] rounded-2xl object-cover"
-              />
-            </div>
           </div>
         </div>
       </header>
@@ -121,10 +123,10 @@ export default function Page() {
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-[340px]">
                 <div>
                   <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-snug">
-                    Calbright · Student & Staff Portal, and AI works
+                    Shaping a More Guided Student Portal Experience
                   </h3>
                   <p className="text-muted leading-relaxed font-light text-base md:text-lg">
-                    Design work spanning a large-scale student portal redesign, a 0→1 staff platform, and AI-driven product explorations.
+                    Designing a more supportive student experience around clarity, action, and progress—making the portal a more guided experience for learners.
                   </p>
                 </div>
                 <div className="mt-14 md:mt-auto flex items-end gap-6">
@@ -145,45 +147,8 @@ export default function Page() {
               </div>
             </a>
 
-            {/* Project 2: DiDi (图在左) */}
-            <a
-              href="/work/didi"
-              className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999] block"
-            >
-              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-[340px]">
-                <div>
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 leading-snug">
-                    DiDi · EagleEye Endpoint Protection Platform
-                  </h3>
-                  <p className="text-muted leading-relaxed font-light text-base md:text-lg -mt-1">
-                    Designed investigation and governance workflows for an
-                    enterprise security platform. Turned ML threat signals into
-                    triage and response interfaces that analysts use during
-                    live incidents.
-                  </p>
-                </div>
-                <div className="mt-36 md:mt-auto flex items-end gap-6">
-                  <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
-                    +75%
-                  </span>
-                  <span className="text-sm md:text-base text-muted max-w-[180px] leading-snug pb-2">
-                    Increase in enterprise trial-to-paid conversion
-                  </span>
-                </div>
-              </div>
-              <div className="flex-1 w-full bg-white rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
-                <div className="mockup-image absolute inset-0 overflow-hidden group-hover:scale-[1.05] transition-transform duration-500">
-                  <img
-                    src="/images/didi/aa.svg"
-                    alt="EagleEye enterprise security platform on laptop"
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-              </div>
-            </a>
-
-            {/* Project 3: Cisco (图在右) */}
-            <div className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999]">
+            {/* Project 2: Cisco (图在左) */}
+            <div className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999]">
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-[340px]">
                 <div>
                   <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-snug">
@@ -217,44 +182,43 @@ export default function Page() {
               </div>
             </div>
 
-            {/* Project 4: Enterprise Design System */}
-            <div className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999]">
+            {/* Project 3: DiDi (图在右) */}
+            <a
+              href="/work/didi"
+              className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999] block"
+            >
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-[340px]">
                 <div>
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-snug">
-                    Enterprise Design System
+                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 leading-snug">
+                    DiDi · EagleEye Endpoint Protection Platform
                   </h3>
-                  <p className="text-muted leading-relaxed font-light text-base md:text-lg">
-                    Built a design system for complex, data-heavy applications.
-                    Introduced reusable components, design tokens, and guidelines
-                    that cut UI inconsistency and aligned design and engineering
-                    on shared patterns.
+                  <p className="text-muted leading-relaxed font-light text-base md:text-lg -mt-1">
+                    Designed investigation and governance workflows for an
+                    enterprise security platform. Turned ML threat signals into
+                    triage and response interfaces that analysts use during
+                    live incidents.
                   </p>
                 </div>
-                <div className="mt-14 md:mt-auto flex items-end gap-6">
+                <div className="mt-36 md:mt-auto flex items-end gap-6">
                   <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
-                    30%
+                    +75%
                   </span>
                   <span className="text-sm md:text-base text-muted max-w-[180px] leading-snug pb-2">
-                    Reduction in design-to-development cycle time
+                    Increase in enterprise trial-to-paid conversion
                   </span>
                 </div>
               </div>
-              <div className="flex-1 w-full bg-[#303833] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center border border-gray-200">
-                <div className="mockup-image absolute inset-4 bg-[#1A1F1C] rounded-xl shadow-2xl flex flex-col p-6 border border-gray-200 group-hover:scale-[1.05]">
-                  <div className="flex gap-2 mb-6">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                  </div>
-                  <div className="w-full h-full bg-[#242A27] rounded flex items-center justify-center">
-                    <span className="text-green-400/50 font-medium tracking-widest text-sm">
-                      [ DESIGN SYSTEM MOCKUP ]
-                    </span>
-                  </div>
+              <div className="flex-1 w-full bg-white rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
+                <div className="mockup-image absolute inset-0 overflow-hidden group-hover:scale-[1.05] transition-transform duration-500">
+                  <img
+                    src="/images/didi/aa.svg"
+                    alt="EagleEye enterprise security platform on laptop"
+                    className="w-full h-full object-cover object-center"
+                  />
                 </div>
               </div>
-            </div>
+            </a>
+
           </div>
 
         </section>

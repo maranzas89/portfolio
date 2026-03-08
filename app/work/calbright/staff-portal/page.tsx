@@ -74,9 +74,10 @@ import {
   Layout,
   Users,
   Target,
+  TrendingUp,
+  BarChart3,
   FileCheck,
   MessageSquare,
-  CheckCircle2,
   Search,
   GitMerge,
   Puzzle,
@@ -92,6 +93,7 @@ import {
   Lightbulb,
   Eye,
 } from "lucide-react";
+import ImageGalleryModal from "@/components/ImageGalleryModal";
 
 // Prototype section — swap these when ready (file expected at public/videos/cpl.mp4)
 const PROTOTYPE_VIDEO_SRC = "/videos/cpl.mp4";
@@ -113,10 +115,10 @@ const STAFF_VIEW_IMG = "/images/calbright/staff-view.svg";
 const STAFF_MANAGER_VIEW_IMG = "/images/calbright/staff-manager-view.svg";
 const STAFF_PORTAL_DASHBOARD_IMG = "/images/calbright/staff-portal-dashboard.svg";
 const ITERATION_IMGS = [
-  "/images/calbright/iteration-3.svg",
-  "/images/calbright/iteration-4.svg",
-  "/images/calbright/iteration-2.svg",
+  "/images/calbright/staff-enrollment-use-cases.svg",
   "/images/calbright/iteration-1.svg",
+  "/images/calbright/iteration-2.svg",
+  "/images/calbright/iteration-4.svg",
 ];
 
 function StaffDashboardMockup() {
@@ -299,6 +301,7 @@ function StaffViewModalContent({
 export default function StaffPortalCaseStudyPage() {
   const [cplTab, setCplTab] = useState<"student" | "cpl-diagram" | "staff" | "manager">("cpl-diagram");
   const [placeholderModal, setPlaceholderModal] = useState<{ open: boolean; caption?: string; content?: React.ReactNode }>({ open: false });
+  const [iterationModal, setIterationModal] = useState<{ open: boolean; index: number }>({ open: false, index: 0 });
   const cplContainerRef = useRef<HTMLDivElement>(null);
 
   const [annotate1, setAnnotate1] = useState({ left: 25, top: 35 });
@@ -340,6 +343,10 @@ export default function StaffPortalCaseStudyPage() {
 
   const openPlaceholder = useCallback((caption: string, content?: React.ReactNode) => {
     setPlaceholderModal({ open: true, caption, content });
+  }, []);
+
+  const openIterationModal = useCallback((index: number) => {
+    setIterationModal({ open: true, index });
   }, []);
 
   return (
@@ -544,21 +551,7 @@ export default function StaffPortalCaseStudyPage() {
                 {[1, 2, 3, 4].map((i) => (
                   <div key={i}>
                     <div
-                      onClick={() =>
-                        setPlaceholderModal({
-                          open: true,
-                          caption: `Iteration ${i}`,
-                          content: (
-                            <div className="w-full bg-white flex justify-center items-center min-h-[50vh]">
-                              <img
-                                src={ITERATION_IMGS[i - 1]}
-                                alt={`Iteration ${i}`}
-                                className="w-full h-auto max-h-[88vh] object-contain"
-                              />
-                            </div>
-                          ),
-                        })
-                      }
+                      onClick={() => openIterationModal(i - 1)}
                       className="aspect-[4/3] min-h-[160px] md:min-h-[280px] rounded-2xl overflow-hidden w-full cursor-pointer bg-white border border-gray-200 hover:scale-[1.02] transition-transform duration-200 ease-out"
                     >
                       <img
@@ -652,19 +645,38 @@ export default function StaffPortalCaseStudyPage() {
               <p className="text-muted text-base md:text-lg font-medium mb-10 max-w-5xl">
                 Combining four iterations, workflow insights, and Salesforce findings, I refined the dashboard into a clearer operational workspace for staff decision-making and daily casework.
               </p>
-              <div className="rounded-2xl bg-white overflow-hidden max-w-5xl border border-gray-200">
-                <div
-                  className="aspect-[16/10] min-h-[420px] w-full overflow-hidden cursor-pointer group border border-gray-200"
-                  onClick={() => openPlaceholder("Final staff portal dashboard", <div className="w-[94vw] max-w-[1800px]"><img src={STAFF_PORTAL_DASHBOARD_IMG} alt="Final staff portal dashboard" className="w-full h-auto" /></div>)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && openPlaceholder("Final staff portal dashboard", <div className="w-[94vw] max-w-[1800px]"><img src={STAFF_PORTAL_DASHBOARD_IMG} alt="Final staff portal dashboard" className="w-full h-auto" /></div>)}
-                >
-                  <img
-                    src={STAFF_PORTAL_DASHBOARD_IMG}
-                    alt="Final staff portal dashboard"
-                    className="w-full h-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-105"
-                  />
+              <div className="grid grid-cols-2 gap-6 w-full">
+                <div>
+                  <div
+                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group bg-[#E4E4E7] flex items-center justify-center"
+                    onClick={() => openPlaceholder("Legacy Salesforce", <div className="w-[94vw] max-w-[1800px]"><img src={EXISTING_REALITY_IMG} alt="Legacy Salesforce" className="w-full h-auto" /></div>)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && openPlaceholder("Legacy Salesforce", <div className="w-[94vw] max-w-[1800px]"><img src={EXISTING_REALITY_IMG} alt="Legacy Salesforce" className="w-full h-auto" /></div>)}
+                  >
+                    <img
+                      src={EXISTING_REALITY_IMG}
+                      alt="Legacy Salesforce"
+                      className="w-full h-full object-cover object-left transition-transform duration-300 ease-out group-hover:scale-105"
+                    />
+                  </div>
+                  <p className="text-sm text-muted font-medium mt-4">Legacy Salesforce</p>
+                </div>
+                <div>
+                  <div
+                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group shadow-lg shadow-gray-300/60"
+                    onClick={() => openPlaceholder("New Staff Portal", <div className="w-[94vw] max-w-[1800px]"><img src={STAFF_PORTAL_DASHBOARD_IMG} alt="New Staff Portal" className="w-full h-auto" /></div>)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && openPlaceholder("New Staff Portal", <div className="w-[94vw] max-w-[1800px]"><img src={STAFF_PORTAL_DASHBOARD_IMG} alt="New Staff Portal" className="w-full h-auto" /></div>)}
+                  >
+                    <img
+                      src={STAFF_PORTAL_DASHBOARD_IMG}
+                      alt="New Staff Portal"
+                      className="w-full h-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-105"
+                    />
+                  </div>
+                  <p className="text-sm text-muted font-medium mt-4">New Staff Portal</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -689,7 +701,7 @@ export default function StaffPortalCaseStudyPage() {
                       {
                         id: "cpl-diagram" as const,
                         label: "CPL Cross-Portal Workflow",
-                        desc: "A unified CPL flow across student and staff portals.",
+                        desc: <>A unified CPL flow across student<br />and staff portals.</>,
                       },
                       {
                         id: "student" as const,
@@ -718,7 +730,7 @@ export default function StaffPortalCaseStudyPage() {
                       }`}
                     >
                       <span className="font-semibold text-text block mb-3">{tab.label}</span>
-                      <p className="text-sm text-muted leading-relaxed">{(tab as { desc?: string }).desc}</p>
+                      <p className="text-sm text-muted leading-relaxed">{(tab as { desc?: React.ReactNode }).desc}</p>
                     </button>
                   ))}
                 </ScrollReveal>
@@ -898,19 +910,22 @@ export default function StaffPortalCaseStudyPage() {
             >
               <HeroGlow />
               <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
-                <div className="flex items-center gap-2 mb-4">
-                  <Target className="w-4 h-4 text-blue-400 shrink-0" />
+                <div className="flex items-center gap-3 mb-4">
+                  <TrendingUp className="w-5 h-5 text-blue-400 shrink-0" />
                   <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-widest">09. Impact</h2>
                 </div>
-                <h3 className="text-4xl md:text-5xl font-semibold text-white mb-6">Staff Portal 0→1 Impact & Outcomes</h3>
-                <p className="text-white/80 font-medium mb-10 max-w-4xl">
+                <h3 className="text-4xl md:text-5xl font-semibold text-white mb-6">Impact & Outcomes</h3>
+                <p className="text-white/80 font-medium mb-10 max-w-2xl">
                   The staff portal improved operational efficiency and established a foundation for cross-role workflows.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12 mb-12">
-                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10">
-                    <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-4">
-                      Access to critical student information
-                    </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">
+                        Access to critical student information
+                      </p>
+                    </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">35%</span>
                       <span className="text-xl lg:text-2xl text-white/60 mb-2">faster</span>
@@ -927,10 +942,13 @@ export default function StaffPortalCaseStudyPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10">
-                    <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-4">
-                      Time-to-action for common cases
-                    </p>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">
+                        Time-to-action for common cases
+                      </p>
+                    </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">30%</span>
                       <span className="text-xl lg:text-2xl text-white/60 mb-2">reduction</span>
@@ -947,30 +965,24 @@ export default function StaffPortalCaseStudyPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10">
-                    <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-4">
-                      Visibility across workflows
-                    </p>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">
+                        Visibility across workflows
+                      </p>
+                    </div>
                     <p className="text-white font-medium text-lg">Improved visibility across staff and manager workflows</p>
                   </div>
-                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10">
-                    <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-4">Foundation</p>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">Foundation</p>
+                    </div>
                     <p className="text-white font-medium text-lg">
                       Established a reusable foundation for internal portal expansion
                     </p>
                   </div>
-                </div>
-                <div className="space-y-3">
-                  {[
-                    "Reduced friction in complex internal workflows",
-                    "Supported CHW program launch readiness",
-                    "Created a stronger connection between student-facing and staff-facing experiences",
-                  ].map((outcome) => (
-                    <div key={outcome} className="flex items-center gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-                      <p className="text-white/90 font-medium">{outcome}</p>
-                    </div>
-                  ))}
                 </div>
               </div>
             </section>
@@ -1009,6 +1021,12 @@ export default function StaffPortalCaseStudyPage() {
       >
         {placeholderModal.content}
       </PlaceholderModal>
+      <ImageGalleryModal
+        open={iterationModal.open}
+        onClose={() => setIterationModal({ open: false, index: 0 })}
+        images={ITERATION_IMGS}
+        initialIndex={iterationModal.index}
+      />
       </CalbrightCaseStudyLayout>
     </div>
   );

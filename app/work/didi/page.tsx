@@ -6,6 +6,7 @@ import HeroGlow from "@/components/HeroGlow";
 import WorkNav from "@/components/WorkNav";
 import CalbrightCaseStudyTabs from "@/components/CalbrightCaseStudyTabs";
 import AnimatedWorkflowHero from "@/components/AnimatedWorkflowHero";
+import { EyeOff, GitMerge, TrendingDown, AlertCircle, Shield, GitBranch, BarChart3, Layers, LayoutGrid, Crown } from "lucide-react";
 
 /* --- Image Preview Modal --- */
 function ImagePreviewModal({
@@ -364,15 +365,25 @@ export default function DidiCaseStudyPage() {
           <Reveal direction="right" className="md:col-span-5 pr-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <IconAlert />
+                <AlertCircle className="w-6 h-6 text-blue-600 shrink-0" />
                 <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">01. Challenge</h2>
               </div>
-              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-8">Fragmented. Error-prone.</h3>
-              <ul className="space-y-6 text-muted text-base md:text-lg font-medium">
-                <li><strong className="text-text">Blind Spots:</strong> No department-level visibility.</li>
-                <li><strong className="text-text">Conflicts:</strong> Logic clashes & validation errors.</li>
-                <li><strong className="text-text">Abandonment:</strong> 40% task drop-off rate.</li>
-              </ul>
+              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6">Fragmented. Error-prone.</h3>
+              <div className="flex flex-col gap-4">
+                {[
+                  { label: "Blind Spots: No department-level visibility.", icon: EyeOff },
+                  { label: "Conflicts: Logic clashes & validation errors.", icon: GitMerge },
+                  { label: "Abandonment: 40% task drop-off rate.", icon: TrendingDown },
+                ].map(({ label, icon: Icon }) => (
+                  <div
+                    key={label}
+                    className="flex items-center gap-3 p-4 rounded-2xl bg-red-50 border border-red-100 text-red-700/90 text-sm font-medium"
+                  >
+                    <Icon className="w-5 h-5 shrink-0 text-red-600" />
+                    {label}
+                  </div>
+                ))}
+              </div>
             </div>
           </Reveal>
           <Reveal direction="left" className="md:col-span-7 md:border-l-2 md:border-line md:pl-12">
@@ -417,16 +428,22 @@ export default function DidiCaseStudyPage() {
               </div>
               <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6">Re-architecting governance.</h3>
               <p className="text-muted text-base md:text-lg mb-8 font-medium">
-                Legacy systems mapped policies to devices, causing clashes. I introduced an <strong className="text-text">&quot;Aggregated Policies&quot;</strong> framework:
+                Legacy systems mapped policies to devices, causing clashes. <span className="whitespace-nowrap">I introduced an <strong className="text-text">&quot;Aggregated Policies&quot;</strong> framework:</span>
               </p>
               <div className="space-y-4">
-                <div className="p-5 bg-blue-50 rounded-2xl border border-blue-100">
-                  <strong className="text-text block mb-1">Default Rules</strong>
-                  <span className="text-muted text-sm font-medium">Inheritable organizational baselines.</span>
+                <div className="flex items-start gap-3 p-5 bg-blue-50 rounded-2xl border border-blue-100">
+                  <Shield className="w-5 h-5 shrink-0 text-blue-600 mt-0.5" />
+                  <div>
+                    <strong className="text-text block mb-1">Default Rules</strong>
+                    <span className="text-muted text-sm font-medium">Inheritable organizational baselines.</span>
+                  </div>
                 </div>
-                <div className="p-5 bg-blue-50 rounded-2xl border border-blue-100">
-                  <strong className="text-text block mb-1">Exception Rules</strong>
-                  <span className="text-muted text-sm font-medium">Safe overrides bound to specific departments.</span>
+                <div className="flex items-start gap-3 p-5 bg-blue-50 rounded-2xl border border-blue-100">
+                  <GitBranch className="w-5 h-5 shrink-0 text-blue-600 mt-0.5" />
+                  <div>
+                    <strong className="text-text block mb-1">Exception Rules</strong>
+                    <span className="text-muted text-sm font-medium">Safe overrides bound to specific departments.</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -442,19 +459,25 @@ export default function DidiCaseStudyPage() {
                 <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">03. Approach & IA</h2>
               </div>
               <h3 className="text-3xl md:text-4xl font-semibold text-text mb-8">Prioritization at scale.</h3>
-              <ul className="space-y-8 text-base md:text-lg text-muted font-medium relative pl-10 before:absolute before:inset-y-2 before:left-[7px] before:w-[2px] before:bg-line">
-                <li className="relative">
-                  <span className="absolute left-[-2.5rem] top-1 w-4 h-4 rounded-full bg-card border-4 border-blue-600" />
+              <ul className="space-y-8 text-base md:text-lg text-muted font-medium relative pl-10 before:absolute before:inset-y-2 before:left-[15px] before:w-[2px] before:bg-blue-600">
+                <li className="relative pl-3">
+                  <span className="absolute left-[-2.5rem] top-0 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
+                    <BarChart3 className="w-4 h-4" />
+                  </span>
                   <strong className="text-text block mb-1">UX Benchmarking</strong>
                   <span className="font-medium">HEART model baseline (4.12).</span>
                 </li>
-                <li className="relative">
-                  <span className="absolute left-[-2.5rem] top-1 w-4 h-4 rounded-full bg-card border-4 border-blue-600" />
+                <li className="relative pl-3">
+                  <span className="absolute left-[-2.5rem] top-0 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
+                    <Layers className="w-4 h-4" />
+                  </span>
                   <strong className="text-text block mb-1">P0/P1/P2 Categorization</strong>
                   <span className="font-medium">Strict element hierarchy reducing cognitive load.</span>
                 </li>
-                <li className="relative">
-                  <span className="absolute left-[-2.5rem] top-1 w-4 h-4 rounded-full bg-card border-4 border-blue-600" />
+                <li className="relative pl-3">
+                  <span className="absolute left-[-2.5rem] top-0 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
+                    <LayoutGrid className="w-4 h-4" />
+                  </span>
                   <strong className="text-text block mb-1">Unified Hub</strong>
                   <span className="font-medium">Consolidated device IDs into departmental structures.</span>
                 </li>
@@ -504,8 +527,8 @@ export default function DidiCaseStudyPage() {
               <div className="text-center mt-5 flex flex-col items-center">
                 <h4 className="text-lg md:text-xl font-semibold text-text mb-2">From Cluttered to Scannable</h4>
                 <div className="w-full flex justify-center">
-                <p className="text-muted text-sm md:text-base font-medium md:whitespace-nowrap text-center">Reduced policy configuration complexity and improved administrative efficiency across device and department dimensions.</p>
-              </div>
+                  <p className="text-muted text-sm md:text-base font-medium md:whitespace-nowrap text-center">Reduced policy configuration complexity and improved administrative efficiency across device and department dimensions.</p>
+                </div>
               </div>
             </div>
           </Reveal>
@@ -556,41 +579,21 @@ export default function DidiCaseStudyPage() {
           <section className="relative left-1/2 -translate-x-1/2 w-screen max-w-none bg-black text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/20">
             <HeroGlow />
             <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-center relative z-10">
-              <div className="md:col-span-5">
-                <div className="flex items-center gap-3 mb-4">
-                  <IconTrendingUp className="w-5 h-5 text-blue-400" />
-                  <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-widest">05. Outcomes</h2>
-                </div>
-                <h3 className="text-4xl md:text-5xl font-semibold text-white mb-10">Commercial Impact.</h3>
-                <ul className="space-y-8 text-white/80">
-                  <li className="flex items-center gap-5">
-                    <IconArrow />
-                    <span className="text-lg font-medium">
-                      <strong className="text-white block text-xl mb-1">+81% UX Score</strong>
-                      4.12 → 7.48.
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-5">
-                    <IconArrow />
-                    <span className="text-lg font-medium">
-                      <strong className="text-white block text-xl mb-1">Efficiency</strong>
-                      20 mins → 7 mins.
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-5">
-                    <IconArrow />
-                    <span className="text-lg font-medium">
-                      <strong className="text-white block text-xl mb-1">Error Drop</strong>
-                      10 → 1 per user.
-                    </span>
-                  </li>
-                </ul>
+              <div className="flex items-center gap-3 mb-4">
+                <IconTrendingUp className="w-5 h-5 text-blue-400" />
+                <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-widest">05. Impact</h2>
               </div>
-              <div className="md:col-span-7 relative group cursor-pointer">
+              <h3 className="text-4xl md:text-5xl font-semibold text-white mb-6">Commercial Impact.</h3>
+              <p className="text-white/80 font-medium mb-10 max-w-2xl whitespace-nowrap">
+                Measurable improvements in UX score, efficiency, and error reduction across the EagleEye platform.
+              </p>
+              <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-8 items-stretch">
                 <div
-                  className="w-full rounded-[24px] overflow-hidden aspect-video bg-white cursor-pointer group "
+                  className="w-full rounded-[24px] overflow-hidden aspect-video bg-white cursor-pointer group order-2 lg:order-1"
                   onClick={() => openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === "Enter" && openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
                 >
                   <img
                     src="/images/didi/pdfpage28.svg"
@@ -598,7 +601,59 @@ export default function DidiCaseStudyPage() {
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-              </div>
+                <div className="flex flex-col gap-4 lg:gap-5 order-1 lg:order-2">
+                  <div className="rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <BarChart3 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                      <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest">UX Score</p>
+                    </div>
+                    <p className="mb-2">
+                      <span className="text-2xl lg:text-3xl font-bold text-white">+81%</span>
+                      <span className="text-white/60 text-2xl font-light ml-1 align-baseline">improvement</span>
+                    </p>
+                    <p className="text-white/60 text-xs font-medium mb-2">4.12 → 7.48</p>
+                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                      <div className="h-full flex">
+                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "80%" }} />
+                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "20%" }} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <BarChart3 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                      <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest">Efficiency</p>
+                    </div>
+                    <p className="mb-2">
+                      <span className="text-2xl lg:text-3xl font-bold text-white">65%</span>
+                      <span className="text-white/60 text-2xl font-light ml-1 align-baseline">time reduction</span>
+                    </p>
+                    <p className="text-white/60 text-xs font-medium mb-2">20 mins → 7 mins</p>
+                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                      <div className="h-full flex">
+                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "65%" }} />
+                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "35%" }} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <BarChart3 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                      <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest">Error Drop</p>
+                    </div>
+                    <p className="mb-2">
+                      <span className="text-2xl lg:text-3xl font-bold text-white">90%</span>
+                      <span className="text-white/60 text-2xl font-light ml-1 align-baseline">reduction in errors</span>
+                    </p>
+                    <p className="text-white/60 text-xs font-medium mb-2">10 → 1 per user</p>
+                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                      <div className="h-full flex">
+                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "90%" }} />
+                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "10%" }} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -608,7 +663,7 @@ export default function DidiCaseStudyPage() {
         <Reveal direction="up">
           <section className="text-center max-w-4xl mx-auto pb-8">
             <div className="flex items-center justify-center gap-3 mb-6">
-              <IconAward />
+              <Crown className="w-6 h-6 text-blue-600 shrink-0" />
               <h2 className="text-sm font-medium text-muted uppercase tracking-widest">Staff-Level Ownership</h2>
             </div>
             <p className="text-xl md:text-2xl leading-relaxed text-muted font-medium mb-8">

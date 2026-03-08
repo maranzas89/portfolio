@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 const TABS = [
   { id: "student-portal", label: "Student Portal Redesign", href: "/work/calbright/student-portal" },
   { id: "staff-portal", label: "Staff Portal 0→1", href: "/work/calbright/staff-portal" },
-  { id: "ai-works", label: "AI Works", href: "/work/calbright/ai-works" },
   { id: "didi-eagleeye", label: "DiDi EagleEye", href: "/work/didi" },
 ];
 

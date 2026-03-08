@@ -5,6 +5,7 @@ import Link from "next/link";
 import CalbrightCaseStudyLayout from "@/components/CalbrightCaseStudyLayout";
 import HeroGlow from "@/components/HeroGlow";
 import AnnotatedImage, { AnnotatedImageModal } from "@/components/AnnotatedImage";
+import ImageGalleryModal from "@/components/ImageGalleryModal";
 import {
   TrendingUp,
   ArrowRight,
@@ -253,6 +254,10 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
     open: false,
   });
   const [legacyAnnotatedModalOpen, setLegacyAnnotatedModalOpen] = useState(false);
+  const [designDirectionsModal, setDesignDirectionsModal] = useState<{ open: boolean; index: number }>({ open: false, index: 0 });
+  const openDesignDirectionsModal = useCallback((index: number) => {
+    setDesignDirectionsModal({ open: true, index });
+  }, []);
   const openPreview = useCallback(
     (opts: { src?: string; caption?: string }) => setPreview({ open: true, ...opts }),
     []
@@ -274,6 +279,12 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
         alt="Legacy student portal homepage"
         annotations={LEGACY_PORTAL_ANNOTATIONS}
         storageKey="legacy-portal-annotations"
+      />
+      <ImageGalleryModal
+        open={designDirectionsModal.open}
+        onClose={() => setDesignDirectionsModal({ open: false, index: 0 })}
+        images={[ITERATION_1_IMG, ITERATION_2_IMG, ITERATION_3_IMG, ITERATION_4_IMG]}
+        initialIndex={designDirectionsModal.index}
       />
       <CalbrightCaseStudyLayout>
       {/* Hero */}
@@ -882,7 +893,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <VisualPlaceholder
-                  onClick={() => openPreview({ src: ITERATION_1_IMG, caption: "Iteration 1" })}
+                  onClick={() => openDesignDirectionsModal(0)}
                   caption="Iteration 1"
                   bgWhite
                 >
@@ -893,7 +904,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   />
                 </VisualPlaceholder>
                 <VisualPlaceholder
-                  onClick={() => openPreview({ src: ITERATION_2_IMG, caption: "Iteration 2" })}
+                  onClick={() => openDesignDirectionsModal(1)}
                   caption="Iteration 2"
                   bgWhite
                 >
@@ -904,7 +915,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   />
                 </VisualPlaceholder>
                 <VisualPlaceholder
-                  onClick={() => openPreview({ src: ITERATION_3_IMG, caption: "Iteration 3" })}
+                  onClick={() => openDesignDirectionsModal(2)}
                   caption="Iteration 3"
                   bgWhite
                 >
@@ -915,7 +926,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   />
                 </VisualPlaceholder>
                 <VisualPlaceholder
-                  onClick={() => openPreview({ src: ITERATION_4_IMG, caption: "Iteration 4" })}
+                  onClick={() => openDesignDirectionsModal(3)}
                   caption="Iteration 4"
                   bgWhite
                 >
@@ -1035,8 +1046,11 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   The improved journey supported institutional initiatives and new academic programs.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
-                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10">
-                    <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-4">Engagement rate</p>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">Engagement rate</p>
+                    </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">67%</span>
                       <span className="text-xl lg:text-2xl text-white/50 line-through mb-2">41%</span>
@@ -1048,8 +1062,11 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10">
-                    <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-4">Orientation scheduling</p>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">Orientation scheduling</p>
+                    </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">84%</span>
                       <span className="text-xl lg:text-2xl text-white/50 line-through mb-2">58%</span>
@@ -1061,8 +1078,11 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10">
-                    <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-4">Onboarding completion</p>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">Onboarding completion</p>
+                    </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">78%</span>
                       <span className="text-xl lg:text-2xl text-white/50 line-through mb-2">46%</span>
@@ -1074,8 +1094,11 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10">
-                    <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-4">Hotjar satisfaction</p>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">Hotjar satisfaction</p>
+                    </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">4.6</span>
                       <span className="text-xl text-white/60 mb-2">/ 5</span>
