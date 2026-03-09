@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Layout, Sparkles, GitBranch, FileText, Menu, X } from "lucide-react";
 import HeroBackgroundFX from "@/components/HeroBackgroundFX";
+import PlaybookMethodology from "@/components/PlaybookMethodology";
 import { WORK_SUB_LINKS } from "@/lib/nav-config";
 
 export default function Page() {
@@ -302,76 +303,8 @@ export default function Page() {
         </div>
       </main>
 
-      {/* Approach & About Section - Full width dark bg like Hero */}
-      <section id="approach" className="bg-black text-white py-32 border-t border-white/20">
-          <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
-              <div className="lg:col-span-4">
-                <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-white">
-                  Playbook &<br />
-                  Capabilities.
-                </h2>
-                <a
-                  href="#methodology"
-                  className="inline-block mt-16 rounded-xl bg-blue-600 px-10 py-5 text-xl font-semibold text-white transition hover:bg-blue-700"
-                >
-                  View My Design Methodology
-                </a>
-              </div>
-              <div className="lg:col-span-8">
-                <div id="methodology" className="mb-24">
-                  <h3 className="text-sm font-semibold uppercase tracking-widest text-white/60 border-b-2 border-white/20 pb-5 mb-10">
-                    Methodology
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
-                    <div>
-                      <h4 className="text-2xl font-bold mb-4 text-white">Hypothesis-Driven</h4>
-                      <p className="text-base text-white leading-relaxed font-light">
-                        Turn ambiguous product problems into testable hypotheses.
-                        Ship the smallest workflow that can prove value before
-                        investing in scale.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="text-2xl font-bold mb-4 text-white">AI-Human Synergy</h4>
-                      <p className="text-base text-white leading-relaxed font-light">
-                        Design workflows that balance automation with clarity.
-                        Users see why the system recommends an action, what state
-                        they&apos;re in, and how to override when needed.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div id="about">
-                  <h3 className="text-sm font-semibold uppercase tracking-widest text-white/60 border-b-2 border-white/20 pb-5 mb-10">
-                    Technical Toolkit
-                  </h3>
-                  <div className="flex flex-wrap gap-4">
-                    <span className="px-5 py-3 border-2 border-white/30 rounded-full text-base font-medium text-white hover:border-white/60 transition-colors cursor-default bg-white/5">
-                      Figma Variables & Dev Mode
-                    </span>
-                    <span className="px-5 py-3 border-2 border-white/30 rounded-full text-base font-medium text-white hover:border-white/60 transition-colors cursor-default bg-white/5">
-                      Cursor & AI-assisted prototyping
-                    </span>
-                    <span className="px-5 py-3 border-2 border-white/30 rounded-full text-base font-medium text-white hover:border-white/60 transition-colors cursor-default bg-white/5">
-                      HTML / CSS / JavaScript
-                    </span>
-                    <span className="px-5 py-3 border-2 border-white/30 rounded-full text-base font-medium text-white hover:border-white/60 transition-colors cursor-default bg-white/5">
-                      Claude & ChatGPT
-                    </span>
-                    <span className="px-5 py-3 border-2 border-white/30 rounded-full text-base font-medium text-white hover:border-white/60 transition-colors cursor-default bg-white/5">
-                      GA4 / Maze usability testing
-                    </span>
-                    <span className="px-5 py-3 border-2 border-white/30 rounded-full text-base font-medium text-white hover:border-white/60 transition-colors cursor-default bg-white/5">
-                      Agile Product Delivery
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      </section>
+      {/* Playbook & Capabilities - AI Design Methodology */}
+      <PlaybookMethodology />
 
       {/* Footer - continues dark theme */}
       <footer className="bg-black text-white py-32 md:py-40">
