@@ -12,7 +12,8 @@ const TABS = [
 
 export default function CalbrightCaseStudyTabs() {
   const pathname = usePathname();
-  const activeId = TABS.find((t) => pathname === t.href)?.id ?? null;
+  const activeTab = TABS.find((t) => pathname === t.href);
+  const activeId = activeTab?.id ?? null;
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -26,13 +27,24 @@ export default function CalbrightCaseStudyTabs() {
     <div
       role="tablist"
       aria-label="Calbright case study tabs"
-      className={`flex flex-wrap gap-2 transition-all duration-300 ${
+      className={`hidden md:flex flex-wrap gap-2 transition-all duration-300 ${
         scrolled
           ? "bg-gray-100/90 backdrop-blur-xl backdrop-saturate-150"
           : "bg-gray-100"
       }`}
     >
-      <div className="max-w-[1600px] mx-auto w-full px-8 md:px-16 lg:px-24 py-4 flex justify-end">
+      <div className="max-w-[1600px] mx-auto w-full px-8 md:px-16 lg:px-24 py-4 flex justify-between items-center">
+        <nav aria-label="Breadcrumb" className="text-sm">
+          <Link href="/#work" className="text-muted hover:text-blue-600 transition-colors font-semibold">
+            Work
+          </Link>
+          {activeTab && (
+            <>
+              <span className="text-muted mx-2">/</span>
+              <span className="text-text font-semibold">{activeTab.label}</span>
+            </>
+          )}
+        </nav>
         <div className="flex items-center justify-end gap-0">
           {TABS.map((tab, index) => {
             const isActive = activeId !== null && activeId === tab.id;

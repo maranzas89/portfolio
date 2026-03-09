@@ -95,6 +95,36 @@ import {
 } from "lucide-react";
 import ImageGalleryModal from "@/components/ImageGalleryModal";
 
+/* --- Snapshot icons (match DiDi / Student Portal) --- */
+function IconBox({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={`${className} text-blue-500`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+    </svg>
+  );
+}
+function IconUsers({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={`${className} text-blue-500`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>
+  );
+}
+function IconCalendar({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={`${className} text-blue-500`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+  );
+}
+function IconBriefcase({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={`${className} text-blue-500`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  );
+}
+
 // Prototype section — swap these when ready (file expected at public/videos/cpl.mp4)
 const PROTOTYPE_VIDEO_SRC = "/videos/cpl.mp4";
 const PROTOTYPE_URL = "https://xd.adobe.com/view/cf29073b-7df1-41c8-8e84-bf8b891396cd-9a7a/?fullscreen";
@@ -361,7 +391,7 @@ export default function StaffPortalCaseStudyPage() {
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-8 md:pt-10 relative z-10">
           <ScrollReveal delay={0}>
             <p className="text-sm text-white/60 font-bold tracking-widest uppercase mb-2">
-              Calbright · Staff Portal Redesign
+              Calbright · Staff Portal 0→1
             </p>
           </ScrollReveal>
           <ScrollReveal delay={100}>
@@ -413,6 +443,40 @@ export default function StaffPortalCaseStudyPage() {
       {/* Main */}
       <main className="bg-white">
         <div className="max-w-[1600px] mx-auto py-24 px-8 md:px-16 lg:px-24 space-y-32">
+          {/* Snapshot */}
+          <section className="bg-white">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-8 border-b border-line pb-12">
+              <ScrollReveal direction="up" delay={100}>
+                <div className="flex items-center gap-3 mb-2">
+                  <IconBox />
+                  <p className="text-xs text-muted uppercase tracking-widest font-medium">Product</p>
+                </div>
+                <p className="font-medium text-lg text-text">Staff Portal</p>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={200}>
+                <div className="flex items-center gap-3 mb-2">
+                  <IconUsers />
+                  <p className="text-xs text-muted uppercase tracking-widest font-medium">Users</p>
+                </div>
+                <p className="font-medium text-lg text-text">Staff across ops teams</p>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={250}>
+                <div className="flex items-center gap-3 mb-2">
+                  <IconCalendar />
+                  <p className="text-xs text-muted uppercase tracking-widest font-medium">Timeline</p>
+                </div>
+                <p className="font-medium text-lg text-text">2023 – Present</p>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={300}>
+                <div className="flex items-center gap-3 mb-2">
+                  <IconBriefcase />
+                  <p className="text-xs text-muted uppercase tracking-widest font-medium">Role</p>
+                </div>
+                <p className="font-medium text-lg text-text whitespace-nowrap">Sr. Product Designer (Staff-Level)</p>
+              </ScrollReveal>
+            </div>
+          </section>
+
           {/* 2. Context / Overview */}
           <section id="context">
             <ScrollReveal direction="up">
@@ -429,7 +493,7 @@ export default function StaffPortalCaseStudyPage() {
                     text: "Too fragmented and complex for everyday staff workflows.",
                   },
                   {
-                    title: "Users",
+                    title: "Audience",
                     icon: Users,
                     text: "Accessibility, Student Success, Enrollment, and managers.",
                   },
@@ -439,7 +503,7 @@ export default function StaffPortalCaseStudyPage() {
                     text: "0→1 staff portal MVP and cross-portal workflows.",
                   },
                   {
-                    title: "My Role",
+                    title: "Ownership",
                     icon: FileCheck,
                     text: "Led end-to-end design from workflow discovery to MVP rollout.",
                   },

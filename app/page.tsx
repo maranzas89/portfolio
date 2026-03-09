@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Layout, Sparkles, GitBranch, FileText, Menu, X } from "lucide-react";
 import HeroBackgroundFX from "@/components/HeroBackgroundFX";
+import { WORK_SUB_LINKS } from "@/lib/nav-config";
 
 export default function Page() {
   const [scrolled, setScrolled] = useState(false);
@@ -20,18 +21,18 @@ export default function Page() {
     <div className="relative bg-bg text-text">
       {/* Navigation */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 border-b border-gray-200 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full min-w-0 border-b border-gray-200 transition-all duration-300 ${
           scrolled
             ? "bg-white/70 backdrop-blur-xl backdrop-saturate-150"
             : "bg-white"
         }`}
       >
-        <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 py-8 flex justify-between items-center">
-          <a href="#" className="text-xl md:text-2xl font-semibold tracking-tight uppercase text-text">
+        <div className="max-w-[1600px] mx-auto w-full min-w-0 px-4 py-4 sm:px-6 sm:py-5 md:px-16 lg:px-24 md:py-8 flex justify-between items-center gap-4">
+          <a href="#" className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight uppercase text-text shrink-0">
             Wen Liu
           </a>
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-12 text-base font-semibold uppercase tracking-widest text-muted">
+          {/* Desktop nav - hidden below 768px */}
+          <div className="hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
             <a href="#work" className="nav-link-underline active text-text">
               Work
             </a>
@@ -45,10 +46,10 @@ export default function Page() {
               Kind Words
             </Link>
           </div>
-          {/* Mobile hamburger */}
+          {/* Mobile hamburger - visible below 768px */}
           <button
             type="button"
-            className="md:hidden p-2 -mr-2 text-text hover:text-muted transition-colors"
+            className="flex md:hidden p-2 -mr-2 text-text hover:text-muted transition-colors shrink-0 items-center justify-center"
             onClick={() => setMobileMenuOpen((v) => !v)}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
@@ -56,34 +57,48 @@ export default function Page() {
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-        {/* Mobile menu dropdown */}
+        {/* Mobile menu dropdown - visible below 768px when open */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg">
-            <div className="max-w-[1600px] mx-auto px-8 py-6 flex flex-col gap-4">
-              <a
-                href="#work"
-                className="nav-link-underline active text-text font-semibold uppercase tracking-widest"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Work
-              </a>
+          <div className="md:hidden absolute top-full left-0 right-0 w-full bg-white border-b border-gray-200 shadow-lg z-50">
+            <div className="max-w-[1600px] mx-auto w-full px-4 py-5 flex flex-col gap-4">
+              <div>
+                <a
+                  href="#work"
+                  className="nav-link-underline active text-text font-semibold uppercase tracking-widest text-sm block"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Work
+                </a>
+                <div className="mt-3 ml-4 flex flex-col gap-3 border-l-2 border-gray-200 pl-4">
+                  {WORK_SUB_LINKS.map(({ href, label }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="text-muted font-medium text-sm hover:text-text transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
               <Link
                 href="/ai-explorations"
-                className="nav-link-underline text-muted font-semibold uppercase tracking-widest"
+                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 AI Explorations
               </Link>
               <Link
                 href="/experience"
-                className="nav-link-underline text-muted font-semibold uppercase tracking-widest"
+                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Experience
               </Link>
               <Link
                 href="/kind-words"
-                className="nav-link-underline text-muted font-semibold uppercase tracking-widest"
+                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Kind Words

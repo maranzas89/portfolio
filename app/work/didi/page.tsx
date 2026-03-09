@@ -263,34 +263,37 @@ export default function DidiCaseStudyPage() {
       {/* Hero Section */}
       <header className="hero-image bg-black text-white pt-6 pb-12 md:pt-8 md:pb-16 relative overflow-hidden border-b border-white/20 min-h-[540px] md:min-h-[580px] min-h-[540px] md:min-h-[580px]">
         <HeroGlow />
-        <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-8 md:pt-10 relative z-10">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-24 pt-8 md:pt-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-8">
             <Reveal direction="up" delay={0}>
-              <p className="text-sm text-white/60 font-bold tracking-widest uppercase mb-2">DiDi · Staff-Level Case Study</p>
+              <p className="text-sm text-white/60 font-bold tracking-widest uppercase mb-2">DiDi · Shaping an Enterprise Security Platform</p>
             </Reveal>
             <Reveal direction="up" delay={100}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight mb-3">
-                <span className="whitespace-nowrap text-[2rem] md:text-[2.5rem] lg:text-[3.25rem]">Scaling Enterprise Security:</span>
-                <br />
-                <span className="whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 text-5xl md:text-6xl lg:text-7xl">
-                  EagleEye Policy Center
-                </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight text-white mb-4 max-w-4xl">
+                EagleEye Policy Center 2.0
               </h1>
             </Reveal>
             <Reveal direction="up" delay={200}>
-              <ul className="text-lg md:text-xl text-white/80 mt-4 mb-4 leading-relaxed font-medium space-y-2 list-disc list-inside">
-                <li>Unified policy engine driving $6M in revenue</li>
-                <li>Improving operational efficiency for enterprise security teams</li>
-              </ul>
+              <p className="text-xl md:text-2xl text-white/80 font-medium mb-6 max-w-3xl">
+                Designed a unified policy engine that drove $6M in revenue while improving operational efficiency for enterprise security teams.
+              </p>
             </Reveal>
-            <Reveal direction="up" delay={225}>
-              <div className="mt-[25px] mb-0">
+            <Reveal direction="up" delay={210}>
+              <div className="mb-6">
                 <p className="text-white/50 uppercase tracking-widest font-medium mb-1 text-sm">Security Operator Voice</p>
                 <p className="text-lg md:text-xl text-white/75 font-semibold italic max-w-3xl">&quot;Policy management across devices and departments is finally streamlined.&quot;</p>
               </div>
             </Reveal>
-            <div className="mt-[48px] grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Reveal direction="up" delay={225}>
+              <div className="grid grid-cols-1 gap-6 text-sm mb-12">
+                <div>
+                  <p className="text-white/50 uppercase tracking-widest font-medium mb-1">Scope</p>
+                  <p className="text-white/90 font-medium">Staff-level platform design</p>
+                </div>
+              </div>
+            </Reveal>
+            <div className="mt-[44px] grid grid-cols-1 md:grid-cols-3 gap-6">
             <Reveal direction="up" delay={300}>
               <div className="group bg-white/5 hover:bg-white/10 p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
                 <IconTrendingUp />
@@ -355,7 +358,7 @@ export default function DidiCaseStudyPage() {
                 <IconBriefcase />
                 <p className="text-xs text-muted uppercase tracking-widest font-medium">Role</p>
               </div>
-              <p className="font-medium text-lg text-text">Lead Product Designer</p>
+              <p className="font-medium text-lg text-text">UX Design Lead (Design Expert)</p>
             </Reveal>
           </div>
         </section>
