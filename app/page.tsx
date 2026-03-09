@@ -198,18 +198,18 @@ export default function Page() {
             {/* Project 1: Calbright (图在右) */}
             <a
               href="/work/calbright/student-portal"
-              className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999] block"
+              className="feature-card bg-card border border-line rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-colors hover:border-[#999999] block"
             >
-              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-[340px]">
-                <div className="-mt-2">
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 leading-snug">
+              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
+                <div>
+                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 leading-snug">
                     Shaping a More Guided Student Portal Experience
                   </h3>
                   <p className="text-muted leading-relaxed font-light text-base md:text-lg">
                     Designing a more supportive student experience around clarity, action, and progress—helping learners better understand what matters, what comes next, and how to move forward.
                   </p>
                 </div>
-                <div className="mt-28 md:mt-auto flex items-center gap-6">
+                <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
                   <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
                     8k+
                   </span>
@@ -230,11 +230,11 @@ export default function Page() {
             {/* Project 2: Calbright Staff Portal (图在左) */}
             <a
               href="/work/calbright/staff-portal"
-              className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999] block"
+              className="feature-card bg-card border border-line rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-12 cursor-pointer group transition-colors hover:border-[#999999] block"
             >
-              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-[340px]">
-                <div className="-mt-2">
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 leading-snug">
+              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
+                <div>
+                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 leading-snug">
                     Shaping the Staff Portal for Operational Workflows
                   </h3>
                   <p className="text-muted leading-relaxed font-light text-base md:text-lg">
@@ -243,7 +243,7 @@ export default function Page() {
                     operational experience for internal teams.
                   </p>
                 </div>
-                <div className="mt-14 md:mt-auto flex items-center gap-6">
+                <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
                   <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
                     35%
                   </span>
@@ -264,21 +264,21 @@ export default function Page() {
             {/* Project 3: DiDi (图在右) */}
             <a
               href="/work/didi"
-              className="feature-card bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 cursor-pointer group transition-colors hover:border-[#999999] block"
+              className="feature-card bg-card border border-line rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-colors hover:border-[#999999] block"
             >
-              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-[340px]">
+              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
                 <div>
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 leading-snug">
+                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 leading-snug">
                     DiDi · EagleEye Endpoint Protection Platform
                   </h3>
-                  <p className="text-muted leading-relaxed font-light text-base md:text-lg -mt-1">
+                  <p className="text-muted leading-relaxed font-light text-base md:text-lg">
                     Designed investigation and governance workflows for an
                     enterprise security platform. Turned ML threat signals into
                     triage and response interfaces that analysts use during
                     live incidents.
                   </p>
                 </div>
-                <div className="mt-36 md:mt-auto flex items-center gap-6">
+                <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
                   <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
                     +75%
                   </span>

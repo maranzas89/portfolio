@@ -27,13 +27,13 @@ export default function CalbrightCaseStudyTabs() {
     <div
       role="tablist"
       aria-label="Calbright case study tabs"
-      className={`hidden md:flex flex-wrap gap-2 transition-all duration-300 ${
+      className={`flex flex-wrap gap-2 transition-all duration-300 ${
         scrolled
           ? "bg-gray-100/90 backdrop-blur-xl backdrop-saturate-150"
           : "bg-gray-100"
       }`}
     >
-      <div className="max-w-[1600px] mx-auto w-full px-8 md:px-16 lg:px-24 py-4 flex justify-between items-center">
+      <div className="max-w-[1600px] mx-auto w-full px-4 sm:px-6 md:px-16 lg:px-24 py-3 md:py-4 flex justify-between items-center">
         <nav aria-label="Breadcrumb" className="text-sm">
           <Link href="/#work" className="text-muted hover:text-blue-600 transition-colors font-semibold">
             Work
@@ -45,7 +45,7 @@ export default function CalbrightCaseStudyTabs() {
             </>
           )}
         </nav>
-        <div className="flex items-center justify-end gap-0">
+        <div className="hidden md:flex items-center justify-end gap-0">
           {TABS.map((tab, index) => {
             const isActive = activeId !== null && activeId === tab.id;
             return (
