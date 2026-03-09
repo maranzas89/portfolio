@@ -423,3 +423,30 @@ section[id] {
   transform: translateY(-8px);
 }
 
+/* Hero title - animated gradient text */
+.hero-title-gradient {
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    #a5b8e8 0%,
+    #d4ddf0 25%,
+    #e8ecf7 50%,
+    #f6f7fb 75%,
+    #a5b8e8 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  padding-bottom: 0.08em;
+  animation: heroTitleGradient 4s ease infinite;
+}
+
+@keyframes heroTitleGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+

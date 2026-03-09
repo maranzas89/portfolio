@@ -74,10 +74,13 @@ export default function PlaybookMethodology() {
   return (
     <section
       id="approach"
-      className="relative overflow-hidden py-20 md:py-32 font-sans selection:bg-cyan-500/30 border-t border-white/10"
-      style={{ backgroundColor: "#050505" }}
+      className="relative overflow-hidden py-12 md:py-20 font-sans selection:bg-cyan-500/30 border-t border-white/10"
+      style={{
+        background:
+          "radial-gradient(circle at 32% 12%, rgba(50, 95, 185, 0.22), transparent 26%), linear-gradient(90deg, #020611 0%, #031128 18%, #0a1b3c 52%, #051634 76%, #031126 100%)",
+      }}
     >
-      {/* Background Effects (Tech Grid & Glow) */}
+      {/* Tech Grid - keep grid lines overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[length:32px_32px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
 
       {/* Animated Glowing Orbs */}
@@ -87,9 +90,9 @@ export default function PlaybookMethodology() {
         style={{ animationDelay: "2s" }}
       />
 
-      <div className="max-w-6xl w-full mx-auto px-4 md:px-8 lg:px-24 relative z-10 flex flex-col items-center">
+      <div className="max-w-[1600px] w-full mx-auto px-8 md:px-16 lg:px-24 relative z-10 flex flex-col items-start">
         {/* Header Section */}
-        <div className="text-center mb-16 max-w-2xl">
+        <div className="text-left mb-10 md:mb-12 w-full max-w-6xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs font-mono mb-6 backdrop-blur-md">
             <Activity size={14} className="animate-pulse" />
             <span>AI DESIGN METHODOLOGY</span>
@@ -100,21 +103,22 @@ export default function PlaybookMethodology() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500"> Order</span>
           </h2>
           <p className="text-gray-400 text-lg leading-relaxed">
-            Design is a rigorous process to solve complex problems. Below is my core methodology, supercharged by AI tools
-            to accelerate research, enhance creativity, and drive data-informed decisions.
+            Design is a rigorous process to solve complex problems.
+            <br />
+            <span className="md:whitespace-nowrap">Below is my core methodology, supercharged by AI tools to accelerate research, enhance creativity, and drive data-informed decisions.</span>
           </p>
         </div>
 
         {/* Methodology Interactive Visualizer */}
         <div
-          className="w-full flex flex-col gap-8"
+          className="w-full flex flex-col gap-10 md:gap-12"
           onMouseEnter={() => setIsAutoPlaying(false)}
           onMouseLeave={() => setIsAutoPlaying(true)}
         >
-          {/* Top: Tech Nodes */}
-          <div className="relative flex justify-between items-center w-full max-w-4xl mx-auto px-4 sm:px-10">
-            {/* Connecting Line */}
-            <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white/5 -z-10 -translate-y-1/2">
+          {/* Top: Tech Nodes - same width as card below, pl/pr match card padding */}
+          <div className="relative flex justify-between items-center w-full pl-6 md:pl-10 pr-6 md:pr-10">
+            {/* Connecting Line - left-0 right-0 spans full padding box so line extends past last node */}
+            <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-white/5 -z-10 -translate-y-1/2">
               <div
                 className="h-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 transition-all duration-700 ease-out"
                 style={{ width: `${(activeStep / (steps.length - 1)) * 100}%` }}
@@ -159,7 +163,7 @@ export default function PlaybookMethodology() {
           </div>
 
           {/* Bottom: Dynamic Content Display Card */}
-          <div className="mt-8 relative w-full rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-xl p-8 md:p-12 min-h-[600px] md:min-h-[420px] flex flex-col md:flex-row gap-8 items-center overflow-hidden">
+          <div className="relative w-full rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-xl p-6 md:p-10 min-h-[380px] md:min-h-[320px] flex flex-col md:flex-row gap-8 items-center overflow-hidden mt-8 md:mt-12">
             <div
               className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl ${currentStep.color} opacity-10 blur-[80px] transition-colors duration-700`}
             />
@@ -171,8 +175,8 @@ export default function PlaybookMethodology() {
                 <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-white">{currentStep.title}</h3>
               </div>
 
-              <div className="min-h-[140px] md:min-h-[100px] flex items-start">
-                <p className="text-gray-400 text-lg leading-relaxed max-w-xl">{currentStep.desc}</p>
+              <div className="min-h-[100px] md:min-h-[80px] flex items-start w-full max-w-3xl">
+                <p className="text-gray-400 text-lg leading-relaxed line-clamp-2">{currentStep.desc}</p>
               </div>
 
               <div className="flex flex-nowrap overflow-x-auto gap-3 pt-2 md:pt-4 min-h-[60px] items-start w-full pb-2 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">

@@ -34,16 +34,16 @@ export default function Page() {
           </a>
           {/* Desktop nav - hidden below 768px */}
           <div className="hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
-            <a href="#work" className="nav-link-underline active text-text">
+            <a href="#work" className="nav-link-underline active text-text hover:text-gray-700 transition-colors">
               Work
             </a>
-            <Link href="/ai-explorations" className="nav-link-underline">
-              AI Explorations
+            <Link href="/ai-explorations" className="nav-link-underline hover:text-gray-700 transition-colors">
+              AI PROJECTS
             </Link>
-            <Link href="/experience" className="nav-link-underline">
+            <Link href="/experience" className="nav-link-underline hover:text-gray-700 transition-colors">
               Experience
             </Link>
-            <Link href="/kind-words" className="nav-link-underline">
+            <Link href="/kind-words" className="nav-link-underline hover:text-gray-700 transition-colors">
               Kind Words
             </Link>
           </div>
@@ -65,7 +65,7 @@ export default function Page() {
               <div>
                 <a
                   href="#work"
-                  className="nav-link-underline active text-text font-semibold uppercase tracking-widest text-sm block"
+                  className="nav-link-underline active text-text font-semibold uppercase tracking-widest text-sm block hover:text-gray-700 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Work
@@ -85,21 +85,21 @@ export default function Page() {
               </div>
               <Link
                 href="/ai-explorations"
-                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm"
+                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                AI Explorations
+                AI PROJECTS
               </Link>
               <Link
                 href="/experience"
-                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm"
+                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Experience
               </Link>
               <Link
                 href="/kind-words"
-                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm"
+                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Kind Words
@@ -123,7 +123,7 @@ export default function Page() {
               <p className="text-xs font-bold tracking-[0.09em] text-[rgba(235,241,255,0.85)] mb-5">
                 Product Design · AI-Native Building · Systems
               </p>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-[4rem] font-bold leading-[1.05] tracking-[-0.04em] text-[#f6f7fb] mb-0">
+              <h1 className="hero-title-gradient text-3xl md:text-4xl lg:text-5xl xl:text-[4rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
                 Hi, I&apos;m Wen,<br />
                 a product designer and AI-native builder
               </h1>
@@ -317,23 +317,23 @@ export default function Page() {
               </p>
               <a
                 href="mailto:williamliu_1989@hotmail.com"
-                className="text-6xl md:text-8xl lg:text-[8rem] font-medium tracking-tighter leading-none text-white hover:opacity-70 transition-opacity"
+                className="text-6xl md:text-8xl lg:text-[8rem] font-medium tracking-tighter leading-none text-white hover:text-blue-400 transition-colors"
               >
                 Let&apos;s Connect
               </a>
             </div>
             <div className="flex gap-10 text-sm font-semibold uppercase tracking-widest text-white/60">
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 LinkedIn
               </a>
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+              <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 GitHub
               </a>
               <a
                 href="/WenLiu_Resume.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-white transition-colors"
+                className="hover:text-blue-400 transition-colors"
               >
                 resume
               </a>
@@ -345,7 +345,7 @@ export default function Page() {
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
           <div className="flex justify-between items-center text-sm font-semibold uppercase tracking-widest text-white/60">
             <p>© 2026 Wen Liu</p>
-            <p>Designed with Logic</p>
+            <p>Shaped with AI, craft, and product thinking</p>
           </div>
         </div>
       </footer>

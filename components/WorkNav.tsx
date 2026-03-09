@@ -22,8 +22,8 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  const linkBase = "nav-link-underline";
-  const linkActive = "nav-link-underline active text-text cursor-pointer";
+  const linkBase = "nav-link-underline hover:text-gray-700 transition-colors";
+  const linkActive = "nav-link-underline active text-text cursor-pointer hover:text-gray-700 transition-colors";
 
   return (
     <nav
@@ -86,7 +86,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             <div>
               <a
                 href="/#work"
-                className={`block font-semibold uppercase tracking-widest text-sm ${
+                className={`block font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
                   pathname === "/" ? "text-text " + linkActive : "text-muted " + linkBase
                 }`}
                 onClick={(e) => {
@@ -116,16 +116,16 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             </div>
             <Link
               href="/ai-explorations"
-              className={`font-semibold uppercase tracking-widest text-sm ${
+              className={`font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
                 pathname === "/ai-explorations" ? linkActive : linkBase + " text-muted"
               }`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              AI Explorations
+              AI PROJECTS
             </Link>
             <Link
               href="/experience"
-              className={`font-semibold uppercase tracking-widest text-sm ${
+              className={`font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
                 pathname === "/experience" ? linkActive : linkBase + " text-muted"
               }`}
               onClick={() => setMobileMenuOpen(false)}
@@ -134,7 +134,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             </Link>
             <Link
               href="/kind-words"
-              className={`font-semibold uppercase tracking-widest text-sm ${
+              className={`font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
                 pathname === "/kind-words" ? linkActive : linkBase + " text-muted"
               }`}
               onClick={() => setMobileMenuOpen(false)}

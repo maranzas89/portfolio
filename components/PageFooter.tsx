@@ -10,19 +10,19 @@ export default function PageFooter() {
               </p>
               <a
                 href="mailto:williamliu_1989@hotmail.com"
-                className="text-6xl md:text-8xl lg:text-[8rem] font-medium tracking-tighter leading-none text-white hover:opacity-70 transition-opacity"
+                className="text-6xl md:text-8xl lg:text-[8rem] font-medium tracking-tighter leading-none text-white hover:text-blue-400 transition-colors"
               >
                 Let&apos;s Connect
               </a>
             </div>
             <div className="flex gap-10 text-sm font-semibold uppercase tracking-widest text-white/60">
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 LinkedIn
               </a>
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+              <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 GitHub
               </a>
-              <a href="/WenLiu_Resume.pdf" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+              <a href="/WenLiu_Resume.pdf" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 resume
               </a>
             </div>
@@ -32,7 +32,7 @@ export default function PageFooter() {
       <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
         <div className="flex justify-between items-center text-sm font-semibold uppercase tracking-widest text-white/60">
           <p>© 2026 Wen Liu</p>
-          <p>Designed with Logic</p>
+          <p>Shaped with AI, craft, and product thinking</p>
         </div>
       </div>
     </footer>
