@@ -401,7 +401,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 1 — Early User Research */}
-          <section>
+          <section id="early-user-research">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <Users className="w-6 h-6 text-blue-500" />
@@ -452,7 +452,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 2 — Legacy Experience */}
-          <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-stretch">
+          <section id="legacy-experience" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-stretch">
             <Reveal direction="right" className="md:col-span-6 md:pr-6 flex flex-col">
               <AnnotatedImage
                 src={LEGACY_HOMEPAGE_IMG}
@@ -521,7 +521,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 3 — Opportunity */}
-          <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-start -mt-[10px]">
+          <section id="opportunity" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-start -mt-[10px]">
             <Reveal direction="right" className="md:col-span-5 md:pr-12 order-1">
               <div className="flex items-center gap-3 mb-4">
                 <Compass className="w-6 h-6 text-blue-500" />
@@ -563,7 +563,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 4 — Design System (0→1) */}
-          <section>
+          <section id="design-system">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <Layout className="w-6 h-6 text-blue-500" />
@@ -620,7 +620,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 5 — IA & Early Prototypes */}
-          <section>
+          <section id="ia-prototypes">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <Layout className="w-6 h-6 text-blue-500" />
@@ -671,7 +671,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 6 — Cross Team Reviews */}
-          <section>
+          <section id="cross-team">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <Users className="w-6 h-6 text-blue-500" />
@@ -711,7 +711,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 7 — First Release */}
-          <section>
+          <section id="first-release">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <Target className="w-6 h-6 text-blue-500" />
@@ -752,7 +752,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 8 — Behavioral Data (Hotjar) */}
-          <section>
+          <section id="behavioral-data">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <BarChart3 className="w-6 h-6 text-blue-500" />
@@ -827,7 +827,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 9 — Qualitative Research */}
-          <section>
+          <section id="qualitative-research">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <MessageSquare className="w-6 h-6 text-blue-500" />
@@ -867,7 +867,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 10 — Strategic Shift */}
-          <section>
+          <section id="strategic-shift">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <Compass className="w-6 h-6 text-blue-500" />
@@ -897,7 +897,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 11 — Design Iterations */}
-          <section>
+          <section id="design-iterations">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <IterationCw className="w-6 h-6 text-blue-500" />
@@ -962,7 +962,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 12 — Student Journey 2.0 */}
-          <section>
+          <section id="student-journey">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <Map className="w-6 h-6 text-blue-500" />
@@ -1024,7 +1024,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 13 — Milestone Dashboard */}
-          <section>
+          <section id="milestone-dashboard">
             <Reveal direction="up">
               <div className="flex items-center gap-3 mb-4">
                 <Layout className="w-6 h-6 text-blue-500" />
@@ -1053,7 +1053,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
 
           {/* Section 14 — Impact */}
           <Reveal direction="up">
-            <section className="relative left-1/2 -translate-x-1/2 w-screen max-w-none bg-gray-900 text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/20">
+            <section id="impact" className="relative left-1/2 -translate-x-1/2 w-screen max-w-none bg-gray-900 text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/20">
               <HeroGlow />
               <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
                 <div className="flex items-center gap-3 mb-4">
@@ -1138,7 +1138,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </Reveal>
 
           {/* Section 15 — Interactive Prototype */}
-          <section className="text-center max-w-2xl mx-auto">
+          <section id="interactive-prototype" className="text-center max-w-2xl mx-auto">
             <Reveal direction="up">
               <div className="flex items-center gap-3 justify-center mb-4">
                 <Target className="w-6 h-6 text-blue-500" />

@@ -5,6 +5,8 @@ import Link from "next/link";
 import HeroGlow from "@/components/HeroGlow";
 import WorkNav from "@/components/WorkNav";
 import CalbrightCaseStudyTabs from "@/components/CalbrightCaseStudyTabs";
+import SectionNav from "@/components/SectionNav";
+import { DIDI_SECTIONS } from "@/lib/section-nav-config";
 import AnimatedWorkflowHero from "@/components/AnimatedWorkflowHero";
 import { EyeOff, GitMerge, TrendingDown, AlertCircle, Shield, GitBranch, BarChart3, Layers, LayoutGrid, Crown } from "lucide-react";
 
@@ -259,6 +261,7 @@ export default function DidiCaseStudyPage() {
         <WorkNav embed />
         <CalbrightCaseStudyTabs />
       </header>
+      <SectionNav sections={DIDI_SECTIONS} />
       <div className="pt-32">
       {/* Hero Section */}
       <header className="hero-image bg-black text-white pt-6 pb-12 md:pt-8 md:pb-16 relative overflow-hidden border-b border-white/20 min-h-[540px] md:min-h-[580px] min-h-[540px] md:min-h-[580px]">
@@ -364,7 +367,7 @@ export default function DidiCaseStudyPage() {
         </section>
 
         {/* 1. Problem Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
+        <section id="challenge" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
           <Reveal direction="right" className="md:col-span-5 pr-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
@@ -407,7 +410,7 @@ export default function DidiCaseStudyPage() {
         </section>
 
         {/* 2. System Thinking */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
+        <section id="system-thinking" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
           <Reveal direction="right" className="md:col-span-7 order-2 md:order-1 md:border-r-2 md:border-line md:pr-12">
             <div
               className="group cursor-pointer"
@@ -454,7 +457,7 @@ export default function DidiCaseStudyPage() {
         </section>
 
         {/* 3. Approach & IA */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
+        <section id="approach-ia" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
           <Reveal direction="right" className="md:col-span-5 pr-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
@@ -505,7 +508,7 @@ export default function DidiCaseStudyPage() {
         </section>
 
         {/* 4. Solutions */}
-        <section className="space-y-16">
+        <section id="solutions" className="space-y-16">
           <Reveal direction="up">
             <div className="text-center max-w-2xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-4">
@@ -579,7 +582,7 @@ export default function DidiCaseStudyPage() {
 
         {/* 5. Validation / Outcomes — full-bleed like Hero */}
         <Reveal direction="up">
-          <section className="relative left-1/2 -translate-x-1/2 w-screen max-w-none bg-black text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/20">
+          <section id="impact" className="relative left-1/2 -translate-x-1/2 w-screen max-w-none bg-black text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/20">
             <HeroGlow />
             <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
               <div className="flex items-center gap-3 mb-4">
