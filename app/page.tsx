@@ -2,11 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Layout, Sparkles, GitBranch, Beaker } from "lucide-react";
-import HeroGlow from "@/components/HeroGlow";
+import { Layout, Sparkles, GitBranch, FileText, Menu, X } from "lucide-react";
+import HeroBackgroundFX from "@/components/HeroBackgroundFX";
 
 export default function Page() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const workSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ export default function Page() {
           <a href="#" className="text-xl md:text-2xl font-semibold tracking-tight uppercase text-text">
             Wen Liu
           </a>
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-12 text-base font-semibold uppercase tracking-widest text-muted">
             <a href="#work" className="nav-link-underline active text-text">
               Work
@@ -43,63 +45,115 @@ export default function Page() {
               Kind Words
             </Link>
           </div>
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            className="md:hidden p-2 -mr-2 text-text hover:text-muted transition-colors"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+        {/* Mobile menu dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg">
+            <div className="max-w-[1600px] mx-auto px-8 py-6 flex flex-col gap-4">
+              <a
+                href="#work"
+                className="nav-link-underline active text-text font-semibold uppercase tracking-widest"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Work
+              </a>
+              <Link
+                href="/ai-explorations"
+                className="nav-link-underline text-muted font-semibold uppercase tracking-widest"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                AI Explorations
+              </Link>
+              <Link
+                href="/experience"
+                className="nav-link-underline text-muted font-semibold uppercase tracking-widest"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Experience
+              </Link>
+              <Link
+                href="/kind-words"
+                className="nav-link-underline text-muted font-semibold uppercase tracking-widest"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Kind Words
+              </Link>
+            </div>
+          </div>
+        )}
       </nav>
 
-      {/* Hero Section - full width black */}
-      <header className="relative overflow-hidden bg-black text-white border-b border-white/20">
-        <HeroGlow />
+      {/* Hero Section - FX background */}
+      <header
+        className="relative overflow-hidden min-h-[592px] border-b border-white/14 isolate"
+        style={{
+          background:
+            "radial-gradient(circle at 32% 12%, rgba(50, 95, 185, 0.22), transparent 26%), linear-gradient(90deg, #020611 0%, #031128 18%, #0a1b3c 52%, #051634 76%, #031126 100%)",
+        }}
+      >
+        <HeroBackgroundFX />
         <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-32 pb-16 md:pt-40 md:pb-20">
           <div className="max-w-6xl">
-              <p className="text-xs font-semibold tracking-widest text-white/70 mb-4">
+              <p className="text-xs font-bold tracking-[0.09em] text-[rgba(235,241,255,0.85)] mb-5">
                 Product Design · AI-Native Building · Systems
               </p>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-snug text-white mb-4 max-w-3xl">
-                Hi, I&apos;m Wen, <span className="whitespace-nowrap">a product designer and AI-native builder</span>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-[4rem] font-bold leading-[1.05] tracking-[-0.04em] text-[#f6f7fb] mb-0">
+                Hi, I&apos;m Wen,<br />
+                a product designer and AI-native builder
               </h1>
-              <p className="text-base md:text-lg text-white/80 font-light leading-relaxed mb-6 max-w-4xl">
+              <p className="text-base md:text-lg text-[rgba(232,238,249,0.82)] font-normal leading-relaxed mt-5 md:mt-6 mb-0 max-w-[920px]">
                 I design at staff-level scope across complex systems and enterprise experiences, using AI to prototype, explore, and build faster while bridging product thinking, design craft, front-end fluency, and iterative testing.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 w-full">
-                <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-4 px-5 lg:py-5 lg:px-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
-                  <div className="flex items-center gap-3 mb-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 mb-0 w-full max-w-[1184px]">
+                <div className="hero-card group">
+                  <div className="flex items-center gap-3 mb-2.5">
                     <Layout className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-white/90 font-semibold text-base">Product Design</p>
+                    <p className="text-[#f6f7fb] font-bold text-base">Product Design</p>
                   </div>
-                  <p className="text-white/60 text-sm font-light">Complex systems & platforms</p>
+                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Complex systems & platforms</p>
                 </div>
-                <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-4 px-5 lg:py-5 lg:px-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
-                  <div className="flex items-center gap-3 mb-3">
+                <div className="hero-card group">
+                  <div className="flex items-center gap-3 mb-2.5">
                     <Sparkles className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-white/90 font-semibold text-base">AI-Native Builder</p>
+                    <p className="text-[#f6f7fb] font-bold text-base">AI-Native Builder</p>
                   </div>
-                  <p className="text-white/60 text-sm font-light">Prototype, explore, build</p>
+                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Prototype, explore, build</p>
                 </div>
-                <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-4 px-5 lg:py-5 lg:px-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
-                  <div className="flex items-center gap-3 mb-3">
+                <div className="hero-card group">
+                  <div className="flex items-center gap-3 mb-2.5">
                     <GitBranch className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-white/90 font-semibold text-base">Systems Thinking</p>
+                    <p className="text-[#f6f7fb] font-bold text-base">Systems Thinking</p>
                   </div>
-                  <p className="text-white/60 text-sm font-light">Flows, logic, scalability</p>
+                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Flows, logic, scalability</p>
                 </div>
-                <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-4 px-5 lg:py-5 lg:px-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Beaker className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-white/90 font-semibold text-base">Research-Driven Design</p>
+                <div className="hero-card group">
+                  <div className="flex items-center gap-3 mb-2.5">
+                    <FileText className="w-5 h-5 text-blue-400 shrink-0" />
+                    <p className="text-[#f6f7fb] font-bold text-base">Research-Driven Design</p>
                   </div>
-                  <p className="text-white/60 text-sm font-light">Insights, testing, iteration</p>
+                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Insights, testing, iteration</p>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4 md:gap-[18px] mt-8">
                 <a
                   href="mailto:williamliu_1989@hotmail.com"
-                  className="inline-block rounded-xl bg-blue-600 px-8 py-4 text-base font-semibold text-white transition hover:bg-blue-700"
+                  className="inline-block rounded-[14px] bg-[#2563ff] px-8 py-4 text-base font-bold text-white transition hover:bg-[#1d4ed8]"
                 >
                   Let&apos;s talk
                 </a>
                 <a
                   href="#work"
-                  className="inline-flex items-center gap-2 text-white/90 font-medium text-sm hover:underline transition-colors"
+                  className="inline-flex items-center gap-2 text-white font-medium text-base hover:underline transition-colors"
                 >
                   View Featured Work
                   <span className="inline-block" aria-hidden>↓</span>
