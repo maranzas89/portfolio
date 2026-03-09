@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Quantico, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -7,8 +7,16 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const quantico = Quantico({
+  variable: "--font-quantico",
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
 });
 
@@ -30,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${quantico.variable} ${geistMono.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
         {children}

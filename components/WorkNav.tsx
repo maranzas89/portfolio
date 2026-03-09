@@ -43,7 +43,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
           Wen Liu
         </Link>
         {/* Desktop nav - hidden below 768px */}
-        <div className="hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
+        <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
           {NAV_LINKS.map(({ href, label }) => {
             const isWork = href === "/#work";
             const isActive =
@@ -86,7 +86,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             <div>
               <a
                 href="/#work"
-                className={`block font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
+                className={`font-accent block font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
                   pathname === "/" ? "text-text " + linkActive : "text-muted " + linkBase
                 }`}
                 onClick={(e) => {
@@ -116,7 +116,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             </div>
             <Link
               href="/ai-explorations"
-              className={`font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
+              className={`font-accent font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
                 pathname === "/ai-explorations" ? linkActive : linkBase + " text-muted"
               }`}
               onClick={() => setMobileMenuOpen(false)}
@@ -125,7 +125,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             </Link>
             <Link
               href="/experience"
-              className={`font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
+              className={`font-accent font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
                 pathname === "/experience" ? linkActive : linkBase + " text-muted"
               }`}
               onClick={() => setMobileMenuOpen(false)}
@@ -134,7 +134,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             </Link>
             <Link
               href="/kind-words"
-              className={`font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
+              className={`font-accent font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
                 pathname === "/kind-words" ? linkActive : linkBase + " text-muted"
               }`}
               onClick={() => setMobileMenuOpen(false)}

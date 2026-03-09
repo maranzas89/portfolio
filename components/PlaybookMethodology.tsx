@@ -93,7 +93,7 @@ export default function PlaybookMethodology() {
       <div className="max-w-[1600px] w-full mx-auto px-8 md:px-16 lg:px-24 relative z-10 flex flex-col items-start">
         {/* Header Section */}
         <div className="text-left mb-10 md:mb-12 w-full max-w-6xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs font-mono mb-6 backdrop-blur-md">
+          <div className="font-accent inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs mb-6 backdrop-blur-md">
             <Activity size={14} className="animate-pulse" />
             <span>AI DESIGN METHODOLOGY</span>
           </div>
@@ -153,7 +153,7 @@ export default function PlaybookMethodology() {
                     {isActive && <div className="absolute inset-0 rounded-full animate-ping opacity-20 bg-white" />}
                   </div>
                   <div
-                    className={`absolute -bottom-8 whitespace-nowrap text-xs md:text-sm font-medium transition-colors duration-300 ${isActive ? "text-white" : "text-gray-500"}`}
+                    className={`font-accent absolute -bottom-8 whitespace-nowrap text-xs md:text-sm font-medium transition-colors duration-300 ${isActive ? "text-white" : "text-gray-500"}`}
                   >
                     {step.title}
                   </div>
@@ -171,7 +171,7 @@ export default function PlaybookMethodology() {
             {/* Left/Top Content */}
             <div className="flex-1 relative z-10 w-full flex flex-col justify-center">
               <div className="space-y-2 mb-4 md:mb-6">
-                <p className="font-mono text-xs tracking-widest text-cyan-400 uppercase">{currentStep.subtitle}</p>
+                <p className="font-accent text-xs tracking-widest text-cyan-400 uppercase">{currentStep.subtitle}</p>
                 <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-white">{currentStep.title}</h3>
               </div>
 
@@ -183,7 +183,7 @@ export default function PlaybookMethodology() {
                 {currentStep.keywords.map((keyword, idx) => (
                   <span
                     key={idx}
-                    className="shrink-0 whitespace-nowrap px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 flex items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-all cursor-default"
+                    className="font-accent shrink-0 whitespace-nowrap px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 flex items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-all cursor-default"
                   >
                     <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${currentStep.color}`} />
                     {keyword}

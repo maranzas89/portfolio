@@ -5,7 +5,7 @@ export default function PageFooter() {
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-16">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-widest text-white/60 mb-8">
+              <p className="font-accent text-sm font-semibold uppercase tracking-widest text-white/60 mb-8">
                 Open to new opportunities
               </p>
               <a
@@ -15,7 +15,7 @@ export default function PageFooter() {
                 Let&apos;s Connect
               </a>
             </div>
-            <div className="flex gap-10 text-sm font-semibold uppercase tracking-widest text-white/60">
+            <div className="font-accent flex gap-10 text-sm font-semibold uppercase tracking-widest text-white/60">
               <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 LinkedIn
               </a>
@@ -30,9 +30,9 @@ export default function PageFooter() {
         </div>
       </div>
       <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
-        <div className="flex justify-between items-center text-sm font-semibold uppercase tracking-widest text-white/60">
+        <div className="font-accent flex justify-between items-center text-sm font-semibold uppercase tracking-widest text-white/60">
           <p>© 2026 Wen Liu</p>
-          <p>Shaped with AI, craft, and product thinking</p>
+          <p className="font-accent">Shaped with AI, craft, and product thinking</p>
         </div>
       </div>
     </footer>

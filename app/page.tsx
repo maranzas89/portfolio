@@ -33,17 +33,17 @@ export default function Page() {
             Wen Liu
           </a>
           {/* Desktop nav - hidden below 768px */}
-          <div className="hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
+          <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
             <a href="#work" className="nav-link-underline active text-text hover:text-gray-700 transition-colors">
               Work
             </a>
-            <Link href="/ai-explorations" className="nav-link-underline hover:text-gray-700 transition-colors">
+            <Link href="/ai-explorations" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
               AI PROJECTS
             </Link>
-            <Link href="/experience" className="nav-link-underline hover:text-gray-700 transition-colors">
+            <Link href="/experience" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
               Experience
             </Link>
-            <Link href="/kind-words" className="nav-link-underline hover:text-gray-700 transition-colors">
+            <Link href="/kind-words" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
               Kind Words
             </Link>
           </div>
@@ -65,7 +65,7 @@ export default function Page() {
               <div>
                 <a
                   href="#work"
-                  className="nav-link-underline active text-text font-semibold uppercase tracking-widest text-sm block hover:text-gray-700 transition-colors"
+                  className="font-accent nav-link-underline active text-text font-semibold uppercase tracking-widest text-sm block hover:text-gray-700 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Work
@@ -85,21 +85,21 @@ export default function Page() {
               </div>
               <Link
                 href="/ai-explorations"
-                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
+                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 AI PROJECTS
               </Link>
               <Link
                 href="/experience"
-                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
+                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Experience
               </Link>
               <Link
                 href="/kind-words"
-                className="nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
+                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Kind Words
@@ -120,14 +120,14 @@ export default function Page() {
         <HeroBackgroundFX />
         <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-32 pb-16 md:pt-40 md:pb-20">
           <div className="max-w-6xl">
-              <p className="text-xs font-bold tracking-[0.09em] text-[rgba(235,241,255,0.85)] mb-5">
-                Product Design · AI-Native Building · Systems
+              <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">
+                Product Design · AI-Native Building · Systems Thinking · Research-Driven Design
               </p>
               <h1 className="hero-title-gradient text-3xl md:text-4xl lg:text-5xl xl:text-[4rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
                 Hi, I&apos;m Wen,<br />
                 a product designer and AI-native builder
               </h1>
-              <p className="text-base md:text-lg text-[rgba(232,238,249,0.82)] font-normal leading-relaxed mt-5 md:mt-6 mb-0 max-w-[920px]">
+              <p className="text-base md:text-lg text-[rgba(232,238,249,0.82)] font-normal leading-relaxed mt-5 md:mt-6 mb-0 max-w-[1100px]">
                 I design at staff-level scope across complex systems and enterprise experiences, using AI to prototype, explore, and build faster while bridging product thinking, design craft, front-end fluency, and iterative testing.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 mb-0 w-full max-w-[1184px]">
@@ -163,13 +163,13 @@ export default function Page() {
               <div className="flex flex-wrap items-center gap-4 md:gap-[18px] mt-8">
                 <a
                   href="mailto:williamliu_1989@hotmail.com"
-                  className="inline-block rounded-[14px] bg-[#2563ff] px-8 py-4 text-base font-bold text-white transition hover:bg-[#1d4ed8]"
+                  className="inline-block rounded-[14px] bg-[#2563ff] px-10 py-5 text-lg font-bold text-white transition hover:bg-[#1d4ed8]"
                 >
                   Let&apos;s talk
                 </a>
                 <a
                   href="#work"
-                  className="inline-flex items-center gap-2 text-white font-medium text-base hover:underline transition-colors"
+                  className="nav-link-underline nav-link-gradient-hover-dark inline-flex items-center gap-2 text-white font-semibold text-base transition-colors"
                 >
                   View Featured Work
                   <span className="inline-block" aria-hidden>↓</span>
@@ -188,10 +188,10 @@ export default function Page() {
           className="relative overflow-visible py-32"
         >
           <div className="relative z-10 mb-20 bg-transparent">
-            <span className="text-sm font-semibold uppercase tracking-widest text-muted block mb-6">
+            <span className="font-accent text-sm font-semibold uppercase tracking-widest text-muted block mb-6">
               Featured Work
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-text">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text">
               Design that gets results
             </h2>
           </div>
@@ -211,7 +211,7 @@ export default function Page() {
                   </p>
                 </div>
                 <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
-                  <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
+                  <span className="font-accent text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
                     8k+
                   </span>
                   <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
@@ -245,7 +245,7 @@ export default function Page() {
                   </p>
                 </div>
                 <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
-                  <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
+                  <span className="font-accent text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
                     35%
                   </span>
                   <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
@@ -280,7 +280,7 @@ export default function Page() {
                   </p>
                 </div>
                 <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
-                  <span className="text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
+                  <span className="font-accent text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
                     +75%
                   </span>
                   <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
@@ -312,7 +312,7 @@ export default function Page() {
           <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-16">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-widest text-white/60 mb-8">
+              <p className="font-accent text-sm font-semibold uppercase tracking-widest text-white/60 mb-8">
                 Open to new opportunities
               </p>
               <a
@@ -322,7 +322,7 @@ export default function Page() {
                 Let&apos;s Connect
               </a>
             </div>
-            <div className="flex gap-10 text-sm font-semibold uppercase tracking-widest text-white/60">
+            <div className="font-accent flex gap-10 text-sm font-semibold uppercase tracking-widest text-white/60">
               <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 LinkedIn
               </a>
@@ -343,9 +343,9 @@ export default function Page() {
         </div>
 
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
-          <div className="flex justify-between items-center text-sm font-semibold uppercase tracking-widest text-white/60">
+          <div className="font-accent flex justify-between items-center text-sm font-semibold uppercase tracking-widest text-white/60">
             <p>© 2026 Wen Liu</p>
-            <p>Shaped with AI, craft, and product thinking</p>
+            <p className="font-accent">Shaped with AI, craft, and product thinking</p>
           </div>
         </div>
       </footer>

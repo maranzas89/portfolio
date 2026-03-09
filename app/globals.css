@@ -13,7 +13,7 @@
   --color-muted: #737373;
   --color-line: #e5e5e5;
   --color-card: #fafafa;
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
@@ -27,7 +27,12 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Accent font - Quantico. Use for: section labels, metrics, nav labels, tags, methodology labels */
+.font-accent {
+  font-family: var(--font-quantico), sans-serif;
 }
 
 /* Section nav scroll anchor - offset for fixed header so section title appears higher with more context above */
@@ -35,7 +40,7 @@ section[id] {
   scroll-margin-top: 200px;
 }
 
-/* Nav link underline - avoids Tailwind v4 after:content-[''] parsing issue */
+/* Nav link underline - gradient bar + gradient text on hover */
 .nav-link-underline {
   position: relative;
   padding-bottom: 0.5rem;
@@ -50,11 +55,26 @@ section[id] {
   background: #2563eb;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
 }
 .nav-link-underline:hover::after,
 .nav-link-underline.active::after {
   transform: scaleX(1);
+}
+
+/* View Featured Work on dark bg - gradient text + gradient bar on hover (same as text) */
+.nav-link-underline.nav-link-gradient-hover-dark {
+  transition: color 0.3s ease, background 0.3s ease;
+}
+.nav-link-underline.nav-link-gradient-hover-dark::after {
+  background: linear-gradient(90deg, #f3f4f6 0%, #93c5fd 50%, #60a5fa 100%);
+}
+.nav-link-underline.nav-link-gradient-hover-dark:hover {
+  color: transparent;
+  background: linear-gradient(90deg, #f3f4f6 0%, #93c5fd 50%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 100% 100%;
 }
 
 /* Vertical divider for Legacy section - between image and text, aligns with 02. Legacy Experience top */
@@ -403,6 +423,8 @@ section[id] {
   position: relative;
   padding: 18px 22px 20px;
   border-radius: 18px;
+  cursor: default;
+  user-select: none;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.09),
