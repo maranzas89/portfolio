@@ -467,21 +467,21 @@ export default function DidiCaseStudyPage() {
               <h3 className="text-3xl md:text-4xl font-semibold text-text mb-8">Prioritization at scale.</h3>
               <ul className="space-y-8 text-base md:text-lg text-muted font-medium relative pl-10 before:absolute before:inset-y-2 before:left-[15px] before:w-[2px] before:bg-blue-600">
                 <li className="relative pl-3">
-                  <span className="absolute left-[-2.5rem] top-0 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
+                  <span className="absolute left-[-2.5rem] top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
                     <BarChart3 className="w-4 h-4" />
                   </span>
                   <strong className="text-text block mb-1">UX Benchmarking</strong>
                   <span className="font-medium">HEART model baseline (4.12).</span>
                 </li>
                 <li className="relative pl-3">
-                  <span className="absolute left-[-2.5rem] top-0 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
+                  <span className="absolute left-[-2.5rem] top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
                     <Layers className="w-4 h-4" />
                   </span>
                   <strong className="text-text block mb-1">P0/P1/P2 Categorization</strong>
                   <span className="font-medium">Strict element hierarchy reducing cognitive load.</span>
                 </li>
                 <li className="relative pl-3">
-                  <span className="absolute left-[-2.5rem] top-0 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
+                  <span className="absolute left-[-2.5rem] top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
                     <LayoutGrid className="w-4 h-4" />
                   </span>
                   <strong className="text-text block mb-1">Unified Hub</strong>

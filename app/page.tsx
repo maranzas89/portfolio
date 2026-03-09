@@ -331,8 +331,7 @@ export default function Page() {
               </a>
               <a
                 href="/WenLiu_Resume.pdf"
-                target="_blank"
-                rel="noreferrer"
+                download="WenLiu_Resume.pdf"
                 className="hover:text-blue-400 transition-colors"
               >
                 resume

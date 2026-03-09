@@ -673,10 +673,11 @@ export default function StaffPortalCaseStudyPage() {
                       <col.icon className="w-5 h-5 shrink-0 text-blue-600" />
                       {col.title}
                     </h4>
-                    <ul className={`list-disc list-inside space-y-2 ${index < 2 ? "pl-[3px]" : "pl-[7px]"}`}>
+                    <ul className={`space-y-2 ${index < 2 ? "pl-[3px]" : "pl-[7px]"}`}>
                       {col.items.map((item) => (
-                        <li key={item} className="text-sm text-muted font-medium pl-1">
-                          {item}
+                        <li key={item} className="flex items-center gap-2 text-sm text-muted font-medium">
+                          <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-slate-400" aria-hidden />
+                          <span>{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -689,10 +690,10 @@ export default function StaffPortalCaseStudyPage() {
                   Key insights
                 </h4>
                 <ul className="space-y-2 text-emerald-700/90 text-base font-medium pl-[7px]">
-                  <li className="flex gap-[12px]"><span className="shrink-0">•</span><span>Information was visible, but not prioritized around decision-making</span></li>
-                  <li className="flex gap-[12px]"><span className="shrink-0">•</span><span>Similar workflows were handled differently across teams</span></li>
-                  <li className="flex gap-[12px]"><span className="shrink-0">•</span><span>High-frequency actions were still too buried</span></li>
-                  <li className="flex gap-[12px]"><span className="shrink-0">•</span><span>Manager visibility and auditability were missing</span></li>
+                  <li className="flex items-center gap-[12px]"><span className="shrink-0">•</span><span>Information was visible, but not prioritized around decision-making</span></li>
+                  <li className="flex items-center gap-[12px]"><span className="shrink-0">•</span><span>Similar workflows were handled differently across teams</span></li>
+                  <li className="flex items-center gap-[12px]"><span className="shrink-0">•</span><span>High-frequency actions were still too buried</span></li>
+                  <li className="flex items-center gap-[12px]"><span className="shrink-0">•</span><span>Manager visibility and auditability were missing</span></li>
                 </ul>
               </div>
             </ScrollReveal>

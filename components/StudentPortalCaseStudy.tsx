@@ -530,12 +530,27 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
               <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6">
                 Kick-starting the Student <span className="whitespace-nowrap">Experience Through Onboarding</span>
               </h3>
-              <ul className="space-y-3 text-muted text-base md:text-lg font-medium list-disc list-inside pl-1 mb-6">
-                <li>Partnered with cross-functional teams to map onboarding</li>
-                <li>Onboarding tasks spread across multiple systems</li>
-                <li>&quot;My Tasks&quot; behaved as a static checklist</li>
-                <li>Students lacked visibility into onboarding milestones</li>
-                <li>Key actions required leaving the portal</li>
+              <ul className="space-y-3 text-muted text-base md:text-lg font-medium mb-6">
+                <li className="flex items-center gap-3">
+                  <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-slate-400" aria-hidden />
+                  <span>Partnered with cross-functional teams to map onboarding</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-slate-400" aria-hidden />
+                  <span>Onboarding tasks spread across multiple systems</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-slate-400" aria-hidden />
+                  <span>&quot;My Tasks&quot; behaved as a static checklist</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-slate-400" aria-hidden />
+                  <span>Students lacked visibility into onboarding milestones</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-slate-400" aria-hidden />
+                  <span>Key actions required leaving the portal</span>
+                </li>
               </ul>
               <div className="px-5 pt-5 pb-5 rounded-2xl bg-emerald-50 border border-emerald-100">
                 <h4 className="flex items-center gap-2 font-semibold text-emerald-800 mb-2 text-base">

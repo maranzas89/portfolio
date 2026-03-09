@@ -17,8 +17,11 @@ export default function ExperiencePage() {
       <PageHero
         eyebrow="About Me"
         avatar="/images/avatar.png"
-        headline="Designing products, systems, and platforms with staff-level scope"
-        paragraph="I'm a product designer focused on complex systems, service experiences, and AI-driven platforms. My work spans enterprise tools, operational workflows, and user-centered experiences that connect strategy, execution, and measurable impact."
+        headline="Designing products, systems, and AI-driven platforms with staff-level scope"
+        paragraph="Product designer focused on complex systems, operational workflows, and user-centered experiences."
+        paragraphVariant="compact"
+        primaryCta={{ label: "View Work", href: "/#work" }}
+        secondaryCta={{ label: "Download Resume", href: "/WenLiu_Resume.pdf", download: "WenLiu_Resume.pdf" }}
       />
 
       <main>

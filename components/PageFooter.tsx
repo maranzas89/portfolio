@@ -22,7 +22,7 @@ export default function PageFooter() {
               <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 GitHub
               </a>
-              <a href="/WenLiu_Resume.pdf" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
+              <a href="/WenLiu_Resume.pdf" download="WenLiu_Resume.pdf" className="hover:text-blue-400 transition-colors">
                 resume
               </a>
             </div>

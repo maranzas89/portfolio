@@ -28,10 +28,18 @@ import {
   Kanban,
   FlaskRound,
   Download,
-  Eye,
-  FileText,
 } from "lucide-react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const ResumePdfPreview = dynamic(() => import("@/components/ResumePdfPreview"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center min-h-[500px] bg-slate-100/50 rounded-2xl text-slate-500">
+      Loading resume…
+    </div>
+  ),
+});
 
 const summaries = [
   {
@@ -81,32 +89,32 @@ const skillCategories = [
   {
     name: "AI",
     icon: Bot,
-    skills: ["ChatGPT", "Claude", "Gemini", "Cursor", "Lovable", "Stitch"],
+    skills: ["ChatGPT", "Claude", "Gemini", "Cursor", "Lovable", "Stitch", "v0", "Figma AI", "Adobe Firefly"],
   },
   {
     name: "Practice",
     icon: FlaskRound,
-    skills: ["Workshops", "Testing", "Synthesis", "Iteration", "Critique"],
+    skills: ["Workshops", "Testing", "Synthesis", "Iteration", "Critique", "Strategy", "Discovery", "Validation"],
   },
   {
-    name: "Design",
+    name: "Design & Video Editing",
     icon: PenTool,
-    skills: ["Figma (Dev Mode, Variables, AI)", "Adobe XD", "Adobe CC", "Sketch"],
+    skills: ["Figma (Dev Mode, Variables, AI)", "Adobe XD", "Adobe CC", "Axure RP", "Sketch", "Final Cut", "CapCut"],
   },
   {
     name: "Front-End & Dev",
     icon: Code2,
-    skills: ["HTML", "CSS", "JavaScript", "Tailwind CSS", "React", "GitHub"],
+    skills: ["HTML", "CSS", "JavaScript", "Tailwind CSS", "React", "Next.js", "Vercel", "GitHub"],
   },
   {
     name: "Analytics",
     icon: BarChart3,
-    skills: ["GA4", "Hotjar", "Maze", "Amplitude", "Mixpanel", "FullStory"],
+    skills: ["GA4", "Hotjar", "Maze", "Amplitude", "Mixpanel", "FullStory", "Looker Studio", "Tableau"],
   },
   {
     name: "Collaboration",
     icon: Kanban,
-    skills: ["Jira", "Asana", "Miro", "Notion", "Slack", "Loom"],
+    skills: ["Jira", "Asana", "Miro", "Notion", "Slack", "Loom", "FigJam", "Confluence", "Zoom"],
   },
 ];
 
@@ -123,6 +131,12 @@ const experiences = [
     date: "05/2023 - Present",
     description:
       "Statewide Digital Learning Platform serving 8,000+ students and 200+ staff users.",
+    metrics: [
+      { label: "Hotjar satisfaction", value: "4.6 / 5", icon: BarChart3 },
+      { label: "Engagement rate", value: "67%", icon: Zap },
+      { label: "Staff Faster time-to-action", value: "35%", icon: TrendingUp },
+      { label: "Faster common-case actions", value: "30%", icon: Sparkles },
+    ],
     highlights: [
       "Led 0-1 redesign of Student Journey lifecycle architecture across a multi-program institution, improving enrollment and engagement.",
       "Designed AI-assisted recommendation workflows, translating behavioral signals into adaptive academic pathways.",
@@ -339,9 +353,9 @@ export default function ExperienceSection() {
                         {exp.highlights.map((item, idx) => (
                           <li
                             key={idx}
-                            className="flex items-start gap-3 text-slate-600 text-sm md:text-base leading-relaxed group/item"
+                            className="flex items-center gap-3 text-slate-600 text-sm md:text-base leading-relaxed group/item"
                           >
-                            <div className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-slate-300 group-hover/item:bg-blue-500 group-hover/item:scale-150 transition-all duration-300" />
+                            <div className="shrink-0 w-1.5 h-1.5 rounded-full bg-slate-300 group-hover/item:bg-blue-500 group-hover/item:scale-150 transition-all duration-300" />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -491,39 +505,20 @@ export default function ExperienceSection() {
             <div className="h-px bg-slate-200 flex-1 mt-2" />
           </div>
 
-          <p className="text-slate-500 text-base md:text-lg leading-relaxed max-w-2xl mb-8">
-            A concise overview of my experience, scope, and selected impact across product design,
-            systems thinking, and platform work.
+          <p className="text-slate-500 text-base md:text-lg leading-relaxed mb-8">
+            A concise overview of my experience, scope, and selected impact across product design, systems thinking, and platform work.
           </p>
-          <div className="flex flex-wrap gap-4 mb-12">
-            <a
-              href="/WenLiu_Resume.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700"
-            >
-              <Download className="w-5 h-5" />
-              Download Resume
-            </a>
-            <a
-              href="/WenLiu_Resume.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border-2 border-slate-200 px-10 py-5 text-lg font-semibold text-slate-700 transition hover:border-blue-300 hover:bg-blue-50"
-            >
-              <Eye className="w-5 h-5" />
-              Preview Resume
-            </a>
+          <div className="bg-white border border-slate-200/60 rounded-2xl overflow-hidden mb-8">
+            <ResumePdfPreview src="/WenLiu_Resume.pdf" className="min-h-[500px] rounded-2xl" />
           </div>
-          <div className="bg-white border border-slate-200/60 rounded-2xl overflow-hidden aspect-[3/4] max-h-[600px] flex items-center justify-center">
-            <div className="text-center p-12">
-              <FileText className="w-16 h-16 text-slate-400 mx-auto mb-6" />
-              <p className="text-slate-500 font-medium text-lg">Resume preview placeholder</p>
-              <p className="text-sm text-slate-500 mt-2">
-                Click &quot;Download Resume&quot; to view the full document.
-              </p>
-            </div>
-          </div>
+          <a
+            href="/WenLiu_Resume.pdf"
+            download="WenLiu_Resume.pdf"
+            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700"
+          >
+            <Download className="w-5 h-5" />
+            Download Resume
+          </a>
         </div>
       </div>
     </div>
