@@ -383,7 +383,7 @@ export default function ExperienceSection() {
           {/* Early Career Note */}
           <div className="relative flex flex-col md:flex-row gap-6 md:gap-10 mt-12 group cursor-default">
             <div className="relative z-10 flex-shrink-0 flex items-start pl-2 md:pl-4">
-              <div className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10">
+              <div className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] rounded-2xl bg-white flex items-center justify-center group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10">
                 <Building2 size={24} strokeWidth={1.5} className="text-slate-400 relative z-10" />
               </div>
             </div>
