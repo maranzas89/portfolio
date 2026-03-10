@@ -27,7 +27,7 @@ export default function CalbrightCaseStudyLayout({
         <CalbrightCaseStudyTabs />
       </header>
       {sections.length > 0 && <SectionNav sections={sections} />}
-      <div className="pt-32">{children}</div>
+      <div className="pt-16 md:pt-32">{children}</div>
     </>
   );
 }

@@ -269,7 +269,7 @@ export default function DidiCaseStudyPage() {
         <CalbrightCaseStudyTabs />
       </header>
       <SectionNav sections={DIDI_SECTIONS} />
-      <div className="pt-32">
+      <div className="pt-16 md:pt-32">
       {/* Hero Section */}
       <header className="hero-image bg-black text-white pt-6 pb-12 md:pt-8 md:pb-16 relative overflow-hidden border-b border-white/20 min-h-[540px] md:min-h-[580px] min-h-[540px] md:min-h-[580px]">
         <HeroGlow />

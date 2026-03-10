@@ -27,7 +27,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
 
   return (
     <nav
-      className={`top-0 left-0 right-0 z-50 border-b border-gray-200 transition-all duration-300 w-full min-w-0 ${
+      className={`top-0 left-0 right-0 z-50 md:border-b md:border-gray-200 transition-all duration-300 w-full min-w-0 ${
         embed ? "relative" : "fixed"
       }       ${
         scrolled
@@ -84,13 +84,13 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
         <div className="md:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 z-[60] bg-white">
           <button
             type="button"
-            className="absolute top-4 right-4 p-2 -m-2 text-text hover:text-muted transition-colors"
+            className="absolute top-4 right-4 p-2 -m-2 text-text hover:text-muted transition-colors z-10"
             onClick={() => setMobileMenuOpen(false)}
             aria-label="Close menu"
           >
             <X className="w-7 h-7" />
           </button>
-          <div className="h-full overflow-y-auto flex flex-col justify-center min-h-screen px-6 py-16 gap-8">
+          <div className="h-full overflow-y-auto flex flex-col pt-[calc(1rem+1.75rem+0.625rem)] px-6 gap-8">
             <div className="flex flex-col gap-8">
               <a
                 href="/#work"
