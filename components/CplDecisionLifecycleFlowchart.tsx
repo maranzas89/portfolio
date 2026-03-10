@@ -43,10 +43,10 @@ const CARDS = [
 ] as const;
 
 const BG_MAP = {
-  green: "bg-[#e6f4ea] border-[#cce8d5]",
-  yellow: "bg-[#fef5d9] border-[#f2e3b6]",
-  orange: "bg-[#fde2b4] border-[#f0cd90]",
-  pink: "bg-[#fadce4] border-[#f0c2cf]",
+  green: "bg-[#e6f4ea]",
+  yellow: "bg-[#fef5d9]",
+  orange: "bg-[#fde2b4]",
+  pink: "bg-[#fadce4]",
 } as const;
 
 export default function CplDecisionLifecycleFlowchart() {
@@ -67,11 +67,11 @@ export default function CplDecisionLifecycleFlowchart() {
             <div
               key={card.id}
               className={`${styles.box} ${arrowCls} flex flex-col gap-2 items-center justify-center text-center
-                px-5 py-4 text-[15px] font-medium text-slate-900
-                rounded-xl shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md
-                border ${bgCls}`}
+                px-5 py-4 text-[15px] font-medium text-slate-500
+                rounded-xl transition-transform duration-200 hover:-translate-y-0.5
+                ${bgCls}`}
             >
-              <Icon className="w-7 h-7 text-blue-600 shrink-0" />
+              <Icon className="w-7 h-7 text-slate-500 shrink-0" />
               <span className="leading-snug">{card.label}</span>
             </div>
           );

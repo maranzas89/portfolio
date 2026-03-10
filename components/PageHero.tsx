@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import HeroGlow from "@/components/HeroGlow";
+import HeroBackgroundFXEditorial from "@/components/HeroBackgroundFXEditorial";
 import { CONTENT_CONTAINER_CLASS } from "@/lib/layout";
 import { Download } from "lucide-react";
 
@@ -37,10 +37,14 @@ export default function PageHero({
 
   return (
     <header
-      className={`relative overflow-hidden bg-black text-white border-b border-white/20 min-h-[580px] md:min-h-[640px] flex flex-col ${className}`}
+      className={`relative overflow-hidden text-white border-b border-white/20 min-h-[580px] md:min-h-[640px] flex flex-col ${className}`}
+      style={{
+        background:
+          "radial-gradient(circle at 32% 12%, rgba(50, 95, 185, 0.16), transparent 26%), radial-gradient(circle at 68% 35%, rgba(60, 111, 255, 0.08), transparent 22%), linear-gradient(90deg, #020611 0%, #031128 18%, #0a1b3c 52%, #051634 76%, #031126 100%)",
+      }}
     >
-      <HeroGlow />
-      <div className={`relative z-10 flex-1 flex flex-col justify-center ${CONTENT_CONTAINER_CLASS} pt-32 pb-20 md:pt-40 md:pb-24`}>
+      <HeroBackgroundFXEditorial />
+      <div className={`hero-content-entrance relative z-10 flex-1 flex flex-col justify-center ${CONTENT_CONTAINER_CLASS} pt-32 pb-20 md:pt-40 md:pb-24`}>
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-start md:items-center">
           {avatar && (
             <div className="shrink-0">

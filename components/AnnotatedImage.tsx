@@ -57,6 +57,7 @@ export type AnnotatedImageProps = {
   onClick?: () => void;
   inModal?: boolean;
   className?: string;
+  noBorder?: boolean;
 };
 
 function AnnotatedImageInner({
@@ -71,6 +72,7 @@ function AnnotatedImageInner({
   onClick,
   inModal = false,
   className = "",
+  noBorder = false,
 }: AnnotatedImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -138,7 +140,7 @@ function AnnotatedImageInner({
       <div
         ref={containerRef}
         onClick={isClickable ? onClick : undefined}
-        className={`relative overflow-hidden rounded-2xl bg-white border border-gray-200 ${
+        className={`relative overflow-hidden rounded-2xl bg-white ${noBorder ? "" : "border border-gray-200"} ${
           isClickable ? "cursor-pointer hover:scale-[1.01] transition-transform duration-200" : ""
         } ${containerCls}`}
       >

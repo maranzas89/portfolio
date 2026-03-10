@@ -139,13 +139,13 @@ const EXISTING_REALITY_ANNOTATIONS = [
   { id: 5, title: "Disconnected history", explanation: "Follow-up activity is separated from the main case context.", x: 88, y: 58, side: "left" as const },
   { id: 6, title: "Record-keeping focus", explanation: "The system captures data well, but offers limited workflow guidance.", x: 50, y: 92, side: "right" as const },
 ];
-const CPL_CROSS_PORTAL_IMG = "/images/calbright/CPL.svg";
+const CPL_CROSS_PORTAL_IMG = "/images/calbright/CPL2234.svg";
 const STUDENT_VIEW_IMG = "/images/calbright/student-submission.svg";
 const STAFF_VIEW_IMG = "/images/calbright/staff-view.svg";
 const STAFF_MANAGER_VIEW_IMG = "/images/calbright/staff-manager-view.svg";
 const STAFF_PORTAL_DASHBOARD_IMG = "/images/calbright/staff-portal-dashboard.svg";
 const ITERATION_IMGS = [
-  "/images/calbright/staff-enrollment-use-cases.svg",
+  "/images/calbright/12728.svg",
   "/images/calbright/iteration-1.svg",
   "/images/calbright/iteration-2.svg",
   "/images/calbright/iteration-4.svg",
@@ -390,7 +390,7 @@ export default function StaffPortalCaseStudyPage() {
         <HeroGlow />
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-8 md:pt-10 relative z-10">
           <ScrollReveal delay={0}>
-            <p className="text-sm text-white/60 font-bold tracking-widest uppercase mb-2">
+            <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">
               Calbright · Staff Portal 0→1
             </p>
           </ScrollReveal>
@@ -510,7 +510,7 @@ export default function StaffPortalCaseStudyPage() {
                 ].map((card) => (
                   <div
                     key={card.title}
-                    className="h-full flex flex-col p-6 bg-card border border-line rounded-2xl hover:border-blue-500 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow,border-color] duration-200 ease-out"
+                    className="h-full flex flex-col p-6 bg-card rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-200 ease-out"
                   >
                     <card.icon className="w-6 h-6 text-blue-500 mb-4" />
                     <h4 className="font-semibold text-text mb-2">{card.title}</h4>
@@ -530,43 +530,7 @@ export default function StaffPortalCaseStudyPage() {
               </div>
               <h3 className="text-3xl md:text-4xl font-semibold text-text mb-12">Existing Salesforce</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 items-stretch">
-                <ScrollReveal direction="right" className="md:order-2 flex flex-col gap-6">
-                  <div className="p-8 py-10 rounded-2xl bg-red-50 border border-red-100 min-h-[140px]">
-                    <h4 className="flex items-center gap-2 font-semibold text-red-800 mb-4">
-                      <AlertCircle className="w-5 h-5 shrink-0 text-red-600" />
-                      Existing Reality
-                    </h4>
-                    <p className="text-red-700/90 font-medium mb-4">
-                      Salesforce-heavy, fragmented tools, high learning curve. Staff juggled multiple systems to complete routine student operations.
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { label: "Hard-to-track ownership", icon: Search },
-                      { label: "Inconsistent workflows across teams", icon: GitMerge },
-                      { label: "Fragmented student context", icon: Puzzle },
-                      { label: "High context switching", icon: ArrowLeftRight },
-                    ].map(({ label, icon: Icon }) => (
-                      <div
-                        key={label}
-                        className="flex items-center gap-3 p-4 rounded-2xl bg-red-50 border border-red-100 text-red-700/90 text-sm font-medium"
-                      >
-                        <Icon className="w-5 h-5 shrink-0 text-red-600" />
-                        {label}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="px-8 pt-8 pb-[calc(2rem+5px)] rounded-2xl bg-emerald-50 border border-emerald-100">
-                    <h4 className="flex items-center gap-2 font-semibold text-emerald-800 mb-4">
-                      <Lightbulb className="w-5 h-5 shrink-0 text-emerald-600" />
-                      Opportunity
-                    </h4>
-                    <p className="text-emerald-700/90 font-medium">
-                      Role-aware internal portal optimized for student operations — one place for critical actions and context.
-                    </p>
-                  </div>
-                </ScrollReveal>
-                <ScrollReveal direction="left" className="flex-1 min-w-0 flex flex-col min-h-0">
+                <ScrollReveal direction="left" className="flex-1 min-w-0 flex flex-col min-h-0 md:order-1">
                   <AnnotatedImage
                     className="flex-1 min-h-0 flex flex-col min-w-0"
                     src={EXISTING_REALITY_IMG}
@@ -577,6 +541,7 @@ export default function StaffPortalCaseStudyPage() {
                     variant="neutral"
                     thumbnailContainerClass="flex-1 min-h-[200px] md:min-h-[320px] w-full min-h-0"
                     objectFit="cover"
+                    noBorder
                     onClick={() =>
                       setPlaceholderModal({
                         open: true,
@@ -595,6 +560,42 @@ export default function StaffPortalCaseStudyPage() {
                       })
                     }
                   />
+                </ScrollReveal>
+                <ScrollReveal direction="right" className="md:order-2 flex flex-col gap-6">
+                  <div className="p-8 py-10 rounded-2xl bg-red-50 min-h-[140px]">
+                    <h4 className="flex items-center gap-2 font-semibold text-red-800 mb-4">
+                      <AlertCircle className="w-5 h-5 shrink-0 text-red-600" />
+                      Existing Reality
+                    </h4>
+                    <p className="text-red-700/90 font-medium mb-4">
+                      Salesforce-heavy, fragmented tools, high learning curve. Staff juggled multiple systems to complete routine student operations.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { label: "Hard-to-track ownership", icon: Search },
+                      { label: "Inconsistent workflows across teams", icon: GitMerge },
+                      { label: "Fragmented student context", icon: Puzzle },
+                      { label: "High context switching", icon: ArrowLeftRight },
+                    ].map(({ label, icon: Icon }) => (
+                      <div
+                        key={label}
+                        className="flex items-center gap-3 p-4 rounded-2xl bg-red-50 text-red-700/90 text-sm font-medium"
+                      >
+                        <Icon className="w-5 h-5 shrink-0 text-red-600" />
+                        {label}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="px-8 pt-8 pb-[calc(2rem+5px)] rounded-2xl bg-emerald-50">
+                    <h4 className="flex items-center gap-2 font-semibold text-emerald-800 mb-4">
+                      <Lightbulb className="w-5 h-5 shrink-0 text-emerald-600" />
+                      Opportunity
+                    </h4>
+                    <p className="text-emerald-700/90 font-medium">
+                      Role-aware internal portal optimized for student operations — one place for critical actions and context.
+                    </p>
+                  </div>
                 </ScrollReveal>
               </div>
             </ScrollReveal>
@@ -616,7 +617,7 @@ export default function StaffPortalCaseStudyPage() {
                   <div key={i}>
                     <div
                       onClick={() => openIterationModal(i - 1)}
-                      className="aspect-[4/3] min-h-[160px] md:min-h-[280px] rounded-2xl overflow-hidden w-full cursor-pointer bg-white border border-gray-200 hover:scale-[1.02] transition-transform duration-200 ease-out"
+                      className="aspect-[4/3] min-h-[160px] md:min-h-[280px] rounded-2xl overflow-hidden w-full cursor-pointer bg-white hover:scale-[1.02] transition-transform duration-200 ease-out"
                     >
                       <img
                         src={ITERATION_IMGS[i - 1]}
@@ -628,7 +629,7 @@ export default function StaffPortalCaseStudyPage() {
                   </div>
                 ))}
               </div>
-              <div className="p-6 rounded-2xl bg-amber-50/80 border border-amber-200 max-w-4xl">
+              <div className="p-6 rounded-2xl bg-amber-50/80 max-w-4xl">
                 <p className="text-amber-900 font-medium italic">
                   &quot;The initial design challenge looked like a dashboard problem, but stakeholder feedback revealed
                   it was really a workflow orchestration problem.&quot;
@@ -684,7 +685,7 @@ export default function StaffPortalCaseStudyPage() {
                   </div>
                 ))}
               </div>
-              <div className="px-8 pt-8 pb-[calc(2rem+5px)] rounded-2xl bg-emerald-50 border border-emerald-100 max-w-5xl">
+              <div className="px-8 pt-8 pb-[calc(2rem+5px)] rounded-2xl bg-emerald-50 max-w-5xl">
                 <h4 className="flex items-center gap-2 font-semibold text-emerald-800 mb-4">
                   <Lightbulb className="w-5 h-5 shrink-0 text-emerald-600" />
                   Key insights
@@ -788,14 +789,14 @@ export default function StaffPortalCaseStudyPage() {
                     <button
                       key={tab.id}
                       onClick={() => setCplTab(tab.id)}
-                      className={`text-left p-6 rounded-xl border cursor-pointer hover:translate-x-1 transition-[transform,border-color,background-color] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                      className={`text-left p-6 rounded-xl cursor-pointer hover:translate-x-1 transition-[transform,background-color,color] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
                         cplTab === tab.id
-                          ? "border-blue-500 bg-blue-50 border-l-4 border-l-blue-600"
-                          : "border-line hover:border-blue-500"
+                          ? "bg-blue-100"
+                          : "bg-slate-50/80"
                       }`}
                     >
-                      <span className="font-semibold text-text block mb-3">{tab.label}</span>
-                      <p className="text-sm text-muted leading-relaxed">{(tab as { desc?: React.ReactNode }).desc}</p>
+                      <span className={`block mb-3 ${cplTab === tab.id ? "text-[#333] font-bold" : "text-text font-semibold"}`}>{tab.label}</span>
+                      <p className={`text-sm leading-relaxed ${cplTab === tab.id ? "text-[#555] font-semibold" : "text-muted"}`}>{(tab as { desc?: React.ReactNode }).desc}</p>
                     </button>
                   ))}
                 </ScrollReveal>
@@ -806,11 +807,11 @@ export default function StaffPortalCaseStudyPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="relative flex-1 min-h-[480px] rounded-2xl bg-white overflow-hidden flex items-center justify-center cursor-pointer border border-gray-200 hover:scale-[1.02] transition-transform duration-200 ease-out"
+                  className={`relative flex-1 min-h-[480px] rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer hover:scale-[1.02] transition-transform duration-200 ease-out ${cplTab === "cpl-diagram" ? "bg-slate-200" : "bg-white"}`}
                   onClick={() => openPlaceholder(
                     cplTab === "cpl-diagram" ? "CPL Cross-Portal Workflow" : cplTab === "student" ? "Student View" : cplTab === "staff" ? "Staff View" : cplTab === "manager" ? "Staff Manager View" : `Product mockup — ${cplTab} view`,
                     cplTab === "cpl-diagram" ? (
-                      <div className="w-full bg-white flex justify-center items-center min-h-[50vh]">
+                      <div className="w-full bg-slate-200 flex justify-center items-center min-h-[50vh]">
                         <img src={CPL_CROSS_PORTAL_IMG} alt="CPL Cross-Portal Workflow" className="w-full h-auto max-h-[88vh] object-contain" />
                       </div>
                     ) : cplTab === "student" ? (
@@ -832,11 +833,11 @@ export default function StaffPortalCaseStudyPage() {
                   )}
                 >
                   {cplTab === "cpl-diagram" ? (
-                    <div className="absolute inset-0 bg-white overflow-hidden">
+                    <div className="absolute inset-0 bg-slate-200 overflow-hidden flex items-center justify-center">
                       <img
                         src={CPL_CROSS_PORTAL_IMG}
                         alt="CPL Cross-Portal Workflow"
-                        className="w-full h-full object-cover object-center scale-[1.2]"
+                        className="w-full h-full object-contain object-center scale-[1.32]"
                       />
                     </div>
                   ) : cplTab === "student" ? (

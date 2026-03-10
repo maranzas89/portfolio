@@ -232,6 +232,7 @@ function VisualPlaceholder({
   bgWhite,
   bgColor,
   border,
+  lightBorder,
 }: {
   onClick?: () => void;
   caption: string;
@@ -241,6 +242,7 @@ function VisualPlaceholder({
   bgWhite?: boolean;
   bgColor?: string;
   border?: boolean;
+  lightBorder?: boolean;
 }) {
   const bgClass = bgColor
     ? ""
@@ -250,7 +252,7 @@ function VisualPlaceholder({
         ? "bg-white"
         : "bg-[#E4E4E7]";
   const bgStyle = bgColor ? { backgroundColor: bgColor } : undefined;
-  const borderClass = noBorder ? "border-0" : "border border-gray-200";
+  const borderClass = noBorder ? "border-0" : lightBorder ? "border border-slate-100" : "border border-gray-200";
   return (
     <div className={onClick ? "cursor-pointer group" : ""} onClick={onClick}>
       <div
@@ -313,7 +315,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
         <HeroGlow />
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-8 md:pt-10 relative z-10">
           <Reveal direction="up" delay={0}>
-            <p className="text-sm text-white/60 font-bold tracking-widest uppercase mb-2">
+            <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">
               Calbright · Student Portal Redesign
             </p>
           </Reveal>
@@ -418,6 +420,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: LUCAS_DESOUZA_IMG, caption: "Student Persona 1" })}
                   caption="Student Persona 1"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={LUCAS_DESOUZA_IMG}
@@ -429,6 +432,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: KIMBERLEY_FLORES_IMG, caption: "Student Persona 2" })}
                   caption="Student Persona 2"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={KIMBERLEY_FLORES_IMG}
@@ -440,6 +444,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: STUDENT_JOURNEY_1_IMG, caption: "Early stage student journey" })}
                   caption="Early stage student journey"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={STUDENT_JOURNEY_1_IMG}
@@ -452,7 +457,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 2 — Legacy Experience */}
-          <section id="legacy-experience" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-stretch">
+          <section id="legacy-experience" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-stretch divide-y md:divide-y-0 md:divide-x divide-line">
             <Reveal direction="right" className="md:col-span-6 md:pr-6 flex flex-col">
               <AnnotatedImage
                 src={LEGACY_HOMEPAGE_IMG}
@@ -463,6 +468,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 className="flex-1 min-h-0 flex flex-col min-w-0"
                 thumbnailContainerClass="aspect-[4/3] min-h-[280px] md:min-h-[360px] flex-1 min-h-0"
                 objectFit="contain"
+                noBorder
               />
             </Reveal>
             <Reveal direction="left" className="md:col-span-6 md:pl-6 flex flex-col">
@@ -479,7 +485,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
               <div className="mt-auto">
                 <h4 className="text-sm font-semibold text-muted uppercase tracking-widest mb-4">Key Insights</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 bg-card/50 border border-line/80 rounded-xl">
+                <div className="p-4 bg-card/50 rounded-xl">
                   <div className="flex items-center gap-2 mb-2">
                     <Info className="w-5 h-5 text-blue-500 shrink-0" />
                     <h5 className="text-sm font-semibold text-text">Information ≠ Guidance</h5>
@@ -488,7 +494,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     Students could see their coursework and updates, but the portal rarely told them what action to take next.
                   </p>
                 </div>
-                <div className="p-4 bg-card/50 border border-line/80 rounded-xl">
+                <div className="p-4 bg-card/50 rounded-xl">
                   <div className="flex items-center gap-2 mb-2">
                     <Map className="w-5 h-5 text-blue-500 shrink-0" />
                     <h5 className="text-sm font-semibold text-text">System-Driven Navigation</h5>
@@ -497,7 +503,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     The navigation reflected internal service categories instead of how students actually progress through learning.
                   </p>
                 </div>
-                <div className="p-4 bg-card/50 border border-line/80 rounded-xl">
+                <div className="p-4 bg-card/50 rounded-xl">
                   <div className="flex items-center gap-2 mb-2">
                     <Route className="w-5 h-5 text-blue-500 shrink-0" />
                     <h5 className="text-sm font-semibold text-text">Missing Next-Step Signals</h5>
@@ -506,7 +512,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     Critical moments like onboarding, orientation, and course start lacked clear next-step cues.
                   </p>
                 </div>
-                <div className="p-4 bg-card/50 border border-line/80 rounded-xl">
+                <div className="p-4 bg-card/50 rounded-xl">
                   <div className="flex items-center gap-2 mb-2">
                     <Brain className="w-5 h-5 text-blue-500 shrink-0" />
                     <h5 className="text-sm font-semibold text-text">High Cognitive Load</h5>
@@ -521,7 +527,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
           </section>
 
           {/* Section 3 — Opportunity */}
-          <section id="opportunity" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-start -mt-[10px]">
+          <section id="opportunity" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-start -mt-[10px] md:divide-x md:divide-line">
             <Reveal direction="right" className="md:col-span-5 md:pr-12 order-1">
               <div className="flex items-center gap-3 mb-4">
                 <Compass className="w-6 h-6 text-blue-500" />
@@ -567,6 +573,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 onClick={() => openPreview({ src: ONBOARDING_JOURNEY_IMG, caption: "Cross-functional mapping of the student onboarding journey" })}
                 caption="Cross-functional mapping of the student onboarding journey"
                 bgWhite
+                noBorder
               >
                 <img
                   src={ONBOARDING_JOURNEY_IMG}
@@ -594,6 +601,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 <VisualPlaceholder
                   onClick={() => openPreview({ src: DESIGN_SYSTEM_OVERVIEW_IMG, caption: "Design system overview board" })}
                   caption="Design system overview board"
+                  noBorder
                 >
                   <img
                     src={DESIGN_SYSTEM_OVERVIEW_IMG}
@@ -604,6 +612,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 <VisualPlaceholder
                   onClick={() => openPreview({ src: COMPONENT_LIBRARY_IMG, caption: "Component library (On Left Nav)" })}
                   caption="Component library (On Left Nav)"
+                  noBorder
                 >
                   <img
                     src={COMPONENT_LIBRARY_IMG}
@@ -614,6 +623,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 <VisualPlaceholder
                   onClick={() => openPreview({ src: DESIGN_TOKENS_IMG, caption: "Design tokens" })}
                   caption="Design tokens"
+                  noBorder
                 >
                   <img
                     src={DESIGN_TOKENS_IMG}
@@ -652,6 +662,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: IA_DIAGRAM_IMG, caption: "Information architecture diagram" })}
                   caption="Information architecture diagram"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={IA_DIAGRAM_IMG}
@@ -663,6 +674,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: WIREFRAME_IMG, caption: "Low fidelity wireframes" })}
                   caption="Low fidelity wireframes"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={WIREFRAME_IMG}
@@ -674,6 +686,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: EARLY_PROTOTYPE_IMG, caption: "Early dashboard prototype" })}
                   caption="Early dashboard prototype"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={EARLY_PROTOTYPE_IMG}
@@ -703,6 +716,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: REVIEW_WORKSHOP_BOARD_IMG, caption: "Review workshop board" })}
                   caption="Review workshop board"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={REVIEW_WORKSHOP_BOARD_IMG}
@@ -714,6 +728,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: FEEDBACK_CLUSTERING_IMG, caption: "Feedback clustering diagram" })}
                   caption="Feedback clustering diagram"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={FEEDBACK_CLUSTERING_IMG}
@@ -738,30 +753,39 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
               <p className="text-muted text-base md:text-lg font-medium mb-8 max-w-3xl">
                 The redesigned homepage improved visual clarity and structured onboarding tasks.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <VisualPlaceholder
-                  onClick={() => openPreview({ src: BEFORE_REDESIGN_IMG, caption: "Before redesign" })}
-                  caption="Before redesign"
-                  bgWhite
-                  border
-                >
-                  <img
-                    src={BEFORE_REDESIGN_IMG}
-                    alt="Before redesign"
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                  />
-                </VisualPlaceholder>
-                <VisualPlaceholder
-                  onClick={() => openPreview({ src: AFTER_REDESIGN_IMG, caption: "After redesign" })}
-                  caption="After redesign"
-                  bgWhite
-                >
-                  <img
-                    src={AFTER_REDESIGN_IMG}
-                    alt="After redesign"
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                  />
-                </VisualPlaceholder>
+              <div className="grid grid-cols-2 gap-6 w-full">
+                <div>
+                  <div
+                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group bg-[#E4E4E7] flex items-center justify-center"
+                    onClick={() => openPreview({ src: BEFORE_REDESIGN_IMG, caption: "Before redesign" })}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && openPreview({ src: BEFORE_REDESIGN_IMG, caption: "Before redesign" })}
+                  >
+                    <img
+                      src={BEFORE_REDESIGN_IMG}
+                      alt="Before redesign"
+                      className="w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105"
+                    />
+                  </div>
+                  <p className="text-sm text-muted font-medium mt-4">Before redesign</p>
+                </div>
+                <div>
+                  <div
+                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group shadow-lg shadow-gray-300/60"
+                    onClick={() => openPreview({ src: AFTER_REDESIGN_IMG, caption: "After redesign" })}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && openPreview({ src: AFTER_REDESIGN_IMG, caption: "After redesign" })}
+                  >
+                    <img
+                      src={AFTER_REDESIGN_IMG}
+                      alt="After redesign"
+                      className="w-full h-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-105"
+                    />
+                  </div>
+                  <p className="text-sm text-muted font-medium mt-4">After redesign</p>
+                </div>
               </div>
             </Reveal>
           </section>
@@ -780,22 +804,22 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 Analytics revealed onboarding issues.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                <div className="p-6 bg-card border border-line rounded-2xl">
+                <div className="p-6 bg-card rounded-2xl">
                   <TrendingUp className="w-5 h-5 text-blue-500 mb-2" />
                   <p className="text-2xl font-semibold text-text mb-1">41%</p>
                   <p className="text-sm text-muted font-medium">Engagement rate</p>
                 </div>
-                <div className="p-6 bg-card border border-line rounded-2xl">
+                <div className="p-6 bg-card rounded-2xl">
                   <MousePointerClick className="w-5 h-5 text-blue-500 mb-2" />
                   <p className="text-2xl font-semibold text-text mb-1">12%</p>
                   <p className="text-sm text-muted font-medium">Rage click rate</p>
                 </div>
-                <div className="p-6 bg-card border border-line rounded-2xl">
+                <div className="p-6 bg-card rounded-2xl">
                   <Calendar className="w-5 h-5 text-blue-500 mb-2" />
                   <p className="text-2xl font-semibold text-text mb-1">58%</p>
                   <p className="text-sm text-muted font-medium">Orientation scheduling completion</p>
                 </div>
-                <div className="p-6 bg-card border border-line rounded-2xl">
+                <div className="p-6 bg-card rounded-2xl">
                   <CheckCircle className="w-5 h-5 text-blue-500 mb-2" />
                   <p className="text-2xl font-semibold text-text mb-1">46%</p>
                   <p className="text-sm text-muted font-medium">Onboarding completion</p>
@@ -806,6 +830,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: HEATMAP_IMG, caption: "Heatmap" })}
                   caption="Heatmap"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={HEATMAP_IMG}
@@ -817,7 +842,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: RAGE_CLICK_IMG, caption: "Rage click visualization" })}
                   caption="Rage click visualization"
                   bgWhite
-                  border
+                  lightBorder
                 >
                   <img
                     src={RAGE_CLICK_IMG}
@@ -829,7 +854,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: FUNNEL_DROPOFF_IMG, caption: "Funnel drop-off chart" })}
                   caption="Funnel drop-off chart"
                   bgWhite
-                  border
+                  noBorder
                 >
                   <img
                     src={FUNNEL_DROPOFF_IMG}
@@ -854,11 +879,12 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
               <p className="text-muted text-base md:text-lg font-medium mb-6 max-w-3xl">
                 Student focus groups were conducted. Students liked the visual redesign but struggled with progress clarity.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-line">
                 <VisualPlaceholder
                   onClick={() => openPreview({ src: AFFINITY_MAPPING_IMG, caption: "Affinity mapping board" })}
                   caption="Affinity mapping board"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={AFFINITY_MAPPING_IMG}
@@ -870,6 +896,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openPreview({ src: INTERVIEW_NOTES_CLUSTER_IMG, caption: "Interview notes cluster" })}
                   caption="Interview notes cluster"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={INTERVIEW_NOTES_CLUSTER_IMG}
@@ -900,6 +927,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   caption="A redesigned student journey aligning onboarding with the institution's competency-based learning model."
                   aspect="aspect-[21/9]"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={STRATEGY_DIAGRAM_IMG}
@@ -932,6 +960,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openDesignDirectionsModal(0)}
                   caption="Iteration 1"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={ITERATION_1_IMG}
@@ -943,6 +972,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openDesignDirectionsModal(1)}
                   caption="Iteration 2"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={ITERATION_2_IMG}
@@ -954,17 +984,19 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   onClick={() => openDesignDirectionsModal(2)}
                   caption="Iteration 3"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={ITERATION_3_IMG}
                     alt="Iteration 3"
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-center scale-[1.2] transition-transform duration-500 group-hover:scale-[1.26]"
                   />
                 </VisualPlaceholder>
                 <VisualPlaceholder
                   onClick={() => openDesignDirectionsModal(3)}
                   caption="Iteration 4"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={ITERATION_4_IMG}
@@ -997,12 +1029,13 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   </span>
                 ))}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start divide-y md:divide-y-0 md:divide-x divide-line">
                 <VisualPlaceholder
                   onClick={() => openPreview({ src: OLD_DYNAMIC_JOURNEY_MAP_IMG, caption: "Old Journey Map" })}
                   caption="Old Journey Map"
                   aspect="aspect-[16/10]"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={OLD_DYNAMIC_JOURNEY_MAP_IMG}
@@ -1015,6 +1048,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   caption="New Dynamic Journey Map"
                   aspect="aspect-[16/10]"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={NEW_DYNAMIC_JOURNEY_MAP_IMG}
@@ -1027,6 +1061,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   caption="Journey model diagram showing the milestone system"
                   aspect="aspect-[16/10]"
                   bgWhite
+                  noBorder
                 >
                   <img
                     src={JOURNEY_MODEL_DIAGRAM_IMG}

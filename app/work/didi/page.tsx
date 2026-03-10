@@ -270,7 +270,7 @@ export default function DidiCaseStudyPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-8">
             <Reveal direction="up" delay={0}>
-              <p className="text-sm text-white/60 font-bold tracking-widest uppercase mb-2">DiDi · Shaping an Enterprise Security Platform</p>
+              <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">DiDi · Shaping an Enterprise Security Platform</p>
             </Reveal>
             <Reveal direction="up" delay={100}>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight text-white mb-4 max-w-4xl">
