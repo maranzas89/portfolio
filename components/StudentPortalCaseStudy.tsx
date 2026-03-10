@@ -759,7 +759,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                 <div>
                   <div
-                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group bg-[#E4E4E7] flex items-center justify-center"
+                    className="aspect-[16/10] min-h-[200px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group bg-[#E4E4E7] flex items-center justify-center"
                     onClick={() => openPreview({ src: BEFORE_REDESIGN_IMG, caption: "Before redesign" })}
                     role="button"
                     tabIndex={0}
@@ -775,7 +775,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 </div>
                 <div>
                   <div
-                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group hover:shadow-lg hover:shadow-gray-300/60"
+                    className="aspect-[16/10] min-h-[200px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group hover:shadow-lg hover:shadow-gray-300/60"
                     onClick={() => openPreview({ src: AFTER_REDESIGN_IMG, caption: "After redesign" })}
                     role="button"
                     tabIndex={0}

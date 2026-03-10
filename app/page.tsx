@@ -31,9 +31,9 @@ export default function Page() {
     <div className="relative bg-bg text-text">
       {/* Navigation */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 w-full min-w-0 border-b border-gray-200 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full min-w-0 md:border-b md:border-gray-200 transition-all duration-300 ${
           scrolled
-            ? "bg-white/70 backdrop-blur-xl backdrop-saturate-150"
+            ? "bg-white/70 md:backdrop-blur-xl md:backdrop-saturate-150"
             : "bg-white"
         }`}
       >
@@ -67,24 +67,32 @@ export default function Page() {
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-        {/* Mobile menu dropdown - visible below 768px when open */}
+        {/* Mobile menu - full-page overlay when open (md:hidden) */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 w-full bg-white border-b border-gray-200 shadow-lg z-50">
-            <div className="max-w-[1600px] mx-auto w-full px-4 py-5 flex flex-col gap-4">
-              <div>
+          <div className="md:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 z-[60] bg-white">
+            <button
+              type="button"
+              className="absolute top-4 right-4 p-2 -m-2 text-text hover:text-muted transition-colors z-10"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X className="w-7 h-7" />
+            </button>
+            <div className="h-full overflow-y-auto flex flex-col pt-[calc(1rem+1.75rem+0.625rem)] px-6 gap-8">
+              <div className="flex flex-col gap-8">
                 <a
                   href="#work"
-                  className={`font-accent nav-link-underline font-semibold uppercase tracking-widest text-sm block hover:text-gray-700 transition-colors ${isWorkActive ? "active text-text" : "text-muted"}`}
+                  className={`font-accent nav-link-underline font-semibold uppercase tracking-widest text-base block hover:text-gray-700 transition-colors ${isWorkActive ? "active text-text" : "text-muted"}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Work
                 </a>
-                <div className="mt-3 ml-4 flex flex-col gap-3 border-l-2 border-gray-200 pl-4">
+                <div className="flex flex-col gap-8 ml-4 border-l-2 border-gray-200 pl-5">
                   {WORK_SUB_LINKS.map(({ href, label }) => (
                     <Link
                       key={href}
                       href={href}
-                      className="text-muted font-medium text-sm hover:text-text transition-colors"
+                      className="text-muted font-medium text-base hover:text-text transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {label}
@@ -94,21 +102,21 @@ export default function Page() {
               </div>
               <Link
                 href="/ai-explorations"
-                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
+                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 AI PROJECTS
               </Link>
               <Link
                 href="/experience"
-                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
+                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 ABOUT ME
               </Link>
               <Link
                 href="/kind-words"
-                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
+                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Kind Words
