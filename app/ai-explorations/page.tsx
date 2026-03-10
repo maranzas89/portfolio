@@ -74,6 +74,16 @@ const EXPLORATIONS = [
     icon: Rocket,
     gradient: "from-orange-500/20 to-rose-500/20",
   },
+  {
+    id: 7,
+    title: "Synchronize Orientation",
+    category: "Student-Staff Sync",
+    description:
+      "A Calbright-style orientation checklist demonstrating student-staff state sync via localStorage—students complete steps while staff monitors progress in real time.",
+    icon: Users,
+    gradient: "from-rose-500/20 to-violet-500/20",
+    href: "/ai-explorations/synchronize-orientation",
+  },
 ];
 
 const METHOD_CARDS = [
@@ -151,43 +161,60 @@ export default function AIExplorationsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {EXPLORATIONS.map((item, i) => {
                 const Icon = item.icon;
-                const isExpanded = expandedId === item.id;
+                const isExpanded = !("href" in item) && expandedId === item.id;
+                const hasHref = "href" in item && typeof (item as { href?: string }).href === "string";
+                const href = hasHref ? (item as { href: string }).href : null;
+
+                const cardContent = (
+                  <>
+                    <div
+                      className={`h-32 md:h-40 bg-gradient-to-br ${item.gradient} flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02]`}
+                    >
+                      <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
+                    </div>
+                    <div className="p-6 md:p-8">
+                      <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
+                        {item.category}
+                      </span>
+                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3 group-hover:text-blue-600 transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-muted text-sm md:text-base leading-relaxed">
+                        {item.description}
+                      </p>
+                      {!hasHref && isExpanded && (
+                        <div className="mt-6 pt-6 border-t border-line">
+                          <p className="text-muted text-sm leading-relaxed">
+                            This exploration combines structured prompting with iterative refinement to surface product directions that balance feasibility and ambition.
+                          </p>
+                        </div>
+                      )}
+                      <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
+                        {hasHref ? "Try demo →" : isExpanded ? "Collapse" : "Expand"} →
+                      </p>
+                    </div>
+                  </>
+                );
+
                 return (
                   <ScrollReveal key={item.id} direction="up" delay={i * 50}>
-                    <div
-                      onClick={() => toggleExpand(item.id)}
-                      className={`group bg-card border border-line rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-[#999999] hover:shadow-lg hover:-translate-y-1 ${
-                        isExpanded ? "ring-2 ring-blue-500/30 border-blue-200" : ""
-                      }`}
-                    >
-                      <div
-                        className={`h-32 md:h-40 bg-gradient-to-br ${item.gradient} flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02]`}
+                    {href ? (
+                      <Link
+                        href={href}
+                        className={`group bg-card border border-line rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-[#999999] hover:shadow-lg hover:-translate-y-1 block`}
                       >
-                        <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
+                        {cardContent}
+                      </Link>
+                    ) : (
+                      <div
+                        onClick={() => toggleExpand(item.id)}
+                        className={`group bg-card border border-line rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-[#999999] hover:shadow-lg hover:-translate-y-1 ${
+                          isExpanded ? "ring-2 ring-blue-500/30 border-blue-200" : ""
+                        }`}
+                      >
+                        {cardContent}
                       </div>
-                      <div className="p-6 md:p-8">
-                        <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
-                          {item.category}
-                        </span>
-                        <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3 group-hover:text-blue-600 transition-colors">
-                          {item.title}
-                        </h3>
-                        <p className="text-muted text-sm md:text-base leading-relaxed">
-                          {item.description}
-                        </p>
-                        {isExpanded && (
-                          <div className="mt-6 pt-6 border-t border-line">
-                            <p className="text-muted text-sm leading-relaxed">
-                              {/* TODO: Add detailed content per exploration when ready */}
-                              This exploration combines structured prompting with iterative refinement to surface product directions that balance feasibility and ambition.
-                            </p>
-                          </div>
-                        )}
-                        <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
-                          {isExpanded ? "Collapse" : "Expand"} →
-                        </p>
-                      </div>
-                    </div>
+                    )}
                   </ScrollReveal>
                 );
               })}
