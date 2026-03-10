@@ -475,6 +475,8 @@ section[id] {
 /* Light hero content entrance - secondary pages (About, Testimonials) */
 .hero-content-entrance {
   animation: heroContentEntrance 0.8s ease-out forwards;
+  /* Ensure touch targets work on mobile - avoid 300ms delay */
+  touch-action: manipulation;
 }
 
 @keyframes heroContentEntrance {

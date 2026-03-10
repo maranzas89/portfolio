@@ -78,6 +78,8 @@ export default function PageHero({
                   <a
                     href={secondaryCta.href}
                     download={secondaryCta.download === true ? "WenLiu_Resume.pdf" : secondaryCta.download || undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl border-2 border-white/50 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10 hover:border-white/70"
                   >
                     <Download size={18} strokeWidth={2} />

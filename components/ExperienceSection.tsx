@@ -188,13 +188,24 @@ const experiences = [
 
 const PDF_WIDTH = 612;
 const PDF_PAGE_HEIGHT = 792;
-const PDF_PAGES = 3; // accommodate multi-page resume
+const PDF_PAGES = 3;
+const MOBILE_BREAKPOINT = 768;
 
 function PdfPreviewContainer() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    check();
+    const mq = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    mq.addEventListener("change", check);
+    return () => mq.removeEventListener("change", check);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
     const el = containerRef.current;
     if (!el) return;
     const update = () => {
@@ -205,14 +216,28 @@ function PdfPreviewContainer() {
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [isMobile]);
 
   const totalHeight = PDF_PAGE_HEIGHT * PDF_PAGES;
+
+  if (!isMobile) {
+    return (
+      <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
+        <iframe
+          src="/FJ/WenLiu_Resume.pdf"
+          title="Resume preview"
+          className="w-full h-full min-h-[600px] border-0"
+        />
+      </div>
+    );
+  }
 
   return (
     <div
       ref={containerRef}
-      className="relative bg-white rounded-2xl overflow-x-hidden overflow-y-auto aspect-[3/4] max-h-[1100px] min-h-[400px] md:min-h-[600px] w-full max-w-full min-w-0 mb-8 -mx-4 sm:-mx-6 md:mx-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-slate-100 [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full"
+      className="relative bg-white rounded-2xl overflow-x-hidden overflow-y-auto mb-8
+        aspect-[3/4] max-h-[1100px] min-h-[400px] -mx-4 sm:-mx-6
+        [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-slate-100 [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full"
     >
       <div
         className="origin-top-left"
@@ -549,7 +574,7 @@ export default function ExperienceSection() {
         </section>
 
         {/* Download Resume Section */}
-        <section id="resume" className="mt-24 pb-12 overflow-x-hidden">
+        <section id="resume" className="mt-24 pb-12">
           <div className="mb-12 flex items-center gap-4">
             <h3 className="font-accent text-3xl font-extrabold tracking-tight text-slate-900">Resume</h3>
             <div className="h-px bg-slate-200 flex-1 mt-2" />
@@ -561,6 +586,8 @@ export default function ExperienceSection() {
           <a
             href="/FJ/WenLiu_Resume.pdf"
             download="WenLiu_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700 mb-8"
           >
             <Download className="w-5 h-5" />
