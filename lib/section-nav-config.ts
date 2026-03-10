@@ -38,3 +38,12 @@ export const DIDI_SECTIONS: SectionItem[] = [
   { id: "solutions", label: "04. Solutions" },
   { id: "impact", label: "05. Impact" },
 ];
+
+export const EXPERIENCE_SECTIONS: SectionItem[] = [
+  { id: "summary", label: "02. Summary" },
+  { id: "core-competencies", label: "03. Core Competencies" },
+  { id: "professional-experience", label: "04. Professional Experience" },
+  { id: "toolkit", label: "05. AI-Native Toolkit" },
+  { id: "education", label: "06. Education" },
+  { id: "resume", label: "07. Resume" },
+];

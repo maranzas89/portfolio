@@ -30,16 +30,6 @@ import {
   Download,
 } from "lucide-react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-
-const ResumePdfPreview = dynamic(() => import("@/components/ResumePdfPreview"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center min-h-[500px] bg-slate-100/50 rounded-2xl text-slate-500">
-      Loading resume…
-    </div>
-  ),
-});
 
 const summaries = [
   {
@@ -123,6 +113,7 @@ const experiences = [
     id: "calbright",
     company: "Calbright College",
     logoIcon: GraduationCap,
+    logoImg: "/images/calbright-logo.png",
     logoColor: "from-blue-500 to-indigo-500",
     logoBg: "bg-white",
     logoTextColor: "text-blue-600",
@@ -149,6 +140,7 @@ const experiences = [
     id: "didi",
     company: "DiDi",
     logoIcon: ShieldCheck,
+    logoImg: "/images/didi-logo.png",
     logoColor: "from-blue-500 to-indigo-500",
     logoBg: "bg-white",
     logoTextColor: "text-blue-600",
@@ -172,6 +164,7 @@ const experiences = [
     id: "cisco",
     company: "Cisco",
     logoIcon: Network,
+    logoImg: "/images/cisco-logo.png",
     logoColor: "from-blue-500 to-indigo-500",
     logoBg: "bg-white",
     logoTextColor: "text-blue-600",
@@ -201,7 +194,7 @@ export default function ExperienceSection() {
 
       <div className={`${CONTENT_CONTAINER_CLASS} relative z-10`}>
         {/* Header Section */}
-        <div className="mb-12">
+        <section id="career-profile" className="mb-12">
           <div className="font-accent inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-semibold tracking-wide uppercase mb-4">
             <Briefcase size={14} />
             <span>Career Profile</span>
@@ -212,10 +205,10 @@ export default function ExperienceSection() {
           <p className="text-lg text-slate-500 max-w-4xl leading-relaxed">
             Senior Product Designer | AI Systems, Enterprise Workflow Architecture & Product Strategy
           </p>
-        </div>
+        </section>
 
         {/* Summary Section */}
-        <div className="mb-16">
+        <section id="summary" className="mb-16">
           <h3 className="font-accent text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
             <Award className="text-blue-500" size={22} /> Summary
           </h3>
@@ -235,10 +228,10 @@ export default function ExperienceSection() {
               );
             })}
           </div>
-        </div>
+        </section>
 
         {/* Core Competencies Section */}
-        <div className="mb-20">
+        <section id="core-competencies" className="mb-20">
           <h3 className="font-accent text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
             <Zap className="text-blue-500" size={22} /> Core Competencies
           </h3>
@@ -259,9 +252,10 @@ export default function ExperienceSection() {
               );
             })}
           </div>
-        </div>
+        </section>
 
         {/* Timeline Header Section */}
+        <section id="professional-experience">
         <div className="mb-12 flex items-center gap-4">
           <h3 className="font-accent text-3xl font-extrabold tracking-tight text-slate-900">
             Professional Experience
@@ -285,18 +279,26 @@ export default function ExperienceSection() {
                 >
                   {/* Left Column: Logo & Timeline Node */}
                   <div className="relative z-10 flex-shrink-0 flex items-start pl-2 md:pl-4">
-                    <div
-                      className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl ${exp.logoBg} border border-white shadow-sm flex items-center justify-center relative overflow-hidden transition-transform duration-500 group-hover:scale-110 group-hover:shadow-md z-10 ring-4 ring-[#FAFAFA]`}
-                    >
+                    {exp.logoImg ? (
+                      <img
+                        src={exp.logoImg}
+                        alt={exp.company}
+                        className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] object-contain rounded-2xl shadow-md group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10"
+                      />
+                    ) : (
                       <div
-                        className={`absolute inset-0 bg-gradient-to-br ${exp.logoColor} opacity-10`}
-                      />
-                      <LogoIcon
-                        size={24}
-                        strokeWidth={1.5}
-                        className={`${exp.logoTextColor} relative z-10`}
-                      />
-                    </div>
+                        className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl ${exp.logoBg} border border-white shadow-sm flex items-center justify-center relative overflow-hidden transition-transform duration-500 group-hover:scale-110 group-hover:shadow-md z-10 ring-4 ring-[#FAFAFA]`}
+                      >
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-br ${exp.logoColor} opacity-10`}
+                        />
+                        <LogoIcon
+                          size={24}
+                          strokeWidth={1.5}
+                          className={`${exp.logoTextColor} relative z-10`}
+                        />
+                      </div>
+                    )}
                   </div>
 
                   {/* Right Column: Content Card */}
@@ -381,7 +383,7 @@ export default function ExperienceSection() {
           {/* Early Career Note */}
           <div className="relative flex flex-col md:flex-row gap-6 md:gap-10 mt-12 group cursor-default">
             <div className="relative z-10 flex-shrink-0 flex items-start pl-2 md:pl-4">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:shadow-md z-10 ring-4 ring-[#FAFAFA]">
+              <div className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10">
                 <Building2 size={24} strokeWidth={1.5} className="text-slate-400 relative z-10" />
               </div>
             </div>
@@ -414,9 +416,10 @@ export default function ExperienceSection() {
             </div>
           </div>
         </div>
+        </section>
 
         {/* AI-Native Builder & Technical Toolkit Section */}
-        <div className="mt-24">
+        <section id="toolkit" className="mt-24">
           <div className="mb-12 flex items-center gap-4">
             <h3 className="font-accent text-3xl font-extrabold tracking-tight text-slate-900">
               AI-Native Design Practice & Toolkit
@@ -468,10 +471,10 @@ export default function ExperienceSection() {
               );
             })}
           </div>
-        </div>
+        </section>
 
         {/* Education Section */}
-        <div className="mt-24">
+        <section id="education" className="mt-24">
           <div className="mb-12 flex items-center gap-4">
             <h3 className="font-accent text-3xl font-extrabold tracking-tight text-slate-900">Education</h3>
             <div className="h-px bg-slate-200 flex-1 mt-2" />
@@ -496,30 +499,34 @@ export default function ExperienceSection() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Download Resume Section */}
-        <div className="mt-24 pb-12">
+        <section id="resume" className="mt-24 pb-12">
           <div className="mb-12 flex items-center gap-4">
             <h3 className="font-accent text-3xl font-extrabold tracking-tight text-slate-900">Resume</h3>
             <div className="h-px bg-slate-200 flex-1 mt-2" />
           </div>
 
-          <p className="text-slate-500 text-base md:text-lg leading-relaxed mb-8">
+          <p className="text-slate-500 text-base md:text-lg leading-relaxed mb-6">
             A concise overview of my experience, scope, and selected impact across product design, systems thinking, and platform work.
           </p>
-          <div className="bg-white border border-slate-200/60 rounded-2xl overflow-hidden mb-8">
-            <ResumePdfPreview src="/WenLiu_Resume.pdf" className="min-h-[500px] rounded-2xl" />
-          </div>
           <a
             href="/WenLiu_Resume.pdf"
             download="WenLiu_Resume.pdf"
-            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700"
+            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700 mb-8"
           >
             <Download className="w-5 h-5" />
             Download Resume
           </a>
-        </div>
+          <div className="bg-white border border-slate-200/60 rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
+            <iframe
+              src="/WenLiu_Resume.pdf"
+              title="Resume preview"
+              className="w-full h-full min-h-[600px] border-0"
+            />
+          </div>
+        </section>
       </div>
     </div>
   );

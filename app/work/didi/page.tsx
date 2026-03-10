@@ -582,7 +582,15 @@ export default function DidiCaseStudyPage() {
 
         {/* 5. Validation / Outcomes — full-bleed like Hero */}
         <Reveal direction="up">
-          <section id="impact" className="relative left-1/2 -translate-x-1/2 w-screen max-w-none bg-black text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/20">
+          <section
+            id="impact"
+            className="relative left-1/2 -translate-x-1/2 w-screen max-w-none text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/10"
+            style={{
+              background:
+                "radial-gradient(circle at 32% 12%, rgba(50, 95, 185, 0.22), transparent 26%), linear-gradient(90deg, #020611 0%, #031128 18%, #0a1b3c 52%, #051634 76%, #031126 100%)",
+            }}
+          >
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[length:32px_32px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
             <HeroGlow />
             <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
               <div className="flex items-center gap-3 mb-4">
