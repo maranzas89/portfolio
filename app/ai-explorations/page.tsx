@@ -17,6 +17,7 @@ import {
   Compass,
   Gauge,
   Users,
+  Phone,
 } from "lucide-react";
 
 const EXPLORATIONS = [
@@ -83,6 +84,17 @@ const EXPLORATIONS = [
     icon: Users,
     gradient: "from-rose-500/20 to-violet-500/20",
     href: "/ai-explorations/synchronize-orientation",
+  },
+  {
+    id: 8,
+    title: "Dialpad Modal",
+    category: "Staff Portal",
+    description:
+      "A staff-facing dialpad modal for calling students directly from the portal—streamlining outreach, case follow-ups, and student support without leaving the workflow.",
+    icon: Phone,
+    gradient: "from-teal-500/20 to-blue-500/20",
+    href: "/ai-explorations/dialpad-modal",
+    ctaLabel: "Try demo",
   },
 ];
 
@@ -165,6 +177,7 @@ export default function AIExplorationsPage() {
                 const isExpanded = !("href" in item) && expandedId === item.id;
                 const hasHref = "href" in item && typeof (item as { href?: string }).href === "string";
                 const href = hasHref ? (item as { href: string }).href : null;
+                const ctaLabel = "ctaLabel" in item ? (item as { ctaLabel?: string }).ctaLabel : null;
 
                 const cardContent = (
                   <>
@@ -191,7 +204,7 @@ export default function AIExplorationsPage() {
                         </div>
                       )}
                       <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
-                        {hasHref ? "Try demo →" : isExpanded ? "Collapse" : "Expand"} →
+                        {hasHref ? `${ctaLabel || "Try demo"} →` : isExpanded ? "Collapse" : "Expand"} →
                       </p>
                     </div>
                   </>
