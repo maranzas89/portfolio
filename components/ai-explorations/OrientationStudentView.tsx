@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useMounted } from "@/lib/hooks/useMounted";
 import OrientationModal from "./OrientationModal";
 
 export type StepStatus = "not-started" | "in-progress" | "done" | "blocked";
@@ -174,7 +175,7 @@ export default function OrientationStudentView() {
   const [steps, setSteps] = useState<OrientationStep[]>(DEFAULT_STEPS);
   const [underReviewStepIds, setUnderReviewStepIds] = useState<string[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<Record<string, { name: string; dataUrl: string }>>({});
-
+  const mounted = useMounted();
   const hasHydratedRef = useRef(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -218,11 +219,15 @@ export default function OrientationStudentView() {
     const total = requiredSteps.length || 1;
     return Math.round((completedRequired / total) * 100);
   }, [requiredSteps.length, completedRequired]);
-  const dueInDays = useMemo(() => daysUntil(orientation.overallDueDate), [orientation.overallDueDate]);
+  const dueInDays = useMemo(
+    () => (mounted ? daysUntil(orientation.overallDueDate) : 0),
+    [orientation.overallDueDate, mounted]
+  );
   const deadlineLabel = useMemo(() => {
+    if (!mounted) return "—";
     if (dueInDays >= 0) return `${dueInDays} days remaining`;
     return `Past due by ${Math.abs(dueInDays)} days`;
-  }, [dueInDays]);
+  }, [dueInDays, mounted]);
   const nextStep = useMemo(() => pickNextStep(steps), [steps]);
 
   const [openStepId, setOpenStepId] = useState<string | null>(null);
@@ -303,7 +308,7 @@ export default function OrientationStudentView() {
           <div className="rounded-2xl border border-[var(--cal-border)] bg-[var(--cal-surface)] p-5 shadow-sm">
             <div className="text-xs font-semibold uppercase tracking-wide text-[var(--cal-muted)]">Deadline</div>
             <div className="mt-1 text-lg font-semibold text-[var(--cal-navy)]">
-              {formatDate(orientation.overallDueDate)}
+              {mounted ? formatDate(orientation.overallDueDate) : "—"}
             </div>
             <div className="mt-2 text-sm text-[var(--cal-muted)]">{deadlineLabel}</div>
           </div>
@@ -392,7 +397,7 @@ export default function OrientationStudentView() {
           <div className="mt-5 space-y-3">
             {requiredSteps.map((s) => {
               const ui = statusUI(s.status);
-              const overdue = s.dueDate ? daysUntil(s.dueDate) < 0 : false;
+              const overdue = mounted && s.dueDate ? daysUntil(s.dueDate) < 0 : false;
               const isDone = s.status === "done";
               return (
                 <div
@@ -422,7 +427,7 @@ export default function OrientationStudentView() {
                       </span>
                       {s.dueDate ? (
                         <span className={`text-xs ${overdue ? "text-[#8A1F1F]" : "text-[var(--cal-muted)]"}`}>
-                          {overdue ? "Overdue" : "Due"} {formatDate(s.dueDate)}
+                          {overdue ? "Overdue" : "Due"} {mounted ? formatDate(s.dueDate) : "—"}
                         </span>
                       ) : null}
                     </div>

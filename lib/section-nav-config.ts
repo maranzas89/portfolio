@@ -15,7 +15,7 @@ export const STUDENT_PORTAL_SECTIONS: SectionItem[] = [
   { id: "student-journey", label: "12. Student Journey 2.0" },
   { id: "milestone-dashboard", label: "13. Milestone Dashboard" },
   { id: "impact", label: "14. Impact" },
-  { id: "interactive-prototype", label: "15. Interactive Prototype" },
+  { id: "reflection", label: "15. Reflection" },
 ];
 
 export const STAFF_PORTAL_SECTIONS: SectionItem[] = [
@@ -35,8 +35,14 @@ export const DIDI_SECTIONS: SectionItem[] = [
   { id: "challenge", label: "01. Challenge" },
   { id: "system-thinking", label: "02. System Thinking" },
   { id: "approach-ia", label: "03. Approach & IA" },
-  { id: "solutions", label: "04. Solutions" },
-  { id: "impact", label: "05. Impact" },
+  { id: "systematized", label: "04. Design System" },
+  { id: "solutions", label: "05. Solutions" },
+  { id: "simplifying-flow", label: "06. Workflow Simplification" },
+  { id: "survey-modal", label: "07. Reframing Feedback" },
+  { id: "system-expansion", label: "08. System Expansion" },
+  { id: "staff-ownership", label: "09. Staff-Level Ownership" },
+  { id: "impact", label: "10. Impact" },
+  { id: "reflection", label: "11. Reflection" },
 ];
 
 export const EXPERIENCE_SECTIONS: SectionItem[] = [

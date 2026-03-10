@@ -25,6 +25,7 @@ import {
   MousePointerClick,
   Calendar,
   CheckCircle,
+  Quote,
 } from "lucide-react";
 
 const PLACEHOLDER_IMG = "https://placehold.co/1200x800/f8fafc/64748b?text=Replace+Me";
@@ -1022,8 +1023,8 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 Introducing Student Journey 2.0
               </h3>
               <div className="text-muted text-base md:text-lg font-medium mb-6 max-w-3xl space-y-1">
-                <p>Inspiration from platforms such as Canvas and Salesforce Trailhead.</p>
-                <p>Milestone framework introduced.</p>
+                <p>Inspiration from platforms such as Canvas and Salesforce Trailhead</p>
+                <p>Milestone framework introduced</p>
               </div>
               <div className="mb-6 flex flex-wrap gap-2">
                 {["Onboarding", "First Assessment", "Paced Timeline", "Competencies", "Diligent Milestone"].map((m) => (
@@ -1089,18 +1090,17 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
               <p className="text-muted text-base md:text-lg font-medium mb-8 max-w-3xl">
                 To reduce onboarding confusion and improve progress visibility, the dashboard was redesigned around a milestone model that surfaces key learning checkpoints and actionable next steps.
               </p>
-              <VisualPlaceholder
-                onClick={() => openPreview({ src: MILESTONE_DASHBOARD_IMG, caption: "Milestones visualize progress across the learning journey and guide students toward the next critical action." })}
-                caption="Milestones visualize progress across the learning journey and guide students toward the next critical action."
-                aspect="aspect-[21/9]"
-                bgWhite
-              >
-                <img
-                  src={MILESTONE_DASHBOARD_IMG}
-                  alt="Milestones visualize progress across the learning journey and guide students toward the next critical action."
-                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
-              </VisualPlaceholder>
+              <div>
+                <a
+                  href="https://xd.adobe.com/view/e1dbb3d2-600f-43c9-86ea-3d1c762a74fb-b488/?fullscreen"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-xl font-medium text-white transition hover:bg-blue-700"
+                >
+                  Explore Prototype
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+              </div>
             </Reveal>
           </section>
 
@@ -1135,12 +1135,17 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">67%</span>
-                      <span className="text-xl lg:text-2xl text-white/50 line-through mb-2">41%</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2">Engagement rate improvement</span>
                     </div>
-                    <div className="h-3 rounded-full bg-white/10 overflow-hidden">
-                      <div className="h-full flex">
-                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "41%" }} />
-                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "26%" }} />
+                    <p className="text-white/60 text-sm font-medium mb-4">41% → 67%</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
+                        <span>Before</span>
+                        <span>After</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden flex">
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "67%" }} />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "33%" }} />
                       </div>
                     </div>
                   </div>
@@ -1151,12 +1156,17 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">84%</span>
-                      <span className="text-xl lg:text-2xl text-white/50 line-through mb-2">58%</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2">Orientation scheduling completion</span>
                     </div>
-                    <div className="h-3 rounded-full bg-white/10 overflow-hidden">
-                      <div className="h-full flex">
-                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "58%" }} />
-                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "26%" }} />
+                    <p className="text-white/60 text-sm font-medium mb-4">58% → 84%</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
+                        <span>Before</span>
+                        <span>After</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden flex">
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "84%" }} />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "16%" }} />
                       </div>
                     </div>
                   </div>
@@ -1167,12 +1177,17 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">78%</span>
-                      <span className="text-xl lg:text-2xl text-white/50 line-through mb-2">46%</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2">Onboarding completion rate</span>
                     </div>
-                    <div className="h-3 rounded-full bg-white/10 overflow-hidden">
-                      <div className="h-full flex">
-                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "46%" }} />
-                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "32%" }} />
+                    <p className="text-white/60 text-sm font-medium mb-4">46% → 78%</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
+                        <span>Before</span>
+                        <span>After</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden flex">
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "78%" }} />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "22%" }} />
                       </div>
                     </div>
                   </div>
@@ -1183,13 +1198,17 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">4.6</span>
-                      <span className="text-xl text-white/60 mb-2">/ 5</span>
-                      <span className="text-xl lg:text-2xl text-white/50 line-through mb-2">3.8</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2">Hotjar satisfaction score</span>
                     </div>
-                    <div className="h-3 rounded-full bg-white/10 overflow-hidden">
-                      <div className="h-full flex">
-                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "76%" }} />
-                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "16%" }} />
+                    <p className="text-white/60 text-sm font-medium mb-4">3.8/5 → 4.6/5</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
+                        <span>Before</span>
+                        <span>After</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden flex">
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "92%" }} />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "8%" }} />
                       </div>
                     </div>
                   </div>
@@ -1198,28 +1217,19 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
             </section>
           </Reveal>
 
-          {/* Section 15 — Interactive Prototype */}
-          <section id="interactive-prototype" className="text-center max-w-2xl mx-auto">
+          {/* Section 15 — Reflection */}
+          <section id="reflection">
             <Reveal direction="up">
-              <div className="flex items-center gap-3 justify-center mb-4">
-                <Target className="w-6 h-6 text-blue-500" />
-                <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">15. Interactive Prototype</h2>
+              <div className="flex items-center gap-2 mb-2">
+                <Quote className="w-4 h-4 text-blue-600 shrink-0" />
+                <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">15. Reflection</h2>
               </div>
-              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6">
-                Interactive Prototype
-              </h3>
-              <p className="text-muted text-base font-medium mb-8">
-                Explore the interactive prototype to experience the redesigned student journey.
-              </p>
-              <a
-                href="https://xd.adobe.com/view/e1dbb3d2-600f-43c9-86ea-3d1c762a74fb-b488/?fullscreen"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-xl font-medium text-white transition hover:bg-blue-700"
-              >
-                Explore Prototype
-                <ArrowRight className="w-5 h-5" />
-              </a>
+              <blockquote className="text-xl md:text-2xl font-medium text-text leading-relaxed max-w-5xl italic">
+                &quot;This project started as a student portal redesign, but evolved into a broader experience strategy
+                challenge — creating clearer guidance across onboarding, orientation, and early academic milestones. My role
+                was not only to improve usability, but to translate institutional complexity into a journey students could
+                navigate with greater confidence and less cognitive burden.&quot;
+              </blockquote>
             </Reveal>
           </section>
 

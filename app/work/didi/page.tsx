@@ -10,7 +10,7 @@ import CalbrightCaseStudyTabs from "@/components/CalbrightCaseStudyTabs";
 import SectionNav from "@/components/SectionNav";
 import { DIDI_SECTIONS } from "@/lib/section-nav-config";
 import AnimatedWorkflowHero from "@/components/AnimatedWorkflowHero";
-import { EyeOff, GitMerge, TrendingDown, AlertCircle, Shield, GitBranch, BarChart3, Layers, LayoutGrid, Crown } from "lucide-react";
+import { EyeOff, GitMerge, TrendingDown, AlertCircle, Shield, GitBranch, BarChart3, Layers, LayoutGrid, Crown, Quote, Target, CheckCircle, TrendingUp, Zap, Rocket } from "lucide-react";
 
 /* --- Image Preview Modal --- */
 function ImagePreviewModal({
@@ -19,12 +19,14 @@ function ImagePreviewModal({
   src,
   placeholder,
   caption,
+  fillImage,
 }: {
   open: boolean;
   onClose: () => void;
   src?: string;
   placeholder?: string;
   caption?: string;
+  fillImage?: boolean;
 }) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -67,7 +69,17 @@ function ImagePreviewModal({
         </button>
         <div className="bg-white rounded-2xl overflow-hidden shadow-2xl max-h-[92vh] flex flex-col w-full">
           {src ? (
-            <img src={src} alt={caption ?? ""} className="w-full h-auto max-h-[88vh] object-contain" />
+            fillImage ? (
+              <div className="relative w-full h-[78vh] overflow-hidden">
+                <img
+                  src={src}
+                  alt={caption ?? ""}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+              </div>
+            ) : (
+              <img src={src} alt={caption ?? ""} className="w-full h-auto max-h-[88vh] object-contain" />
+            )
           ) : (
             <div className="w-full min-h-[50vh] max-h-[88vh] aspect-video flex items-center justify-center bg-[#E4E4E7] p-8">
               <span className="text-muted text-center">{placeholder ?? "Image placeholder"}</span>
@@ -244,12 +256,12 @@ function IconAward({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-type PreviewState = { open: true; src?: string; placeholder?: string; caption?: string } | { open: false };
+type PreviewState = { open: true; src?: string; placeholder?: string; caption?: string; fillImage?: boolean } | { open: false };
 
 export default function DidiCaseStudyPage() {
   const [preview, setPreview] = useState<PreviewState>({ open: false });
 
-  const openPreview = useCallback((opts: { src?: string; placeholder?: string; caption?: string }) => {
+  const openPreview = useCallback((opts: { src?: string; placeholder?: string; caption?: string; fillImage?: boolean }) => {
     setPreview({ open: true, ...opts });
   }, []);
   const closePreview = useCallback(() => setPreview({ open: false }), []);
@@ -263,6 +275,7 @@ export default function DidiCaseStudyPage() {
         src={preview.open ? preview.src : undefined}
         placeholder={preview.open ? preview.placeholder : undefined}
         caption={preview.open ? preview.caption : undefined}
+        fillImage={preview.open && preview.fillImage}
       />
       <header className="fixed top-0 left-0 right-0 z-50 w-full">
         <WorkNav embed />
@@ -271,7 +284,7 @@ export default function DidiCaseStudyPage() {
       <SectionNav sections={DIDI_SECTIONS} />
       <div className="pt-16 md:pt-32">
       {/* Hero Section */}
-      <header className="hero-image bg-black text-white pt-6 pb-12 md:pt-8 md:pb-16 relative overflow-hidden border-b border-white/20 min-h-[540px] md:min-h-[580px] min-h-[540px] md:min-h-[580px]">
+      <header className="hero-image bg-black text-white pt-6 pb-12 md:pt-8 md:pb-16 relative overflow-hidden border-b border-white/20 min-h-[540px] md:min-h-[580px]">
         <HeroGlow />
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-24 pt-8 md:pt-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
@@ -285,14 +298,14 @@ export default function DidiCaseStudyPage() {
               </h1>
             </Reveal>
             <Reveal reduceMotion={isMobile} direction="up" delay={200}>
-              <p className="text-xl md:text-2xl text-white/80 font-medium mb-6 max-w-3xl">
+              <p className="text-xl md:text-2xl text-white/80 font-medium mb-6 max-w-5xl">
                 Designed a unified policy engine that drove $6M in revenue while improving operational efficiency for enterprise security teams.
               </p>
             </Reveal>
             <Reveal reduceMotion={isMobile} direction="up" delay={210}>
               <div className="mb-6">
                 <p className="text-white/50 uppercase tracking-widest font-medium mb-1 text-sm">Security Operator Voice</p>
-                <p className="text-lg md:text-xl text-white/75 font-semibold italic max-w-3xl">&quot;Policy management across devices and departments is finally streamlined.&quot;</p>
+                <p className="text-lg md:text-xl text-white/75 font-semibold italic max-w-5xl">&quot;Policy management across devices and departments is finally streamlined.&quot;</p>
               </div>
             </Reveal>
             <Reveal reduceMotion={isMobile} direction="up" delay={225}>
@@ -384,7 +397,8 @@ export default function DidiCaseStudyPage() {
                 <AlertCircle className="w-6 h-6 text-blue-600 shrink-0" />
                 <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">01. Challenge</h2>
               </div>
-              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6">Fragmented. Error-prone.</h3>
+              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-4">Fragmented. Error-prone</h3>
+              <p className="text-muted text-base md:text-lg font-medium mb-6">A fragmented policy setup made configuration difficult to scan, easy to misconfigure, and costly to complete.</p>
               <div className="flex flex-col gap-4">
                 {[
                   { label: "Blind Spots: No department-level visibility.", icon: EyeOff },
@@ -393,7 +407,7 @@ export default function DidiCaseStudyPage() {
                 ].map(({ label, icon: Icon }) => (
                   <div
                     key={label}
-                    className="flex items-center gap-3 p-4 rounded-2xl bg-red-50 border border-red-100 text-red-700/90 text-sm font-medium"
+                    className="flex items-center gap-3 p-4 rounded-2xl bg-red-50 text-red-700/90 text-sm font-medium"
                   >
                     <Icon className="w-5 h-5 shrink-0 text-red-600" />
                     {label}
@@ -442,19 +456,19 @@ export default function DidiCaseStudyPage() {
                 <IconGitBranch />
                 <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">02. System Thinking</h2>
               </div>
-              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6">Re-architecting governance.</h3>
+              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6">Re-architecting governance</h3>
               <p className="text-muted text-base md:text-lg mb-8 font-medium">
                 Legacy systems mapped policies to devices, causing clashes. <span className="whitespace-nowrap">I introduced an <strong className="text-text">&quot;Aggregated Policies&quot;</strong> framework:</span>
               </p>
               <div className="space-y-4">
-                <div className="flex items-start gap-3 p-5 bg-blue-50 rounded-2xl border border-blue-100">
+                <div className="flex items-start gap-3 p-5 bg-blue-50 rounded-2xl">
                   <Shield className="w-5 h-5 shrink-0 text-blue-600 mt-0.5" />
                   <div>
                     <strong className="text-text block mb-1">Default Rules</strong>
                     <span className="text-muted text-sm font-medium">Inheritable organizational baselines.</span>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 p-5 bg-blue-50 rounded-2xl border border-blue-100">
+                <div className="flex items-start gap-3 p-5 bg-blue-50 rounded-2xl">
                   <GitBranch className="w-5 h-5 shrink-0 text-blue-600 mt-0.5" />
                   <div>
                     <strong className="text-text block mb-1">Exception Rules</strong>
@@ -474,7 +488,7 @@ export default function DidiCaseStudyPage() {
                 <IconLightbulb />
                 <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">03. Approach & IA</h2>
               </div>
-              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-8">Prioritization at scale.</h3>
+              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-8">Prioritization at scale</h3>
               <ul className="space-y-8 text-base md:text-lg text-muted font-medium relative pl-10 before:absolute before:inset-y-2 before:left-[15px] before:w-[2px] before:bg-blue-600">
                 <li className="relative pl-3">
                   <span className="absolute left-[-2.5rem] top-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-card border-2 border-blue-600 text-blue-600">
@@ -518,83 +532,278 @@ export default function DidiCaseStudyPage() {
           </Reveal>
         </section>
 
-        {/* 4. Solutions */}
-        <section id="solutions" className="space-y-16">
+        {/* 3b. Systematized for Scale — bridge between framing and execution */}
+        <section id="systematized" className="space-y-10">
           <Reveal reduceMotion={isMobile} direction="up">
-            <div className="text-center max-w-2xl mx-auto">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <IconCheckCircle />
-                <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">04. Solutions</h2>
-              </div>
-              <h3 className="text-3xl md:text-4xl font-semibold text-text">Streamlining the enterprise.</h3>
+            <div className="flex items-center gap-3 mb-4">
+              <IconLayers />
+              <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">04. Design System</h2>
             </div>
+            <h3 className="text-3xl md:text-4xl font-semibold text-text mb-4">Systematized for Scale</h3>
+            <p className="text-muted text-base md:text-lg font-medium mb-8 max-w-5xl">
+              Extended a self-authored design system across iterations to improve consistency, speed up delivery, and support more scalable product evolution.
+            </p>
           </Reveal>
           <Reveal reduceMotion={isMobile} direction="up" delay={100}>
-            <div className="bg-card rounded-[40px] p-6 md:p-10 border-0">
+            <div className="max-w-4xl">
               <div
-                className="relative rounded-[24px] overflow-hidden aspect-video bg-white cursor-pointer group "
-                onClick={() => openPreview({ src: "/images/didi/pdfpage923.svg", caption: "From Cluttered to Scannable" })}
+                className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line"
+                onClick={() => openPreview({ src: "/images/didi/pdfpage22.svg", caption: "EagleEye Design System" })}
               >
                 <img
-                  src="/images/didi/pdfpage923.svg"
-                  alt="From Cluttered to Scannable"
+                  src="/images/didi/pdfpage22.svg"
+                  alt="EagleEye Design System"
                   loading="lazy"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="text-center mt-5 flex flex-col items-center">
-                <h4 className="text-lg md:text-xl font-semibold text-text mb-2">From Cluttered to Scannable</h4>
-                <div className="w-full flex justify-center">
-                  <p className="text-muted text-sm md:text-base font-medium md:whitespace-nowrap text-center">Reduced policy configuration complexity and improved administrative efficiency across device and department dimensions.</p>
-                </div>
+              <p className="text-sm text-muted font-medium mt-4">EagleEye Design System</p>
+            </div>
+          </Reveal>
+        </section>
+
+        {/* 5. Solutions */}
+        <section id="solutions" className="space-y-8">
+          <Reveal reduceMotion={isMobile} direction="up">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <IconCheckCircle />
+                <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">05. Solutions</h2>
+              </div>
+              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-4">Streamlining the enterprise</h3>
+              <p className="text-muted text-base md:text-lg font-medium mb-4 max-w-5xl">Reduced policy configuration complexity to create a more scannable experience and improve administrative efficiency across devices and departments.</p>
+            </div>
+          </Reveal>
+          <Reveal reduceMotion={isMobile} direction="up" delay={100}>
+            <div
+              className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line"
+              onClick={() => openPreview({ src: "/images/didi/pdfpage923.svg", caption: "From Cluttered to Scannable" })}
+            >
+              <img
+                src="/images/didi/pdfpage923.svg"
+                alt="From Cluttered to Scannable"
+                loading="lazy"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          </Reveal>
+        </section>
+
+        {/* 4a. Simplifying the Flow — staff-level workflow redesign */}
+        <section id="simplifying-flow" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
+          <Reveal reduceMotion={isMobile} direction="right" className="md:col-span-8 order-2 md:order-1 md:border-r-2 md:border-line md:pr-10">
+            <div
+              className="group cursor-pointer"
+              onClick={() => openPreview({ src: "/images/didi/pdfpage20.svg", caption: "Single-Session Workflow" })}
+            >
+              <div className="overflow-hidden rounded-none aspect-video">
+                <img
+                  src="/images/didi/pdfpage20.svg"
+                  alt="Single-Session Workflow"
+                  loading="lazy"
+                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <p className="text-sm text-muted font-medium mt-4">Single-session configuration flow</p>
+            </div>
+          </Reveal>
+          <Reveal reduceMotion={isMobile} direction="left" className="md:col-span-4 order-1 md:order-2 md:pl-10">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <IconWorkflow />
+                <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">06. Workflow Simplification</h2>
+              </div>
+              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-4">Simplifying the Flow for Operational Efficiency</h3>
+              <p className="text-muted text-base md:text-lg font-medium mb-6">
+                Redesigned the configuration flow from 7 steps to 3, reducing interaction overhead and creating a faster, more scalable administrative experience.
+              </p>
+              <div className="flex flex-col gap-4">
+                {[
+                  { label: "7 → 3 steps", icon: Layers },
+                  { label: "Clearer task flow", icon: GitBranch },
+                  { label: "Higher efficiency", icon: TrendingUp },
+                ].map(({ label, icon: Icon }) => (
+                  <div
+                    key={label}
+                    className="flex items-center gap-3 p-4 rounded-2xl bg-blue-50 text-blue-700/90 text-sm font-medium"
+                  >
+                    <Icon className="w-5 h-5 shrink-0 text-blue-600" />
+                    {label}
+                  </div>
+                ))}
               </div>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <Reveal reduceMotion={isMobile} direction="up" delay={200}>
-              <div className="bg-card rounded-[40px] p-8 border-0 group hover:-translate-y-2 transition-transform duration-700 h-full">
-                <div
-                  className="overflow-hidden rounded-[24px] mb-8 aspect-video bg-white cursor-pointer group "
-                  onClick={() => openPreview({ src: "/images/didi/pdfpage20.svg", caption: "Single-Session Workflow" })}
-                >
-                  <img
-                    src="/images/didi/pdfpage20.svg"
-                    alt="Single-Session Workflow"
-                    loading="lazy"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="flex items-center gap-3 mb-3">
-                  <IconWorkflow />
-                  <h4 className="text-xl md:text-2xl font-semibold text-text">Single-Session Workflow</h4>
-                </div>
-                <p className="text-muted text-base md:text-lg font-medium">Multi-day configuration replaced with a linear batch operation.</p>
-              </div>
-            </Reveal>
-            <Reveal reduceMotion={isMobile} direction="up" delay={300}>
-              <div className="bg-card rounded-[40px] p-8 border-0 group hover:-translate-y-2 transition-transform duration-700 h-full">
-                <div
-                  className="overflow-hidden rounded-[24px] mb-8 aspect-video bg-white cursor-pointer group "
-                  onClick={() => openPreview({ src: "/images/didi/pdfpage22.svg", caption: "EagleEye Design System" })}
-                >
-                  <img
-                    src="/images/didi/pdfpage22.svg"
-                    alt="EagleEye Design System"
-                    loading="lazy"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="flex items-center gap-3 mb-3">
-                  <IconLayers />
-                  <h4 className="text-xl md:text-2xl font-semibold text-text">EagleEye Design System</h4>
-                </div>
-                <p className="text-muted text-base md:text-lg font-medium">Scaled UI consistency across DiDi&apos;s security portfolio.</p>
-              </div>
-            </Reveal>
-          </div>
         </section>
 
-        {/* 5. Validation / Outcomes — full-bleed on desktop; contained on mobile to avoid Safari scroll bugs */}
+        {/* 4b. Guided Survey Modal — between Solutions and Impact */}
+        <section id="survey-modal" className="space-y-10">
+          <Reveal reduceMotion={isMobile} direction="up">
+            <div className="flex items-center gap-3 mb-4">
+              <IconLightbulb />
+              <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">07. Reframing Feedback</h2>
+            </div>
+            <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6">
+              Reframing Feedback Through a Guided Survey Modal
+            </h3>
+            <p className="text-muted text-base md:text-lg font-medium mb-8 max-w-5xl">
+              Building on the Heart Modal interaction pattern, I created a more structured survey modal that improved clarity, reduced response friction, and generated more actionable feedback—raising the experience score from 4.12 to 7.48.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="rounded-2xl bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <Layers className="w-4 h-4 text-blue-600 shrink-0" />
+                  <p className="text-xs font-semibold text-blue-600 uppercase tracking-widest">Foundation</p>
+                </div>
+                <p className="font-medium text-text">Heart Modal pattern</p>
+              </div>
+              <div className="rounded-2xl bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp className="w-4 h-4 text-blue-600 shrink-0" />
+                  <p className="text-xs font-semibold text-blue-600 uppercase tracking-widest">Measured Lift</p>
+                </div>
+                <p className="font-medium text-text">4.12 → 7.48</p>
+              </div>
+              <div className="rounded-2xl bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="w-4 h-4 text-blue-600 shrink-0" />
+                  <p className="text-xs font-semibold text-blue-600 uppercase tracking-widest">Design Impact</p>
+                </div>
+                <p className="font-medium text-text">Lower friction, stronger signal</p>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal reduceMotion={isMobile} direction="up" delay={100}>
+            <p className="text-muted text-base md:text-lg font-medium mb-6 max-w-5xl">
+              Rather than simply reusing the existing modal, I adapted the pattern into a more guided survey flow—making the interaction feel lighter for users while producing feedback that teams could actually act on.
+            </p>
+            <div
+              className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line"
+              onClick={() => openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
+            >
+              <img
+                src="/images/didi/pdfpage28.svg"
+                alt="Commercial Impact"
+                loading="lazy"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <p className="text-sm text-muted font-medium mt-4">Survey Modal for UX Validation</p>
+          </Reveal>
+        </section>
+
+        {/* 8. System Expansion — live security command */}
+        <section id="system-expansion" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
+          <Reveal reduceMotion={isMobile} direction="right" className="md:col-span-4 md:pr-10">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <Rocket className="w-6 h-6 text-blue-600 shrink-0" />
+                <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">08. System Expansion</h2>
+              </div>
+              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-4">From Strategy Center to Live Security Command</h3>
+              <p className="text-muted text-base md:text-lg font-medium mb-6">
+                The strategy center redesign improved the product and extended its system logic into a real-time security dashboard for more dynamic, decision-ready monitoring.
+              </p>
+              <div className="flex flex-col gap-4">
+                {[
+                  { label: "Real-Time Visibility", icon: Zap },
+                  { label: "System-Level Extension", icon: Layers },
+                  { label: "Operational Decision Support", icon: Target },
+                ].map(({ label, icon: Icon }) => (
+                  <div
+                    key={label}
+                    className="flex items-center gap-3 p-4 rounded-2xl bg-blue-50 text-blue-700/90 text-sm font-medium"
+                  >
+                    <Icon className="w-5 h-5 shrink-0 text-blue-600" />
+                    {label}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+          <Reveal reduceMotion={isMobile} direction="left" className="md:col-span-8 md:border-l-2 md:border-line md:pl-10">
+            <div>
+              <div
+                className="group relative overflow-hidden rounded-2xl cursor-pointer"
+                onClick={() => openPreview({ src: "/images/didi/Untitled-212.svg", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", fillImage: true })}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && openPreview({ src: "/images/didi/Untitled-212.svg", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", fillImage: true })}
+              >
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img
+                    src="/images/didi/Untitled-212.svg"
+                    alt="EagleEye live monitoring screen"
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                </div>
+              </div>
+              <p className="text-sm text-muted font-medium mt-4 text-left">
+                Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.
+              </p>
+            </div>
+          </Reveal>
+        </section>
+
+        {/* Staff-Level Ownership */}
+        <Reveal reduceMotion={isMobile} direction="up">
+          <section id="staff-ownership" className="space-y-10">
+            <div className="flex items-center gap-3 mb-4">
+              <Crown className="w-6 h-6 text-blue-600 shrink-0" />
+              <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">09. Staff-Level Ownership</h2>
+            </div>
+            <h3 className="text-3xl md:text-4xl font-semibold text-text mb-4">From Ambiguity to Validated Outcomes</h3>
+            <p className="text-muted text-base md:text-lg font-medium max-w-5xl">
+              Drove the work from ambiguous problem framing to validated outcomes—shaping strategy, defining reusable patterns, aligning stakeholders, and grounding decisions in data.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="rounded-2xl bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <Target className="w-4 h-4 text-blue-600 shrink-0" />
+                  <p className="text-xs font-semibold text-blue-600 uppercase tracking-widest">Strategy</p>
+                </div>
+                <p className="font-medium text-text">
+                  Framed the problem, identified feedback gaps, and translated business needs into product direction.
+                </p>
+              </div>
+              <div className="rounded-2xl bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <Layers className="w-4 h-4 text-blue-600 shrink-0" />
+                  <p className="text-xs font-semibold text-blue-600 uppercase tracking-widest">Systems Thinking</p>
+                </div>
+                <p className="font-medium text-text">
+                  Extended modal patterns into a reusable feedback framework with clearer, actionable signals.
+                </p>
+              </div>
+              <div className="rounded-2xl bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600 shrink-0" />
+                  <p className="text-xs font-semibold text-blue-600 uppercase tracking-widest">Validation</p>
+                </div>
+                <p className="font-medium text-text">
+                  Connected design decisions to measurable outcomes, including the score lift from 4.12 to 7.48.
+                </p>
+              </div>
+            </div>
+            <div className="pt-4">
+            <a
+              href="/FJ/WenLiu_DiDi_Full_Case_Study.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-medium text-white transition hover:bg-blue-700"
+            >
+              View DiDi Full Case Study
+              <span className="inline-block" aria-hidden>→</span>
+            </a>
+            </div>
+          </section>
+        </Reveal>
+
+        {/* 9. Commercial Impact — full-bleed on desktop; contained on mobile to avoid Safari scroll bugs */}
         <ScrollReveal reduceMotion={isMobile} direction="up">
           <section
             id="impact"
@@ -609,104 +818,112 @@ export default function DidiCaseStudyPage() {
             <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
               <div className="flex items-center gap-3 mb-4">
                 <IconTrendingUp className="w-5 h-5 text-blue-400" />
-                <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-widest">05. Impact</h2>
+                <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-widest">10. Impact</h2>
               </div>
-              <h3 className="text-4xl md:text-5xl font-semibold text-white mb-6">Commercial Impact.</h3>
-              <p className="text-white/80 font-medium mb-10 max-w-2xl md:whitespace-nowrap">
+              <h3 className="text-4xl md:text-5xl font-semibold text-white mb-6">Commercial Impact</h3>
+              <p className="text-white/80 font-medium mb-10 max-w-4xl md:whitespace-nowrap">
                 Measurable improvements in UX score, efficiency, and error reduction across the EagleEye platform.
               </p>
-              <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-8 items-stretch">
-                <div
-                  className="w-full rounded-[24px] overflow-hidden aspect-video bg-white cursor-pointer group order-2 lg:order-1"
-                  onClick={() => openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
-                >
-                  <img
-                    src="/images/didi/pdfpage28.svg"
-                    alt="Commercial Impact"
-                    loading="lazy"
-                    className="w-full h-full object-cover object-center scale-[0.97] group-hover:scale-[1.02] transition-transform duration-500"
-                  />
-                </div>
-                <div className="flex flex-col gap-4 lg:gap-5 order-1 lg:order-2">
-                  <div className="rounded-xl bg-white/[0.08] border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
-                    <div className="flex items-center gap-2 mb-2">
-                      <BarChart3 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-                      <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest">UX Score</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">UX Score</p>
                     </div>
-                    <p className="mb-2">
-                      <span className="text-2xl lg:text-3xl font-bold text-white">+81%</span>
-                      <span className="text-white/60 text-2xl font-light ml-1 align-baseline">improvement</span>
-                    </p>
-                    <p className="text-white/60 text-xs font-medium mb-2">4.12 → 7.48</p>
-                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                      <div className="h-full flex">
-                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "80%" }} />
-                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "20%" }} />
+                    <div className="flex items-end gap-3 mb-2">
+                      <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">+81%</span>
+                      <span className="text-xl lg:text-2xl text-white/60 mb-2">improvement</span>
+                    </div>
+                    <p className="text-white/60 text-sm font-medium mb-4">4.12 → 7.48</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
+                        <span>Before</span>
+                        <span>After</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden flex">
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "81%" }} />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "19%" }} />
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-xl bg-white/[0.08] border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
-                    <div className="flex items-center gap-2 mb-2">
-                      <BarChart3 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-                      <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest">Efficiency</p>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">Efficiency</p>
                     </div>
-                    <p className="mb-2">
-                      <span className="text-2xl lg:text-3xl font-bold text-white">65%</span>
-                      <span className="text-white/60 text-2xl font-light ml-1 align-baseline">time reduction</span>
-                    </p>
-                    <p className="text-white/60 text-xs font-medium mb-2">20 mins → 7 mins</p>
-                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                      <div className="h-full flex">
-                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "65%" }} />
-                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "35%" }} />
+                    <div className="flex items-end gap-3 mb-2">
+                      <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">65%</span>
+                      <span className="text-xl lg:text-2xl text-white/60 mb-2">time reduction</span>
+                    </div>
+                    <p className="text-white/60 text-sm font-medium mb-4">20 mins → 7 mins</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
+                        <span>Before</span>
+                        <span>After</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden flex">
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "65%" }} />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "35%" }} />
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-xl bg-white/[0.08] border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
-                    <div className="flex items-center gap-2 mb-2">
-                      <BarChart3 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-                      <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest">Error Drop</p>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">Error Drop</p>
                     </div>
-                    <p className="mb-2">
-                      <span className="text-2xl lg:text-3xl font-bold text-white">90%</span>
-                      <span className="text-white/60 text-2xl font-light ml-1 align-baseline">reduction in errors</span>
-                    </p>
-                    <p className="text-white/60 text-xs font-medium mb-2">10 → 1 per user</p>
-                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                      <div className="h-full flex">
-                        <div className="bg-emerald-300/70 rounded-l-full" style={{ width: "90%" }} />
-                        <div className="bg-emerald-700 rounded-r-full" style={{ width: "10%" }} />
+                    <div className="flex items-end gap-3 mb-2">
+                      <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">90%</span>
+                      <span className="text-xl lg:text-2xl text-white/60 mb-2">reduction</span>
+                    </div>
+                    <p className="text-white/60 text-sm font-medium mb-4">10 → 1 error per user</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
+                        <span>Before</span>
+                        <span>After</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden flex">
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "10%" }} />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "90%" }} />
                       </div>
                     </div>
                   </div>
-                </div>
+                  <div className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 lg:p-10 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest">NPS</p>
+                    </div>
+                    <div className="flex items-end gap-3 mb-2">
+                      <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">8.3</span>
+                      <span className="text-xl lg:text-2xl text-white/60 mb-2">score</span>
+                    </div>
+                    <p className="text-white/60 text-sm font-medium mb-4">Net Promoter Score (0–10)</p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
+                        <span>0</span>
+                        <span>10</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden flex">
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "83%" }} />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "17%" }} />
+                      </div>
+                    </div>
+                  </div>
               </div>
             </div>
           </section>
         </ScrollReveal>
 
-        {/* Ownership */}
+        {/* Reflection — editorial, matches Staff Portal 0→1 */}
         <Reveal reduceMotion={isMobile} direction="up">
-          <section className="text-center max-w-4xl mx-auto pb-8">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Crown className="w-6 h-6 text-blue-600 shrink-0" />
-              <h2 className="text-sm font-medium text-muted uppercase tracking-widest">Staff-Level Ownership</h2>
+          <section id="reflection">
+            <div className="flex items-center gap-2 mb-2">
+              <Quote className="w-4 h-4 text-blue-600 shrink-0" />
+              <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">11. Reflection</h2>
             </div>
-            <p className="text-xl md:text-2xl leading-relaxed text-muted font-medium mb-8">
-              End-to-end design lifecycle owner. Drove strategy, authored Design System, aligned stakeholders, and validated with data.
-            </p>
-            <a
-              href="/FJ/WenLiu_DiDi_Full_Case_Study.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-xl font-medium text-white transition hover:bg-blue-700"
-            >
-              View DiDi Full Case Study
-              <span className="inline-block" aria-hidden>→</span>
-            </a>
+            <blockquote className="text-xl md:text-2xl font-medium text-text leading-relaxed max-w-5xl italic mt-4">
+              &quot;This work was a reminder that staff-level design is not just about shipping polished interfaces—it is about identifying where clarity breaks down, creating frameworks that scale, and ensuring design decisions hold up through measurable outcomes. The strongest impact often comes from redesigning the signal, not just the surface.&quot;
+            </blockquote>
           </section>
         </Reveal>
 
