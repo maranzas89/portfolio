@@ -502,7 +502,7 @@ export default function ExperienceSection() {
         </section>
 
         {/* Download Resume Section */}
-        <section id="resume" className="mt-24 pb-12">
+        <section id="resume" className="mt-24 pb-12 overflow-x-hidden">
           <div className="mb-12 flex items-center gap-4">
             <h3 className="font-accent text-3xl font-extrabold tracking-tight text-slate-900">Resume</h3>
             <div className="h-px bg-slate-200 flex-1 mt-2" />
@@ -519,11 +519,11 @@ export default function ExperienceSection() {
             <Download className="w-5 h-5" />
             Download Resume
           </a>
-          <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
+          <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[400px] md:min-h-[600px] w-full max-w-full min-w-0 mb-8 -mx-4 sm:-mx-6 md:mx-0">
             <iframe
               src="/FJ/WenLiu_Resume.pdf"
               title="Resume preview"
-              className="w-full h-full min-h-[600px] border-0"
+              className="w-full h-full min-h-[400px] md:min-h-[600px] border-0"
             />
           </div>
         </section>

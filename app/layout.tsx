@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Inter, Quantico, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -41,6 +42,18 @@ export default function RootLayout({
         className={`${inter.variable} ${quantico.variable} ${geistMono.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GVCSX3FP33"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-GVCSX3FP33');
+          `}
+        </Script>
         {children}
       </body>
     </html>
