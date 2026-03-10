@@ -756,7 +756,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
               <p className="text-muted text-base md:text-lg font-medium mb-8 max-w-3xl">
                 The redesigned homepage improved visual clarity and structured onboarding tasks.
               </p>
-              <div className="grid grid-cols-2 gap-6 w-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                 <div>
                   <div
                     className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group bg-[#E4E4E7] flex items-center justify-center"
