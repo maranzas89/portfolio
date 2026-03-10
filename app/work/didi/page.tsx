@@ -546,10 +546,15 @@ export default function DidiCaseStudyPage() {
           </Reveal>
           <Reveal reduceMotion={isMobile} direction="up" delay={100}>
             <div className="max-w-4xl">
-              <div
-                className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line min-h-[200px] [overflow-anchor:none]"
-                onClick={() => openPreview({ src: "/images/didi/pdfpage22.svg", caption: "EagleEye Design System" })}
-              >
+              <div className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line min-h-[200px] [overflow-anchor:none]">
+                <img
+                  src="/images/didi/design-system-model.png"
+                  alt="Design System Model"
+                  loading="lazy"
+                  decoding="async"
+                  className="md:hidden block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  onClick={() => openPreview({ src: "/images/didi/design-system-model.png", caption: "Design System Model" })}
+                />
                 <img
                   src="/images/didi/pdfpage22.svg"
                   alt="EagleEye Design System"
@@ -559,6 +564,7 @@ export default function DidiCaseStudyPage() {
                   width={800}
                   height={450}
                   className="hidden md:block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  onClick={() => openPreview({ src: "/images/didi/pdfpage22.svg", caption: "EagleEye Design System" })}
                 />
               </div>
               <p className="text-sm text-muted font-medium mt-4">EagleEye Design System</p>
@@ -579,15 +585,20 @@ export default function DidiCaseStudyPage() {
             </div>
           </Reveal>
           <Reveal reduceMotion={isMobile} direction="up" delay={100}>
-            <div
-              className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line"
-              onClick={() => openPreview({ src: "/images/didi/pdfpage923.svg", caption: "From Cluttered to Scannable" })}
-            >
+            <div className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line">
+              <img
+                src="/images/didi/streamlining-enterprise-mobile.png"
+                alt="From Cluttered to Scannable"
+                loading="lazy"
+                className="md:hidden block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                onClick={() => openPreview({ src: "/images/didi/streamlining-enterprise-mobile.png", caption: "From Cluttered to Scannable" })}
+              />
               <img
                 src="/images/didi/pdfpage923.svg"
                 alt="From Cluttered to Scannable"
                 loading="lazy"
                 className="hidden md:block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                onClick={() => openPreview({ src: "/images/didi/pdfpage923.svg", caption: "From Cluttered to Scannable" })}
               />
             </div>
           </Reveal>
@@ -683,16 +694,22 @@ export default function DidiCaseStudyPage() {
             </p>
             <div
               className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line"
-              onClick={() => openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => e.key === "Enter" && openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
             >
+              <img
+                src="/images/didi/survey-modal-ux-validation-mobile.png"
+                alt="UX Validation Survey Model"
+                loading="lazy"
+                className="md:hidden block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                onClick={() => openPreview({ src: "/images/didi/survey-modal-ux-validation-mobile.png", caption: "Survey Modal for UX Validation" })}
+              />
               <img
                 src="/images/didi/pdfpage28.svg"
                 alt="Commercial Impact"
                 loading="lazy"
                 className="hidden md:block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                onClick={() => openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
               />
             </div>
             <p className="text-sm text-muted font-medium mt-4">Survey Modal for UX Validation</p>
