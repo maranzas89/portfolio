@@ -544,7 +544,7 @@ export default function DidiCaseStudyPage() {
               Extended a self-authored design system across iterations to improve consistency, speed up delivery, and support more scalable product evolution.
             </p>
           </Reveal>
-          <Reveal reduceMotion={isMobile} direction="up" delay={100} className="hidden md:block">
+          <Reveal reduceMotion={isMobile} direction="up" delay={100}>
             <div className="max-w-4xl">
               <div
                 className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line min-h-[200px] [overflow-anchor:none]"
@@ -558,7 +558,7 @@ export default function DidiCaseStudyPage() {
                   fetchPriority="low"
                   width={800}
                   height={450}
-                  className="block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  className="hidden md:block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <p className="text-sm text-muted font-medium mt-4">EagleEye Design System</p>
@@ -578,7 +578,7 @@ export default function DidiCaseStudyPage() {
               <p className="text-muted text-base md:text-lg font-medium mb-4 max-w-5xl">Reduced policy configuration complexity to create a more scannable experience and improve administrative efficiency across devices and departments.</p>
             </div>
           </Reveal>
-          <Reveal reduceMotion={isMobile} direction="up" delay={100} className="hidden md:block">
+          <Reveal reduceMotion={isMobile} direction="up" delay={100}>
             <div
               className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line"
               onClick={() => openPreview({ src: "/images/didi/pdfpage923.svg", caption: "From Cluttered to Scannable" })}
@@ -587,7 +587,7 @@ export default function DidiCaseStudyPage() {
                 src="/images/didi/pdfpage923.svg"
                 alt="From Cluttered to Scannable"
                 loading="lazy"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                className="hidden md:block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           </Reveal>
@@ -681,23 +681,21 @@ export default function DidiCaseStudyPage() {
             <p className="text-muted text-base md:text-lg font-medium mb-6 max-w-5xl">
               Rather than simply reusing the existing modal, I adapted the pattern into a more guided survey flow—making the interaction feel lighter for users while producing feedback that teams could actually act on.
             </p>
-            <div className="hidden md:block">
-              <div
-                className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line"
-                onClick={() => openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => e.key === "Enter" && openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
-              >
-                <img
-                  src="/images/didi/pdfpage28.svg"
-                  alt="Commercial Impact"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <p className="text-sm text-muted font-medium mt-4">Survey Modal for UX Validation</p>
+            <div
+              className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line"
+              onClick={() => openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && openPreview({ src: "/images/didi/pdfpage28.svg", caption: "Commercial Impact" })}
+            >
+              <img
+                src="/images/didi/pdfpage28.svg"
+                alt="Commercial Impact"
+                loading="lazy"
+                className="hidden md:block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              />
             </div>
+            <p className="text-sm text-muted font-medium mt-4">Survey Modal for UX Validation</p>
           </Reveal>
         </section>
 

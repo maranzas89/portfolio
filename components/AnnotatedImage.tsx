@@ -351,9 +351,9 @@ export function AnnotatedImageModal({
         >
           ×
         </button>
-        <div className="bg-white rounded-2xl overflow-hidden shadow-2xl max-h-[92vh] md:max-h-[96vh] flex flex-col w-full flex-1 min-h-0">
-          <div className="w-full flex-1 min-h-0 overflow-y-auto bg-white max-h-[88vh] md:max-h-[92vh]">
-            <div className="flex justify-center items-start md:items-center min-h-0 md:min-h-[92vh]">
+        <div className="bg-white rounded-2xl overflow-hidden shadow-2xl max-h-[96vh] flex flex-col w-full flex-1 min-h-0">
+          <div className="w-full flex-1 min-h-0 overflow-y-auto bg-white max-h-[92vh]">
+            <div className="flex justify-center items-center min-h-[92vh]">
               <AnnotatedImage
                 src={src}
                 alt={alt}
@@ -362,7 +362,7 @@ export function AnnotatedImageModal({
                 storageKey={storageKey}
                 inModal
                 className="!mt-0 w-full"
-                thumbnailContainerClass="max-h-[88vh] md:max-h-none min-h-0 md:min-h-[90vh] w-full max-w-[95vw]"
+                thumbnailContainerClass="min-h-[90vh] w-full max-w-[95vw]"
               />
             </div>
           </div>
