@@ -218,7 +218,7 @@ export default function ExperienceSection() {
               return (
                 <div
                   key={idx}
-                  className="bg-white border border-slate-200/60 rounded-2xl p-5 shadow-sm hover:border-blue-300 hover:shadow-md hover:-translate-y-0.5 transition-all flex gap-4 items-center group cursor-default"
+                  className="bg-white rounded-2xl p-5 hover:shadow-md hover:-translate-y-0.5 transition-all flex gap-4 items-center group cursor-default"
                 >
                   <div className="p-3 bg-blue-50 rounded-xl text-blue-600 group-hover:scale-110 group-hover:bg-blue-100 transition-all shrink-0">
                     <Icon size={20} />
@@ -241,7 +241,7 @@ export default function ExperienceSection() {
               return (
                 <div
                   key={idx}
-                  className="flex items-center gap-2.5 px-4 py-3 bg-white border border-slate-200/80 rounded-xl shadow-sm hover:border-blue-300 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-default group"
+                  className="flex items-center gap-2.5 px-4 py-3 bg-white rounded-xl hover:shadow-md hover:-translate-y-0.5 transition-all cursor-default group"
                 >
                   <Icon
                     className="text-slate-400 group-hover:text-blue-500 transition-colors"
@@ -265,8 +265,8 @@ export default function ExperienceSection() {
 
         {/* Timeline Container */}
         <div className="relative">
-          {/* Vertical Timeline Line */}
-          <div className="absolute left-[28px] md:left-[40px] top-4 bottom-0 w-[2px] bg-slate-200 rounded-full" />
+          {/* Vertical Timeline Line - centered with icon column (w-20=80px, w-24=96px, line center at 40px/48px) */}
+          <div className="absolute left-[40px] md:left-[48px] top-4 bottom-0 w-[2px] bg-slate-200 rounded-full -translate-x-1/2" />
 
           <div className="space-y-12 md:space-y-16">
             {experiences.map((exp) => {
@@ -277,17 +277,17 @@ export default function ExperienceSection() {
                   key={exp.id}
                   className="relative flex flex-col md:flex-row gap-6 md:gap-10 group cursor-default"
                 >
-                  {/* Left Column: Logo & Timeline Node */}
-                  <div className="relative z-10 flex-shrink-0 flex items-start pl-2 md:pl-4">
+                  {/* Left Column: Logo & Timeline Node - fixed width, centered content */}
+                  <div className="relative z-10 flex-shrink-0 w-20 md:w-24 flex items-start justify-center">
                     {exp.logoImg ? (
                       <img
                         src={exp.logoImg}
                         alt={exp.company}
-                        className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] object-contain rounded-2xl shadow-md group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10"
+                        className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] object-contain rounded-2xl group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10"
                       />
                     ) : (
                       <div
-                        className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl ${exp.logoBg} border border-white shadow-sm flex items-center justify-center relative overflow-hidden transition-transform duration-500 group-hover:scale-110 group-hover:shadow-md z-10 ring-4 ring-[#FAFAFA]`}
+                        className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl ${exp.logoBg} border border-white flex items-center justify-center relative overflow-hidden transition-transform duration-500 group-hover:scale-110 group-hover:shadow-md z-10 ring-4 ring-[#FAFAFA]`}
                       >
                         <div
                           className={`absolute inset-0 bg-gradient-to-br ${exp.logoColor} opacity-10`}
@@ -303,7 +303,7 @@ export default function ExperienceSection() {
 
                   {/* Right Column: Content Card */}
                   <div className="flex-1 min-w-0">
-                    <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 hover:border-blue-100 transition-all duration-300 ease-out transform group-hover:-translate-y-1 cursor-default">
+                    <div className="bg-white rounded-3xl p-6 md:p-8 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 ease-out transform group-hover:-translate-y-1 cursor-default">
                       <div className="flex flex-col xl:flex-row xl:justify-between xl:items-start gap-4 mb-6">
                         <div>
                           <h3 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-3">
@@ -334,9 +334,9 @@ export default function ExperienceSection() {
                             return (
                               <div
                                 key={idx}
-                                className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100/50 px-3 py-2 rounded-xl text-blue-900 group/metric hover:border-blue-200 transition-colors"
+                                className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-indigo-50 px-3 py-2 rounded-xl text-blue-900 group/metric transition-colors"
                               >
-                                <div className="p-1.5 bg-white rounded-md shadow-sm">
+                                <div className="p-1.5 bg-white rounded-md">
                                   <MetricIcon size={14} className="text-blue-600" />
                                 </div>
                                 <div className="flex flex-col">
@@ -367,7 +367,7 @@ export default function ExperienceSection() {
                         {exp.tags.map((tag, idx) => (
                           <span
                             key={idx}
-                            className="font-accent px-3 py-1 text-xs font-medium rounded-lg bg-slate-50 text-slate-600 border border-slate-200 hover:bg-white hover:border-slate-300 hover:text-slate-900 transition-all duration-200 cursor-default"
+                            className="font-accent px-3 py-1 text-xs font-medium rounded-lg bg-slate-50 text-slate-600 hover:bg-white hover:text-slate-900 transition-all duration-200 cursor-default"
                           >
                             {tag}
                           </span>
@@ -383,13 +383,13 @@ export default function ExperienceSection() {
           {/* Early Career Note */}
           <div className="relative flex flex-col md:flex-row gap-6 md:gap-10 mt-12 group cursor-default">
             <div className="relative z-10 flex-shrink-0 flex items-start pl-2 md:pl-4">
-              <div className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10">
+              <div className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] rounded-2xl bg-slate-50 flex items-center justify-center group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10">
                 <Building2 size={24} strokeWidth={1.5} className="text-slate-400 relative z-10" />
               </div>
             </div>
 
             <div className="flex-1 min-w-0">
-              <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/60 shadow-sm hover:shadow-md hover:border-blue-300 hover:-translate-y-0.5 transition-all duration-300 cursor-default">
+              <div className="bg-white rounded-3xl p-6 md:p-8 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default">
                 <h4 className="text-xl font-bold text-slate-900 tracking-tight mb-3">
                   Early Career
                 </h4>
@@ -405,7 +405,7 @@ export default function ExperienceSection() {
                     (company, idx) => (
                       <span
                         key={idx}
-                    className="font-accent px-3 py-1 text-xs font-medium rounded-lg bg-slate-50 text-slate-600 border border-slate-200 hover:bg-white hover:border-slate-300 hover:text-slate-900 transition-all duration-200 cursor-default"
+                    className="font-accent px-3 py-1 text-xs font-medium rounded-lg bg-slate-50 text-slate-600 hover:bg-white hover:text-slate-900 transition-all duration-200 cursor-default"
                     >
                       {company}
                       </span>
@@ -427,14 +427,14 @@ export default function ExperienceSection() {
             <div className="h-px bg-slate-200 flex-1 mt-2" />
           </div>
 
-          <div className="bg-gradient-to-br from-blue-50/50 to-indigo-50/50 border border-blue-100/50 rounded-3xl p-6 md:p-8 mb-8">
+          <div className="bg-gradient-to-br from-blue-50/50 to-indigo-50/50 rounded-3xl p-6 md:p-8 mb-8">
             <ul className="space-y-4">
               {toolkitDescriptions.map((desc, idx) => (
                 <li
                   key={idx}
                   className="flex items-center gap-3 text-slate-700 md:text-lg leading-relaxed font-medium"
                 >
-                  <div className="shrink-0 p-1.5 bg-white rounded-lg shadow-sm border border-blue-100 text-blue-500">
+                  <div className="shrink-0 p-1.5 bg-white rounded-lg text-blue-500">
                     <Sparkles size={18} />
                   </div>
                   <span>{desc}</span>
@@ -449,7 +449,7 @@ export default function ExperienceSection() {
               return (
                 <div
                   key={idx}
-                  className="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm hover:shadow-md hover:border-blue-300 hover:-translate-y-0.5 transition-all cursor-default group"
+                  className="bg-white rounded-2xl p-6 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-default group"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 bg-slate-50 text-slate-500 rounded-lg group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
@@ -461,7 +461,7 @@ export default function ExperienceSection() {
                     {cat.skills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="font-accent px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-50 text-slate-600 border border-slate-200 hover:bg-white hover:border-blue-300 hover:text-blue-700 transition-all duration-200"
+                        className="font-accent px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-50 text-slate-600 hover:bg-white hover:text-blue-700 transition-all duration-200"
                       >
                         {skill}
                       </span>
@@ -480,8 +480,8 @@ export default function ExperienceSection() {
             <div className="h-px bg-slate-200 flex-1 mt-2" />
           </div>
 
-          <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/60 shadow-sm hover:shadow-md hover:border-blue-300 hover:-translate-y-0.5 transition-all flex items-start sm:items-center gap-4 sm:gap-6 cursor-default">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0 mt-1 sm:mt-0">
+          <div className="bg-white rounded-3xl p-6 md:p-8 hover:shadow-md hover:-translate-y-0.5 transition-all flex items-start sm:items-center gap-4 sm:gap-6 cursor-default">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0 mt-1 sm:mt-0">
               <GraduationCap size={28} className="sm:w-8 sm:h-8" />
             </div>
             <div className="flex-1 flex flex-col md:flex-row md:justify-between md:items-center gap-4 w-full">
@@ -519,7 +519,7 @@ export default function ExperienceSection() {
             <Download className="w-5 h-5" />
             Download Resume
           </a>
-          <div className="bg-white border border-slate-200/60 rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
+          <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
             <iframe
               src="/WenLiu_Resume.pdf"
               title="Resume preview"

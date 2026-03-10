@@ -199,7 +199,7 @@ export default function Page() {
             {/* Project 1: Calbright (图在右) */}
             <a
               href="/work/calbright/student-portal"
-              className="feature-card bg-card border border-line rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-colors hover:border-[#999999] block"
+              className="feature-card bg-card rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
             >
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
                 <div>
@@ -219,7 +219,7 @@ export default function Page() {
                   </span>
                 </div>
               </div>
-              <div className="flex-1 w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center border border-gray-200">
+              <div className="flex-1 w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
                 <img
                   src="/images/calbright/calbright-landing.svg"
                   alt="Calbright Student Portal redesigned dashboard"
@@ -231,7 +231,7 @@ export default function Page() {
             {/* Project 2: Calbright Staff Portal (图在左) */}
             <a
               href="/work/calbright/staff-portal"
-              className="feature-card bg-card border border-line rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-12 cursor-pointer group transition-colors hover:border-[#999999] block"
+              className="feature-card bg-card rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-12 cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
             >
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
                 <div>
@@ -253,7 +253,7 @@ export default function Page() {
                   </span>
                 </div>
               </div>
-              <div className="flex-1 w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center border border-gray-200">
+              <div className="flex-1 w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
                 <img
                   src="/images/calbright/staff-portal-mock.png"
                   alt="Calbright Staff Portal - Student profile view"
@@ -265,7 +265,7 @@ export default function Page() {
             {/* Project 3: DiDi (图在右) */}
             <a
               href="/work/didi"
-              className="feature-card bg-card border border-line rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-colors hover:border-[#999999] block"
+              className="feature-card bg-card rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
             >
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
                 <div>

@@ -111,7 +111,7 @@ export default function CPLDecisionLifecycleDiagram() {
       </div>
 
       <div
-        className="relative rounded-2xl border border-gray-200 bg-gray-50/50 shadow-sm overflow-hidden min-h-[300px]"
+        className="relative rounded-2xl border border-gray-200 bg-gray-50/50 overflow-hidden min-h-[300px]"
         style={{ aspectRatio: `${totalW} / ${totalH}` }}
       >
         {/* Cards - % positions to scale with SVG viewBox */}
@@ -125,7 +125,7 @@ export default function CPLDecisionLifecycleDiagram() {
           return (
             <div
               key={card.id}
-              className={`absolute ${STYLE_MAP[card.style]} rounded-xl border shadow-sm flex items-center justify-center text-center px-4 py-3`}
+              className={`absolute ${STYLE_MAP[card.style]} rounded-xl border flex items-center justify-center text-center px-4 py-3`}
               style={{
                 left: `${leftPct}%`,
                 top: `${topPct}%`,

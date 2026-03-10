@@ -519,7 +519,7 @@ export default function DidiCaseStudyPage() {
             </div>
           </Reveal>
           <Reveal direction="up" delay={100}>
-            <div className="bg-card rounded-[40px] p-6 md:p-10 shadow-sm">
+            <div className="bg-card rounded-[40px] p-6 md:p-10 border-0">
               <div
                 className="relative rounded-[24px] overflow-hidden aspect-video bg-white cursor-pointer group "
                 onClick={() => openPreview({ src: "/images/didi/pdfpage923.svg", caption: "From Cluttered to Scannable" })}
@@ -540,7 +540,7 @@ export default function DidiCaseStudyPage() {
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <Reveal direction="up" delay={200}>
-              <div className="bg-card rounded-[40px] p-8 shadow-sm group hover:-translate-y-2 transition-transform duration-700 h-full">
+              <div className="bg-card rounded-[40px] p-8 border-0 group hover:-translate-y-2 transition-transform duration-700 h-full">
                 <div
                   className="overflow-hidden rounded-[24px] mb-8 aspect-video bg-white cursor-pointer group "
                   onClick={() => openPreview({ src: "/images/didi/pdfpage20.svg", caption: "Single-Session Workflow" })}
@@ -559,7 +559,7 @@ export default function DidiCaseStudyPage() {
               </div>
             </Reveal>
             <Reveal direction="up" delay={300}>
-              <div className="bg-card rounded-[40px] p-8 shadow-sm group hover:-translate-y-2 transition-transform duration-700 h-full">
+              <div className="bg-card rounded-[40px] p-8 border-0 group hover:-translate-y-2 transition-transform duration-700 h-full">
                 <div
                   className="overflow-hidden rounded-[24px] mb-8 aspect-video bg-white cursor-pointer group "
                   onClick={() => openPreview({ src: "/images/didi/pdfpage22.svg", caption: "EagleEye Design System" })}
@@ -612,7 +612,7 @@ export default function DidiCaseStudyPage() {
                   <img
                     src="/images/didi/pdfpage28.svg"
                     alt="Commercial Impact"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-center scale-[0.97] group-hover:scale-[1.02] transition-transform duration-500"
                   />
                 </div>
                 <div className="flex flex-col gap-4 lg:gap-5 order-1 lg:order-2">

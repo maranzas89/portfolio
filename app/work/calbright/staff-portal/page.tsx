@@ -153,7 +153,7 @@ const ITERATION_IMGS = [
 
 function StaffDashboardMockup() {
   return (
-    <div className="relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm shadow-2xl">
+    <div className="relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm">
       <div className="aspect-[16/10] p-6 flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <div className="h-3 w-32 rounded bg-white/20" />
@@ -730,7 +730,7 @@ export default function StaffPortalCaseStudyPage() {
                 </div>
                 <div>
                   <div
-                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group shadow-lg shadow-gray-300/60"
+                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group hover:shadow-lg hover:shadow-gray-300/60"
                     onClick={() => openPlaceholder("New Staff Portal", <div className="w-[94vw] max-w-[1800px]"><img src={STAFF_PORTAL_DASHBOARD_IMG} alt="New Staff Portal" className="w-full h-auto" /></div>)}
                     role="button"
                     tabIndex={0}

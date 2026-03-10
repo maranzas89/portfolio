@@ -772,7 +772,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 </div>
                 <div>
                   <div
-                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group shadow-lg shadow-gray-300/60"
+                    className="aspect-[16/10] min-h-[360px] md:min-h-[480px] rounded-2xl overflow-hidden cursor-pointer group hover:shadow-lg hover:shadow-gray-300/60"
                     onClick={() => openPreview({ src: AFTER_REDESIGN_IMG, caption: "After redesign" })}
                     role="button"
                     tabIndex={0}

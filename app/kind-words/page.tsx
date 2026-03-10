@@ -128,7 +128,7 @@ export default function KindWordsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pt-6">
               {THEMES_SUMMARY.map((theme, i) => (
                 <ScrollReveal key={theme.title} direction="up" delay={i * 60}>
-                  <div className="rounded-xl border border-slate-200/80 bg-slate-50/50 px-5 py-5 md:px-6 md:py-6 transition-all duration-300 hover:border-slate-300 hover:bg-slate-50">
+                  <div className="rounded-xl bg-slate-50/50 px-5 py-5 md:px-6 md:py-6 transition-all duration-300 hover:bg-slate-50 hover:shadow-lg hover:-translate-y-1">
                     <h3 className="text-base font-semibold tracking-tight text-text mb-2">
                       {theme.title}
                     </h3>
