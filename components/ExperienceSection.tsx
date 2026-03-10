@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CONTENT_CONTAINER_CLASS } from "@/lib/layout";
 import {
   Briefcase,
@@ -185,6 +185,45 @@ const experiences = [
     tags: ["Telemetry Dashboards", "Design System", "Anomaly Detection"],
   },
 ];
+
+const PDF_WIDTH = 612;
+const PDF_HEIGHT = 792;
+
+function PdfPreviewContainer() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const update = () => {
+      const w = el.offsetWidth;
+      setScale(w < PDF_WIDTH ? w / PDF_WIDTH : 1);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[400px] md:min-h-[600px] w-full max-w-full min-w-0 mb-8 -mx-4 sm:-mx-6 md:mx-0"
+    >
+      <div
+        className="absolute top-0 left-0 w-[612px] h-[792px] origin-top-left"
+        style={{ transform: `scale(${scale})` }}
+      >
+        <iframe
+          src="/FJ/WenLiu_Resume.pdf"
+          title="Resume preview"
+          className="w-full h-full border-0"
+        />
+      </div>
+    </div>
+  );
+}
 
 export default function ExperienceSection() {
   return (
@@ -519,13 +558,7 @@ export default function ExperienceSection() {
             <Download className="w-5 h-5" />
             Download Resume
           </a>
-          <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[400px] md:min-h-[600px] w-full max-w-full min-w-0 mb-8 -mx-4 sm:-mx-6 md:mx-0">
-            <iframe
-              src="/FJ/WenLiu_Resume.pdf"
-              title="Resume preview"
-              className="w-full h-full min-h-[400px] md:min-h-[600px] border-0"
-            />
-          </div>
+          <PdfPreviewContainer />
         </section>
       </div>
     </div>
