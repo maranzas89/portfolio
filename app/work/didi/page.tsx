@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import HeroGlow from "@/components/HeroGlow";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import WorkNav from "@/components/WorkNav";
 import CalbrightCaseStudyTabs from "@/components/CalbrightCaseStudyTabs";
 import SectionNav from "@/components/SectionNav";
@@ -113,17 +114,17 @@ function Reveal({
 
   const hiddenTransform =
     direction === "up"
-      ? "translate-y-12"
+      ? "translate-y-8"
       : direction === "left"
-        ? "-translate-x-12"
-        : "translate-x-12";
+        ? "-translate-x-8"
+        : "translate-x-8";
 
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        isVisible ? "opacity-100 translate-y-0 translate-x-0 blur-none" : `opacity-0 blur-[4px] ${hiddenTransform}`
+      style={{ transitionDelay: `${delay}ms`, willChange: isVisible ? "auto" : "transform, opacity" }}
+      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isVisible ? "opacity-100 translate-y-0 translate-x-0" : `opacity-0 ${hiddenTransform}`
       } ${className}`}
     >
       {children}
@@ -361,7 +362,10 @@ export default function DidiCaseStudyPage() {
                 <IconBriefcase />
                 <p className="text-xs text-muted uppercase tracking-widest font-medium">Role</p>
               </div>
-              <p className="font-medium text-lg text-text">UX Design Lead (Design Expert)</p>
+              <p className="font-medium text-lg text-text">
+              <span className="md:hidden">UX DL (Design Expert)</span>
+              <span className="hidden md:inline">UX Design Lead (Design Expert)</span>
+            </p>
             </Reveal>
           </div>
         </section>
@@ -499,6 +503,7 @@ export default function DidiCaseStudyPage() {
                 <img
                   src="/images/didi/pdfpage15.svg"
                   alt="IA Wireframes defining the P0/P1/P2 hierarchy"
+                  loading="lazy"
                   className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
@@ -527,6 +532,7 @@ export default function DidiCaseStudyPage() {
                 <img
                   src="/images/didi/pdfpage923.svg"
                   alt="From Cluttered to Scannable"
+                  loading="lazy"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -548,6 +554,7 @@ export default function DidiCaseStudyPage() {
                   <img
                     src="/images/didi/pdfpage20.svg"
                     alt="Single-Session Workflow"
+                    loading="lazy"
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -567,6 +574,7 @@ export default function DidiCaseStudyPage() {
                   <img
                     src="/images/didi/pdfpage22.svg"
                     alt="EagleEye Design System"
+                    loading="lazy"
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -581,7 +589,7 @@ export default function DidiCaseStudyPage() {
         </section>
 
         {/* 5. Validation / Outcomes — full-bleed like Hero */}
-        <Reveal direction="up">
+        <ScrollReveal direction="up">
           <section
             id="impact"
             className="relative left-1/2 -translate-x-1/2 w-screen max-w-none text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/10"
@@ -612,11 +620,12 @@ export default function DidiCaseStudyPage() {
                   <img
                     src="/images/didi/pdfpage28.svg"
                     alt="Commercial Impact"
+                    loading="lazy"
                     className="w-full h-full object-cover object-center scale-[0.97] group-hover:scale-[1.02] transition-transform duration-500"
                   />
                 </div>
                 <div className="flex flex-col gap-4 lg:gap-5 order-1 lg:order-2">
-                  <div className="rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                  <div className="rounded-xl bg-white/[0.08] border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
                     <div className="flex items-center gap-2 mb-2">
                       <BarChart3 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                       <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest">UX Score</p>
@@ -633,7 +642,7 @@ export default function DidiCaseStudyPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                  <div className="rounded-xl bg-white/[0.08] border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
                     <div className="flex items-center gap-2 mb-2">
                       <BarChart3 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                       <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest">Efficiency</p>
@@ -650,7 +659,7 @@ export default function DidiCaseStudyPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
+                  <div className="rounded-xl bg-white/[0.08] border border-white/10 p-5 lg:p-6 group hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
                     <div className="flex items-center gap-2 mb-2">
                       <BarChart3 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                       <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest">Error Drop</p>
@@ -671,7 +680,7 @@ export default function DidiCaseStudyPage() {
               </div>
             </div>
           </section>
-        </Reveal>
+        </ScrollReveal>
 
         {/* Ownership */}
         <Reveal direction="up">
@@ -684,12 +693,12 @@ export default function DidiCaseStudyPage() {
               End-to-end design lifecycle owner. Drove strategy, authored Design System, aligned stakeholders, and validated with data.
             </p>
             <a
-              href="https://www.wensproject.com/didi-eagleeye-case-study.pdf"
+              href="/FJ/WenLiu_DiDi_Full_Case_Study.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-xl font-medium text-white transition hover:bg-blue-700"
             >
-              View Full Case Study (PDF)
+              View DiDi Full Case Study
               <span className="inline-block" aria-hidden>→</span>
             </a>
           </section>

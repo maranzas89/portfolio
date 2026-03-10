@@ -153,7 +153,7 @@ export default function PlaybookMethodology() {
                     {isActive && <div className="absolute inset-0 rounded-full animate-ping opacity-20 bg-white" />}
                   </div>
                   <div
-                    className={`font-accent absolute -bottom-8 whitespace-nowrap text-xs md:text-sm font-medium transition-colors duration-300 ${isActive ? "text-white" : "text-gray-500"}`}
+                    className={`hidden md:block font-accent absolute -bottom-8 whitespace-nowrap text-xs md:text-sm font-medium transition-colors duration-300 ${isActive ? "text-white" : "text-gray-500"}`}
                   >
                     {step.title}
                   </div>
@@ -179,7 +179,7 @@ export default function PlaybookMethodology() {
                 <p className="text-gray-400 text-lg leading-relaxed line-clamp-2">{currentStep.desc}</p>
               </div>
 
-              <div className="flex flex-nowrap overflow-x-auto gap-3 pt-2 md:pt-4 min-h-[60px] items-start w-full pb-2 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <div className="grid grid-cols-1 gap-2 pt-2 md:grid-cols-none md:flex md:flex-nowrap md:overflow-x-auto md:gap-3 md:pt-4 min-h-[60px] items-start w-full pb-2 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {currentStep.keywords.map((keyword, idx) => (
                   <span
                     key={idx}

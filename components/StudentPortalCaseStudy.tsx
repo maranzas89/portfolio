@@ -397,7 +397,10 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                   <IconBriefcase />
                   <p className="text-xs text-muted uppercase tracking-widest font-medium">Role</p>
                 </div>
-                <p className="font-medium text-lg text-text whitespace-nowrap">Sr. Product Designer (Staff-Level)</p>
+                <p className="font-medium text-lg text-text whitespace-nowrap">
+                  <span className="md:hidden">Sr. PD (Staff-Level)</span>
+                  <span className="hidden md:inline">Sr. Product Designer (Staff-Level)</span>
+                </p>
               </Reveal>
             </div>
           </section>
@@ -476,8 +479,8 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 <Layout className="w-6 h-6 text-blue-500" />
                 <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">02. Legacy Experience</h2>
               </div>
-              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6 whitespace-nowrap">
-                Legacy Student Portal Experience
+              <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6 md:whitespace-nowrap">
+                Legacy Student<br className="md:hidden" /> Portal Experience
               </h3>
               <p className="text-muted text-base md:text-lg font-medium mb-6">
                 The original homepage surfaced useful information, but offered little guidance on what students should actually do next.
@@ -534,7 +537,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-widest">03. Opportunity</h2>
               </div>
               <h3 className="text-3xl md:text-4xl font-semibold text-text mb-6">
-                Kick-starting the Student <span className="whitespace-nowrap">Experience Through Onboarding</span>
+                Kick-starting the Student <span className="md:whitespace-nowrap">Experience Through</span><br className="md:hidden" /> Onboarding
               </h3>
               <ul className="space-y-3 text-muted text-base md:text-lg font-medium mb-6">
                 <li className="flex items-center gap-3">

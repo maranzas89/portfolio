@@ -472,7 +472,10 @@ export default function StaffPortalCaseStudyPage() {
                   <IconBriefcase />
                   <p className="text-xs text-muted uppercase tracking-widest font-medium">Role</p>
                 </div>
-                <p className="font-medium text-lg text-text whitespace-nowrap">Sr. Product Designer (Staff-Level)</p>
+                <p className="font-medium text-lg text-text whitespace-nowrap">
+                <span className="md:hidden">Sr. PD (Staff-Level)</span>
+                <span className="hidden md:inline">Sr. Product Designer (Staff-Level)</span>
+              </p>
               </ScrollReveal>
             </div>
           </section>

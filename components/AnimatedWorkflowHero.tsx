@@ -265,19 +265,19 @@ export default function AnimatedWorkflowHero({
 
         {/* Micro KPI row */}
         <div className="mt-2 grid grid-cols-3 gap-1.5">
-          <div className="rounded-lg border border-white/10 bg-white/5 p-2">
+          <div className="rounded-lg border border-white/10 bg-white/5 p-2 pl-[16px]">
             <div className="text-[11px] font-semibold text-white/60">Setup time</div>
             <div className="mt-1 text-sm font-semibold text-white">
               {mode === "before" ? "Multi-day" : "Minutes"}
             </div>
           </div>
-          <div className="rounded-xl border border-white/10 bg-white/5 p-2">
+          <div className="rounded-xl border border-white/10 bg-white/5 p-2 pl-[16px]">
             <div className="text-[11px] font-semibold text-white/60">Validation loops</div>
             <div className="mt-1 text-sm font-semibold text-white">
               {mode === "before" ? "Repeated" : "Single pass"}
             </div>
           </div>
-          <div className="rounded-xl border border-white/10 bg-white/5 p-2">
+          <div className="rounded-xl border border-white/10 bg-white/5 p-2 pl-[16px]">
             <div className="text-[11px] font-semibold text-white/60">Failure rate</div>
             <div className="mt-1 text-sm font-semibold text-white">
               {mode === "before" ? "Higher" : "Lower"}
