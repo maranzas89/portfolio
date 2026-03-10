@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useIsMobile } from "@/lib/hooks/useIsMobile";
 import Link from "next/link";
 import HeroGlow from "@/components/HeroGlow";
-import { ScrollReveal } from "@/components/ScrollReveal";
 import WorkNav from "@/components/WorkNav";
 import CalbrightCaseStudyTabs from "@/components/CalbrightCaseStudyTabs";
 import SectionNav from "@/components/SectionNav";
@@ -131,17 +130,17 @@ function Reveal({
 
   const hiddenTransform =
     direction === "up"
-      ? "translate-y-8"
+      ? "translate-y-12"
       : direction === "left"
-        ? "-translate-x-8"
-        : "translate-x-8";
+        ? "-translate-x-12"
+        : "translate-x-12";
 
   return (
     <div
       ref={ref}
-      style={reduceMotion ? undefined : { transitionDelay: `${delay}ms`, willChange: isVisible ? "auto" : "transform, opacity" }}
-      className={reduceMotion ? `opacity-100 ${className}` : `transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        isVisible ? "opacity-100 translate-y-0 translate-x-0" : `opacity-0 ${hiddenTransform}`
+      style={reduceMotion ? undefined : { transitionDelay: `${delay}ms`, willChange: isVisible ? "auto" : "transform, opacity, filter" }}
+      className={reduceMotion ? `opacity-100 ${className}` : `transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isVisible ? "opacity-100 translate-y-0 translate-x-0 blur-none" : `opacity-0 blur-[4px] ${hiddenTransform}`
       } ${className}`}
     >
       {children}
@@ -825,7 +824,7 @@ export default function DidiCaseStudyPage() {
         </Reveal>
 
         {/* 9. Commercial Impact — full-bleed on desktop; contained on mobile to avoid Safari scroll bugs */}
-        <ScrollReveal reduceMotion={false} direction="up">
+        <Reveal reduceMotion={false} direction="up">
           <section
             id="impact"
             className="relative w-full max-md:max-w-[1600px] max-md:mx-auto md:left-1/2 md:-translate-x-1/2 md:w-screen md:max-w-none text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/10"
@@ -933,7 +932,7 @@ export default function DidiCaseStudyPage() {
               </div>
             </div>
           </section>
-        </ScrollReveal>
+        </Reveal>
 
         {/* Reflection — editorial, matches Staff Portal 0→1 */}
         <Reveal reduceMotion={false} direction="up">
