@@ -512,7 +512,7 @@ export default function ExperienceSection() {
             A concise overview of my experience, scope, and selected impact across product design, systems thinking, and platform work.
           </p>
           <a
-            href="/WenLiu_Resume.pdf"
+            href="/FJ/WenLiu_Resume.pdf"
             download="WenLiu_Resume.pdf"
             className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700 mb-8"
           >
@@ -521,7 +521,7 @@ export default function ExperienceSection() {
           </a>
           <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
             <iframe
-              src="/WenLiu_Resume.pdf"
+              src="/FJ/WenLiu_Resume.pdf"
               title="Resume preview"
               className="w-full h-full min-h-[600px] border-0"
             />

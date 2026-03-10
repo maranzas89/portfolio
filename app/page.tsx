@@ -323,14 +323,14 @@ export default function Page() {
               </a>
             </div>
             <div className="font-accent flex gap-10 text-sm font-semibold uppercase tracking-widest text-white/60">
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
+              <a href="https://www.linkedin.com/in/wen-liu-157aaa82/" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 LinkedIn
               </a>
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
+              <a href="https://github.com/maranzas89" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 GitHub
               </a>
               <a
-                href="/WenLiu_Resume.pdf"
+                href="/FJ/WenLiu_Resume.pdf"
                 download="WenLiu_Resume.pdf"
                 className="hover:text-blue-400 transition-colors"
               >
