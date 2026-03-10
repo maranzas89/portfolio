@@ -187,7 +187,8 @@ const experiences = [
 ];
 
 const PDF_WIDTH = 612;
-const PDF_HEIGHT = 792;
+const PDF_PAGE_HEIGHT = 792;
+const PDF_PAGES = 3; // accommodate multi-page resume
 
 function PdfPreviewContainer() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -206,19 +207,26 @@ function PdfPreviewContainer() {
     return () => ro.disconnect();
   }, []);
 
+  const totalHeight = PDF_PAGE_HEIGHT * PDF_PAGES;
+
   return (
     <div
       ref={containerRef}
-      className="relative bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[400px] md:min-h-[600px] w-full max-w-full min-w-0 mb-8 -mx-4 sm:-mx-6 md:mx-0"
+      className="relative bg-white rounded-2xl overflow-x-hidden overflow-y-auto aspect-[3/4] max-h-[1100px] min-h-[400px] md:min-h-[600px] w-full max-w-full min-w-0 mb-8 -mx-4 sm:-mx-6 md:mx-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-slate-100 [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full"
     >
       <div
-        className="absolute top-0 left-0 w-[612px] h-[792px] origin-top-left"
-        style={{ transform: `scale(${scale})` }}
+        className="origin-top-left"
+        style={{
+          width: PDF_WIDTH,
+          height: totalHeight,
+          transform: `scale(${scale})`,
+        }}
       >
         <iframe
           src="/FJ/WenLiu_Resume.pdf"
           title="Resume preview"
-          className="w-full h-full border-0"
+          className="border-0"
+          style={{ width: PDF_WIDTH, height: totalHeight }}
         />
       </div>
     </div>
