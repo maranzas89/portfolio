@@ -606,16 +606,21 @@ export default function DidiCaseStudyPage() {
         {/* 4a. Simplifying the Flow — staff-level workflow redesign */}
         <section id="simplifying-flow" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
           <Reveal reduceMotion={false} direction="right" className="md:col-span-8 order-2 md:order-1 md:border-r-2 md:border-line md:pr-10">
-            <div
-              className="group cursor-pointer"
-              onClick={() => openPreview({ src: "/images/didi/pdfpage20.svg", caption: "Single-Session Workflow" })}
-            >
+            <div className="group cursor-pointer">
               <div className="overflow-hidden rounded-none aspect-video">
+                <img
+                  src="/images/didi/simplified-workflow-mobile.png"
+                  alt="Simplified Workflow"
+                  loading="lazy"
+                  className="md:hidden block w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  onClick={() => openPreview({ src: "/images/didi/simplified-workflow-mobile.png", caption: "Single-session configuration flow" })}
+                />
                 <img
                   src="/images/didi/pdfpage20.svg"
                   alt="Single-Session Workflow"
                   loading="lazy"
-                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  className="hidden md:block w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  onClick={() => openPreview({ src: "/images/didi/pdfpage20.svg", caption: "Single-Session Workflow" })}
                 />
               </div>
               <p className="text-sm text-muted font-medium mt-4">Single-session configuration flow</p>

@@ -1135,7 +1135,8 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">67%</span>
-                      <span className="text-lg lg:text-xl text-white/60 mb-2">Engagement rate improvement</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2 md:hidden">Engagement</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2 hidden md:inline">Engagement rate improvement</span>
                     </div>
                     <p className="text-white/60 text-sm font-medium mb-4">41% → 67%</p>
                     <div className="space-y-2">
@@ -1156,7 +1157,8 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">84%</span>
-                      <span className="text-lg lg:text-xl text-white/60 mb-2">Orientation scheduling completion</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2 md:hidden">Orientation</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2 hidden md:inline">Orientation scheduling completion</span>
                     </div>
                     <p className="text-white/60 text-sm font-medium mb-4">58% → 84%</p>
                     <div className="space-y-2">
@@ -1177,7 +1179,8 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">78%</span>
-                      <span className="text-lg lg:text-xl text-white/60 mb-2">Onboarding completion rate</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2 md:hidden">Onboarding</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2 hidden md:inline">Onboarding completion rate</span>
                     </div>
                     <p className="text-white/60 text-sm font-medium mb-4">46% → 78%</p>
                     <div className="space-y-2">
@@ -1198,7 +1201,8 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                     </div>
                     <div className="flex items-end gap-3 mb-2">
                       <span className="text-4xl lg:text-5xl font-bold text-white tabular-nums">4.6</span>
-                      <span className="text-lg lg:text-xl text-white/60 mb-2">Hotjar satisfaction score</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2 md:hidden">Hotjar score</span>
+                      <span className="text-lg lg:text-xl text-white/60 mb-2 hidden md:inline">Hotjar satisfaction score</span>
                     </div>
                     <p className="text-white/60 text-sm font-medium mb-4">3.8/5 → 4.6/5</p>
                     <div className="space-y-2">
