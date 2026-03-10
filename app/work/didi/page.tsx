@@ -256,7 +256,7 @@ export default function DidiCaseStudyPage() {
   const isMobile = useIsMobile();
 
   return (
-    <div className="relative bg-bg text-text min-h-screen overflow-x-hidden touch-manipulation">
+    <div className="relative bg-bg text-text min-h-screen min-h-[100dvh] overflow-x-hidden touch-manipulation">
       <ImagePreviewModal
         open={preview.open}
         onClose={closePreview}
@@ -605,14 +605,14 @@ export default function DidiCaseStudyPage() {
             }}
           >
             <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[length:32px_32px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
-            <HeroGlow />
+            {!isMobile && <HeroGlow />}
             <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
               <div className="flex items-center gap-3 mb-4">
                 <IconTrendingUp className="w-5 h-5 text-blue-400" />
                 <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-widest">05. Impact</h2>
               </div>
               <h3 className="text-4xl md:text-5xl font-semibold text-white mb-6">Commercial Impact.</h3>
-              <p className="text-white/80 font-medium mb-10 max-w-2xl whitespace-nowrap">
+              <p className="text-white/80 font-medium mb-10 max-w-2xl md:whitespace-nowrap">
                 Measurable improvements in UX score, efficiency, and error reduction across the EagleEye platform.
               </p>
               <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-8 items-stretch">

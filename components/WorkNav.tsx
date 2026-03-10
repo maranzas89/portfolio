@@ -29,9 +29,9 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
     <nav
       className={`top-0 left-0 right-0 z-50 border-b border-gray-200 transition-all duration-300 w-full min-w-0 ${
         embed ? "relative" : "fixed"
-      } ${
+      }       ${
         scrolled
-          ? "bg-white/70 backdrop-blur-xl backdrop-saturate-150"
+          ? "bg-white/70 md:backdrop-blur-xl md:backdrop-saturate-150"
           : "bg-white"
       }`}
     >

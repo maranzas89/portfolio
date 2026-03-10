@@ -29,7 +29,7 @@ export default function CalbrightCaseStudyTabs() {
       aria-label="Calbright case study tabs"
       className={`flex flex-wrap gap-2 transition-all duration-300 ${
         scrolled
-          ? "bg-gray-100/90 backdrop-blur-xl backdrop-saturate-150"
+          ? "bg-gray-100/90 md:backdrop-blur-xl md:backdrop-saturate-150"
           : "bg-gray-100"
       }`}
     >
