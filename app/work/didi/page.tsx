@@ -908,8 +908,8 @@ export default function DidiCaseStudyPage() {
                         <span>After</span>
                       </div>
                       <div className="h-3 rounded-full overflow-hidden flex">
-                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "10%" }} />
-                        <div className="bg-white/20 rounded-r-full" style={{ width: "90%" }} />
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "90%" }} />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "10%" }} />
                       </div>
                     </div>
                   </div>

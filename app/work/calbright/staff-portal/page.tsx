@@ -989,7 +989,7 @@ export default function StaffPortalCaseStudyPage() {
                   <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-widest">09. Impact</h2>
                 </div>
                 <h3 className="text-4xl md:text-5xl font-semibold text-white mb-6">Impact & Outcomes</h3>
-                <p className="text-white/80 font-medium mb-10 max-w-2xl">
+                <p className="text-white/80 font-medium mb-10 max-w-4xl">
                   The staff portal improved operational efficiency and established a foundation for cross-role workflows.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
@@ -1007,12 +1007,12 @@ export default function StaffPortalCaseStudyPage() {
                     <p className="text-white/60 text-sm font-medium mb-4">Compared with the legacy Salesforce workflow</p>
                     <div className="space-y-2">
                       <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
-                        <span>Legacy</span>
                         <span>Redesigned</span>
+                        <span>Legacy</span>
                       </div>
                       <div className="h-3 rounded-full overflow-hidden flex">
-                        <div className="bg-white/20 rounded-l-full" style={{ width: "61%" }} title="Legacy baseline" />
-                        <div className="bg-emerald-500 rounded-r-full" style={{ width: "39%" }} title="35% faster" />
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "39%" }} title="35% faster" />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "61%" }} title="Legacy baseline" />
                       </div>
                     </div>
                   </div>
@@ -1030,12 +1030,12 @@ export default function StaffPortalCaseStudyPage() {
                     <p className="text-white/60 text-sm font-medium mb-4">Compared with previous case-handling flow</p>
                     <div className="space-y-2">
                       <div className="flex justify-between text-xs text-white/50 uppercase tracking-wide font-medium">
-                        <span>Legacy</span>
                         <span>Redesigned</span>
+                        <span>Legacy</span>
                       </div>
                       <div className="h-3 rounded-full overflow-hidden flex">
-                        <div className="bg-white/20 rounded-l-full" style={{ width: "59%" }} title="Legacy baseline" />
-                        <div className="bg-emerald-500 rounded-r-full" style={{ width: "41%" }} title="30% reduction" />
+                        <div className="bg-emerald-500 rounded-l-full" style={{ width: "41%" }} title="30% reduction" />
+                        <div className="bg-white/20 rounded-r-full" style={{ width: "59%" }} title="Legacy baseline" />
                       </div>
                     </div>
                   </div>
