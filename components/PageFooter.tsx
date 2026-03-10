@@ -1,3 +1,7 @@
+"use client";
+
+import { ResumeLink } from "@/components/ResumeLink";
+
 export default function PageFooter() {
   return (
     <footer className="bg-black text-white py-32 md:py-40">
@@ -22,9 +26,9 @@ export default function PageFooter() {
               <a href="https://github.com/maranzas89" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 GitHub
               </a>
-              <a href="/FJ/WenLiu_Resume.pdf" download="WenLiu_Resume.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
+              <ResumeLink className="hover:text-blue-400 transition-colors">
                 resume
-              </a>
+              </ResumeLink>
             </div>
           </div>
         </div>

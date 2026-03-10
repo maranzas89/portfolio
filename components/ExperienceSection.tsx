@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CONTENT_CONTAINER_CLASS } from "@/lib/layout";
 import {
   Briefcase,
@@ -30,6 +30,7 @@ import {
   Download,
 } from "lucide-react";
 import Link from "next/link";
+import { ResumeLink } from "@/components/ResumeLink";
 
 const summaries = [
   {
@@ -186,14 +187,9 @@ const experiences = [
   },
 ];
 
-const PDF_WIDTH = 612;
-const PDF_PAGE_HEIGHT = 792;
-const PDF_PAGES = 3;
 const MOBILE_BREAKPOINT = 768;
 
 function PdfPreviewContainer() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -204,56 +200,17 @@ function PdfPreviewContainer() {
     return () => mq.removeEventListener("change", check);
   }, []);
 
-  useEffect(() => {
-    if (!isMobile) return;
-    const el = containerRef.current;
-    if (!el) return;
-    const update = () => {
-      const w = el.offsetWidth;
-      setScale(w < PDF_WIDTH ? w / PDF_WIDTH : 1);
-    };
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [isMobile]);
-
-  const totalHeight = PDF_PAGE_HEIGHT * PDF_PAGES;
-
-  if (!isMobile) {
-    return (
-      <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
-        <iframe
-          src="/FJ/WenLiu_Resume.pdf"
-          title="Resume preview"
-          className="w-full h-full min-h-[600px] border-0"
-        />
-      </div>
-    );
+  if (isMobile) {
+    return null;
   }
 
   return (
-    <div
-      ref={containerRef}
-      className="relative bg-white rounded-2xl overflow-x-hidden overflow-y-auto mb-8
-        aspect-[3/4] max-h-[1100px] min-h-[400px] -mx-4 sm:-mx-6
-        [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-slate-100 [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full"
-    >
-      <div
-        className="origin-top-left"
-        style={{
-          width: PDF_WIDTH,
-          height: totalHeight,
-          transform: `scale(${scale})`,
-        }}
-      >
-        <iframe
-          src="/FJ/WenLiu_Resume.pdf"
-          title="Resume preview"
-          className="border-0"
-          style={{ width: PDF_WIDTH, height: totalHeight }}
-        />
-      </div>
+    <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
+      <iframe
+        src="/FJ/WenLiu_Resume.pdf"
+        title="Resume preview"
+        className="w-full h-full min-h-[600px] border-0"
+      />
     </div>
   );
 }
@@ -583,16 +540,12 @@ export default function ExperienceSection() {
           <p className="text-slate-500 text-base md:text-lg leading-relaxed mb-6">
             A concise overview of my experience, scope, and selected impact across product design, systems thinking, and platform work.
           </p>
-          <a
-            href="/FJ/WenLiu_Resume.pdf"
-            download="WenLiu_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+          <ResumeLink
             className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700 mb-8"
           >
             <Download className="w-5 h-5" />
             Download Resume
-          </a>
+          </ResumeLink>
           <PdfPreviewContainer />
         </section>
       </div>

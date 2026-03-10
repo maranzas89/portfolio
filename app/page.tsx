@@ -6,6 +6,7 @@ import { Layout, Sparkles, GitBranch, FileText, Menu, X } from "lucide-react";
 import HeroBackgroundFX from "@/components/HeroBackgroundFX";
 import PlaybookMethodology from "@/components/PlaybookMethodology";
 import { WORK_SUB_LINKS } from "@/lib/nav-config";
+import { ResumeLink } from "@/components/ResumeLink";
 
 export default function Page() {
   const [scrolled, setScrolled] = useState(false);
@@ -337,15 +338,9 @@ export default function Page() {
               <a href="https://github.com/maranzas89" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
                 GitHub
               </a>
-              <a
-                href="/FJ/WenLiu_Resume.pdf"
-                download="WenLiu_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-blue-400 transition-colors"
-              >
+              <ResumeLink className="hover:text-blue-400 transition-colors">
                 resume
-              </a>
+              </ResumeLink>
             </div>
           </div>
           </div>

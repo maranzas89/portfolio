@@ -6,6 +6,7 @@ import Link from "next/link";
 import HeroBackgroundFXEditorial from "@/components/HeroBackgroundFXEditorial";
 import { CONTENT_CONTAINER_CLASS } from "@/lib/layout";
 import { Download } from "lucide-react";
+import { ResumeLink } from "@/components/ResumeLink";
 
 type CtaItem = { label: string; href: string; download?: boolean | string };
 type PageHeroProps = {
@@ -74,7 +75,12 @@ export default function PageHero({
                     <span aria-hidden>→</span>
                   </Link>
                 )}
-                {secondaryCta && (
+                {secondaryCta && (secondaryCta.href?.includes("WenLiu_Resume") ? (
+                  <ResumeLink className="inline-flex items-center gap-2 rounded-xl border-2 border-white/50 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10 hover:border-white/70">
+                    <Download size={18} strokeWidth={2} />
+                    {secondaryCta.label}
+                  </ResumeLink>
+                ) : (
                   <a
                     href={secondaryCta.href}
                     download={secondaryCta.download === true ? "WenLiu_Resume.pdf" : secondaryCta.download || undefined}
@@ -85,7 +91,7 @@ export default function PageHero({
                     <Download size={18} strokeWidth={2} />
                     {secondaryCta.label}
                   </a>
-                )}
+                ))}
               </div>
             )}
           </div>
