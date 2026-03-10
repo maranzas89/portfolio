@@ -50,7 +50,7 @@ export default function Page() {
               AI PROJECTS
             </Link>
             <Link href="/experience" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
-              Experience
+              ABOUT ME
             </Link>
             <Link href="/kind-words" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
               Kind Words
@@ -104,7 +104,7 @@ export default function Page() {
                 className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Experience
+                ABOUT ME
               </Link>
               <Link
                 href="/kind-words"

@@ -28,6 +28,8 @@ import {
   Kanban,
   FlaskRound,
   Download,
+  Copy,
+  Check,
 } from "lucide-react";
 import Link from "next/link";
 import { ResumeLink } from "@/components/ResumeLink";
@@ -215,6 +217,49 @@ function PdfPreviewContainer() {
   );
 }
 
+const EMAIL = "williamliu_1989@hotmail.com";
+
+function EmailWithCopyButton() {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback ignored
+    }
+  };
+  return (
+    <div className="flex items-center gap-2 mt-3">
+      <span className="text-lg text-slate-500">
+        Email:{" "}
+        <a href={`mailto:${EMAIL}`} className="text-blue-600 hover:text-blue-700 hover:underline">
+          {EMAIL}
+        </a>
+      </span>
+      <button
+        type="button"
+        onClick={handleCopy}
+        aria-label="Copy email address"
+        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-colors text-sm font-medium"
+      >
+        {copied ? (
+          <>
+            <Check size={14} strokeWidth={2.5} className="text-green-600" />
+            Copied!
+          </>
+        ) : (
+          <>
+            <Copy size={14} strokeWidth={2} />
+            Copy
+          </>
+        )}
+      </button>
+    </div>
+  );
+}
+
 export default function ExperienceSection() {
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-slate-800 py-24 font-sans selection:bg-blue-200 relative">
@@ -234,6 +279,7 @@ export default function ExperienceSection() {
           <p className="text-lg text-slate-500 max-w-4xl leading-relaxed">
             Senior Product Designer | AI Systems, Enterprise Workflow Architecture & Product Strategy
           </p>
+          <EmailWithCopyButton />
         </section>
 
         {/* Summary Section */}
