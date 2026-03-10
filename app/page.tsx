@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Layout, Sparkles, GitBranch, FileText, Menu, X } from "lucide-react";
 import HeroBackgroundFX from "@/components/HeroBackgroundFX";
 import PlaybookMethodology from "@/components/PlaybookMethodology";
-import { WORK_SUB_LINKS } from "@/lib/nav-config";
+import { WORK_SUB_LINKS, MAILTO_LETS_CONNECT } from "@/lib/nav-config";
 import { ResumeLink } from "@/components/ResumeLink";
 
 export default function Page() {
@@ -169,10 +169,11 @@ export default function Page() {
                   <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Insights, testing, iteration</p>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-4 md:gap-[18px] mt-8">
+              <div className="relative z-20 flex flex-wrap items-center gap-4 md:gap-[18px] mt-8">
                 <a
-                  href="mailto:williamliu_1989@hotmail.com"
-                  className="inline-block rounded-[14px] bg-[#2563ff] px-10 py-5 text-lg font-bold text-white transition hover:bg-[#1d4ed8]"
+                  href={MAILTO_LETS_CONNECT}
+                  className="inline-block cursor-pointer rounded-[14px] bg-[#2563ff] px-10 py-5 text-lg font-bold text-white transition hover:bg-[#1d4ed8]"
+                  aria-label="Open email to connect"
                 >
                   Let&apos;s talk
                 </a>
@@ -325,8 +326,9 @@ export default function Page() {
                 Open to new opportunities
               </p>
               <a
-                href="mailto:williamliu_1989@hotmail.com"
-                className="text-6xl md:text-8xl lg:text-[8rem] font-medium tracking-tighter leading-none text-white hover:text-blue-400 transition-colors"
+                href={MAILTO_LETS_CONNECT}
+                className="cursor-pointer text-6xl md:text-8xl lg:text-[8rem] font-medium tracking-tighter leading-none text-white hover:text-blue-400 transition-colors"
+                aria-label="Open email to connect"
               >
                 Let&apos;s Connect
               </a>

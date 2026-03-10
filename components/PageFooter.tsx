@@ -1,6 +1,7 @@
 "use client";
 
 import { ResumeLink } from "@/components/ResumeLink";
+import { MAILTO_LETS_CONNECT } from "@/lib/nav-config";
 
 export default function PageFooter() {
   return (
@@ -13,8 +14,9 @@ export default function PageFooter() {
                 Open to new opportunities
               </p>
               <a
-                href="mailto:williamliu_1989@hotmail.com"
-                className="text-6xl md:text-8xl lg:text-[8rem] font-medium tracking-tighter leading-none text-white hover:text-blue-400 transition-colors"
+                href={MAILTO_LETS_CONNECT}
+                className="cursor-pointer text-6xl md:text-8xl lg:text-[8rem] font-medium tracking-tighter leading-none text-white hover:text-blue-400 transition-colors"
+                aria-label="Open email to connect"
               >
                 Let&apos;s Connect
               </a>
