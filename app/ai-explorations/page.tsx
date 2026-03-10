@@ -124,6 +124,7 @@ export default function AIExplorationsPage() {
         eyebrow="AI Explorations"
         headline="Designing with AI as a creative and systems-thinking partner"
         paragraph="A curated selection of explorations across AI-assisted workflows, rapid prototyping, interface concepts, generative visual directions, and design process experiments. These studies reflect how I use AI not just to move faster, but to think more broadly, test more directions, and expand the range of what design can do."
+        backgroundVariant="ai-explorations"
       />
 
       <main className="bg-white">

@@ -639,7 +639,7 @@ export default function StudentPortalCaseStudy({ backLink = { href: "/#work", la
                 href="https://xd.adobe.com/view/29c11358-51ea-442c-a9e5-33e91a9ae66e-7c92/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-xl font-medium text-white transition hover:bg-blue-700 mt-8"
+                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-sm md:text-xl font-medium text-white transition hover:bg-blue-700 mt-8"
               >
                 View Calbright Design System
                 <ArrowRight className="w-5 h-5" />

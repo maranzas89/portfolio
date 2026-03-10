@@ -16,17 +16,20 @@ export function ScrollReveal({
   delay = 0,
   direction = "up",
   className = "",
+  reduceMotion = false,
 }: {
   children: React.ReactNode;
   delay?: number;
   direction?: Direction;
   className?: string;
+  reduceMotion?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(reduceMotion);
   const { x, y } = directionOffsets[direction];
 
   useEffect(() => {
+    if (reduceMotion) return;
     const el = ref.current;
     if (!el) return;
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
@@ -45,13 +48,13 @@ export function ScrollReveal({
       if (timeoutId) clearTimeout(timeoutId);
       observer.disconnect();
     };
-  }, [delay]);
+  }, [delay, reduceMotion]);
 
   return (
     <div
       ref={ref}
       className={className}
-      style={{
+      style={reduceMotion ? undefined : {
         opacity: visible ? 1 : 0,
         transform: visible ? "translate(0, 0)" : `translate(${x}px, ${y}px)`,
         transition: `opacity 0.6s ease-out ${delay}ms, transform 0.6s ease-out ${delay}ms`,

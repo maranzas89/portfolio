@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/lib/hooks/useIsMobile";
 import Link from "next/link";
 import HeroGlow from "@/components/HeroGlow";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -82,21 +83,25 @@ function ImagePreviewModal({
 }
 
 /* --- Reveal: scroll-into-view fade animation (no external deps) --- */
+/* On mobile (reduceMotion): render immediately to avoid scroll-linked reflows and Safari instability */
 function Reveal({
   children,
   delay = 0,
   direction = "up",
   className = "",
+  reduceMotion = false,
 }: {
   children: React.ReactNode;
   delay?: number;
   direction?: "up" | "left" | "right";
   className?: string;
+  reduceMotion?: boolean;
 }) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(reduceMotion);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (reduceMotion) return;
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -110,7 +115,7 @@ function Reveal({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reduceMotion]);
 
   const hiddenTransform =
     direction === "up"
@@ -122,8 +127,8 @@ function Reveal({
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: `${delay}ms`, willChange: isVisible ? "auto" : "transform, opacity" }}
-      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      style={reduceMotion ? undefined : { transitionDelay: `${delay}ms`, willChange: isVisible ? "auto" : "transform, opacity" }}
+      className={reduceMotion ? `opacity-100 ${className}` : `transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isVisible ? "opacity-100 translate-y-0 translate-x-0" : `opacity-0 ${hiddenTransform}`
       } ${className}`}
     >
@@ -248,9 +253,10 @@ export default function DidiCaseStudyPage() {
     setPreview({ open: true, ...opts });
   }, []);
   const closePreview = useCallback(() => setPreview({ open: false }), []);
+  const isMobile = useIsMobile();
 
   return (
-    <div className="relative bg-bg text-text min-h-screen overflow-x-hidden">
+    <div className="relative bg-bg text-text min-h-screen overflow-x-hidden touch-manipulation">
       <ImagePreviewModal
         open={preview.open}
         onClose={closePreview}
@@ -270,26 +276,26 @@ export default function DidiCaseStudyPage() {
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-24 pt-8 md:pt-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-8">
-            <Reveal direction="up" delay={0}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={0}>
               <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">DiDi · Shaping an Enterprise Security Platform</p>
             </Reveal>
-            <Reveal direction="up" delay={100}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={100}>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight text-white mb-4 max-w-4xl">
                 EagleEye Policy Center 2.0
               </h1>
             </Reveal>
-            <Reveal direction="up" delay={200}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={200}>
               <p className="text-xl md:text-2xl text-white/80 font-medium mb-6 max-w-3xl">
                 Designed a unified policy engine that drove $6M in revenue while improving operational efficiency for enterprise security teams.
               </p>
             </Reveal>
-            <Reveal direction="up" delay={210}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={210}>
               <div className="mb-6">
                 <p className="text-white/50 uppercase tracking-widest font-medium mb-1 text-sm">Security Operator Voice</p>
                 <p className="text-lg md:text-xl text-white/75 font-semibold italic max-w-3xl">&quot;Policy management across devices and departments is finally streamlined.&quot;</p>
               </div>
             </Reveal>
-            <Reveal direction="up" delay={225}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={225}>
               <div className="grid grid-cols-1 gap-6 text-sm mb-12">
                 <div>
                   <p className="text-white/50 uppercase tracking-widest font-medium mb-1">Scope</p>
@@ -298,21 +304,21 @@ export default function DidiCaseStudyPage() {
               </div>
             </Reveal>
             <div className="mt-[44px] grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Reveal direction="up" delay={300}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={300}>
               <div className="group bg-white/5 hover:bg-white/10 p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
                 <IconTrendingUp />
                 <h3 className="font-medium text-2xl mb-1 mt-3">83%</h3>
                 <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Trial Conversion</p>
               </div>
             </Reveal>
-            <Reveal direction="up" delay={400}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={400}>
               <div className="group bg-white/5 hover:bg-white/10 p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
                 <IconShield />
                 <h3 className="font-medium text-2xl mb-1 mt-3">100K+</h3>
                 <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Endpoints Managed</p>
               </div>
             </Reveal>
-            <Reveal direction="up" delay={500}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={500}>
               <div className="group bg-white/5 hover:bg-white/10 p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
                 <IconZap />
                 <h3 className="font-medium text-2xl mb-1 mt-3">-65%</h3>
@@ -322,8 +328,8 @@ export default function DidiCaseStudyPage() {
           </div>
             </div>
             <div className="lg:col-span-4 flex items-center justify-center lg:justify-end min-h-0">
-              <Reveal direction="left" delay={200}>
-                <AnimatedWorkflowHero className="w-full max-w-[720px] min-h-[480px]" />
+              <Reveal reduceMotion={isMobile} direction="left" delay={200}>
+                <AnimatedWorkflowHero className="w-full max-w-[720px] min-h-[480px]" reduceMotion={isMobile} />
               </Reveal>
             </div>
           </div>
@@ -331,33 +337,33 @@ export default function DidiCaseStudyPage() {
       </header>
 
       {/* Main Content */}
-      <main className="bg-white">
+      <main className="bg-white overflow-x-hidden">
         <div className="max-w-[1600px] mx-auto py-24 px-8 md:px-16 lg:px-24 space-y-32">
         {/* Project Snapshot */}
         <section>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-line pb-12">
-            <Reveal direction="up" delay={100}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={100}>
               <div className="flex items-center gap-3 mb-2">
                 <IconBox />
                 <p className="text-xs text-muted uppercase tracking-widest font-medium">Product</p>
               </div>
               <p className="font-medium text-lg text-text">EagleEye EPP</p>
             </Reveal>
-            <Reveal direction="up" delay={200}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={200}>
               <div className="flex items-center gap-3 mb-2">
                 <IconUsers />
                 <p className="text-xs text-muted uppercase tracking-widest font-medium">Users</p>
               </div>
               <p className="font-medium text-lg text-text">SecOps Operators</p>
             </Reveal>
-            <Reveal direction="up" delay={300}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={300}>
               <div className="flex items-center gap-3 mb-2">
                 <IconCalendar />
                 <p className="text-xs text-muted uppercase tracking-widest font-medium">Timeline</p>
               </div>
               <p className="font-medium text-lg text-text">2020 – 2023</p>
             </Reveal>
-            <Reveal direction="up" delay={400}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={400}>
               <div className="flex items-center gap-3 mb-2">
                 <IconBriefcase />
                 <p className="text-xs text-muted uppercase tracking-widest font-medium">Role</p>
@@ -372,7 +378,7 @@ export default function DidiCaseStudyPage() {
 
         {/* 1. Problem Section */}
         <section id="challenge" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
-          <Reveal direction="right" className="md:col-span-5 pr-12">
+          <Reveal reduceMotion={isMobile} direction="right" className="md:col-span-5 pr-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <AlertCircle className="w-6 h-6 text-blue-600 shrink-0" />
@@ -396,7 +402,7 @@ export default function DidiCaseStudyPage() {
               </div>
             </div>
           </Reveal>
-          <Reveal direction="left" className="md:col-span-7 md:border-l-2 md:border-line md:pl-12">
+          <Reveal reduceMotion={isMobile} direction="left" className="md:col-span-7 md:border-l-2 md:border-line md:pl-12">
             <div
               className="group cursor-pointer"
               onClick={() => openPreview({ src: "/images/didi/pdfpage17.svg", caption: "Fig 1. The legacy 4-day configuration process." })}
@@ -415,7 +421,7 @@ export default function DidiCaseStudyPage() {
 
         {/* 2. System Thinking */}
         <section id="system-thinking" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
-          <Reveal direction="right" className="md:col-span-7 order-2 md:order-1 md:border-r-2 md:border-line md:pr-12">
+          <Reveal reduceMotion={isMobile} direction="right" className="md:col-span-7 order-2 md:order-1 md:border-r-2 md:border-line md:pr-12">
             <div
               className="group cursor-pointer"
               onClick={() => openPreview({ src: "/images/didi/pdfpage14.svg", caption: "Fig 2. Device-centric vs. People-centric architecture." })}
@@ -430,7 +436,7 @@ export default function DidiCaseStudyPage() {
               <p className="text-sm text-muted font-medium mt-5 text-center">Fig 2. Device-centric vs. People-centric architecture.</p>
             </div>
           </Reveal>
-          <Reveal direction="left" className="md:col-span-5 order-1 md:order-2 md:pl-12">
+          <Reveal reduceMotion={isMobile} direction="left" className="md:col-span-5 order-1 md:order-2 md:pl-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <IconGitBranch />
@@ -462,7 +468,7 @@ export default function DidiCaseStudyPage() {
 
         {/* 3. Approach & IA */}
         <section id="approach-ia" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
-          <Reveal direction="right" className="md:col-span-5 pr-12">
+          <Reveal reduceMotion={isMobile} direction="right" className="md:col-span-5 pr-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <IconLightbulb />
@@ -494,7 +500,7 @@ export default function DidiCaseStudyPage() {
               </ul>
             </div>
           </Reveal>
-          <Reveal direction="left" className="md:col-span-7 md:border-l-2 md:border-line md:pl-12">
+          <Reveal reduceMotion={isMobile} direction="left" className="md:col-span-7 md:border-l-2 md:border-line md:pl-12">
             <div
               className="group cursor-pointer"
               onClick={() => openPreview({ src: "/images/didi/pdfpage15.svg", caption: "Fig 3. Wireframes defining the P0/P1/P2 hierarchy." })}
@@ -514,7 +520,7 @@ export default function DidiCaseStudyPage() {
 
         {/* 4. Solutions */}
         <section id="solutions" className="space-y-16">
-          <Reveal direction="up">
+          <Reveal reduceMotion={isMobile} direction="up">
             <div className="text-center max-w-2xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <IconCheckCircle />
@@ -523,7 +529,7 @@ export default function DidiCaseStudyPage() {
               <h3 className="text-3xl md:text-4xl font-semibold text-text">Streamlining the enterprise.</h3>
             </div>
           </Reveal>
-          <Reveal direction="up" delay={100}>
+          <Reveal reduceMotion={isMobile} direction="up" delay={100}>
             <div className="bg-card rounded-[40px] p-6 md:p-10 border-0">
               <div
                 className="relative rounded-[24px] overflow-hidden aspect-video bg-white cursor-pointer group "
@@ -545,7 +551,7 @@ export default function DidiCaseStudyPage() {
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <Reveal direction="up" delay={200}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={200}>
               <div className="bg-card rounded-[40px] p-8 border-0 group hover:-translate-y-2 transition-transform duration-700 h-full">
                 <div
                   className="overflow-hidden rounded-[24px] mb-8 aspect-video bg-white cursor-pointer group "
@@ -565,7 +571,7 @@ export default function DidiCaseStudyPage() {
                 <p className="text-muted text-base md:text-lg font-medium">Multi-day configuration replaced with a linear batch operation.</p>
               </div>
             </Reveal>
-            <Reveal direction="up" delay={300}>
+            <Reveal reduceMotion={isMobile} direction="up" delay={300}>
               <div className="bg-card rounded-[40px] p-8 border-0 group hover:-translate-y-2 transition-transform duration-700 h-full">
                 <div
                   className="overflow-hidden rounded-[24px] mb-8 aspect-video bg-white cursor-pointer group "
@@ -588,17 +594,17 @@ export default function DidiCaseStudyPage() {
           </div>
         </section>
 
-        {/* 5. Validation / Outcomes — full-bleed like Hero */}
-        <ScrollReveal direction="up">
+        {/* 5. Validation / Outcomes — full-bleed on desktop; contained on mobile to avoid Safari scroll bugs */}
+        <ScrollReveal reduceMotion={isMobile} direction="up">
           <section
             id="impact"
-            className="relative left-1/2 -translate-x-1/2 w-screen max-w-none text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/10"
+            className="relative w-full max-md:max-w-[1600px] max-md:mx-auto md:left-1/2 md:-translate-x-1/2 md:w-screen md:max-w-none text-white py-24 md:py-32 overflow-hidden border-t border-b border-white/10"
             style={{
               background:
                 "radial-gradient(circle at 32% 12%, rgba(50, 95, 185, 0.22), transparent 26%), linear-gradient(90deg, #020611 0%, #031128 18%, #0a1b3c 52%, #051634 76%, #031126 100%)",
             }}
           >
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[length:32px_32px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+            <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[length:32px_32px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
             <HeroGlow />
             <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
               <div className="flex items-center gap-3 mb-4">
@@ -683,7 +689,7 @@ export default function DidiCaseStudyPage() {
         </ScrollReveal>
 
         {/* Ownership */}
-        <Reveal direction="up">
+        <Reveal reduceMotion={isMobile} direction="up">
           <section className="text-center max-w-4xl mx-auto pb-8">
             <div className="flex items-center justify-center gap-3 mb-6">
               <Crown className="w-6 h-6 text-blue-600 shrink-0" />

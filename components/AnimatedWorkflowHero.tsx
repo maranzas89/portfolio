@@ -6,13 +6,21 @@ import { motion, AnimatePresence } from "framer-motion";
 type Mode = "before" | "after";
 
 const lineTransition = { duration: 1.1, ease: [0.22, 1, 0.36, 1] as const };
-const fadeUp = {
+const fadeUpWithBlur = {
   hidden: { opacity: 0, y: 10, filter: "blur(6px)" },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
     transition: { delay: 0.1 + i * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+  }),
+};
+const fadeUpSimple = {
+  hidden: { opacity: 0, y: 8 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.05 + i * 0.04, duration: 0.3, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };
 
@@ -24,6 +32,7 @@ function Node({
   label,
   tone = "neutral",
   i,
+  reduceMotion = false,
 }: {
   x: number;
   y: number;
@@ -32,6 +41,7 @@ function Node({
   label: string;
   tone?: "neutral" | "bad" | "ok";
   i: number;
+  reduceMotion?: boolean;
 }) {
   const styles = {
     neutral: {
@@ -55,7 +65,7 @@ function Node({
   }[tone];
 
   return (
-    <motion.g initial="hidden" animate="show" variants={fadeUp} custom={i}>
+    <motion.g initial="hidden" animate="show" variants={reduceMotion ? fadeUpSimple : fadeUpWithBlur} custom={i}>
       <rect x={x} y={y} width={w} height={h} rx={12} fill={styles.fill} stroke={styles.stroke} />
       <text
         x={x + w / 2}
@@ -77,7 +87,8 @@ function Node({
   );
 }
 
-function Glow() {
+function Glow({ reduceMotion }: { reduceMotion?: boolean }) {
+  if (reduceMotion) return null;
   return (
     <div
       aria-hidden
@@ -93,8 +104,10 @@ function Glow() {
 
 export default function AnimatedWorkflowHero({
   className = "",
+  reduceMotion = false,
 }: {
   className?: string;
+  reduceMotion?: boolean;
 }) {
   const [mode, setMode] = useState<Mode>("before");
 
@@ -153,12 +166,12 @@ export default function AnimatedWorkflowHero({
   return (
     <div
       className={[
-        "relative h-full w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md",
-        "overflow-hidden",
+        "relative h-full w-full rounded-2xl border border-white/10 overflow-hidden",
+        reduceMotion ? "bg-white/[0.06]" : "bg-white/5 backdrop-blur-md",
         className,
       ].join(" ")}
     >
-      <Glow />
+      <Glow reduceMotion={reduceMotion} />
 
       {/* Header */}
       <div className="relative z-10 flex items-start justify-between gap-3 p-3">
@@ -238,7 +251,7 @@ export default function AnimatedWorkflowHero({
 
                 {/* Nodes */}
                 {data.nodes.map((n, idx) => (
-                  <Node key={n.label} {...n} i={idx} />
+                  <Node key={n.label} {...n} i={idx} reduceMotion={reduceMotion} />
                 ))}
 
                 {/* Footer hint */}
