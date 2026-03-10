@@ -533,7 +533,7 @@ export default function DidiCaseStudyPage() {
         </section>
 
         {/* 3b. Systematized for Scale — bridge between framing and execution */}
-        <section id="systematized" className="space-y-10">
+        <section id="systematized" className="space-y-10 [overflow-anchor:auto]">
           <Reveal reduceMotion={isMobile} direction="up">
             <div className="flex items-center gap-3 mb-4">
               <IconLayers />
@@ -547,14 +547,18 @@ export default function DidiCaseStudyPage() {
           <Reveal reduceMotion={isMobile} direction="up" delay={100}>
             <div className="max-w-4xl">
               <div
-                className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line"
+                className="overflow-hidden rounded-none aspect-video cursor-pointer group border border-line min-h-[200px] [overflow-anchor:none]"
                 onClick={() => openPreview({ src: "/images/didi/pdfpage22.svg", caption: "EagleEye Design System" })}
               >
                 <img
                   src="/images/didi/pdfpage22.svg"
                   alt="EagleEye Design System"
                   loading="lazy"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  decoding="async"
+                  fetchPriority="low"
+                  width={800}
+                  height={450}
+                  className="block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <p className="text-sm text-muted font-medium mt-4">EagleEye Design System</p>
