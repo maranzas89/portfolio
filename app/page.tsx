@@ -10,6 +10,7 @@ import { WORK_SUB_LINKS } from "@/lib/nav-config";
 export default function Page() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isWorkActive, setIsWorkActive] = useState(false);
   const workSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -17,6 +18,13 @@ export default function Page() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const checkHash = () => setIsWorkActive(typeof window !== "undefined" && window.location.hash === "#work");
+    checkHash();
+    window.addEventListener("hashchange", checkHash);
+    return () => window.removeEventListener("hashchange", checkHash);
   }, []);
   return (
     <div className="relative bg-bg text-text">
@@ -34,7 +42,7 @@ export default function Page() {
           </a>
           {/* Desktop nav - hidden below 768px */}
           <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
-            <a href="#work" className="nav-link-underline active text-text hover:text-gray-700 transition-colors">
+            <a href="#work" className={`nav-link-underline hover:text-gray-700 transition-colors ${isWorkActive ? "active text-text" : "text-muted"}`}>
               Work
             </a>
             <Link href="/ai-explorations" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
@@ -65,7 +73,7 @@ export default function Page() {
               <div>
                 <a
                   href="#work"
-                  className="font-accent nav-link-underline active text-text font-semibold uppercase tracking-widest text-sm block hover:text-gray-700 transition-colors"
+                  className={`font-accent nav-link-underline font-semibold uppercase tracking-widest text-sm block hover:text-gray-700 transition-colors ${isWorkActive ? "active text-text" : "text-muted"}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Work

@@ -47,8 +47,8 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
           {NAV_LINKS.map(({ href, label }) => {
             const isWork = href === "/#work";
             const isActive =
-              (isWork && pathname === "/") ||
-              (href.startsWith("/") && href !== "/#work" && pathname === href);
+              (isWork && pathname.startsWith("/work/")) ||
+              (!isWork && href.startsWith("/") && pathname === href);
             return (
               <Link
                 key={href}
@@ -87,7 +87,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
               <a
                 href="/#work"
                 className={`font-accent block font-semibold uppercase tracking-widest text-sm hover:text-gray-700 transition-colors ${
-                  pathname === "/" ? "text-text " + linkActive : "text-muted " + linkBase
+                  pathname.startsWith("/work/") ? "text-text " + linkActive : "text-muted " + linkBase
                 }`}
                 onClick={(e) => {
                   if (pathname === "/") {
