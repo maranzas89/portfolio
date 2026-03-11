@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import {
   ArrowUpRight,
   BarChart3,
+  BookOpen,
   Bot,
   CheckCircle2,
   CircleDashed,
@@ -16,12 +17,21 @@ import {
   GitBranch,
   Layout,
   Layers3,
+  List,
   MousePointerClick,
+  Network,
+  Pencil,
+  PenLine,
+  Play,
+  Rocket,
   Search,
   ShieldCheck,
   Sparkles,
   Star,
+  Terminal,
+  Users,
   Wrench,
+  Zap,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -343,7 +353,9 @@ const workflowSteps = [
       "Start with a rough product shape, not a polished spec.",
       "Example: a writing assistant with a personal document library, real-time AI chat, and an integrated editor.",
     ],
+    detailIcons: [List, Pencil, BookOpen],
     signal: "Clarity before code",
+    image: "/images/ai-workflow-step1.svg",
   },
   {
     id: "prd",
@@ -357,6 +369,7 @@ const workflowSteps = [
       "Use AI to expose needs you might not surface on your own, such as RAG, vector databases, APIs, or export formats.",
       "Review the PRD yourself line by line because the rest of the build inherits its logic.",
     ],
+    detailIcons: [Network, Bot, Eye],
     signal: "Prompt quality becomes product quality",
   },
   {
@@ -371,6 +384,7 @@ const workflowSteps = [
       "Generate a rough UI draft in tools like Lovable, then refine it in Figma.",
       "If MCP can access Figma directly, AI can work from more precise design data than screenshots alone.",
     ],
+    detailIcons: [Database, Layout, Zap],
     signal: "System thinking plus interface thinking",
   },
   {
@@ -385,6 +399,7 @@ const workflowSteps = [
       "Give AI the PRD, the design draft, and the implementation expectations together.",
       "The cleaner the preparation, the closer the generated code gets to the intended result.",
     ],
+    detailIcons: [Zap, FileText, CheckCircle2],
     signal: "Preparation compresses build time",
   },
   {
@@ -399,6 +414,7 @@ const workflowSteps = [
       "A modular sequence isolates problems and makes debugging controllable.",
       "A practical sequence could flow from layout, to AI chat, to document library and RAG, to editor.",
     ],
+    detailIcons: [CheckCircle2, GitBranch, ArrowUpRight],
     signal: "Modularity reduces debugging risk",
   },
   {
@@ -413,6 +429,7 @@ const workflowSteps = [
       "For revisions, explain what is missing, what is overbuilt, and what the final target should be.",
       "For bugs, add logging, reproduce the issue, capture the error, then feed the concrete signal back to AI.",
     ],
+    detailIcons: [FileText, PenLine, Terminal],
     signal: "Specific input drives useful output",
   },
   {
@@ -427,6 +444,7 @@ const workflowSteps = [
       "If possible, let target users try it to reveal issues you missed.",
       "Once the minimum viable path works, continue polishing and extending the system.",
     ],
+    detailIcons: [Play, Users, Rocket],
     signal: "MVP after the core path is reliable",
   },
 ];
@@ -454,7 +472,7 @@ function AiDesignWorkflowExplorationsSection() {
           )}
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[0.65fr_1.35fr]">
+      <div className="grid gap-6 xl:grid-cols-[0.5fr_1.5fr]">
         <div className="space-y-3">
           {workflowSteps.map((step, index) => {
             const Icon = step.icon;
@@ -495,44 +513,42 @@ function AiDesignWorkflowExplorationsSection() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-[8px] bg-slate-50 p-5 md:p-6"
+          className="flex flex-col rounded-[8px] bg-slate-50 p-5 md:p-6"
         >
-          <div className="mb-5 flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[8px] bg-white shadow-sm">
+          {/* Header row */}
+          <div className="mb-4 flex items-start gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] bg-white shadow-sm">
               <SelectedIcon className="h-5 w-5 text-slate-800" />
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">Workflow stage</div>
-              <div className="text-2xl font-semibold text-slate-900">{selectedWorkflowStep.title}</div>
+              <div className="text-lg font-semibold leading-snug text-slate-900">{selectedWorkflowStep.title}</div>
             </div>
+            <span className="shrink-0 rounded-[8px] bg-slate-900 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white">
+              {selectedWorkflowStep.signal}
+            </span>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="rounded-[8px] bg-white p-4">
-              <div className="mb-2 text-xs uppercase tracking-[0.18em] text-slate-500">Summary</div>
-              <p className="text-sm leading-7 text-slate-600">{selectedWorkflowStep.summary}</p>
-
-              <div className="mt-4 rounded-[8px] bg-slate-50 p-3 text-sm text-slate-700">
-                <span className="font-medium text-slate-900">Core signal:</span>{" "}
-                {selectedWorkflowStep.signal}
-              </div>
-            </div>
-
-            <div className="rounded-[8px] bg-white p-4">
-              <div className="mb-2 text-xs uppercase tracking-[0.18em] text-slate-500">
-                What this means in practice
-              </div>
-
-              <div className="space-y-3">
-                {selectedWorkflowStep.details.map((item) => (
-                  <div key={item} className="flex gap-3 text-sm leading-6 text-slate-600">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Summary strip */}
+          <div className="mb-4 rounded-[8px] bg-white px-4 py-3">
+            <p className="text-[13px] leading-6 text-slate-600">{selectedWorkflowStep.summary}</p>
           </div>
+
+          {/* Image area */}
+          {selectedWorkflowStep.image ? (
+            <div className="flex-1 min-h-[160px] w-full rounded-[8px] overflow-hidden">
+              <img
+                src={selectedWorkflowStep.image}
+                alt={selectedWorkflowStep.title}
+                className="w-full h-full object-contain"
+              />
+            </div>
+          ) : (
+            <div className="flex-1 min-h-[160px] w-full rounded-[8px] bg-slate-200 flex items-center justify-center gap-2 border-2 border-dashed border-slate-300">
+              <Layout className="h-4 w-4 text-slate-400" />
+              <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">Image placeholder</span>
+            </div>
+          )}
         </motion.div>
       </div>
 
