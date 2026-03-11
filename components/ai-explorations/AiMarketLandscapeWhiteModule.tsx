@@ -466,7 +466,7 @@ function AiDesignWorkflowExplorationsSection() {
                 type="button"
                 onClick={() => setSelectedWorkflowStepId(step.id)}
                 className={cn(
-                  "w-full rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
+                  "w-full cursor-pointer rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
                   active
                     ? "border border-slate-200 bg-white"
                     : "border border-transparent bg-slate-50 hover:bg-slate-100 active:bg-slate-100",
@@ -545,7 +545,7 @@ function AiDesignWorkflowExplorationsSection() {
           },
           {
             title: "Design and stack together",
-            body: "Interface ideas and technical choices are developed in parallel because they constrain each other.",
+            body: "Interface ideas and technical choices evolve together because they shape each other.",
             icon: Layers3,
           },
           {
@@ -555,13 +555,13 @@ function AiDesignWorkflowExplorationsSection() {
           },
           {
             title: "Debug with evidence",
-            body: "Useful AI debugging starts from precise symptoms, logs, and reproducible signals rather than vague complaints.",
+            body: "Useful AI debugging starts with precise symptoms, logs, and reproducible signals.",
             icon: Search,
           },
         ].map((item) => {
           const Icon = item.icon;
           return (
-            <div key={item.title} className="rounded-[8px] bg-slate-50 p-4">
+            <div key={item.title} className="rounded-[8px] bg-slate-50 p-4 pl-[26px]">
               <div className="flex items-center gap-2 text-base font-medium text-slate-900">
                 <Icon className="h-4 w-4 shrink-0 text-slate-700" />
                 {item.title}
