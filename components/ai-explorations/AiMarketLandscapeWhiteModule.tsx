@@ -9,8 +9,11 @@ import {
   CheckCircle2,
   CircleDashed,
   Compass,
+  Code2,
   Database,
   Eye,
+  FileText,
+  GitBranch,
   Layout,
   Layers3,
   MousePointerClick,
@@ -18,6 +21,7 @@ import {
   ShieldCheck,
   Sparkles,
   Star,
+  Wrench,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -325,6 +329,251 @@ const validationTools = [
       "Use Hotjar when the question is: where are people dropping off in the live experience, and what should I inspect next?",
   },
 ];
+
+const workflowSteps = [
+  {
+    id: "core",
+    title: "Step 1 — Clarify the core product functions",
+    short: "Clarify core functions",
+    icon: Compass,
+    summary:
+      "Before writing code in Cursor, define the core product functions clearly in plain language. They do not need to be perfect, but they need to be explicit.",
+    details: [
+      "Write down the smallest meaningful feature set before touching implementation.",
+      "Start with a rough product shape, not a polished spec.",
+      "Example: a writing assistant with a personal document library, real-time AI chat, and an integrated editor.",
+    ],
+    signal: "Clarity before code",
+  },
+  {
+    id: "prd",
+    title: "Step 2 — Use AI to draft the PRD",
+    short: "Draft the PRD",
+    icon: FileText,
+    summary:
+      "Once the core functions are clear, use AI to discuss flows, dependencies, sequencing, and technical requirements, then turn that into a PRD.",
+    details: [
+      "Talk through how features relate to each other, what depends on what, and what technical support is required.",
+      "Use AI to expose needs you might not surface on your own, such as RAG, vector databases, APIs, or export formats.",
+      "Review the PRD yourself line by line because the rest of the build inherits its logic.",
+    ],
+    signal: "Prompt quality becomes product quality",
+  },
+  {
+    id: "stack-ui",
+    title: "Step 3 — Define the tech stack and interaction draft in parallel",
+    short: "Stack and UI draft",
+    icon: Layers3,
+    summary:
+      "Technical choices and interaction design are developed together because each one constrains the other.",
+    details: [
+      "Discuss frontend, backend, database, deployment, and external APIs with AI, then document the chosen structure.",
+      "Generate a rough UI draft in tools like Lovable, then refine it in Figma.",
+      "If MCP can access Figma directly, AI can work from more precise design data than screenshots alone.",
+    ],
+    signal: "System thinking plus interface thinking",
+  },
+  {
+    id: "code",
+    title: "Step 4 — Generate code after the thinking is clear",
+    short: "Generate code",
+    icon: Code2,
+    summary:
+      "Once requirements and UI are clear, feed the PRD and design context into Cursor and let agentic coding begin.",
+    details: [
+      "This step becomes faster because the ambiguity was handled upstream.",
+      "Give AI the PRD, the design draft, and the implementation expectations together.",
+      "The cleaner the preparation, the closer the generated code gets to the intended result.",
+    ],
+    signal: "Preparation compresses build time",
+  },
+  {
+    id: "iterate",
+    title: "Step 5 — Build one module at a time and iterate",
+    short: "Iterate by module",
+    icon: GitBranch,
+    summary:
+      "Generate and validate one module at a time rather than asking AI to build everything at once.",
+    details: [
+      "Test each module after it is generated, confirm it works, then commit before moving on.",
+      "A modular sequence isolates problems and makes debugging controllable.",
+      "A practical sequence could flow from layout, to AI chat, to document library and RAG, to editor.",
+    ],
+    signal: "Modularity reduces debugging risk",
+  },
+  {
+    id: "debug",
+    title: "Step 6 — Refine and debug with precise change requests and logs",
+    short: "Refine and debug",
+    icon: Wrench,
+    summary:
+      "When refining or debugging, describe what is wrong precisely and support the request with logs rather than vague complaints.",
+    details: [
+      "For new requirements, update the rules and constraints before asking AI to extend the product.",
+      "For revisions, explain what is missing, what is overbuilt, and what the final target should be.",
+      "For bugs, add logging, reproduce the issue, capture the error, then feed the concrete signal back to AI.",
+    ],
+    signal: "Specific input drives useful output",
+  },
+  {
+    id: "done",
+    title: "Step 7 — Define done by whether the core path works end to end",
+    short: "Define done",
+    icon: CheckCircle2,
+    summary:
+      "The product is ready at MVP level when the core PRD functions are implemented, the main user path works, and no obvious bugs block the flow.",
+    details: [
+      "Run through the core journey yourself first.",
+      "If possible, let target users try it to reveal issues you missed.",
+      "Once the minimum viable path works, continue polishing and extending the system.",
+    ],
+    signal: "MVP after the core path is reliable",
+  },
+];
+
+function AiDesignWorkflowExplorationsSection() {
+  const [selectedWorkflowStepId, setSelectedWorkflowStepId] = useState("core");
+
+  const selectedWorkflowStep =
+    workflowSteps.find((step) => step.id === selectedWorkflowStepId) || workflowSteps[0];
+
+  const SelectedIcon = selectedWorkflowStep.icon;
+
+  return (
+    <section className="w-full px-0 pt-2 pb-6 md:pt-3 md:pb-7 lg:pt-4 lg:pb-7">
+      <div className="mb-6 flex flex-wrap gap-2">
+          {["Coding ≈ 20%", "Clarity ≈ 80%", "One module at a time", "MVP after the core path works"].map(
+            (chip) => (
+              <span
+                key={chip}
+                className="rounded-[8px] bg-slate-50 px-3 py-2 text-xs text-slate-600"
+              >
+                {chip}
+              </span>
+            ),
+          )}
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+        <div className="space-y-3">
+          {workflowSteps.map((step, index) => {
+            const Icon = step.icon;
+            const active = selectedWorkflowStepId === step.id;
+
+            return (
+              <button
+                key={step.id}
+                type="button"
+                onClick={() => setSelectedWorkflowStepId(step.id)}
+                className={cn(
+                  "w-full rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
+                  active
+                    ? "border border-slate-200 bg-white"
+                    : "bg-slate-50 hover:bg-slate-100",
+                )}
+              >
+                <div className="flex items-start gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] bg-slate-100">
+                    <Icon className="h-5 w-5 text-slate-800" />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="text-sm font-medium text-slate-900">{step.short}</div>
+                      <div className="text-xs text-slate-400">{String(index + 1).padStart(2, "0")}</div>
+                    </div>
+                    <div className="mt-2 text-xs leading-6 text-slate-500">{step.signal}</div>
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        <motion.div
+          key={selectedWorkflowStep.id}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="rounded-[8px] bg-slate-50 p-5 md:p-6"
+        >
+          <div className="mb-5 flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-[8px] bg-white shadow-sm">
+              <SelectedIcon className="h-5 w-5 text-slate-800" />
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">Workflow stage</div>
+              <div className="text-2xl font-semibold text-slate-900">{selectedWorkflowStep.title}</div>
+            </div>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="rounded-[8px] bg-white p-4">
+              <div className="mb-2 text-xs uppercase tracking-[0.18em] text-slate-500">Summary</div>
+              <p className="text-sm leading-7 text-slate-600">{selectedWorkflowStep.summary}</p>
+
+              <div className="mt-4 rounded-[8px] bg-slate-50 p-3 text-sm text-slate-700">
+                <span className="font-medium text-slate-900">Core signal:</span>{" "}
+                {selectedWorkflowStep.signal}
+              </div>
+            </div>
+
+            <div className="rounded-[8px] bg-white p-4">
+              <div className="mb-2 text-xs uppercase tracking-[0.18em] text-slate-500">
+                What this means in practice
+              </div>
+
+              <div className="space-y-3">
+                {selectedWorkflowStep.details.map((item) => (
+                  <div key={item} className="flex gap-3 text-sm leading-6 text-slate-600">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-4">
+        {[
+          {
+            title: "Clarify first",
+            body: "The workflow starts with product clarity, not with prompts for code generation.",
+            icon: Sparkles,
+          },
+          {
+            title: "Design and stack together",
+            body: "Interface ideas and technical choices are developed in parallel because they constrain each other.",
+            icon: Layers3,
+          },
+          {
+            title: "Generate by module",
+            body: "Build, test, and commit one module at a time to reduce uncertainty and isolate failures.",
+            icon: Code2,
+          },
+          {
+            title: "Debug with evidence",
+            body: "Useful AI debugging starts from precise symptoms, logs, and reproducible signals rather than vague complaints.",
+            icon: Search,
+          },
+        ].map((item) => {
+          const Icon = item.icon;
+          return (
+            <div key={item.title} className="rounded-[8px] bg-slate-50 p-4">
+              <div className="flex items-center gap-2 text-base font-medium text-slate-900">
+                <Icon className="h-4 w-4 shrink-0 text-slate-700" />
+                {item.title}
+              </div>
+              <p className="mt-3 text-sm leading-7 text-slate-600">{item.body}</p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
 
 const validationMetricDeck: Record<string, string> = {
   scoreValidation: "Design validation fit",
@@ -1163,25 +1412,28 @@ export default function AiMarketLandscapeWhiteModule() {
           </section>
           </ScrollReveal>
 
-          <div id="ai-design-workflow" className="scroll-mt-[260px]">
-          <ScrollReveal direction="up">
-            <div className="mt-20 mb-10 md:mt-32 md:mb-12">
-              <div className="mb-2 flex items-center gap-2">
-                <Layout className="h-4 w-4 shrink-0 text-blue-600" />
-                <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                  02. AI Design Workflow Explorations
-                </h2>
+          <div id="ai-design-workflow" className="scroll-mt-[260px] mt-20 md:mt-32">
+            <ScrollReveal direction="up">
+              <div className="mb-5">
+                <div className="mb-2 flex items-center gap-2">
+                  <Layout className="h-4 w-4 shrink-0 text-blue-600" />
+                  <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
+                    02. AI Design Workflow Explorations
+                  </h2>
+                </div>
+                <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
+                  Designing the System Before Generating the Interface
+                </h3>
+                <p className="whitespace-nowrap text-base text-slate-600 md:text-lg">
+                  An exploration of how AI accelerates workflow design across product framing,
+                  technical planning, interface direction, modular build logic, and debugging
+                  precision.
+                </p>
               </div>
-              <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
-                Designing the System Before Generating the Interface
-              </h3>
-              <p className="whitespace-nowrap text-base text-slate-600 md:text-lg">
-                An exploration of how AI accelerates workflow design across product framing,
-                technical planning, interface direction, modular build logic, and debugging
-                precision.
-              </p>
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={50}>
+              <AiDesignWorkflowExplorationsSection />
+            </ScrollReveal>
           </div>
         </div>
       </div>
