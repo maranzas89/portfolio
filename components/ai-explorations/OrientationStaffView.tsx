@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
+import { createPortal } from "react-dom";
 import {
   ORIENTATION_STORAGE_KEY,
   type OrientationStep,
@@ -162,35 +162,40 @@ export default function OrientationStaffView() {
     [doneCount, requiredSteps.length]
   );
 
+  const progressCard = (
+    <div className="rounded-2xl border border-[#E9DDC8] bg-white px-4 py-3 shadow-sm shrink-0">
+      <div className="text-xs font-semibold uppercase tracking-wide text-[#667085]">Progress</div>
+      <div className="mt-1 text-sm font-semibold text-[#243041]">
+        {doneCount} of {requiredSteps.length} required steps complete
+      </div>
+      <div className="mt-2 h-2 w-56 rounded bg-[#F7F0E4]">
+        <div className="h-2 rounded bg-[#d34508]" style={{ width: `${pct}%` }} />
+      </div>
+      <div className="mt-2 text-xs text-[#667085]">
+        Last updated: {updatedAt ? new Date(updatedAt).toLocaleString() : "—"}
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-[#FFF8EB] px-6 py-10 sm:px-10">
-      <div className="mx-auto max-w-4xl space-y-8">
-        <header className="space-y-2">
-          <div className="text-sm text-[#667085]">Staff Portal / Orientation</div>
-          <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="mx-auto max-w-5xl">
+        <div className="text-sm text-[#667085] mb-4">Staff Portal / Orientation</div>
+
+        <div className="flex flex-col lg:flex-row gap-8 items-stretch lg:items-start">
+          <div className="flex-1 min-w-0">
             <div>
               <h1 className="text-3xl font-semibold tracking-tight text-[#001e5a]">Orientation overview</h1>
               <p className="mt-2 max-w-2xl text-[#667085]">
                 This page reads/writes the same local state as the Student Portal (demo sync via localStorage).
               </p>
             </div>
-            <div className="rounded-2xl border border-[#E9DDC8] bg-white px-4 py-3 shadow-sm">
-              <div className="text-xs font-semibold uppercase tracking-wide text-[#667085]">Progress</div>
-              <div className="mt-1 text-sm font-semibold text-[#243041]">
-                {doneCount} of {requiredSteps.length} required steps complete
-              </div>
-              <div className="mt-2 h-2 w-56 rounded bg-[#F7F0E4]">
-                <div className="h-2 rounded bg-[#d34508]" style={{ width: `${pct}%` }} />
-              </div>
-              <div className="mt-2 text-xs text-[#667085]">
-                Last updated: {updatedAt ? new Date(updatedAt).toLocaleString() : "—"}
-              </div>
-            </div>
           </div>
-        </header>
+          <div className="lg:sticky lg:top-8 shrink-0">{progressCard}</div>
+        </div>
 
         <section
-          className="rounded-2xl border border-[#E9DDC8] bg-white p-6 shadow-sm"
+          className="mt-8 rounded-2xl border border-[#E9DDC8] bg-white p-6 shadow-sm"
           aria-label="Orientation analytics"
         >
           <h2 className="text-xl font-semibold text-[#001e5a]">Orientation insights</h2>
@@ -313,68 +318,13 @@ export default function OrientationStaffView() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-[#E9DDC8] bg-white p-6 shadow-sm" aria-label="Student steps">
+        <section className="rounded-2xl border border-[#E9DDC8] bg-white p-6 shadow-sm mt-8" aria-label="Student steps">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <h2 className="text-xl font-semibold text-[#001e5a]">Steps (single student demo)</h2>
               <p className="mt-1 text-sm text-[#667085]">
                 Change a status here, then refresh the Student Portal to see it update.
               </p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Link
-                href="/ai-explorations/synchronize-orientation"
-                className="cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm font-semibold text-[#243041] transition hover:bg-[#F7F0E4]"
-              >
-                Open student portal
-              </Link>
-              <button
-                type="button"
-                onClick={() => save(defaultSteps)}
-                className="cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm font-semibold text-[#243041] transition hover:bg-[#F7F0E4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d34508] focus-visible:ring-offset-2"
-              >
-                Reset demo data
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setUnderReviewStepIds((prev) => prev.filter((id) => id !== "expectations" && id !== "aid"));
-                  setUploadedFiles((prev) => {
-                    const next = { ...prev };
-                    delete next.expectations;
-                    delete next.aid;
-                    return next;
-                  });
-                  try {
-                    const raw = window.localStorage.getItem(ORIENTATION_STORAGE_KEY);
-                    if (!raw) return;
-                    const parsed = JSON.parse(raw) as Record<string, unknown>;
-                    const nextUnder = (
-                      (parsed.underReviewStepIds as string[]) || []
-                    ).filter((id) => id !== "expectations" && id !== "aid");
-                    const nextFiles = {
-                      ...((parsed.uploadedFiles as Record<string, { name: string; dataUrl: string }>) || {}),
-                    };
-                    delete nextFiles.expectations;
-                    delete nextFiles.aid;
-                    window.localStorage.setItem(
-                      ORIENTATION_STORAGE_KEY,
-                      JSON.stringify({ ...parsed, underReviewStepIds: nextUnder, uploadedFiles: nextFiles })
-                    );
-                  } catch {
-                    /* ignore */
-                  }
-                }}
-                disabled={
-                  !underReviewStepIds.includes("expectations") &&
-                  !uploadedFiles.expectations &&
-                  !underReviewStepIds.includes("aid") &&
-                  !uploadedFiles.aid
-                }
-                className="rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm font-semibold text-[#243041] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d34508] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-white disabled:hover:text-[#243041] enabled:cursor-pointer enabled:hover:bg-[#F7F0E4]"
-              >
-                Reset uploads (for testing)
-              </button>
             </div>
           </div>
 
@@ -491,6 +441,61 @@ export default function OrientationStaffView() {
           </details>
         </section>
       </div>
+
+      {typeof document !== "undefined" &&
+        document.getElementById("staff-reset-buttons") &&
+        createPortal(
+          <div className="flex flex-col gap-3">
+            <button
+              type="button"
+              onClick={() => save(defaultSteps)}
+              className="w-64 rounded-lg border border-line bg-white px-4 py-2 text-sm font-semibold text-text shadow-sm transition hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 text-center"
+            >
+              Reset demo data
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setUnderReviewStepIds((prev) => prev.filter((id) => id !== "expectations" && id !== "aid"));
+                setUploadedFiles((prev) => {
+                  const next = { ...prev };
+                  delete next.expectations;
+                  delete next.aid;
+                  return next;
+                });
+                try {
+                  const raw = window.localStorage.getItem(ORIENTATION_STORAGE_KEY);
+                  if (!raw) return;
+                  const parsed = JSON.parse(raw) as Record<string, unknown>;
+                  const nextUnder = (
+                    (parsed.underReviewStepIds as string[]) || []
+                  ).filter((id) => id !== "expectations" && id !== "aid");
+                  const nextFiles = {
+                    ...((parsed.uploadedFiles as Record<string, { name: string; dataUrl: string }>) || {}),
+                  };
+                  delete nextFiles.expectations;
+                  delete nextFiles.aid;
+                  window.localStorage.setItem(
+                    ORIENTATION_STORAGE_KEY,
+                    JSON.stringify({ ...parsed, underReviewStepIds: nextUnder, uploadedFiles: nextFiles })
+                  );
+                } catch {
+                  /* ignore */
+                }
+              }}
+              disabled={
+                !underReviewStepIds.includes("expectations") &&
+                !uploadedFiles.expectations &&
+                !underReviewStepIds.includes("aid") &&
+                !uploadedFiles.aid
+              }
+              className="w-64 rounded-lg border border-line bg-white px-4 py-2 text-sm font-semibold text-text shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 enabled:hover:bg-muted/30 text-center"
+            >
+              Reset uploads (for testing)
+            </button>
+          </div>,
+          document.getElementById("staff-reset-buttons")
+        )}
 
       <StaffModal open={!!openStep} title={openStep?.title ?? "Step"} onClose={() => setOpenStepId(null)}>
         {openStep ? (
