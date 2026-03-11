@@ -11,6 +11,7 @@ import {
   Compass,
   Database,
   Eye,
+  Layout,
   Layers3,
   MousePointerClick,
   Search,
@@ -28,6 +29,7 @@ import {
   Tooltip,
   Cell,
 } from "recharts";
+import { ScrollReveal, ScrollRevealStagger } from "@/components/ScrollReveal";
 
 const brandMap: Record<
   string,
@@ -421,7 +423,7 @@ function BrandMark({
   return (
     <div
       className={cn(
-        "relative flex items-center justify-center overflow-hidden rounded-2xl border bg-white",
+        "relative flex items-center justify-center overflow-hidden rounded-[8px] border bg-white",
         brand.border,
         className,
       )}
@@ -454,7 +456,7 @@ function ChipButton(props: {
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full border px-3 py-1.5 text-xs transition-all duration-300",
+        "rounded-[8px] border px-3 py-1.5 text-xs transition-all duration-300",
         active
           ? "border-slate-900 bg-slate-900 text-white"
           : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900",
@@ -473,12 +475,12 @@ function MetricBar(props: { label: string; value: number }) {
         <span>{label}</span>
         <span className="font-medium text-slate-900">{value}</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+      <div className="h-2 overflow-hidden rounded-[8px] bg-white">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${value}%` }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="h-full rounded-full bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500"
+          className="h-full rounded-[8px] bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500"
         />
       </div>
     </div>
@@ -495,7 +497,7 @@ function ChartTooltip(props: {
   if (!active || !payload || !payload.length) return null;
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white px-3 py-2 text-xs shadow-xl">
+    <div className="rounded-[8px] border border-slate-200 bg-white px-3 py-2 text-xs shadow-xl">
       <div className="mb-1 font-medium text-slate-900">{label}</div>
       <div className="text-slate-600">
         Score:{" "}
@@ -538,11 +540,29 @@ export default function AiMarketLandscapeWhiteModule() {
     <section className="w-full py-14 md:py-16">
       <div className="mx-auto w-full max-w-[1600px] px-8 md:px-16 lg:px-24">
         <div className="space-y-10">
-          <section className="relative overflow-hidden rounded-[28px] border border-slate-200 bg-white">
+          <ScrollReveal direction="up">
+            <div className="mb-10">
+              <div className="mb-2 flex items-center gap-2">
+              <Layout className="h-4 w-4 shrink-0 text-blue-600" />
+              <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
+                01. AI Capability Benchmark
+              </h2>
+            </div>
+            <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
+              Mapping Strengths Across the Workflow
+            </h3>
+            <p className="whitespace-nowrap text-base text-slate-600 md:text-lg">
+              A comparative review of leading AI products to understand how each tool supports
+              validation, prototyping, evidence traceability, and live behavior insight.
+            </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={50}>
+          <section className="relative overflow-hidden rounded-[8px] border border-slate-200 bg-white">
             <div className="relative z-10 p-6 md:p-8 lg:p-10">
               <div className="grid gap-6 lg:grid-cols-[1.35fr_0.85fr] lg:gap-8">
                 <div className="space-y-5">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-slate-500 shadow-sm">
+                  <div className="inline-flex items-center gap-2 rounded-[8px] border border-slate-200 bg-white px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-slate-500 shadow-sm">
                     <Sparkles className="h-3.5 w-3.5" />
                     AI Market Snapshot
                   </div>
@@ -563,7 +583,11 @@ export default function AiMarketLandscapeWhiteModule() {
                     </p>
                   </div>
 
-                  <div className="grid gap-3 grid-cols-2">
+                  <ScrollRevealStagger
+                    className="grid gap-3 grid-cols-2"
+                    direction="up"
+                    staggerDelay={60}
+                  >
                     {[
                       {
                         label: "Research leader",
@@ -594,56 +618,71 @@ export default function AiMarketLandscapeWhiteModule() {
                       return (
                         <div
                           key={item.label}
-                          className="rounded-3xl border border-slate-200 bg-white p-4"
+                          className="rounded-[8px] bg-slate-50 p-4 pl-[26px]"
                         >
-                          <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-2xl bg-slate-100">
+                          <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-[8px] bg-slate-200">
                             <Icon className="h-4 w-4 text-slate-800" />
                           </div>
-                          <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">
+                          <div className="text-[11px] uppercase tracking-[0.18em] text-slate-600">
                             {item.label}
                           </div>
                           <div className="mt-2 text-base font-medium text-slate-900">
                             {item.value}
                           </div>
-                          <div className="mt-1 text-xs leading-6 text-slate-500">{item.sub}</div>
+                          <div className="mt-1 text-xs leading-6 text-slate-600">{item.sub}</div>
                         </div>
                       );
                     })}
-                  </div>
+                  </ScrollRevealStagger>
                 </div>
 
-                <div className="rounded-[28px] border border-slate-200 bg-white p-5">
+                <div className="rounded-[8px] bg-white px-5 py-4 lg:border-l lg:border-slate-200 lg:pl-8">
                   <div className="mb-4 flex items-center gap-2 text-sm font-medium text-slate-900">
                     <CircleDashed className="h-4 w-4" />
                     Evaluation lens
                   </div>
-                  <div className="space-y-4 text-sm leading-7 text-slate-600">
+                  <div className="space-y-5 text-sm leading-7 text-slate-600">
                     <p>
                       I evaluate AI tools through two layers:{" "}
                       <span className="text-slate-900">public performance signals</span> and{" "}
                       <span className="text-slate-900">workflow reliability</span>.
                     </p>
-                    <div className="grid gap-3">
+                    <div className="grid gap-4">
                       {[
-                        "Benchmarks tell me who leads a lane: reasoning, web search, coding, or long-context work.",
+                        [
+                          "Benchmarks tell me who leads a lane: reasoning,",
+                          "web search, coding, or long-context work.",
+                        ],
                         "Workflow reliability tells me what I would actually trust in a real design or research environment.",
                         "For design validation, the strongest tool is not a foundation model. It is a platform that makes evidence usable.",
-                      ].map((text) => (
-                        <div
-                          key={text}
-                          className="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3"
-                        >
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
-                          <p className="text-sm leading-6 text-slate-600">{text}</p>
-                        </div>
-                      ))}
+                      ].map((text) => {
+                        const content = Array.isArray(text) ? (
+                          <>
+                            {text[0]}
+                            <br />
+                            {text[1]}
+                          </>
+                        ) : (
+                          text
+                        );
+                        const key = Array.isArray(text) ? text.join(" ") : text;
+                        return (
+                          <div
+                            key={key}
+                            className="flex items-center gap-3 rounded-[8px] bg-slate-50 p-3"
+                          >
+                            <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-900" />
+                            <p className="text-sm leading-6 text-slate-600">{content}</p>
+                          </div>
+                        );
+                      })}
                     </div>
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-xs leading-6 text-slate-500">
+                    <div className="rounded-[8px] bg-slate-50 p-3 pl-[22px] text-xs leading-6 text-slate-500">
                       Public benchmark figures are grounded in official model and platform materials.
                       Trust, stability, and editorial-fit scores are my synthesis for portfolio
                       storytelling.
                     </div>
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-xs leading-6 text-slate-500">
+                    <div className="rounded-[8px] bg-slate-50 p-3 pl-[22px] text-xs leading-6 text-slate-500">
                       Sanity checks: {sanityPassed ? "passed" : "review needed"}
                     </div>
                   </div>
@@ -651,71 +690,73 @@ export default function AiMarketLandscapeWhiteModule() {
               </div>
             </div>
           </section>
+          </ScrollReveal>
 
           <section className="grid gap-6 xl:grid-cols-2">
-            {categoryCards.map((item) => {
+            {categoryCards.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div
-                  key={item.title}
-                  className="rounded-[28px] border border-slate-200 bg-white p-6"
-                >
-                  <div className="mb-4 flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100">
-                      <Icon className="h-5 w-5 text-slate-800" />
-                    </div>
-                    <div>
-                      <div className="text-lg font-semibold text-slate-900">{item.title}</div>
-                      <div className="text-sm text-slate-500">{item.subtitle}</div>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    {item.points.map((point) => (
-                      <div
-                        key={point}
-                        className="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-600"
-                      >
-                        <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
-                        <span>{point}</span>
+                <ScrollReveal key={item.title} direction="up" delay={i * 80}>
+                  <div className="rounded-[8px] border border-slate-200 bg-white p-6">
+                      <div className="mb-4 flex items-center gap-3">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-[8px] bg-slate-100">
+                          <Icon className="h-5 w-5 text-slate-800" />
+                        </div>
+                        <div>
+                          <div className="text-lg font-semibold text-slate-900">{item.title}</div>
+                          <div className="text-sm text-slate-500">{item.subtitle}</div>
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                  <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-600">
-                    <span className="font-medium text-slate-900">Bottom line:</span> {item.outcome}
-                  </div>
-                </div>
+                      <div className="space-y-2">
+                        {item.points.map((point) => (
+                          <div
+                            key={point}
+                            className="flex gap-3 rounded-[8px] bg-slate-50 px-3 py-3 text-sm text-slate-600"
+                          >
+                            <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
+                            <span>{point}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4 rounded-[8px] bg-slate-50 p-4 text-sm leading-7 text-slate-600">
+                        <span className="font-medium text-slate-900">Bottom line:</span> {item.outcome}
+                      </div>
+                    </div>
+                </ScrollReveal>
               );
             })}
           </section>
 
           <section className="space-y-6">
-            <div className="flex items-center gap-3">
-              <Star className="h-4 w-4 text-slate-800 shrink-0" />
-              <h3 className="text-lg font-medium text-slate-900">
-                Signals I would confidently speak to in an interview
-              </h3>
-            </div>
+            <ScrollReveal direction="up">
+              <div className="flex items-center gap-3">
+                <Star className="h-4 w-4 shrink-0 text-slate-800" strokeWidth={2.5} />
+                <h3 className="text-lg font-semibold text-slate-900">
+                  Key Insights Worth Highlighting
+                </h3>
+              </div>
+            </ScrollReveal>
 
             <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
-              {featuredSignals.map((item) => {
+              {featuredSignals.map((item, i) => {
                 const isActive = item.id === selectedProductId;
                 return (
-                  <button
-                    type="button"
-                    key={item.id}
-                    onClick={() => setSelectedProductId(item.id)}
-                    className={cn(
-                      "rounded-[22px] p-4 text-left transition-all duration-300",
-                      isActive
-                        ? "ring-1 ring-slate-200 ring-inset bg-white"
-                        : "bg-slate-50 hover:bg-slate-100",
-                    )}
-                  >
+                  <ScrollReveal key={item.id} direction="up" delay={i * 60}>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProductId(item.id)}
+                      className={cn(
+                        "rounded-[8px] p-4 text-left transition-all duration-300",
+                        isActive
+                          ? "ring-1 ring-slate-200 ring-inset bg-white"
+                          : "bg-slate-50 hover:bg-slate-100",
+                      )}
+                    >
                     <div className="mb-3 flex items-center justify-between gap-3">
                       <BrandMark vendor={item.vendor} className="h-10 w-10 shrink-0" />
                       <div
                         className={cn(
-                          "flex items-center gap-1 rounded-full border px-2 py-1 text-[10px] uppercase tracking-[0.14em] shrink-0",
+                          "flex items-center gap-1 rounded-[8px] border px-2 py-1 text-[10px] uppercase tracking-[0.14em] shrink-0",
                           brandMap[item.vendor].border,
                           brandMap[item.vendor].text,
                         )}
@@ -728,13 +769,13 @@ export default function AiMarketLandscapeWhiteModule() {
                       {item.role}
                     </div>
                     <div className="mt-3 grid grid-cols-2 gap-2">
-                      <div className={cn("rounded-xl p-2", isActive ? "bg-slate-100" : "bg-white")}>
+                      <div className={cn("rounded-[8px] p-2", isActive ? "bg-slate-100" : "bg-white")}>
                         <div className="text-sm font-semibold text-slate-900">{item.statA}</div>
                         <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">
                           {item.labelA}
                         </div>
                       </div>
-                      <div className={cn("rounded-xl p-2", isActive ? "bg-slate-100" : "bg-white")}>
+                      <div className={cn("rounded-[8px] p-2", isActive ? "bg-slate-100" : "bg-white")}>
                         <div className="text-sm font-semibold text-slate-900">{item.statB}</div>
                         <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">
                           {item.labelB}
@@ -742,16 +783,18 @@ export default function AiMarketLandscapeWhiteModule() {
                       </div>
                     </div>
                   </button>
+                  </ScrollReveal>
                 );
               })}
             </div>
 
+            <ScrollReveal direction="up" delay={100}>
             <motion.div
               key={selectedProduct.id}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.2 }}
-              className="rounded-[28px] border border-slate-200 bg-white p-5 md:p-6"
+              className="rounded-[8px] border border-slate-200 bg-white p-5 md:p-6"
             >
               <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
                 <div className="min-w-0 flex-1 max-w-3xl">
@@ -771,7 +814,7 @@ export default function AiMarketLandscapeWhiteModule() {
                     {selectedProduct.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-600"
+                        className="rounded-[8px] border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-600"
                       >
                         {tag}
                       </span>
@@ -801,7 +844,7 @@ export default function AiMarketLandscapeWhiteModule() {
               </div>
 
               <div className="mt-6 space-y-4">
-                <div className="rounded-[24px] bg-slate-50 p-4">
+                <div className="rounded-[8px] bg-slate-200 p-4">
                   <div className="text-sm font-medium text-slate-900 mb-3">
                     Portfolio editorial signal
                   </div>
@@ -812,27 +855,29 @@ export default function AiMarketLandscapeWhiteModule() {
                   </div>
                 </div>
 
-                <div className="rounded-[24px] bg-slate-50 p-4">
-                  <div className="text-sm font-medium text-slate-900">
+                <div className="rounded-[8px] bg-slate-50 p-5">
+                  <div className="mb-3 text-sm font-medium text-slate-900">
                     Why it stays in my stack
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-4">
                     {selectedProduct.why.map((point) => (
                       <div key={point} className="flex gap-3">
                         <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
-                        <p className="text-sm leading-6 text-slate-600">{point}</p>
+                        <p className="text-sm leading-7 text-slate-600">{point}</p>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-3 rounded-2xl border border-amber-200 bg-amber-50 p-3 text-sm leading-6 text-amber-900">
+                  <div className="mt-4 rounded-[8px] bg-amber-50 p-3 pl-[22px] text-sm leading-7 text-amber-900">
                     <span className="font-medium">Watchout:</span> {selectedProduct.caution}
                   </div>
                 </div>
               </div>
             </motion.div>
+            </ScrollReveal>
           </section>
 
-          <section className="rounded-[28px] border border-slate-200 bg-white p-5 md:p-6 lg:p-7">
+          <ScrollReveal direction="up">
+          <section className="rounded-[8px] border border-slate-200 bg-white p-5 md:p-6 lg:p-7">
             <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <div className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-900">
@@ -842,19 +887,15 @@ export default function AiMarketLandscapeWhiteModule() {
                 <h3 className="text-2xl font-semibold text-slate-900">
                   Where each model actually wins
                 </h3>
-                <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-600">
+                <p className="mt-2 whitespace-nowrap text-sm leading-7 text-slate-600">
                   Instead of pretending there is one universal winner, I compare models lane by lane.
                   That is the more useful mindset for real workflows.
                 </p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-500">
-                Selected lens:{" "}
-                <span className="text-slate-900">{currentFoundationMetric.title}</span>
-              </div>
             </div>
 
-            <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-              <div className="rounded-[24px] border border-slate-200 bg-white p-4 md:p-5">
+            <div className="grid gap-6 xl:grid-cols-[1.35fr_0.65fr]">
+              <div className="rounded-[8px] border border-slate-200 bg-white p-4 md:p-5">
                 <div className="mb-4 flex flex-wrap gap-2">
                   {Object.entries(foundationMetricDeck).map(([key, item]) => (
                     <ChipButton
@@ -867,11 +908,11 @@ export default function AiMarketLandscapeWhiteModule() {
                   ))}
                 </div>
 
-                <div className="h-[340px] w-full">
+                <div className="-ml-5 mt-[80px] h-[360px] w-full outline-none [&_*]:outline-none">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={foundationChartRows}
-                      margin={{ top: 10, right: 8, left: 0, bottom: 18 }}
+                      margin={{ top: 10, right: 8, left: 0, bottom: 14 }}
                       barCategoryGap={18}
                     >
                       <CartesianGrid stroke="#e5e7eb" vertical={false} />
@@ -880,11 +921,11 @@ export default function AiMarketLandscapeWhiteModule() {
                         stroke="#64748b"
                         tickLine={false}
                         axisLine={false}
-                        angle={-8}
-                        height={64}
-                        textAnchor="end"
+                        height={56}
+                        textAnchor="middle"
                         interval={0}
-                        fontSize={12}
+                        fontSize={13}
+                        tick={{ fill: "#334155", fontWeight: 600 }}
                       />
                       <YAxis
                         stroke="#64748b"
@@ -897,7 +938,7 @@ export default function AiMarketLandscapeWhiteModule() {
                         content={<ChartTooltip suffix={currentFoundationMetric.suffix} />}
                         cursor={{ fill: "rgba(15,23,42,0.04)" }}
                       />
-                      <Bar dataKey="value" radius={[12, 12, 4, 4]}>
+                      <Bar dataKey="value" radius={8}>
                         {foundationChartRows.map((entry) => (
                           <Cell key={entry.name} fill={entry.fill} />
                         ))}
@@ -908,28 +949,28 @@ export default function AiMarketLandscapeWhiteModule() {
               </div>
 
               <div className="space-y-4">
-                <div className="rounded-[24px] bg-slate-50 p-4 md:p-5">
+                <div className="rounded-[8px] bg-slate-50 p-4 md:p-5">
                   <div className="text-sm font-medium text-slate-900">Interpretation</div>
                   <p className="mt-3 text-sm leading-7 text-slate-600">
                     {currentFoundationMetric.note}
                   </p>
-                  <div className="mt-4 rounded-2xl bg-slate-100 p-3 text-sm leading-6 text-slate-600">
+                  <div className="mt-4 rounded-[8px] bg-slate-100 p-3 text-sm leading-6 text-slate-600">
                     <span className="font-medium text-slate-900">My read:</span> benchmark leadership
                     is already splitting into research, reasoning, and engineering lanes. The right
                     tool depends on the job.
                   </div>
                 </div>
 
-                <div className="rounded-[24px] bg-slate-50 p-4 md:p-5">
+                <div className="rounded-[8px] bg-slate-50 p-4 md:p-5">
                   <div className="mb-3 text-sm font-medium text-slate-900">Current ranking</div>
                   <div className="space-y-3">
                     {foundationChartRows.map((row, index) => (
                       <div
                         key={row.name}
-                        className="flex items-center justify-between rounded-2xl bg-white px-3 py-3"
+                        className="flex items-center justify-between rounded-[8px] bg-white px-3 py-3"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-xs font-medium text-slate-700">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-[8px] bg-slate-100 text-xs font-medium text-slate-700">
                             {index + 1}
                           </div>
                           <div>
@@ -950,8 +991,10 @@ export default function AiMarketLandscapeWhiteModule() {
               </div>
             </div>
           </section>
+          </ScrollReveal>
 
-          <section className="rounded-[28px] border border-slate-200 bg-white p-5 md:p-6 lg:p-7">
+          <ScrollReveal direction="up">
+          <section className="rounded-[8px] border border-slate-200 bg-white p-5 md:p-6 lg:p-7">
             <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <div className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-900">
@@ -969,8 +1012,8 @@ export default function AiMarketLandscapeWhiteModule() {
             </div>
 
             <div className="space-y-6">
-              <div className="rounded-[24px] border border-slate-200 bg-white p-4 md:p-5">
-                <div className="mb-4 flex flex-wrap gap-2">
+              <div className="rounded-[8px] border border-slate-200 bg-white px-4 pt-4 pb-3 md:px-5 md:pt-5 md:pb-4">
+                <div className="mb-3 flex flex-wrap gap-2">
                   {Object.entries(validationMetricDeck).map(([key, label]) => (
                     <ChipButton
                       key={key}
@@ -982,11 +1025,11 @@ export default function AiMarketLandscapeWhiteModule() {
                   ))}
                 </div>
 
-                <div className="h-[170px] w-full">
+                <div className="-ml-5 mt-[80px] h-[220px] w-full outline-none [&_*]:outline-none">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={validationChartRows}
-                      margin={{ top: 10, right: 8, left: 0, bottom: 18 }}
+                      margin={{ top: 10, right: 8, left: 0, bottom: 20 }}
                       barCategoryGap={18}
                     >
                       <CartesianGrid stroke="#e5e7eb" vertical={false} />
@@ -995,11 +1038,11 @@ export default function AiMarketLandscapeWhiteModule() {
                         stroke="#64748b"
                         tickLine={false}
                         axisLine={false}
-                        angle={-8}
-                        height={64}
-                        textAnchor="end"
+                        height={48}
+                        textAnchor="middle"
                         interval={0}
-                        fontSize={12}
+                        fontSize={13}
+                        tick={{ fill: "#334155", fontWeight: 600 }}
                       />
                       <YAxis
                         stroke="#64748b"
@@ -1009,7 +1052,7 @@ export default function AiMarketLandscapeWhiteModule() {
                         fontSize={12}
                       />
                       <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(15,23,42,0.04)" }} />
-                      <Bar dataKey="value" radius={[12, 12, 4, 4]}>
+                      <Bar dataKey="value" radius={8}>
                         {validationChartRows.map((entry) => (
                           <Cell key={entry.name} fill={entry.fill} />
                         ))}
@@ -1028,7 +1071,7 @@ export default function AiMarketLandscapeWhiteModule() {
                       type="button"
                       onClick={() => setSelectedValidationToolId(tool.id)}
                     className={cn(
-                      "rounded-[22px] p-4 text-left transition-all duration-300",
+                      "rounded-[8px] p-4 text-left transition-all duration-300",
                       active
                         ? "ring-1 ring-slate-200 ring-inset bg-white"
                         : "bg-slate-50 hover:bg-slate-100",
@@ -1036,7 +1079,7 @@ export default function AiMarketLandscapeWhiteModule() {
                     >
                       <div className="mb-3 flex items-center justify-between gap-3">
                         <BrandMark vendor={tool.vendor} className="h-10 w-10" />
-                        <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                        <span className="rounded-[8px] bg-slate-100 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-500">
                           {tool.badge}
                         </span>
                       </div>
@@ -1052,9 +1095,9 @@ export default function AiMarketLandscapeWhiteModule() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.2 }}
-                className="rounded-[24px] border border-slate-200 bg-slate-50 p-4 md:p-5"
+                className="rounded-[8px] bg-slate-50 p-5 md:p-6"
               >
-                <div className="mb-4 flex items-center gap-3">
+                <div className="mb-5 flex items-center gap-3">
                   <BrandMark vendor={selectedValidationTool.vendor} className="h-12 w-12" />
                   <div>
                     <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">
@@ -1066,21 +1109,21 @@ export default function AiMarketLandscapeWhiteModule() {
                   </div>
                 </div>
 
-                <p className="text-sm leading-7 text-slate-600">
+                <p className="text-sm leading-8 text-slate-600">
                   {selectedValidationTool.why}
                 </p>
 
-                <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-[24px] border border-slate-200 bg-white p-4">
-                    <div className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-900">
+                <div className="mt-6 flex flex-col gap-6">
+                  <div className="rounded-[8px] bg-white p-5">
+                    <div className="mb-4 flex items-center gap-2 text-sm font-medium text-slate-900">
                       <Search className="h-4 w-4" />
                       Why I would use it
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {selectedValidationTool.strengths.map((item) => (
                         <div
                           key={item}
-                          className="flex gap-3 text-sm leading-6 text-slate-600"
+                          className="flex gap-3 text-sm leading-7 text-slate-600"
                         >
                           <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
                           <span>{item}</span>
@@ -1088,16 +1131,16 @@ export default function AiMarketLandscapeWhiteModule() {
                       ))}
                     </div>
                   </div>
-                  <div className="rounded-[24px] border border-slate-200 bg-white p-4">
-                    <div className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-900">
+                  <div className="rounded-[8px] bg-white p-5">
+                    <div className="mb-4 flex items-center gap-2 text-sm font-medium text-slate-900">
                       <Database className="h-4 w-4" />
                       Proof signals
                     </div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-3">
                       {selectedValidationTool.proof.map((item) => (
                         <span
                           key={item}
-                          className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-600"
+                          className="rounded-[8px] bg-slate-50 px-3 py-1.5 text-xs text-slate-600"
                         >
                           {item}
                         </span>
@@ -1106,8 +1149,8 @@ export default function AiMarketLandscapeWhiteModule() {
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4 text-sm leading-7 text-slate-600">
-                  <div className="mb-2 flex items-center gap-2 font-medium text-slate-900">
+                <div className="mt-6 rounded-[8px] bg-white p-5 text-sm leading-8 text-slate-600">
+                  <div className="mb-3 flex items-center gap-2 font-medium text-slate-900">
                     <Eye className="h-4 w-4" />
                     Workflow note
                   </div>
@@ -1116,6 +1159,7 @@ export default function AiMarketLandscapeWhiteModule() {
               </motion.div>
             </div>
           </section>
+          </ScrollReveal>
         </div>
       </div>
     </section>
