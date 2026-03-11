@@ -454,7 +454,7 @@ function AiDesignWorkflowExplorationsSection() {
           )}
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+      <div className="grid gap-6 xl:grid-cols-[0.65fr_1.35fr]">
         <div className="space-y-3">
           {workflowSteps.map((step, index) => {
             const Icon = step.icon;
@@ -469,7 +469,7 @@ function AiDesignWorkflowExplorationsSection() {
                   "w-full rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
                   active
                     ? "border border-slate-200 bg-white"
-                    : "bg-slate-50 hover:bg-slate-100",
+                    : "border border-transparent bg-slate-50 hover:bg-slate-100 active:bg-slate-100",
                 )}
               >
                 <div className="flex items-start gap-3">
@@ -1189,7 +1189,7 @@ export default function AiMarketLandscapeWhiteModule() {
                         content={<ChartTooltip suffix={currentFoundationMetric.suffix} />}
                         cursor={{ fill: "rgba(15,23,42,0.04)" }}
                       />
-                      <Bar dataKey="value" radius={8}>
+                      <Bar dataKey="value" radius={0}>
                         {foundationChartRows.map((entry) => (
                           <Cell key={entry.name} fill={entry.fill} />
                         ))}
@@ -1303,7 +1303,7 @@ export default function AiMarketLandscapeWhiteModule() {
                         fontSize={12}
                       />
                       <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(15,23,42,0.04)" }} />
-                      <Bar dataKey="value" radius={8}>
+                      <Bar dataKey="value" radius={0}>
                         {validationChartRows.map((entry) => (
                           <Cell key={entry.name} fill={entry.fill} />
                         ))}
