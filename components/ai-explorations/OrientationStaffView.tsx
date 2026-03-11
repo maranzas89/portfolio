@@ -442,9 +442,10 @@ export default function OrientationStaffView() {
         </section>
       </div>
 
-      {typeof document !== "undefined" &&
-        document.getElementById("staff-reset-buttons") &&
-        createPortal(
+      {typeof document !== "undefined" && (() => {
+        const container = document.getElementById("staff-reset-buttons");
+        if (!container) return null;
+        return createPortal(
           <div className="flex flex-col gap-3">
             <button
               type="button"
@@ -494,8 +495,9 @@ export default function OrientationStaffView() {
               Reset uploads (for testing)
             </button>
           </div>,
-          document.getElementById("staff-reset-buttons")
-        )}
+          container
+        );
+      })()}
 
       <StaffModal open={!!openStep} title={openStep?.title ?? "Step"} onClose={() => setOpenStepId(null)}>
         {openStep ? (
