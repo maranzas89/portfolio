@@ -62,7 +62,7 @@ const EXPLORATIONS = [
     title: "AI-Enhanced Design Systems Thinking",
     category: "Systems",
     description:
-      "Investigating how AI can support scalable component thinking, pattern generation, and system logic.",
+      "Exploring how AI can support scalable systems, pattern generation, and component thinking.",
     icon: Layers,
     gradient: "from-amber-500/20 to-orange-500/20",
   },

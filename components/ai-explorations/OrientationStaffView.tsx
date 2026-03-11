@@ -92,7 +92,12 @@ const defaultSteps: OrientationStep[] = [
   { id: "resources", title: "Explore Support Resources (Optional)", description: "Tutoring, tech help, accessibility services.", required: false, estMinutes: 6, status: "not-started" },
 ];
 
-export default function OrientationStaffView() {
+const resetButtonsClass =
+  "w-64 rounded-lg border border-line bg-white px-4 py-2 text-sm font-semibold text-text shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 text-center";
+
+export default function OrientationStaffView({
+  mobileHeaderActions,
+}: { mobileHeaderActions?: React.ReactNode } = {}) {
   const [steps, setSteps] = useState<OrientationStep[]>(defaultSteps);
   const [updatedAt, setUpdatedAt] = useState<number | null>(null);
   const [openStepId, setOpenStepId] = useState<string | null>(null);
@@ -189,6 +194,58 @@ export default function OrientationStaffView() {
               <p className="mt-2 max-w-2xl text-[#667085]">
                 This page reads/writes the same local state as the Student Portal (demo sync via localStorage).
               </p>
+              {mobileHeaderActions && (
+                <div className="mt-4 flex flex-col gap-3 block md:hidden">
+                  {mobileHeaderActions}
+                  <button
+                    type="button"
+                    onClick={() => save(defaultSteps)}
+                    className={resetButtonsClass}
+                  >
+                    Reset demo data
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUnderReviewStepIds((prev) => prev.filter((id) => id !== "expectations" && id !== "aid"));
+                      setUploadedFiles((prev) => {
+                        const next = { ...prev };
+                        delete next.expectations;
+                        delete next.aid;
+                        return next;
+                      });
+                      try {
+                        const raw = window.localStorage.getItem(ORIENTATION_STORAGE_KEY);
+                        if (!raw) return;
+                        const parsed = JSON.parse(raw) as Record<string, unknown>;
+                        const nextUnder = (
+                          (parsed.underReviewStepIds as string[]) || []
+                        ).filter((id) => id !== "expectations" && id !== "aid");
+                        const nextFiles = {
+                          ...((parsed.uploadedFiles as Record<string, { name: string; dataUrl: string }>) || {}),
+                        };
+                        delete nextFiles.expectations;
+                        delete nextFiles.aid;
+                        window.localStorage.setItem(
+                          ORIENTATION_STORAGE_KEY,
+                          JSON.stringify({ ...parsed, underReviewStepIds: nextUnder, uploadedFiles: nextFiles })
+                        );
+                      } catch {
+                        /* ignore */
+                      }
+                    }}
+                    disabled={
+                      !underReviewStepIds.includes("expectations") &&
+                      !uploadedFiles.expectations &&
+                      !underReviewStepIds.includes("aid") &&
+                      !uploadedFiles.aid
+                    }
+                    className={`${resetButtonsClass} disabled:cursor-not-allowed disabled:opacity-60 enabled:hover:bg-muted/30`}
+                  >
+                    Reset uploads (for testing)
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           <div className="lg:sticky lg:top-8 shrink-0">{progressCard}</div>
@@ -450,7 +507,7 @@ export default function OrientationStaffView() {
             <button
               type="button"
               onClick={() => save(defaultSteps)}
-              className="w-64 rounded-lg border border-line bg-white px-4 py-2 text-sm font-semibold text-text shadow-sm transition hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 text-center"
+              className={resetButtonsClass}
             >
               Reset demo data
             </button>
@@ -490,7 +547,7 @@ export default function OrientationStaffView() {
                 !underReviewStepIds.includes("aid") &&
                 !uploadedFiles.aid
               }
-              className="w-64 rounded-lg border border-line bg-white px-4 py-2 text-sm font-semibold text-text shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 enabled:hover:bg-muted/30 text-center"
+              className={`${resetButtonsClass} disabled:cursor-not-allowed disabled:opacity-60 enabled:hover:bg-muted/30`}
             >
               Reset uploads (for testing)
             </button>

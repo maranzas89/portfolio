@@ -141,7 +141,7 @@ const DEFAULT_STEPS: OrientationStep[] = [
 
 const CALENDLY_URL = "https://calendly.com/";
 
-export default function OrientationStudentView() {
+export default function OrientationStudentView({ mobileHeaderAction }: { mobileHeaderAction?: React.ReactNode } = {}) {
   useEffect(() => {
     const styleId = "calbright-orientation-theme";
     if (document.getElementById(styleId)) return;
@@ -293,6 +293,9 @@ export default function OrientationStudentView() {
               <p className="mt-2 max-w-2xl text-[var(--cal-muted)]">
                 A simple checklist to help you get ready. Click a step to see details and what to do next.
               </p>
+              {mobileHeaderAction && (
+                <div className="mt-4 block md:hidden">{mobileHeaderAction}</div>
+              )}
             </div>
             <div className="rounded-2xl border border-[var(--cal-border)] bg-[var(--cal-surface)] px-4 py-3 shadow-sm">
               <div className="text-xs font-semibold uppercase tracking-wide text-[var(--cal-muted)]">Progress</div>

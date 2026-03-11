@@ -6,7 +6,7 @@ import PageHero from "@/components/PageHero";
 import PageFooter from "@/components/PageFooter";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import Link from "next/link";
-import { Quote } from "lucide-react";
+import { Quote, Palette, GitBranch, Users, Award } from "lucide-react";
 
 const FEATURED_QUOTES = [
   {
@@ -99,10 +99,10 @@ const FEATURED_QUOTES_ORDERED = [
 ];
 
 const THEMES_SUMMARY = [
-  { title: "Craft & Clarity", sentence: "Strong visual judgment and the ability to turn complexity into clear, user-centered experiences." },
-  { title: "Strategy & Systems", sentence: "Moves fluidly between strategic thinking and design execution with rigor, clarity, and consistency in both." },
-  { title: "Leadership & Collaboration", sentence: "Creates alignment across stakeholders while protecting the integrity of the user experience." },
-  { title: "Ownership & Trust", sentence: "Brings initiative and follow-through—helps define the path, not just respond to direction." },
+  { title: "Craft & Clarity", sentence: "Strong visual judgment and the ability to turn complexity into clear, user-centered experiences.", icon: Palette },
+  { title: "Strategy & Systems", sentence: "Moves fluidly between strategic thinking and design execution with rigor, clarity, and consistency in both.", icon: GitBranch },
+  { title: "Leadership & Collaboration", sentence: "Creates alignment across stakeholders while protecting the integrity of the user experience.", icon: Users },
+  { title: "Ownership & Trust", sentence: "Brings initiative and follow-through—helps define the path, not just respond to direction.", icon: Award },
 ];
 
 export default function KindWordsPage() {
@@ -126,9 +126,12 @@ export default function KindWordsPage() {
               </span>
             </ScrollReveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pt-6">
-              {THEMES_SUMMARY.map((theme, i) => (
+              {THEMES_SUMMARY.map((theme, i) => {
+                const Icon = theme.icon;
+                return (
                 <ScrollReveal key={theme.title} direction="up" delay={i * 60}>
                   <div className="rounded-xl bg-slate-50/50 px-5 py-5 md:px-6 md:py-6 transition-all duration-300 hover:bg-slate-50 hover:shadow-lg hover:-translate-y-1">
+                    <Icon className="w-5 h-5 text-blue-600 mb-3" />
                     <h3 className="text-base font-semibold tracking-tight text-text mb-2">
                       {theme.title}
                     </h3>
@@ -137,7 +140,8 @@ export default function KindWordsPage() {
                     </p>
                   </div>
                 </ScrollReveal>
-              ))}
+              );
+              })}
             </div>
           </section>
 
