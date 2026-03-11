@@ -19,6 +19,7 @@ import {
   Users,
   Phone,
 } from "lucide-react";
+import AiMarketLandscapeWhiteModule from "@/components/ai-explorations/AiMarketLandscapeWhiteModule";
 
 const EXPLORATIONS = [
   {
@@ -140,6 +141,7 @@ export default function AIExplorationsPage() {
       />
 
       <main className="bg-white">
+        <AiMarketLandscapeWhiteModule />
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
           {/* Intro / framing */}
           <section className="py-24 md:py-32">
