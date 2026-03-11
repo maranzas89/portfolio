@@ -4,7 +4,9 @@ import React, { useState, useCallback } from "react";
 import WorkNav from "@/components/WorkNav";
 import PageHero from "@/components/PageHero";
 import PageFooter from "@/components/PageFooter";
-import { ScrollReveal, ScrollRevealStagger } from "@/components/ScrollReveal";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import SectionNav from "@/components/SectionNav";
+import { AI_EXPLORATIONS_SECTIONS } from "@/lib/section-nav-config";
 import Link from "next/link";
 import {
   Sparkles,
@@ -13,13 +15,11 @@ import {
   Zap,
   Layers,
   Rocket,
-  Lightbulb,
-  Compass,
-  Gauge,
   Users,
   Phone,
 } from "lucide-react";
 import AiMarketLandscapeWhiteModule from "@/components/ai-explorations/AiMarketLandscapeWhiteModule";
+import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSubnav";
 
 const EXPLORATIONS = [
   {
@@ -99,29 +99,6 @@ const EXPLORATIONS = [
   },
 ];
 
-const METHOD_CARDS = [
-  {
-    icon: Lightbulb,
-    title: "Augment, not automate",
-    body: "I use AI to extend exploration and reduce repetitive effort while keeping product judgment and design intent at the center.",
-  },
-  {
-    icon: Compass,
-    title: "Explore broadly, refine selectively",
-    body: "AI helps generate breadth quickly, but strong outcomes still depend on careful curation, synthesis, and prioritization.",
-  },
-  {
-    icon: Gauge,
-    title: "Speed up the right stages",
-    body: "The biggest value often comes from accelerating early framing, iteration, and pattern testing, not skipping thinking.",
-  },
-  {
-    icon: Users,
-    title: "Treat it as a collaborator, not an answer",
-    body: "The most useful outputs come from active direction, critical evaluation, and repeated shaping.",
-  },
-];
-
 export default function AIExplorationsPage() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
@@ -131,8 +108,13 @@ export default function AIExplorationsPage() {
 
   return (
     <div className="relative bg-bg text-text min-h-screen overflow-x-hidden">
-      <WorkNav />
+      <header className="fixed top-0 left-0 right-0 z-50 w-full">
+        <WorkNav embed />
+        <AiExplorationsSubnav />
+      </header>
+      <SectionNav sections={AI_EXPLORATIONS_SECTIONS} />
 
+      <div className="pt-16 md:pt-32">
       <PageHero
         eyebrow="AI Explorations"
         headline="Designing with AI as a creative and systems-thinking partner"
@@ -143,35 +125,23 @@ export default function AIExplorationsPage() {
       <main className="bg-white">
         <AiMarketLandscapeWhiteModule />
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
-          {/* Intro / framing */}
-          <section className="py-24 md:py-32">
-            <ScrollReveal direction="up">
-              <span className="text-sm font-semibold uppercase tracking-widest text-muted block mb-6">
-                Selected explorations
-              </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-text mb-8 max-w-3xl">
-                At the intersection of design, systems, and AI
-              </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl">
-                <p className="text-muted text-base md:text-lg font-medium leading-relaxed">
-                  From concept generation to interface ideation and workflow acceleration, these explorations show how AI can support stronger product thinking when paired with design judgment.
-                </p>
-                <p className="text-muted text-base md:text-lg font-medium leading-relaxed">
-                  Rather than treating AI as novelty, I use it as a tool for expanding options, compressing iteration cycles, and uncovering new directions worth refining.
-                </p>
-              </div>
-            </ScrollReveal>
-          </section>
-
           {/* Featured exploration grid */}
-          <section className="py-16 md:py-24">
+          <section id="ai-product-experiments" className="scroll-mt-[260px] py-16 md:py-24">
             <ScrollReveal direction="up" className="mb-16">
-              <span className="text-sm font-semibold uppercase tracking-widest text-muted block mb-4">
-                Explorations
-              </span>
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-text">
-                Featured work
-              </h2>
+              <div className="mb-2 flex items-center gap-2">
+                <Layout className="h-4 w-4 shrink-0 text-blue-600" />
+                <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
+                  03. AI Project Showcase
+                </h2>
+              </div>
+              <h3 className="mb-4 text-3xl font-semibold text-text md:text-4xl">
+                Testing Product Hypotheses Through AI-Native Prototyping
+              </h3>
+              <p className="max-w-5xl text-base text-slate-600 md:text-lg">
+                A portfolio of experimental builds used to explore product behaviors, validate
+                emerging opportunities, and translate early concepts into working prototypes that
+                may inform future applications or commercial products.
+              </p>
             </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {EXPLORATIONS.map((item, i) => {
@@ -237,57 +207,37 @@ export default function AIExplorationsPage() {
             </div>
           </section>
 
-          {/* Methodology section */}
-          <section className="py-24 md:py-32 border-t border-line">
-            <ScrollReveal direction="up">
-              <span className="text-sm font-semibold uppercase tracking-widest text-muted block mb-6">
-                Practice
-              </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-text mb-16 max-w-3xl">
-                How I approach AI in design
-              </h2>
-            </ScrollReveal>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {METHOD_CARDS.map((card, i) => {
-                const Icon = card.icon;
-                return (
-                  <ScrollReveal key={card.title} direction="up" delay={i * 80}>
-                    <div className="bg-card border border-line rounded-2xl p-6 md:p-8 transition-all duration-300 hover:border-[#999999] hover:shadow-md hover:-translate-y-1">
-                      <Icon className="w-8 h-8 text-blue-600 mb-4" />
-                      <h3 className="text-lg font-semibold tracking-tight text-text mb-3">
-                        {card.title}
-                      </h3>
-                      <p className="text-muted text-sm md:text-base leading-relaxed">
-                        {card.body}
-                      </p>
-                    </div>
-                  </ScrollReveal>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* Closing CTA */}
-          <section className="py-24 md:py-32">
-            <ScrollReveal direction="up">
-              <div className="bg-card border border-line rounded-[40px] p-10 md:p-14 lg:p-20 text-center max-w-4xl mx-auto">
-                <p className="text-muted text-base md:text-lg font-medium leading-relaxed mb-8">
-                  These explorations complement my product work by showing how emerging tools can strengthen systems thinking, accelerate iteration, and unlock new design possibilities.
-                </p>
-                <Link
-                  href="/#work"
-                  className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700"
-                >
-                  View Featured Work
-                  <span aria-hidden>→</span>
-                </Link>
+          {/* 04. In Practice */}
+          <section id="in-practice" className="scroll-mt-[260px] py-16 md:py-24">
+            <ScrollReveal direction="up" className="mb-16">
+              <div className="mb-2 flex items-center gap-2">
+                <Layout className="h-4 w-4 shrink-0 text-blue-600" />
+                <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
+                  04. In Practice
+                </h2>
               </div>
+              <h3 className="mb-4 text-3xl font-semibold text-text md:text-4xl">
+                Applying AI in Everyday Product Design
+              </h3>
+              <p className="max-w-5xl text-base text-slate-600 md:text-lg mb-8">
+                Interested in how I put AI into practice in everyday product design? Browse selected
+                work to see how these tools inform strategy, workflow, and execution in real
+                projects.
+              </p>
+              <Link
+                href="/#work"
+                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700"
+              >
+                View Featured Work
+                <span aria-hidden>→</span>
+              </Link>
             </ScrollReveal>
           </section>
         </div>
       </main>
 
       <PageFooter />
+      </div>
     </div>
   );
 }
