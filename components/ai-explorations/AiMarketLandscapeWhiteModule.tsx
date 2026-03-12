@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import {
   ArrowUpRight,
@@ -355,7 +356,7 @@ const workflowSteps = [
     ],
     detailIcons: [List, Pencil, BookOpen],
     signal: "Clarity before code",
-    image: "/images/ai-workflow-step1.svg",
+    image: "/images/1111.jpg",
   },
   {
     id: "prd",
@@ -371,6 +372,7 @@ const workflowSteps = [
     ],
     detailIcons: [Network, Bot, Eye],
     signal: "Prompt quality becomes product quality",
+    image: "/images/2222.jpg",
   },
   {
     id: "stack-ui",
@@ -386,6 +388,7 @@ const workflowSteps = [
     ],
     detailIcons: [Database, Layout, Zap],
     signal: "System thinking plus interface thinking",
+    image: "/images/3333.jpg",
   },
   {
     id: "code",
@@ -401,6 +404,7 @@ const workflowSteps = [
     ],
     detailIcons: [Zap, FileText, CheckCircle2],
     signal: "Preparation compresses build time",
+    image: "/images/4444.jpg",
   },
   {
     id: "iterate",
@@ -416,6 +420,7 @@ const workflowSteps = [
     ],
     detailIcons: [CheckCircle2, GitBranch, ArrowUpRight],
     signal: "Modularity reduces debugging risk",
+    image: "/images/5555.jpg",
   },
   {
     id: "debug",
@@ -431,6 +436,7 @@ const workflowSteps = [
     ],
     detailIcons: [FileText, PenLine, Terminal],
     signal: "Specific input drives useful output",
+    image: "/images/6666.jpg",
   },
   {
     id: "done",
@@ -446,16 +452,119 @@ const workflowSteps = [
     ],
     detailIcons: [Play, Users, Rocket],
     signal: "MVP after the core path is reliable",
+    image: "/images/7777.jpg",
   },
 ];
 
+interface ImagePreviewModalProps {
+  isOpen: boolean;
+  src: string;
+  caption: string;
+  onClose: () => void;
+}
+
+function ImagePreviewModal({
+  isOpen,
+  src,
+  caption,
+  onClose,
+}: ImagePreviewModalProps) {
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [isOpen, onClose]);
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === overlayRef.current) {
+      onClose();
+    }
+  };
+
+  if (!isOpen || !mounted) return null;
+
+  return createPortal(
+    <div
+      ref={overlayRef}
+      onClick={handleOverlayClick}
+      className="fixed inset-0 w-screen h-screen bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center"
+    >
+      <div className="relative w-[94vw] max-w-[1800px] max-h-[92vh] mx-auto">
+        <button
+          onClick={onClose}
+          className="absolute -top-10 right-0 text-white hover:text-slate-300 transition-colors"
+          aria-label="Close preview"
+        >
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        <div className="bg-white rounded-[8px] overflow-hidden shadow-xl flex flex-col h-full">
+          <div className="flex-1 overflow-auto flex items-center justify-center bg-slate-50 min-h-[400px]">
+            <img
+              src={src}
+              alt={caption}
+              className="max-w-full max-h-[calc(92vh-100px)] object-contain rounded-[8px]"
+            />
+          </div>
+
+          {caption && (
+            <div className="border-t border-line px-6 py-4 bg-white text-center">
+              <p className="text-sm font-medium text-slate-900">{caption}</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 function AiDesignWorkflowExplorationsSection() {
   const [selectedWorkflowStepId, setSelectedWorkflowStepId] = useState("core");
+  const [preview, setPreview] = useState<{ open: boolean; src: string; caption: string }>({
+    open: false,
+    src: "",
+    caption: "",
+  });
 
   const selectedWorkflowStep =
     workflowSteps.find((step) => step.id === selectedWorkflowStepId) || workflowSteps[0];
 
   const SelectedIcon = selectedWorkflowStep.icon;
+
+  const openPreview = useCallback((src: string, caption: string) => {
+    setPreview({ open: true, src, caption });
+  }, []);
+
+  const closePreview = useCallback(() => {
+    setPreview({ open: false, src: "", caption: "" });
+  }, []);
 
   return (
     <section className="w-full px-0 pt-2 pb-6 md:pt-3 md:pb-7 lg:pt-4 lg:pb-7">
@@ -536,11 +645,19 @@ function AiDesignWorkflowExplorationsSection() {
 
           {/* Image area */}
           {selectedWorkflowStep.image ? (
-            <div className="flex-1 min-h-[160px] w-full rounded-[8px] overflow-hidden">
+            <div
+              className="group flex-1 min-h-[160px] w-full rounded-[8px] overflow-hidden cursor-pointer transition-opacity duration-200"
+              onClick={() =>
+                openPreview(
+                  selectedWorkflowStep.image,
+                  selectedWorkflowStep.title
+                )
+              }
+            >
               <img
                 src={selectedWorkflowStep.image}
                 alt={selectedWorkflowStep.title}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain rounded-[8px] scale-105 transition-transform duration-500 ease-out group-hover:scale-110"
               />
             </div>
           ) : (
@@ -587,6 +704,13 @@ function AiDesignWorkflowExplorationsSection() {
           );
         })}
       </div>
+
+      <ImagePreviewModal
+        isOpen={preview.open}
+        src={preview.src}
+        caption={preview.caption}
+        onClose={closePreview}
+      />
     </section>
   );
 }
