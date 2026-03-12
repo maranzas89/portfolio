@@ -549,6 +549,7 @@ function ImagePreviewModal({
 function AiDesignWorkflowExplorationsSection() {
   const isMobile = useIsMobile();
   const [selectedWorkflowStepId, setSelectedWorkflowStepId] = useState("core");
+  const workflowCardRefs = useRef<Record<string, HTMLElement | null>>({});
   const [preview, setPreview] = useState<{ open: boolean; src: string; caption: string }>({
     open: false,
     src: "",
@@ -636,7 +637,12 @@ function AiDesignWorkflowExplorationsSection() {
               <div key={step.id}>
                 <button
                   type="button"
-                  onClick={() => setSelectedWorkflowStepId(active ? "" : step.id)}
+                  ref={(el) => { workflowCardRefs.current[step.id] = el; }}
+                  onClick={() => {
+                    const opening = !active;
+                    setSelectedWorkflowStepId(active ? "" : step.id);
+                    if (opening) scrollCardIntoView(workflowCardRefs.current[step.id]);
+                  }}
                   className={cn(
                     "w-full cursor-pointer rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
                     active
@@ -943,6 +949,15 @@ function ChartTooltip(props: {
   );
 }
 
+function scrollCardIntoView(el: HTMLElement | null) {
+  if (!el) return;
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
+  });
+}
+
 export default function AiMarketLandscapeWhiteModule() {
   const isMobile = useIsMobile();
   const [selectedProductId, setSelectedProductId] = useState("gpt54pro");
@@ -950,6 +965,8 @@ export default function AiMarketLandscapeWhiteModule() {
   const [selectedValidationToolId, setSelectedValidationToolId] = useState("maze");
   const [selectedValidationMetric, setSelectedValidationMetric] =
     useState<ValidationMetricKey>("scoreValidation");
+  const productCardRefs = useRef<Record<string, HTMLElement | null>>({});
+  const validationCardRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const selectedProduct =
     featuredSignals.find((item) => item.id === selectedProductId) || featuredSignals[0];
@@ -1019,7 +1036,7 @@ export default function AiMarketLandscapeWhiteModule() {
                   </div>
 
                   <ScrollRevealStagger
-                    className="grid gap-3 grid-cols-2"
+                    className="grid gap-3 grid-cols-1 md:grid-cols-2"
                     direction="up"
                     staggerDelay={60}
                   >
@@ -1128,7 +1145,7 @@ export default function AiMarketLandscapeWhiteModule() {
           </ScrollReveal>
           </div>
 
-          <section className="grid gap-6 xl:grid-cols-2">
+          <section className="grid gap-10 md:gap-6 xl:grid-cols-2">
             {categoryCards.map((item, i) => {
               const Icon = item.icon;
               return (
@@ -1183,7 +1200,12 @@ export default function AiMarketLandscapeWhiteModule() {
                     <ScrollReveal key={item.id} direction="up" delay={i * 60}>
                       <button
                         type="button"
-                        onClick={() => setSelectedProductId(isActive ? "" : item.id)}
+                        ref={(el) => { productCardRefs.current[item.id] = el; }}
+                        onClick={() => {
+                          const opening = !isActive;
+                          setSelectedProductId(isActive ? "" : item.id);
+                          if (opening) scrollCardIntoView(productCardRefs.current[item.id]);
+                        }}
                         className={cn(
                           "w-full cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
                           isActive
@@ -1613,7 +1635,12 @@ export default function AiMarketLandscapeWhiteModule() {
                       <div key={tool.id}>
                         <button
                           type="button"
-                          onClick={() => setSelectedValidationToolId(active ? "" : tool.id)}
+                          ref={(el) => { validationCardRefs.current[tool.id] = el; }}
+                          onClick={() => {
+                            const opening = !active;
+                            setSelectedValidationToolId(active ? "" : tool.id);
+                            if (opening) scrollCardIntoView(validationCardRefs.current[tool.id]);
+                          }}
                           className={cn(
                             "w-full cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
                             active

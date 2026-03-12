@@ -365,7 +365,7 @@ export default function OrientationStaffView({
                         }}
                       />
                     </div>
-                    <span className="w-16 shrink-0 text-right text-xs capitalize text-[#667085]">
+                    <span className="hidden md:inline w-16 shrink-0 text-right text-xs capitalize text-[#667085]">
                       {s.status}
                     </span>
                   </div>
@@ -389,56 +389,95 @@ export default function OrientationStaffView({
             {requiredSteps.map((s) => (
               <div
                 key={s.id}
-                className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-[#DDDDDD] bg-white p-4"
+                className="rounded-xl border border-[#DDDDDD] bg-white p-4 overflow-hidden"
               >
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-base font-semibold text-[#243041]">{s.title}</h3>
-                    {s.dueDate ? (
-                      <span className="text-xs text-[#667085]">Due {formatDate(s.dueDate)}</span>
-                    ) : null}
-                    <span className="rounded-full border border-[#DDDDDD] bg-white px-2 py-0.5 text-xs text-[#667085]">
-                      Required
-                    </span>
+                <div className="flex flex-col md:flex-row md:flex-wrap md:items-start md:justify-between gap-3">
+                  <div className="min-w-0 flex-1 pr-[10px] md:pr-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-base font-semibold text-[#243041]">{s.title}</h3>
+                      {s.dueDate ? (
+                        <span className="text-xs text-[#667085]">Due {formatDate(s.dueDate)}</span>
+                      ) : null}
+                      <span className="rounded-full border border-[#DDDDDD] bg-white px-2 py-0.5 text-xs text-[#667085]">
+                        Required
+                      </span>
+                    </div>
+                    <div className="mt-2 flex items-center gap-2 md:hidden">
+                      {s.id !== "advisor" && s.id !== "register" ? (
+                        <button
+                          type="button"
+                          onClick={() => setOpenStepId(s.id)}
+                          disabled={
+                            s.id === "expectations"
+                              ? !underReviewStepIds.includes("expectations")
+                              : s.id === "aid"
+                                ? !underReviewStepIds.includes("aid")
+                                : false
+                          }
+                          className="cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm font-semibold text-[#243041] transition hover:bg-[#d34508] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d34508] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-white disabled:hover:text-[#243041]"
+                        >
+                          Review
+                        </button>
+                      ) : null}
+                      <label className="sr-only" htmlFor={`status-m-${s.id}`}>
+                        Status for {s.title}
+                      </label>
+                      <select
+                        id={`status-m-${s.id}`}
+                        value={s.status}
+                        onChange={(e) =>
+                          save(
+                            steps.map((x) =>
+                              x.id === s.id ? { ...x, status: e.target.value as StepStatus } : x
+                            )
+                          )
+                        }
+                        className="cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm text-[#243041] outline-none focus-visible:ring-2 focus-visible:ring-[#d34508] focus-visible:ring-offset-2"
+                      >
+                        <option value="not-started">Not started</option>
+                        <option value="in-progress">In progress</option>
+                        <option value="done">Done</option>
+                      </select>
+                    </div>
+                    <p className="mt-2 text-sm text-[#667085]">{s.description}</p>
                   </div>
-                  <p className="mt-2 text-sm text-[#667085]">{s.description}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  {s.id !== "advisor" && s.id !== "register" ? (
-                    <button
-                      type="button"
-                      onClick={() => setOpenStepId(s.id)}
-                      disabled={
-                        s.id === "expectations"
-                          ? !underReviewStepIds.includes("expectations")
-                          : s.id === "aid"
-                            ? !underReviewStepIds.includes("aid")
-                            : false
-                      }
-                      className="cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm font-semibold text-[#243041] transition hover:bg-[#d34508] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d34508] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-white disabled:hover:text-[#243041]"
-                    >
-                      Review
-                    </button>
-                  ) : null}
-                  <label className="sr-only" htmlFor={`status-${s.id}`}>
-                    Status for {s.title}
-                  </label>
-                  <select
-                    id={`status-${s.id}`}
-                    value={s.status}
-                    onChange={(e) =>
-                      save(
-                        steps.map((x) =>
-                          x.id === s.id ? { ...x, status: e.target.value as StepStatus } : x
+                  <div className="hidden md:flex items-center gap-2">
+                    {s.id !== "advisor" && s.id !== "register" ? (
+                      <button
+                        type="button"
+                        onClick={() => setOpenStepId(s.id)}
+                        disabled={
+                          s.id === "expectations"
+                            ? !underReviewStepIds.includes("expectations")
+                            : s.id === "aid"
+                              ? !underReviewStepIds.includes("aid")
+                              : false
+                        }
+                        className="cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm font-semibold text-[#243041] transition hover:bg-[#d34508] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d34508] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-white disabled:hover:text-[#243041]"
+                      >
+                        Review
+                      </button>
+                    ) : null}
+                    <label className="sr-only" htmlFor={`status-${s.id}`}>
+                      Status for {s.title}
+                    </label>
+                    <select
+                      id={`status-${s.id}`}
+                      value={s.status}
+                      onChange={(e) =>
+                        save(
+                          steps.map((x) =>
+                            x.id === s.id ? { ...x, status: e.target.value as StepStatus } : x
+                          )
                         )
-                      )
-                    }
-                    className="cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm text-[#243041] outline-none focus-visible:ring-2 focus-visible:ring-[#d34508] focus-visible:ring-offset-2"
-                  >
-                    <option value="not-started">Not started</option>
-                    <option value="in-progress">In progress</option>
-                    <option value="done">Done</option>
-                  </select>
+                      }
+                      className="cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm text-[#243041] outline-none focus-visible:ring-2 focus-visible:ring-[#d34508] focus-visible:ring-offset-2"
+                    >
+                      <option value="not-started">Not started</option>
+                      <option value="in-progress">In progress</option>
+                      <option value="done">Done</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             ))}
