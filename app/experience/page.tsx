@@ -6,6 +6,8 @@ import PageHero from "@/components/PageHero";
 import PageFooter from "@/components/PageFooter";
 import ExperienceSection from "@/components/ExperienceSection";
 import SectionNav from "@/components/SectionNav";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import Link from "next/link";
 import { EXPERIENCE_SECTIONS } from "@/lib/section-nav-config";
 
 const EXPERIENCE_SECTIONS_DISPLAY = EXPERIENCE_SECTIONS.map(({ id, label }) => ({

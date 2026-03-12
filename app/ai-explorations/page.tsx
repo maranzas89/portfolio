@@ -9,10 +9,7 @@ import SectionNav from "@/components/SectionNav";
 import { AI_EXPLORATIONS_SECTIONS } from "@/lib/section-nav-config";
 import Link from "next/link";
 import {
-  Sparkles,
   Layout,
-  Palette,
-  Zap,
   Layers,
   Rocket,
   Users,
@@ -27,42 +24,6 @@ import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSub
 
 const EXPLORATIONS = [
   {
-    id: 1,
-    title: "AI-Assisted Product Concepts",
-    category: "Concept Generation",
-    description:
-      "Exploring early-stage product directions through structured prompts, rapid framing, and iterative synthesis.",
-    icon: Sparkles,
-    gradient: "from-violet-500/20 to-blue-500/20",
-  },
-  {
-    id: 2,
-    title: "Prompt-to-Interface Studies",
-    category: "Interface Ideation",
-    description:
-      "Translating abstract prompts into interface patterns, flows, and interaction concepts with product-level intent.",
-    icon: Layout,
-    gradient: "from-blue-500/20 to-cyan-500/20",
-  },
-  {
-    id: 3,
-    title: "Generative Visual Directions",
-    category: "Visual Exploration",
-    description:
-      "Using AI-supported image and composition workflows to test visual territories, mood, and storytelling.",
-    icon: Palette,
-    gradient: "from-cyan-500/20 to-emerald-500/20",
-  },
-  {
-    id: 4,
-    title: "Workflow Acceleration Experiments",
-    category: "Process",
-    description:
-      "Reducing friction in research synthesis, concept framing, and content generation to accelerate design velocity.",
-    icon: Zap,
-    gradient: "from-emerald-500/20 to-amber-500/20",
-  },
-  {
     id: 5,
     title: "AI-Enhanced Design Systems Thinking",
     category: "Systems",
@@ -70,6 +31,8 @@ const EXPLORATIONS = [
       "Exploring how AI can support scalable systems, pattern generation, and component thinking.",
     icon: Layers,
     gradient: "from-amber-500/20 to-orange-500/20",
+    backText: "Used structured prompts to generate reusable component patterns, token systems, and layout primitives—accelerating early-stage design system scaffolding across multiple product surfaces.",
+    href: "/ai-explorations/synchronize-orientation",
   },
   {
     id: 6,
@@ -79,6 +42,8 @@ const EXPLORATIONS = [
       "Testing ideas quickly through lightweight, high-feedback prototypes that help validate direction earlier.",
     icon: Rocket,
     gradient: "from-orange-500/20 to-rose-500/20",
+    backText: "Built lightweight prototypes using AI-generated code scaffolds and iterative prompt refinement—validating interaction models and user flows before committing to full implementation.",
+    href: "/ai-explorations/dialpad-modal",
   },
   {
     id: 7,
@@ -88,6 +53,12 @@ const EXPLORATIONS = [
       "A Calbright-style orientation checklist demonstrating student-staff state sync via localStorage—students complete steps while staff monitors progress in real time.",
     icon: Users,
     gradient: "from-rose-500/20 to-violet-500/20",
+    backText: "",
+    backHighlights: [
+      { label: "Student–staff sync", text: "Used AI to prototype shared visibility across the student experience and staff portal, enabling file and status continuity between both sides." },
+      { label: "Enrollment support", text: "Designed orientation and onboarding flows around student needs, including enrollment steps, checklist progress, and key to-dos." },
+      { label: "Rethinking staff tracking", text: "Explored a more connected alternative to traditional progress tracking by giving staff clearer, more real-time visibility into student completion states." },
+    ],
     href: "/ai-explorations/synchronize-orientation",
   },
   {
@@ -98,16 +69,21 @@ const EXPLORATIONS = [
       "A staff-facing dialpad modal for calling students directly from the portal—streamlining outreach, case follow-ups, and student support without leaving the workflow.",
     icon: Phone,
     gradient: "from-teal-500/20 to-blue-500/20",
+    backText: "A fully interactive dialpad modal designed for staff outreach workflows. Supports direct calling, recent contacts, and contextual student info—reducing task-switching and keeping staff focused within the portal.",
     href: "/ai-explorations/dialpad-modal",
-    ctaLabel: "Try demo",
   },
 ];
 
 export default function AIExplorationsPage() {
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [flippedIds, setFlippedIds] = useState<Set<number>>(new Set());
 
-  const toggleExpand = useCallback((id: number) => {
-    setExpandedId((prev) => (prev === id ? null : id));
+  const toggleFlip = useCallback((id: number) => {
+    setFlippedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   }, []);
 
   return (
@@ -170,98 +146,166 @@ export default function AIExplorationsPage() {
                 may inform future applications or commercial products.
               </p>
             </ScrollReveal>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {EXPLORATIONS.map((item, i) => {
                 const Icon = item.icon;
-                const isExpanded = !("href" in item) && expandedId === item.id;
-                const hasHref = "href" in item && typeof (item as { href?: string }).href === "string";
-                const href = hasHref ? (item as { href: string }).href : null;
-                const ctaLabel = "ctaLabel" in item ? (item as { ctaLabel?: string }).ctaLabel : null;
+                const isFlipped = flippedIds.has(item.id);
+                const hasHighlights = "backHighlights" in item && Array.isArray((item as { backHighlights?: { label: string; text: string }[] }).backHighlights);
+                const highlights = hasHighlights ? (item as { backHighlights: { label: string; text: string }[] }).backHighlights : null;
 
-                const cardContent = (
-                  <>
-                    <div
-                      className={`h-32 md:h-40 bg-gradient-to-br ${item.gradient} flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02]`}
-                    >
-                      <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
-                    </div>
-                    <div className="p-6 md:p-8">
-                      <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
-                        {item.category}
-                      </span>
-                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3 group-hover:text-blue-600 transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-muted text-sm md:text-base leading-relaxed">
-                        {item.description}
-                      </p>
-                      {!hasHref && isExpanded && (
-                        <div className="mt-6 pt-6 border-t border-line">
-                          <p className="text-muted text-sm leading-relaxed">
-                            This exploration combines structured prompting with iterative refinement to surface product directions that balance feasibility and ambition.
-                          </p>
+                /* Back face content */
+                const backContent = highlights ? (
+                  <div className="p-6 md:p-8 flex flex-col flex-1">
+                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-4">
+                      {item.title}
+                    </h3>
+                    <div className="space-y-3 flex-1">
+                      {highlights.map((h, idx) => (
+                        <div key={idx} className="bg-white rounded-xl p-4 border border-slate-100">
+                          <p className="text-sm font-semibold text-text mb-1">{h.label}</p>
+                          <p className="text-muted text-xs leading-relaxed">{h.text}</p>
                         </div>
-                      )}
-                      <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
-                        {hasHref ? `${ctaLabel || "Try demo"} →` : isExpanded ? "Collapse" : "Expand"} →
-                      </p>
+                      ))}
                     </div>
-                  </>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700"
+                    >
+                      Try demo →
+                    </a>
+                  </div>
+                ) : (
+                  <div className="p-6 md:p-8 flex flex-col flex-1">
+                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="text-muted text-sm md:text-base leading-relaxed flex-1">
+                      {item.backText}
+                    </p>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700"
+                    >
+                      Try demo →
+                    </a>
+                  </div>
                 );
+
+                /* Ghost content for sizing — renders both front and back, takes the taller */
+                const ghostFront = (
+                  <div>
+                    <div className="h-[208px] md:h-[240px]" />
+                    <div className="p-6 md:p-8">
+                      <span className="text-xs font-semibold uppercase tracking-widest block mb-2">&nbsp;</span>
+                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-3">{item.title}</h3>
+                      <p className="text-sm md:text-base leading-relaxed">{item.description}</p>
+                      <p className="mt-4 text-sm font-semibold uppercase tracking-widest">Learn more →</p>
+                    </div>
+                  </div>
+                );
+                const ghostBack = highlights ? (
+                  <div>
+                    <div className="p-6 md:p-8">
+                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-4">{item.title}</h3>
+                      <div className="space-y-3">
+                        {highlights.map((h, idx) => (
+                          <div key={idx} className="rounded-xl p-4">
+                            <p className="text-sm font-semibold mb-1">{h.label}</p>
+                            <p className="text-xs leading-relaxed">{h.text}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="mt-4 text-sm font-semibold uppercase tracking-widest">Try demo →</p>
+                    </div>
+                  </div>
+                ) : null;
 
                 return (
                   <ScrollReveal key={item.id} direction="up" delay={i * 50}>
-                    {href ? (
-                      <Link
-                        href={href}
-                        className={`group bg-card border border-line rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-[#999999] hover:shadow-lg hover:-translate-y-1 block`}
-                      >
-                        {cardContent}
-                      </Link>
-                    ) : (
-                      <div
-                        onClick={() => toggleExpand(item.id)}
-                        className={`group bg-card border border-line rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-[#999999] hover:shadow-lg hover:-translate-y-1 ${
-                          isExpanded ? "ring-2 ring-blue-500/30 border-blue-200" : ""
-                        }`}
-                      >
-                        {cardContent}
+                    <div
+                      className="cursor-pointer [perspective:1200px]"
+                      onClick={() => toggleFlip(item.id)}
+                    >
+                      <div className="relative">
+                        {/* Sizing ghost — render both, CSS grid overlap takes the taller */}
+                        <div className="invisible grid [&>*]:col-start-1 [&>*]:row-start-1" aria-hidden="true">
+                          {ghostFront}
+                          {ghostBack}
+                        </div>
+
+                        {/* Rotating layer */}
+                        <div
+                          className={`absolute inset-0 [transform-style:preserve-3d] transition-transform duration-600 ${isFlipped ? "[transform:rotateY(180deg)]" : ""}`}
+                        >
+                          {/* Front face */}
+                          <div className="absolute inset-0 bg-[#fafbfc] rounded-2xl overflow-hidden shadow-sm [backface-visibility:hidden] transition-shadow duration-300 hover:shadow-lg">
+                            <div
+                              className={`h-[208px] md:h-[240px] bg-gradient-to-br ${item.gradient} flex items-center justify-center`}
+                            >
+                              <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
+                            </div>
+                            <div className="p-6 md:p-8">
+                              <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
+                                {item.category}
+                              </span>
+                              <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3">
+                                {item.title}
+                              </h3>
+                              <p className="text-muted text-sm md:text-base leading-relaxed">
+                                {item.description}
+                              </p>
+                              <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
+                                Learn more →
+                              </p>
+                            </div>
+                          </div>
+                          {/* Back face */}
+                          <div className="absolute inset-0 bg-[#fafbfc] rounded-2xl overflow-hidden shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col">
+                            {backContent}
+                          </div>
+                        </div>
                       </div>
-                    )}
+                    </div>
                   </ScrollReveal>
                 );
               })}
             </div>
           </section>
 
-          {/* 04. In Practice */}
-          <section id="in-practice" className="scroll-mt-[260px] py-16 md:py-24">
-            <ScrollReveal direction="up" className="mb-16">
-              <div className="mb-2 flex items-center gap-2">
-                <Layout className="h-4 w-4 shrink-0 text-blue-600" />
-                <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                  04. In Practice
-                </h2>
-              </div>
-              <h3 className="mb-4 text-3xl font-semibold text-text md:text-4xl">
-                Applying AI in Everyday Product Design
-              </h3>
-              <p className="max-w-5xl text-base text-slate-600 md:text-lg mb-8">
-                Interested in how I put AI into practice in everyday product design? Browse selected
-                work to see how these tools inform strategy, workflow, and execution in real
-                projects.
+        </div>
+      </main>
+
+      <section
+        className="relative w-full overflow-hidden py-20 md:py-28 border-t border-white/10"
+        style={{
+          background:
+            "radial-gradient(circle at 32% 12%, rgba(50, 95, 185, 0.22), transparent 26%), linear-gradient(90deg, #020611 0%, #031128 18%, #0a1b3c 52%, #051634 76%, #031126 100%)",
+        }}
+      >
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[length:32px_32px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 flex justify-center">
+          <ScrollReveal direction="up" className="w-full flex justify-center">
+            <div className="max-w-5xl mx-auto flex flex-col items-center text-center px-2">
+              <p className="text-gray-400 text-lg md:text-xl font-medium leading-relaxed mb-6 text-balance">
+                Explore how I apply AI in everyday product design through selected work that shows how these tools shape strategy, streamline workflows, and support execution across real projects.
               </p>
               <Link
                 href="/#work"
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-semibold text-white transition hover:bg-blue-700"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/40 px-10 py-4 text-base font-semibold text-white transition hover:bg-white/10 hover:border-white/60 shrink-0"
               >
                 View Featured Work
                 <span aria-hidden>→</span>
               </Link>
-            </ScrollReveal>
-          </section>
+            </div>
+          </ScrollReveal>
         </div>
-      </main>
+      </section>
 
       <PageFooter />
       </div>
