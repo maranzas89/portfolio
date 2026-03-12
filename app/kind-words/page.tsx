@@ -130,7 +130,7 @@ export default function KindWordsPage() {
                 const Icon = theme.icon;
                 return (
                 <ScrollReveal key={theme.title} direction="up" delay={i * 60}>
-                  <div className="rounded-xl bg-slate-50/50 px-5 py-5 md:px-6 md:py-6 transition-all duration-300 hover:bg-slate-50 hover:shadow-lg hover:-translate-y-1">
+                  <div className="rounded-xl bg-[#fafbfc] px-5 py-5 md:px-6 md:py-6 transition-all duration-300 hover:bg-slate-100 hover:shadow-lg hover:-translate-y-1">
                     <Icon className="w-5 h-5 text-blue-600 mb-3" />
                     <h3 className="text-base font-semibold tracking-tight text-text mb-2">
                       {theme.title}
@@ -158,7 +158,7 @@ export default function KindWordsPage() {
             <div className="flex flex-col gap-8 md:gap-12">
               {FEATURED_QUOTES_ORDERED.map((item, i) => (
                 <ScrollReveal key={i} direction="up" delay={i * 60}>
-                  <div className="bg-card rounded-2xl p-8 md:p-10 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <div className="bg-[#fafbfc] rounded-2xl p-8 md:p-10 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                     <Quote className="w-10 h-10 text-blue-600/40 mb-6" />
                     <blockquote className="text-base md:text-lg font-medium tracking-tight text-text leading-relaxed mb-8">
                       {item.quote.split("\n\n").map((para, pi) => (

@@ -573,7 +573,7 @@ function AiDesignWorkflowExplorationsSection() {
             (chip) => (
               <span
                 key={chip}
-                className="rounded-[8px] bg-[#f1f5f9] px-3 py-2 text-sm font-bold text-slate-800"
+                className="rounded-[8px] bg-[#f1f5f9] px-3 py-2 text-sm font-bold text-slate-500"
               >
                 {chip}
               </span>
@@ -860,12 +860,12 @@ function MetricBar(props: { label: string; value: number }) {
         <span>{label}</span>
         <span className="text-slate-900">{value}</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-[8px] bg-white">
+      <div className="h-2 overflow-hidden rounded-[8px] bg-[#cbd5e1]">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${value}%` }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="h-full rounded-[8px] bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500"
+          className="h-full rounded-[8px] bg-[#00bc7c]"
         />
       </div>
     </div>
@@ -1202,7 +1202,7 @@ export default function AiMarketLandscapeWhiteModule() {
                     {selectedProduct.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-[8px] border border-slate-200 bg-[#f1f5f9] px-3 py-2 text-sm font-bold text-slate-800"
+                        className="rounded-[8px] bg-[#f1f5f9] px-3 py-2 text-sm font-bold text-slate-500"
                       >
                         {tag}
                       </span>
@@ -1232,7 +1232,7 @@ export default function AiMarketLandscapeWhiteModule() {
               </div>
 
               <div className="mt-6 space-y-4">
-                <div className="rounded-[8px] bg-slate-200 p-4">
+                <div className="rounded-[8px] bg-[#fafbfc] p-4">
                   <div className="text-sm font-bold text-slate-900 mb-3">
                     Portfolio editorial signal
                   </div>
