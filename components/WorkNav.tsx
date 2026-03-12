@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS, WORK_SUB_LINKS } from "@/lib/nav-config";
+import AskWenShell from "@/components/portfolio-chat/AskWenShell";
 
 export default function WorkNav({ embed = false }: { embed?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
@@ -36,12 +37,15 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
       }`}
     >
       <div className="max-w-[1600px] mx-auto w-full min-w-0 px-4 py-4 sm:px-6 sm:py-5 md:px-16 lg:px-24 md:py-8 flex justify-between items-center gap-4">
-        <Link
-          href="/"
-          className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight uppercase text-text transition-colors hover:text-blue-600 shrink-0"
-        >
-          Wen Liu
-        </Link>
+        <div className="flex items-center gap-3 shrink-0">
+          <Link
+            href="/"
+            className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight uppercase text-text transition-colors hover:text-blue-600 shrink-0"
+          >
+            Wen Liu
+          </Link>
+          <AskWenShell />
+        </div>
         {/* Desktop nav - hidden below 768px */}
         <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
           {NAV_LINKS.map(({ href, label }) => {
