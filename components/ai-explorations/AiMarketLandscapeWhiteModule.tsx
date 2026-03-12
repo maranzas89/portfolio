@@ -744,8 +744,8 @@ function AiDesignWorkflowExplorationsSection() {
         ].map((item) => {
           const Icon = item.icon;
           return (
-            <div key={item.title} className="rounded-[8px] bg-[#fafbfc] p-4 pl-[26px] transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
-              <div className="flex items-center gap-2 text-base font-medium text-blue-600">
+            <div key={item.title} className="rounded-[8px] bg-[#F1F5F9] p-4 pl-[26px] transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+              <div className="flex items-center gap-2 text-base font-semibold text-slate-800">
                 <Icon className="h-4 w-4 shrink-0 text-blue-600" />
                 {item.title}
               </div>
