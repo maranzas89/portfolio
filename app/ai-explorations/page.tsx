@@ -44,6 +44,7 @@ const EXPLORATIONS = [
       "A practical look at where current AI tools are strongest across creative exploration, workflow support, and execution.",
     icon: Layers,
     gradient: "from-amber-500/20 to-orange-500/20",
+    image: "/images/1q.png",
     backText: "",
     backHighlights: [
       { icon: GitCompareArrows, label: "Cross-capability comparison", text: "Compares where current AI tools perform best across ideation, reasoning, visual generation, and workflow support." },
@@ -60,6 +61,7 @@ const EXPLORATIONS = [
       "An interactive concept exploring how AI and live match data can turn tournament signals into a more dynamic, insight-driven fan experience.",
     icon: Rocket,
     gradient: "from-orange-500/20 to-rose-500/20",
+    image: "/images/2q.png",
     backText: "",
     backHighlights: [
       { icon: Swords, label: "Matchup Intelligence", text: "Uses structured team data and comparison logic to surface strengths, patterns, and storylines across tournament matchups." },
@@ -76,6 +78,7 @@ const EXPLORATIONS = [
       "A Calbright-style orientation checklist demonstrating student-staff state sync via localStorage—students complete steps while staff monitors progress in real time.",
     icon: Users,
     gradient: "from-rose-500/20 to-violet-500/20",
+    image: "/images/3q.png",
     backText: "",
     backHighlights: [
       { icon: Link2, label: "Student–staff sync", text: "Used AI to prototype shared visibility across the student experience and staff portal, enabling file and status continuity between both sides." },
@@ -92,6 +95,7 @@ const EXPLORATIONS = [
       "A staff-facing dialpad modal for calling students directly from the portal—streamlining outreach, case follow-ups, and student support without leaving the workflow.",
     icon: Phone,
     gradient: "from-teal-500/20 to-blue-500/20",
+    image: "/images/4q.png",
     backText: "",
     backHighlights: [
       { icon: PhoneCall, label: "Direct calling", text: "A fully interactive dialpad modal enabling staff to call students directly from the portal without switching tools or losing context." },
@@ -279,11 +283,17 @@ export default function AIExplorationsPage() {
                         >
                           {/* Front face */}
                           <div className="absolute inset-0 bg-[#fafbfc] rounded-2xl overflow-hidden shadow-sm [backface-visibility:hidden] transition-shadow duration-300 hover:shadow-lg">
-                            <div
-                              className={`h-[208px] md:h-[240px] bg-gradient-to-br ${item.gradient} flex items-center justify-center`}
-                            >
-                              <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
-                            </div>
+                            {item.image ? (
+                              <div className="h-[208px] md:h-[240px] overflow-hidden">
+                                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                              </div>
+                            ) : (
+                              <div
+                                className={`h-[208px] md:h-[240px] bg-gradient-to-br ${item.gradient} flex items-center justify-center`}
+                              >
+                                <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
+                              </div>
+                            )}
                             <div className="p-6 md:p-8">
                               <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
                                 {item.category}

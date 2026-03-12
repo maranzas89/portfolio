@@ -49,7 +49,6 @@ export const AI_EXPLORATIONS_SECTIONS: SectionItem[] = [
   { id: "ai-capability-benchmark", label: "01. AI Capability Benchmark" },
   { id: "ai-design-workflow", label: "02. AI Design Workflow Explorations" },
   { id: "ai-product-experiments", label: "03. AI Project Showcase" },
-  { id: "in-practice", label: "04. In Practice" },
 ];
 
 export const EXPERIENCE_SECTIONS: SectionItem[] = [
