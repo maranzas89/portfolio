@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useMounted } from "@/lib/hooks/useMounted";
+import { useIsMobile } from "@/lib/hooks/useIsMobile";
 import OrientationModal from "./OrientationModal";
 
 export type StepStatus = "not-started" | "in-progress" | "done" | "blocked";
@@ -176,6 +177,7 @@ export default function OrientationStudentView({ mobileHeaderAction }: { mobileH
   const [underReviewStepIds, setUnderReviewStepIds] = useState<string[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<Record<string, { name: string; dataUrl: string }>>({});
   const mounted = useMounted();
+  const isMobile = useIsMobile();
   const hasHydratedRef = useRef(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -405,12 +407,13 @@ export default function OrientationStudentView({ mobileHeaderAction }: { mobileH
               return (
                 <div
                   key={s.id}
-                  className={`flex flex-wrap items-start justify-between gap-3 rounded-xl border p-4 overflow-hidden ${
+                  className={`rounded-xl border p-4 overflow-hidden ${
                     isDone ? "border-[#E8E8E8] bg-[#F5F5F5]" : "border-[#DDDDDD] bg-white"
-                  }`}
+                  } ${isMobile ? "" : "flex flex-wrap items-start justify-between gap-3"}`}
                 >
-                  <div className="min-w-0 flex-1 pr-[10px] md:pr-0">
-                    <div className="flex flex-wrap items-center gap-2">
+                  {isMobile ? (
+                    /* Mobile: icon on top, title, status+date, action button, then description */
+                    <div>
                       <span
                         className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-sm ${
                           isDone
@@ -421,50 +424,114 @@ export default function OrientationStudentView({ mobileHeaderAction }: { mobileH
                         {ui.icon}
                       </span>
                       <h3
-                        className={`text-base font-semibold ${isDone ? "text-[var(--cal-muted)]" : "text-[var(--cal-text)]"}`}
+                        className={`mt-2 text-base font-semibold ${isDone ? "text-[var(--cal-muted)]" : "text-[var(--cal-text)]"}`}
                       >
                         {s.title}
                       </h3>
-                      <span className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${ui.pill}`}>
-                        {ui.label}
-                      </span>
-                      {s.dueDate ? (
-                        <span className={`text-xs ${overdue ? "text-[#8A1F1F]" : "text-[var(--cal-muted)]"}`}>
-                          {overdue ? "Overdue" : "Due"} {mounted ? formatDate(s.dueDate) : "—"}
+                      <div className="mt-2 flex flex-wrap items-center gap-2">
+                        <span className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${ui.pill}`}>
+                          {ui.label}
                         </span>
-                      ) : null}
-                    </div>
-                    <p className="mt-2 text-sm text-[var(--cal-muted)]">{s.description}</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (s.id === "advisor") window.open(CALENDLY_URL, "_blank");
-                      else if (
-                        (s.id === "expectations" || s.id === "aid") &&
-                        s.status !== "done" &&
-                        !underReviewStepIds.includes(s.id)
-                      )
-                        openUploadModal(s.id);
-                      else openModal(s.id);
-                    }}
-                    disabled={
-                      ["expectations", "aid"].includes(s.id) &&
-                      s.status !== "done" &&
-                      underReviewStepIds.includes(s.id)
-                    }
-                    className={`shrink-0 rounded-lg px-3 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cal-orange)] focus-visible:ring-offset-2 ${
-                      isDone
-                        ? "cursor-pointer border border-[#DDDDDD] bg-[#EBEBEB] text-[var(--cal-muted)] hover:bg-[#DDDDDD] hover:text-[var(--cal-text)]"
-                        : ["expectations", "aid"].includes(s.id) &&
+                        {s.dueDate ? (
+                          <span className={`text-xs ${overdue ? "text-[#8A1F1F]" : "text-[var(--cal-muted)]"}`}>
+                            {overdue ? "Overdue" : "Due"} {mounted ? formatDate(s.dueDate) : "—"}
+                          </span>
+                        ) : null}
+                      </div>
+                      <div className="mt-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (s.id === "advisor") window.open(CALENDLY_URL, "_blank");
+                            else if (
+                              (s.id === "expectations" || s.id === "aid") &&
+                              s.status !== "done" &&
+                              !underReviewStepIds.includes(s.id)
+                            )
+                              openUploadModal(s.id);
+                            else openModal(s.id);
+                          }}
+                          disabled={
+                            ["expectations", "aid"].includes(s.id) &&
                             s.status !== "done" &&
                             underReviewStepIds.includes(s.id)
-                          ? "cursor-not-allowed border border-[#DDDDDD] bg-[#EBEBEB] text-[var(--cal-muted)]"
-                          : "cursor-pointer border border-[#DDDDDD] bg-white text-[var(--cal-text)] hover:bg-[#d34508] hover:text-white"
-                    }`}
-                  >
-                    {stepActionLabel(s, underReviewStepIds)}
-                  </button>
+                          }
+                          className={`shrink-0 rounded-lg px-3 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cal-orange)] focus-visible:ring-offset-2 ${
+                            isDone
+                              ? "cursor-pointer border border-[#DDDDDD] bg-[#EBEBEB] text-[var(--cal-muted)] hover:bg-[#DDDDDD] hover:text-[var(--cal-text)]"
+                              : ["expectations", "aid"].includes(s.id) &&
+                                  s.status !== "done" &&
+                                  underReviewStepIds.includes(s.id)
+                                ? "cursor-not-allowed border border-[#DDDDDD] bg-[#EBEBEB] text-[var(--cal-muted)]"
+                                : "cursor-pointer border border-[#DDDDDD] bg-white text-[var(--cal-text)] hover:bg-[#d34508] hover:text-white"
+                          }`}
+                        >
+                          {stepActionLabel(s, underReviewStepIds)}
+                        </button>
+                      </div>
+                      <p className="mt-3 text-sm text-[var(--cal-muted)]">{s.description}</p>
+                    </div>
+                  ) : (
+                    /* Desktop: original horizontal layout */
+                    <>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span
+                            className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-sm ${
+                              isDone
+                                ? "bg-[#E8E8E8] text-[var(--cal-muted)]"
+                                : "bg-[var(--cal-surface-2)] text-[var(--cal-text)]"
+                            }`}
+                          >
+                            {ui.icon}
+                          </span>
+                          <h3
+                            className={`text-base font-semibold ${isDone ? "text-[var(--cal-muted)]" : "text-[var(--cal-text)]"}`}
+                          >
+                            {s.title}
+                          </h3>
+                          <span className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${ui.pill}`}>
+                            {ui.label}
+                          </span>
+                          {s.dueDate ? (
+                            <span className={`text-xs ${overdue ? "text-[#8A1F1F]" : "text-[var(--cal-muted)]"}`}>
+                              {overdue ? "Overdue" : "Due"} {mounted ? formatDate(s.dueDate) : "—"}
+                            </span>
+                          ) : null}
+                        </div>
+                        <p className="mt-2 text-sm text-[var(--cal-muted)]">{s.description}</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (s.id === "advisor") window.open(CALENDLY_URL, "_blank");
+                          else if (
+                            (s.id === "expectations" || s.id === "aid") &&
+                            s.status !== "done" &&
+                            !underReviewStepIds.includes(s.id)
+                          )
+                            openUploadModal(s.id);
+                          else openModal(s.id);
+                        }}
+                        disabled={
+                          ["expectations", "aid"].includes(s.id) &&
+                          s.status !== "done" &&
+                          underReviewStepIds.includes(s.id)
+                        }
+                        className={`shrink-0 rounded-lg px-3 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cal-orange)] focus-visible:ring-offset-2 ${
+                          isDone
+                            ? "cursor-pointer border border-[#DDDDDD] bg-[#EBEBEB] text-[var(--cal-muted)] hover:bg-[#DDDDDD] hover:text-[var(--cal-text)]"
+                            : ["expectations", "aid"].includes(s.id) &&
+                                s.status !== "done" &&
+                                underReviewStepIds.includes(s.id)
+                              ? "cursor-not-allowed border border-[#DDDDDD] bg-[#EBEBEB] text-[var(--cal-muted)]"
+                              : "cursor-pointer border border-[#DDDDDD] bg-white text-[var(--cal-text)] hover:bg-[#d34508] hover:text-white"
+                        }`}
+                      >
+                        {stepActionLabel(s, underReviewStepIds)}
+                      </button>
+                    </>
+                  )}
                 </div>
               );
             })}
@@ -472,35 +539,71 @@ export default function OrientationStudentView({ mobileHeaderAction }: { mobileH
           <details className="mt-6 rounded-xl border border-[#DDDDDD] bg-[var(--cal-surface-2)] p-4">
             <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--cal-navy)]">
               Optional steps (recommended)
-              <span className="ml-2 text-[var(--cal-muted)] font-normal">— click to expand</span>
+              {isMobile ? (
+                <div className="mt-1 text-xs font-normal text-[var(--cal-muted)]">click to expand</div>
+              ) : (
+                <span className="ml-2 text-[var(--cal-muted)] font-normal">— click to expand</span>
+              )}
             </summary>
             <div className="mt-4 space-y-3">
-              {optionalSteps.map((s) => (
-                <div
-                  key={s.id}
-                  className="flex flex-wrap items-start justify-between gap-3 rounded-xl border border-[#DDDDDD] bg-white p-4"
-                >
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--cal-surface-2)] text-[var(--cal-text)] text-sm">
-                        {statusUI(s.status).icon}
-                      </span>
-                      <h3 className="text-base font-semibold text-[var(--cal-text)]">{s.title}</h3>
-                      <span className="rounded-full border border-[#DDDDDD] bg-white px-2 py-0.5 text-xs text-[var(--cal-muted)]">
-                        Optional
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm text-[var(--cal-muted)]">{s.description}</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => openModal(s.id)}
-                    className="shrink-0 cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm font-semibold text-[var(--cal-text)] transition hover:bg-[#d34508] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cal-orange)] focus-visible:ring-offset-2"
+              {optionalSteps.map((s) => {
+                const optUi = statusUI(s.status);
+                return (
+                  <div
+                    key={s.id}
+                    className={`rounded-xl border border-[#DDDDDD] bg-white p-4 ${isMobile ? "" : "flex flex-wrap items-start justify-between gap-3"}`}
                   >
-                    {stepActionLabel(s, underReviewStepIds)}
-                  </button>
-                </div>
-              ))}
+                    {isMobile ? (
+                      <div>
+                        <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--cal-surface-2)] text-[var(--cal-text)] text-sm">
+                          {optUi.icon}
+                        </span>
+                        <h3 className="mt-2 text-base font-semibold text-[var(--cal-text)]">{s.title}</h3>
+                        <div className="mt-2 flex flex-wrap items-center gap-2">
+                          <span className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${optUi.pill}`}>
+                            {optUi.label}
+                          </span>
+                          <span className="rounded-full border border-[#DDDDDD] bg-white px-2 py-0.5 text-xs text-[var(--cal-muted)]">
+                            Optional
+                          </span>
+                        </div>
+                        <div className="mt-2">
+                          <button
+                            type="button"
+                            onClick={() => openModal(s.id)}
+                            className="shrink-0 cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm font-semibold text-[var(--cal-text)] transition hover:bg-[#d34508] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cal-orange)] focus-visible:ring-offset-2"
+                          >
+                            {stepActionLabel(s, underReviewStepIds)}
+                          </button>
+                        </div>
+                        <p className="mt-3 text-sm text-[var(--cal-muted)]">{s.description}</p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[var(--cal-surface-2)] text-[var(--cal-text)] text-sm">
+                              {optUi.icon}
+                            </span>
+                            <h3 className="text-base font-semibold text-[var(--cal-text)]">{s.title}</h3>
+                            <span className="rounded-full border border-[#DDDDDD] bg-white px-2 py-0.5 text-xs text-[var(--cal-muted)]">
+                              Optional
+                            </span>
+                          </div>
+                          <p className="mt-2 text-sm text-[var(--cal-muted)]">{s.description}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => openModal(s.id)}
+                          className="shrink-0 cursor-pointer rounded-lg border border-[#DDDDDD] bg-white px-3 py-2 text-sm font-semibold text-[var(--cal-text)] transition hover:bg-[#d34508] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cal-orange)] focus-visible:ring-offset-2"
+                        >
+                          {stepActionLabel(s, underReviewStepIds)}
+                        </button>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </details>
         </section>
