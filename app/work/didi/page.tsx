@@ -381,7 +381,7 @@ export default function DidiCaseStudyPage() {
                 <p className="text-xs text-muted uppercase tracking-widest font-medium">Role</p>
               </div>
               <p className="font-medium text-lg text-text">
-              <span className="md:hidden">UX DL (Design Expert)</span>
+              <span className="md:hidden">Design Lead</span>
               <span className="hidden md:inline">UX Design Lead (Design Expert)</span>
             </p>
             </Reveal>

@@ -45,6 +45,7 @@ import {
   Cell,
 } from "recharts";
 import { ScrollReveal, ScrollRevealStagger } from "@/components/ScrollReveal";
+import { useIsMobile } from "@/lib/hooks/useIsMobile";
 
 const brandMap: Record<
   string,
@@ -546,6 +547,7 @@ function ImagePreviewModal({
 }
 
 function AiDesignWorkflowExplorationsSection() {
+  const isMobile = useIsMobile();
   const [selectedWorkflowStepId, setSelectedWorkflowStepId] = useState("core");
   const [preview, setPreview] = useState<{ open: boolean; src: string; caption: string }>({
     open: false,
@@ -566,6 +568,48 @@ function AiDesignWorkflowExplorationsSection() {
     setPreview({ open: false, src: "", caption: "" });
   }, []);
 
+  const renderStepDetail = (step: typeof workflowSteps[number]) => {
+    const StepIcon = step.icon;
+    return (
+      <div className="flex flex-col rounded-[8px] bg-[#fafbfc] p-5 md:p-6">
+        <div className="mb-4 flex items-start gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] bg-white shadow-sm">
+            <StepIcon className="h-5 w-5 text-slate-800" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">Workflow stage</div>
+            <div className="text-lg font-semibold leading-snug text-slate-900">{step.title}</div>
+          </div>
+          {!isMobile && (
+            <span className="shrink-0 rounded-[8px] bg-[#f1f5f9] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-800">
+              {step.signal}
+            </span>
+          )}
+        </div>
+        <div className="mb-4 rounded-[8px] bg-white px-4 py-3">
+          <p className="text-[13px] leading-6 text-slate-600">{step.summary}</p>
+        </div>
+        {step.image ? (
+          <div
+            className="group flex-1 min-h-[160px] w-full rounded-[8px] overflow-hidden cursor-pointer transition-opacity duration-200"
+            onClick={() => openPreview(step.image, step.title)}
+          >
+            <img
+              src={step.image}
+              alt={step.title}
+              className="w-full h-full object-contain rounded-[8px] scale-105 transition-transform duration-500 ease-out group-hover:scale-110"
+            />
+          </div>
+        ) : (
+          <div className="flex-1 min-h-[160px] w-full rounded-[8px] bg-slate-200 flex items-center justify-center gap-2 border-2 border-dashed border-slate-300">
+            <Layout className="h-4 w-4 text-slate-400" />
+            <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">Image placeholder</span>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <section className="w-full px-0 pt-2 pb-6 md:pt-3 md:pb-7 lg:pt-4 lg:pb-7">
       <div className="mb-6 flex flex-wrap gap-2">
@@ -581,89 +625,93 @@ function AiDesignWorkflowExplorationsSection() {
           )}
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[0.5fr_1.5fr]">
+      {isMobile ? (
+        /* Mobile: vertical accordion */
         <div className="space-y-3">
           {workflowSteps.map((step, index) => {
             const Icon = step.icon;
             const active = selectedWorkflowStepId === step.id;
 
             return (
-              <button
-                key={step.id}
-                type="button"
-                onClick={() => setSelectedWorkflowStepId(step.id)}
-                className={cn(
-                  "w-full cursor-pointer rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
-                  active
-                    ? "border border-transparent bg-[#dbeafe]"
-                    : "border border-transparent bg-[#fafbfc] hover:bg-slate-100 active:bg-slate-100",
-                )}
-              >
-                <div className="flex items-start gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] bg-slate-100">
-                    <Icon className="h-5 w-5 text-slate-800" />
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className={cn("text-sm text-slate-900", active ? "font-bold" : "font-medium")}>{step.short}</div>
-                      <div className="text-xs text-slate-400">{String(index + 1).padStart(2, "0")}</div>
+              <div key={step.id}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedWorkflowStepId(active ? "" : step.id)}
+                  className={cn(
+                    "w-full cursor-pointer rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
+                    active
+                      ? "border border-transparent bg-[#dbeafe]"
+                      : "border border-transparent bg-[#fafbfc] hover:bg-slate-100 active:bg-slate-100",
+                  )}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] bg-slate-100">
+                      <Icon className="h-5 w-5 text-slate-800" />
                     </div>
-                    <div className={cn("mt-2 text-xs leading-6", active ? "text-[#555] font-semibold" : "text-slate-500")}>{step.signal}</div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className={cn("text-sm text-slate-900", active ? "font-bold" : "font-medium")}>{step.short}</div>
+                        <div className="text-xs text-slate-400">{String(index + 1).padStart(2, "0")}</div>
+                      </div>
+                      <div className={cn("mt-2 text-xs leading-6", active ? "text-[#555] font-semibold" : "text-slate-500")}>{step.signal}</div>
+                    </div>
                   </div>
-                </div>
-              </button>
+                </button>
+                {active && (
+                  <motion.div
+                    key={step.id}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden mt-2"
+                  >
+                    {renderStepDetail(step)}
+                  </motion.div>
+                )}
+              </div>
             );
           })}
         </div>
+      ) : (
+        /* Desktop: side-by-side grid */
+        <div className="grid gap-6 xl:grid-cols-[0.5fr_1.5fr]">
+          <div className="space-y-3">
+            {workflowSteps.map((step, index) => {
+              const Icon = step.icon;
+              const active = selectedWorkflowStepId === step.id;
 
-        <div
-          className="flex flex-col rounded-[8px] bg-[#fafbfc] p-5 md:p-6"
-        >
-          {/* Header row */}
-          <div className="mb-4 flex items-start gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] bg-white shadow-sm">
-              <SelectedIcon className="h-5 w-5 text-slate-800" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">Workflow stage</div>
-              <div className="text-lg font-semibold leading-snug text-slate-900">{selectedWorkflowStep.title}</div>
-            </div>
-            <span className="shrink-0 rounded-[8px] bg-[#f1f5f9] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-800">
-              {selectedWorkflowStep.signal}
-            </span>
+              return (
+                <button
+                  key={step.id}
+                  type="button"
+                  onClick={() => setSelectedWorkflowStepId(step.id)}
+                  className={cn(
+                    "w-full cursor-pointer rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
+                    active
+                      ? "border border-transparent bg-[#dbeafe]"
+                      : "border border-transparent bg-[#fafbfc] hover:bg-slate-100 active:bg-slate-100",
+                  )}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] bg-slate-100">
+                      <Icon className="h-5 w-5 text-slate-800" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className={cn("text-sm text-slate-900", active ? "font-bold" : "font-medium")}>{step.short}</div>
+                        <div className="text-xs text-slate-400">{String(index + 1).padStart(2, "0")}</div>
+                      </div>
+                      <div className={cn("mt-2 text-xs leading-6", active ? "text-[#555] font-semibold" : "text-slate-500")}>{step.signal}</div>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Summary strip */}
-          <div className="mb-4 rounded-[8px] bg-white px-4 py-3">
-            <p className="text-[13px] leading-6 text-slate-600">{selectedWorkflowStep.summary}</p>
-          </div>
-
-          {/* Image area */}
-          {selectedWorkflowStep.image ? (
-            <div
-              className="group flex-1 min-h-[160px] w-full rounded-[8px] overflow-hidden cursor-pointer transition-opacity duration-200"
-              onClick={() =>
-                openPreview(
-                  selectedWorkflowStep.image,
-                  selectedWorkflowStep.title
-                )
-              }
-            >
-              <img
-                src={selectedWorkflowStep.image}
-                alt={selectedWorkflowStep.title}
-                className="w-full h-full object-contain rounded-[8px] scale-105 transition-transform duration-500 ease-out group-hover:scale-110"
-              />
-            </div>
-          ) : (
-            <div className="flex-1 min-h-[160px] w-full rounded-[8px] bg-slate-200 flex items-center justify-center gap-2 border-2 border-dashed border-slate-300">
-              <Layout className="h-4 w-4 text-slate-400" />
-              <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">Image placeholder</span>
-            </div>
-          )}
+          {renderStepDetail(selectedWorkflowStep)}
         </div>
-      </div>
+      )}
 
       <div className="mt-6 grid gap-4 md:grid-cols-4">
         {[
@@ -896,6 +944,7 @@ function ChartTooltip(props: {
 }
 
 export default function AiMarketLandscapeWhiteModule() {
+  const isMobile = useIsMobile();
   const [selectedProductId, setSelectedProductId] = useState("gpt54pro");
   const [selectedFoundationMetric, setSelectedFoundationMetric] = useState("hleTools");
   const [selectedValidationToolId, setSelectedValidationToolId] = useState("maze");
@@ -937,7 +986,7 @@ export default function AiMarketLandscapeWhiteModule() {
             <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
               Mapping Strengths Across the Workflow
             </h3>
-            <p className="whitespace-nowrap text-base text-slate-600 md:text-lg">
+            <p className="text-base text-slate-600 md:text-lg md:whitespace-nowrap">
               A comparative review of leading AI products to understand how each tool supports
               validation, prototyping, evidence traceability, and live behavior insight.
             </p>
@@ -1124,144 +1173,248 @@ export default function AiMarketLandscapeWhiteModule() {
               </div>
             </ScrollReveal>
 
-            <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
-              {featuredSignals.map((item, i) => {
-                const isActive = item.id === selectedProductId;
-                return (
-                  <ScrollReveal key={item.id} direction="up" delay={i * 60}>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedProductId(item.id)}
-                      className={cn(
-                        "cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
-                        isActive
-                          ? "border-transparent bg-[#dbeafe]"
-                          : "border-transparent bg-[#fafbfc] hover:bg-slate-100",
-                      )}
-                    >
-                    <div className="mb-3 flex items-center justify-between gap-3">
-                      <BrandMark vendor={item.vendor} className="h-10 w-10 shrink-0" />
-                      <div
+            {isMobile ? (
+              /* Mobile: vertical accordion — detail expands below each card */
+              <div className="space-y-3">
+                {featuredSignals.map((item, i) => {
+                  const isActive = item.id === selectedProductId;
+                  const product = item;
+                  return (
+                    <ScrollReveal key={item.id} direction="up" delay={i * 60}>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedProductId(isActive ? "" : item.id)}
                         className={cn(
-                          "flex items-center gap-1 rounded-[8px] border px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] shrink-0",
-                          isActive ? "bg-white" : "",
-                          brandMap[item.vendor].border,
-                          brandMap[item.vendor].text,
+                          "w-full cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
+                          isActive
+                            ? "border-transparent bg-[#dbeafe]"
+                            : "border-transparent bg-[#fafbfc] hover:bg-slate-100",
                         )}
                       >
-                        {item.vendor}
-                      </div>
-                    </div>
-                    <div className={cn("text-sm text-slate-900", isActive ? "font-bold" : "font-medium")}>{item.product}</div>
-                    <div className={cn("mt-2 text-xs leading-6 text-slate-500 line-clamp-2", isActive ? "font-semibold" : "")}>
-                      {item.role}
-                    </div>
-                    <div className="mt-3 grid grid-cols-2 gap-2">
-                      <div className="rounded-[8px] bg-white p-2">
-                        <div className="text-sm font-semibold text-slate-900">{item.statA}</div>
-                        <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">
-                          {item.labelA}
+                        <div className="mb-3 flex items-center justify-between gap-3">
+                          <BrandMark vendor={item.vendor} className="h-10 w-10 shrink-0" />
+                          <div
+                            className={cn(
+                              "flex items-center gap-1 rounded-[8px] border px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] shrink-0",
+                              isActive ? "bg-white" : "",
+                              brandMap[item.vendor].border,
+                              brandMap[item.vendor].text,
+                            )}
+                          >
+                            {item.vendor}
+                          </div>
+                        </div>
+                        <div className={cn("text-sm text-slate-900", isActive ? "font-bold" : "font-medium")}>{item.product}</div>
+                        <div className={cn("mt-2 text-xs leading-6 text-slate-500 line-clamp-2", isActive ? "font-semibold" : "")}>
+                          {item.role}
+                        </div>
+                        <div className="mt-3 grid grid-cols-2 gap-2">
+                          <div className="rounded-[8px] bg-white p-2">
+                            <div className="text-sm font-semibold text-slate-900">{item.statA}</div>
+                            <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">{item.labelA}</div>
+                          </div>
+                          <div className="rounded-[8px] bg-white p-2">
+                            <div className="text-sm font-semibold text-slate-900">{item.statB}</div>
+                            <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">{item.labelB}</div>
+                          </div>
+                        </div>
+                      </button>
+                      {isActive && (
+                        <motion.div
+                          key={product.id}
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          transition={{ duration: 0.25 }}
+                          className="overflow-hidden rounded-[8px] border border-slate-200 bg-white p-5 mt-2"
+                        >
+                          <div className="min-w-0">
+                            <div className="mb-3 flex items-center gap-3">
+                              <BrandMark vendor={product.vendor} className="h-12 w-12" />
+                              <div>
+                                <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">Selected signal</div>
+                                <div className="text-2xl font-semibold text-slate-900">{product.product}</div>
+                              </div>
+                            </div>
+                            <p className="text-sm leading-7 text-slate-600">{product.verdict}</p>
+                            <div className="mt-4 flex flex-wrap gap-2">
+                              {product.tags.map((tag) => (
+                                <span key={tag} className="rounded-[8px] bg-[#f1f5f9] px-3 py-2 text-sm font-bold text-slate-500">{tag}</span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="mt-6 space-y-4">
+                            <div className="rounded-[8px] bg-[#fafbfc] p-4">
+                              <div className="text-sm font-bold text-slate-900 mb-3">Portfolio editorial signal</div>
+                              <div className="grid grid-cols-3 gap-4">
+                                {Object.entries(product.confidence).map(([label, value]) => (
+                                  <MetricBar key={label} label={label} value={value} />
+                                ))}
+                              </div>
+                            </div>
+                            <div className="rounded-[8px] bg-[#fafbfc] p-5">
+                              <div className="mb-3 text-sm font-medium text-slate-900">Why it stays in my stack</div>
+                              <div className="space-y-4">
+                                {product.why.map((point) => (
+                                  <div key={point} className="flex gap-3">
+                                    <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
+                                    <p className="text-sm leading-7 text-slate-600">{point}</p>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="mt-4 rounded-[8px] bg-amber-50 p-3 pl-[22px] text-sm leading-7 text-amber-900">
+                                <span className="font-medium">Watchout:</span> {product.caution}
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </ScrollReveal>
+                  );
+                })}
+              </div>
+            ) : (
+              /* Desktop: grid + separate detail panel below */
+              <>
+                <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
+                  {featuredSignals.map((item, i) => {
+                    const isActive = item.id === selectedProductId;
+                    return (
+                      <ScrollReveal key={item.id} direction="up" delay={i * 60}>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedProductId(item.id)}
+                          className={cn(
+                            "cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
+                            isActive
+                              ? "border-transparent bg-[#dbeafe]"
+                              : "border-transparent bg-[#fafbfc] hover:bg-slate-100",
+                          )}
+                        >
+                        <div className="mb-3 flex items-center justify-between gap-3">
+                          <BrandMark vendor={item.vendor} className="h-10 w-10 shrink-0" />
+                          <div
+                            className={cn(
+                              "flex items-center gap-1 rounded-[8px] border px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] shrink-0",
+                              isActive ? "bg-white" : "",
+                              brandMap[item.vendor].border,
+                              brandMap[item.vendor].text,
+                            )}
+                          >
+                            {item.vendor}
+                          </div>
+                        </div>
+                        <div className={cn("text-sm text-slate-900", isActive ? "font-bold" : "font-medium")}>{item.product}</div>
+                        <div className={cn("mt-2 text-xs leading-6 text-slate-500 line-clamp-2", isActive ? "font-semibold" : "")}>
+                          {item.role}
+                        </div>
+                        <div className="mt-3 grid grid-cols-2 gap-2">
+                          <div className="rounded-[8px] bg-white p-2">
+                            <div className="text-sm font-semibold text-slate-900">{item.statA}</div>
+                            <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">
+                              {item.labelA}
+                            </div>
+                          </div>
+                          <div className="rounded-[8px] bg-white p-2">
+                            <div className="text-sm font-semibold text-slate-900">{item.statB}</div>
+                            <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">
+                              {item.labelB}
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                      </ScrollReveal>
+                    );
+                  })}
+                </div>
+
+                <ScrollReveal direction="up" delay={100}>
+                <motion.div
+                  key={selectedProduct.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="rounded-[8px] border border-slate-200 bg-white p-5 md:p-6"
+                >
+                  <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                    <div className="min-w-0 flex-1 max-w-3xl">
+                      <div className="mb-3 flex items-center gap-3">
+                        <BrandMark vendor={selectedProduct.vendor} className="h-12 w-12" />
+                        <div>
+                          <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                            Selected signal
+                          </div>
+                          <div className="text-2xl font-semibold text-slate-900">
+                            {selectedProduct.product}
+                          </div>
                         </div>
                       </div>
-                      <div className="rounded-[8px] bg-white p-2">
-                        <div className="text-sm font-semibold text-slate-900">{item.statB}</div>
-                        <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">
-                          {item.labelB}
+                      <p className="text-sm leading-7 text-slate-600 md:whitespace-nowrap">{selectedProduct.verdict}</p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {selectedProduct.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-[8px] bg-[#f1f5f9] px-3 py-2 text-sm font-bold text-slate-500"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2 text-sm min-w-0 shrink-0 md:ml-auto">
+                      <div className="text-[11px] uppercase tracking-[0.16em] text-slate-500 text-right">
+                        Quick read
+                      </div>
+                      <div className="flex gap-6 justify-end">
+                        <div className="flex items-center gap-3 text-slate-600">
+                          <span className="text-slate-500">Metric A</span>
+                          <span className="font-medium text-slate-900">{selectedProduct.statA}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-slate-600">
+                          <span className="text-slate-500">Metric B</span>
+                          <span className="font-medium text-slate-900">{selectedProduct.statB}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-slate-600">
+                          <span className="text-slate-500">Primary lane</span>
+                          <span className="font-medium text-slate-900">{selectedProduct.tags[0]}</span>
                         </div>
                       </div>
                     </div>
-                  </button>
-                  </ScrollReveal>
-                );
-              })}
-            </div>
+                  </div>
 
-            <ScrollReveal direction="up" delay={100}>
-            <motion.div
-              key={selectedProduct.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2 }}
-              className="rounded-[8px] border border-slate-200 bg-white p-5 md:p-6"
-            >
-              <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-                <div className="min-w-0 flex-1 max-w-3xl">
-                  <div className="mb-3 flex items-center gap-3">
-                    <BrandMark vendor={selectedProduct.vendor} className="h-12 w-12" />
-                    <div>
-                      <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">
-                        Selected signal
+                  <div className="mt-6 space-y-4">
+                    <div className="rounded-[8px] bg-[#fafbfc] p-4">
+                      <div className="text-sm font-bold text-slate-900 mb-3">
+                        Portfolio editorial signal
                       </div>
-                      <div className="text-2xl font-semibold text-slate-900">
-                        {selectedProduct.product}
+                      <div className="grid grid-cols-3 gap-4">
+                        {Object.entries(selectedProduct.confidence).map(([label, value]) => (
+                          <MetricBar key={label} label={label} value={value} />
+                        ))}
                       </div>
                     </div>
-                  </div>
-                  <p className="text-sm leading-7 text-slate-600 md:whitespace-nowrap">{selectedProduct.verdict}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {selectedProduct.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-[8px] bg-[#f1f5f9] px-3 py-2 text-sm font-bold text-slate-500"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
 
-                <div className="flex flex-col gap-2 text-sm min-w-0 shrink-0 md:ml-auto">
-                  <div className="text-[11px] uppercase tracking-[0.16em] text-slate-500 text-right">
-                    Quick read
-                  </div>
-                  <div className="flex gap-6 justify-end">
-                    <div className="flex items-center gap-3 text-slate-600">
-                      <span className="text-slate-500">Metric A</span>
-                      <span className="font-medium text-slate-900">{selectedProduct.statA}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-600">
-                      <span className="text-slate-500">Metric B</span>
-                      <span className="font-medium text-slate-900">{selectedProduct.statB}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-600">
-                      <span className="text-slate-500">Primary lane</span>
-                      <span className="font-medium text-slate-900">{selectedProduct.tags[0]}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 space-y-4">
-                <div className="rounded-[8px] bg-[#fafbfc] p-4">
-                  <div className="text-sm font-bold text-slate-900 mb-3">
-                    Portfolio editorial signal
-                  </div>
-                  <div className="grid grid-cols-3 gap-4">
-                    {Object.entries(selectedProduct.confidence).map(([label, value]) => (
-                      <MetricBar key={label} label={label} value={value} />
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-[8px] bg-[#fafbfc] p-5">
-                  <div className="mb-3 text-sm font-medium text-slate-900">
-                    Why it stays in my stack
-                  </div>
-                  <div className="space-y-4">
-                    {selectedProduct.why.map((point) => (
-                      <div key={point} className="flex gap-3">
-                        <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
-                        <p className="text-sm leading-7 text-slate-600">{point}</p>
+                    <div className="rounded-[8px] bg-[#fafbfc] p-5">
+                      <div className="mb-3 text-sm font-medium text-slate-900">
+                        Why it stays in my stack
                       </div>
-                    ))}
+                      <div className="space-y-4">
+                        {selectedProduct.why.map((point) => (
+                          <div key={point} className="flex gap-3">
+                            <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
+                            <p className="text-sm leading-7 text-slate-600">{point}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4 rounded-[8px] bg-amber-50 p-3 pl-[22px] text-sm leading-7 text-amber-900">
+                        <span className="font-medium">Watchout:</span> {selectedProduct.caution}
+                      </div>
+                    </div>
                   </div>
-                  <div className="mt-4 rounded-[8px] bg-amber-50 p-3 pl-[22px] text-sm leading-7 text-amber-900">
-                    <span className="font-medium">Watchout:</span> {selectedProduct.caution}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            </ScrollReveal>
+                </motion.div>
+                </ScrollReveal>
+              </>
+            )}
           </section>
 
           <ScrollReveal direction="up">
@@ -1275,7 +1428,7 @@ export default function AiMarketLandscapeWhiteModule() {
                 <h3 className="text-2xl font-semibold text-slate-900">
                   Where each model actually wins
                 </h3>
-                <p className="mt-2 whitespace-nowrap text-sm leading-7 text-slate-600">
+                <p className="mt-2 text-sm leading-7 text-slate-600 md:whitespace-nowrap">
                   Instead of pretending there is one universal winner, I compare models lane by lane.
                   That is the more useful mindset for real workflows.
                 </p>
@@ -1284,14 +1437,14 @@ export default function AiMarketLandscapeWhiteModule() {
 
             <div className="grid gap-6 xl:grid-cols-[1.35fr_0.65fr]">
               <div className="rounded-[8px] border border-slate-200 bg-white p-4 md:p-5">
-                <div className="mb-4 flex flex-wrap gap-2">
+                <div className="mb-4 flex gap-2 overflow-x-auto md:flex-wrap md:overflow-visible">
                   {Object.entries(foundationMetricDeck).map(([key, item]) => (
                     <ChipButton
                       key={key}
                       active={selectedFoundationMetric === key}
                       onClick={() => setSelectedFoundationMetric(key)}
                     >
-                      {item.title}
+                      <span className="whitespace-nowrap text-[10px] md:text-xs">{item.title}</span>
                     </ChipButton>
                   ))}
                 </div>
@@ -1309,11 +1462,11 @@ export default function AiMarketLandscapeWhiteModule() {
                         stroke="#64748b"
                         tickLine={false}
                         axisLine={false}
-                        height={72}
+                        height={isMobile ? 12 : 72}
                         textAnchor="middle"
                         interval={0}
                         fontSize={13}
-                        tick={{ fill: "#334155", fontWeight: 600, dy: 10 }}
+                        tick={isMobile ? false : { fill: "#334155", fontWeight: 600, dy: 10 }}
                       />
                       <YAxis
                         stroke="#64748b"
@@ -1402,14 +1555,14 @@ export default function AiMarketLandscapeWhiteModule() {
 
             <div className="space-y-6">
               <div className="rounded-[8px] border border-slate-200 bg-white px-4 pt-4 pb-3 md:px-5 md:pt-5 md:pb-4">
-                <div className="mb-3 flex flex-wrap gap-2">
+                <div className="mb-3 flex gap-2 overflow-x-auto md:flex-wrap md:overflow-visible">
                   {Object.entries(validationMetricDeck).map(([key, label]) => (
                     <ChipButton
                       key={key}
                       active={selectedValidationMetric === key}
                       onClick={() => setSelectedValidationMetric(key as ValidationMetricKey)}
                     >
-                      {label}
+                      <span className="whitespace-nowrap text-[10px] md:text-xs">{label}</span>
                     </ChipButton>
                   ))}
                 </div>
@@ -1427,11 +1580,11 @@ export default function AiMarketLandscapeWhiteModule() {
                         stroke="#64748b"
                         tickLine={false}
                         axisLine={false}
-                        height={64}
+                        height={isMobile ? 12 : 64}
                         textAnchor="middle"
                         interval={0}
                         fontSize={13}
-                        tick={{ fill: "#334155", fontWeight: 600, dy: 10 }}
+                        tick={isMobile ? false : { fill: "#334155", fontWeight: 600, dy: 10 }}
                       />
                       <YAxis
                         stroke="#64748b"
@@ -1451,101 +1604,188 @@ export default function AiMarketLandscapeWhiteModule() {
                 </div>
               </div>
 
-              <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
-                {validationTools.map((tool) => {
-                  const active = selectedValidationToolId === tool.id;
-                  return (
-                    <button
-                      key={tool.id}
-                      type="button"
-                      onClick={() => setSelectedValidationToolId(tool.id)}
-                    className={cn(
-                      "cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
-                      active
-                        ? "border-transparent bg-[#dbeafe]"
-                        : "border-transparent bg-[#fafbfc] hover:bg-slate-100",
-                    )}
-                    >
-                      <div className="mb-3 flex items-center justify-between gap-3">
-                        <BrandMark vendor={tool.vendor} className="h-10 w-10" />
-                        <span className={cn("rounded-[8px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500", active ? "bg-white" : "bg-slate-100")}>
-                          {tool.badge}
-                        </span>
+              {isMobile ? (
+                /* Mobile: vertical accordion */
+                <div className="space-y-3">
+                  {validationTools.map((tool) => {
+                    const active = selectedValidationToolId === tool.id;
+                    return (
+                      <div key={tool.id}>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedValidationToolId(active ? "" : tool.id)}
+                          className={cn(
+                            "w-full cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
+                            active
+                              ? "border-transparent bg-[#dbeafe]"
+                              : "border-transparent bg-[#fafbfc] hover:bg-slate-100",
+                          )}
+                        >
+                          <div className="mb-3 flex items-center justify-between gap-3">
+                            <BrandMark vendor={tool.vendor} className="h-10 w-10" />
+                            <span className={cn("rounded-[8px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500", active ? "bg-white" : "bg-slate-100")}>
+                              {tool.badge}
+                            </span>
+                          </div>
+                          <div className={cn("text-sm text-slate-900", active ? "font-bold" : "font-medium")}>{tool.name}</div>
+                          <div className={cn("mt-2 text-xs leading-6 text-slate-500", active ? "font-semibold" : "")}>{tool.fit}</div>
+                        </button>
+                        {active && (
+                          <motion.div
+                            key={tool.id}
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            transition={{ duration: 0.25 }}
+                            className="overflow-hidden rounded-[8px] bg-[#fafbfc] p-5 mt-2"
+                          >
+                            <div className="mb-5 flex items-center gap-3">
+                              <BrandMark vendor={tool.vendor} className="h-12 w-12" />
+                              <div>
+                                <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">Focused review</div>
+                                <div className="text-2xl font-semibold text-slate-900">{tool.name}</div>
+                              </div>
+                            </div>
+                            <p className="text-sm leading-8 text-slate-600">{tool.why}</p>
+                            <div className="mt-6 flex flex-col gap-6">
+                              <div className="rounded-[8px] bg-white p-5">
+                                <div className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
+                                  <Search className="h-4 w-4 stroke-[2.5]" />
+                                  Why I would use it
+                                </div>
+                                <div className="space-y-4">
+                                  {tool.strengths.map((s) => (
+                                    <div key={s} className="flex items-center gap-3 text-sm leading-7 text-slate-600">
+                                      <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-900" />
+                                      <span>{s}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="rounded-[8px] bg-white p-5">
+                                <div className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
+                                  <Database className="h-4 w-4 stroke-[2.5]" />
+                                  Proof signals
+                                </div>
+                                <div className="flex flex-wrap gap-3">
+                                  {tool.proof.map((p) => (
+                                    <span key={p} className="rounded-[8px] bg-[#fafbfc] px-3 py-1.5 text-xs font-bold text-slate-800">{p}</span>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="mt-6 rounded-[8px] bg-white p-5 text-sm leading-8 text-slate-600">
+                              <div className="mb-3 flex items-center gap-2 font-bold text-slate-900">
+                                <Eye className="h-4 w-4 stroke-[2.5]" />
+                                Workflow note
+                              </div>
+                              {tool.workflow}
+                            </div>
+                          </motion.div>
+                        )}
                       </div>
-                      <div className={cn("text-sm text-slate-900", active ? "font-bold" : "font-medium")}>{tool.name}</div>
-                      <div className={cn("mt-2 text-xs leading-6 text-slate-500", active ? "font-semibold" : "")}>{tool.fit}</div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <motion.div
-                key={selectedValidationTool.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-                className="rounded-[8px] bg-[#fafbfc] p-5 md:p-6"
-              >
-                <div className="mb-5 flex items-center gap-3">
-                  <BrandMark vendor={selectedValidationTool.vendor} className="h-12 w-12" />
-                  <div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">
-                      Focused review
-                    </div>
-                    <div className="text-2xl font-semibold text-slate-900">
-                      {selectedValidationTool.name}
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
-
-                <p className="text-sm leading-8 text-slate-600">
-                  {selectedValidationTool.why}
-                </p>
-
-                <div className="mt-6 flex flex-col gap-6">
-                  <div className="rounded-[8px] bg-white p-5">
-                    <div className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
-                      <Search className="h-4 w-4 stroke-[2.5]" />
-                      Why I would use it
-                    </div>
-                    <div className="space-y-4">
-                      {selectedValidationTool.strengths.map((item) => (
-                        <div
-                          key={item}
-                          className="flex items-center gap-3 text-sm leading-7 text-slate-600"
+              ) : (
+                /* Desktop: grid + separate detail panel */
+                <>
+                  <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
+                    {validationTools.map((tool) => {
+                      const active = selectedValidationToolId === tool.id;
+                      return (
+                        <button
+                          key={tool.id}
+                          type="button"
+                          onClick={() => setSelectedValidationToolId(tool.id)}
+                        className={cn(
+                          "cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
+                          active
+                            ? "border-transparent bg-[#dbeafe]"
+                            : "border-transparent bg-[#fafbfc] hover:bg-slate-100",
+                        )}
                         >
-                          <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-900" />
-                          <span>{item}</span>
+                          <div className="mb-3 flex items-center justify-between gap-3">
+                            <BrandMark vendor={tool.vendor} className="h-10 w-10" />
+                            <span className={cn("rounded-[8px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500", active ? "bg-white" : "bg-slate-100")}>
+                              {tool.badge}
+                            </span>
+                          </div>
+                          <div className={cn("text-sm text-slate-900", active ? "font-bold" : "font-medium")}>{tool.name}</div>
+                          <div className={cn("mt-2 text-xs leading-6 text-slate-500", active ? "font-semibold" : "")}>{tool.fit}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <motion.div
+                    key={selectedValidationTool.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                    className="rounded-[8px] bg-[#fafbfc] p-5 md:p-6"
+                  >
+                    <div className="mb-5 flex items-center gap-3">
+                      <BrandMark vendor={selectedValidationTool.vendor} className="h-12 w-12" />
+                      <div>
+                        <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">
+                          Focused review
                         </div>
-                      ))}
+                        <div className="text-2xl font-semibold text-slate-900">
+                          {selectedValidationTool.name}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="rounded-[8px] bg-white p-5">
-                    <div className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
-                      <Database className="h-4 w-4 stroke-[2.5]" />
-                      Proof signals
-                    </div>
-                    <div className="flex flex-wrap gap-3">
-                      {selectedValidationTool.proof.map((item) => (
-                        <span
-                          key={item}
-                          className="rounded-[8px] bg-[#fafbfc] px-3 py-1.5 text-xs font-bold text-slate-800"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
 
-                <div className="mt-6 rounded-[8px] bg-white p-5 text-sm leading-8 text-slate-600">
-                  <div className="mb-3 flex items-center gap-2 font-bold text-slate-900">
-                    <Eye className="h-4 w-4 stroke-[2.5]" />
-                    Workflow note
-                  </div>
-                  {selectedValidationTool.workflow}
-                </div>
-              </motion.div>
+                    <p className="text-sm leading-8 text-slate-600">
+                      {selectedValidationTool.why}
+                    </p>
+
+                    <div className="mt-6 flex flex-col gap-6">
+                      <div className="rounded-[8px] bg-white p-5">
+                        <div className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
+                          <Search className="h-4 w-4 stroke-[2.5]" />
+                          Why I would use it
+                        </div>
+                        <div className="space-y-4">
+                          {selectedValidationTool.strengths.map((item) => (
+                            <div
+                              key={item}
+                              className="flex items-center gap-3 text-sm leading-7 text-slate-600"
+                            >
+                              <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-900" />
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="rounded-[8px] bg-white p-5">
+                        <div className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
+                          <Database className="h-4 w-4 stroke-[2.5]" />
+                          Proof signals
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                          {selectedValidationTool.proof.map((item) => (
+                            <span
+                              key={item}
+                              className="rounded-[8px] bg-[#fafbfc] px-3 py-1.5 text-xs font-bold text-slate-800"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 rounded-[8px] bg-white p-5 text-sm leading-8 text-slate-600">
+                      <div className="mb-3 flex items-center gap-2 font-bold text-slate-900">
+                        <Eye className="h-4 w-4 stroke-[2.5]" />
+                        Workflow note
+                      </div>
+                      {selectedValidationTool.workflow}
+                    </div>
+                  </motion.div>
+                </>
+              )}
             </div>
           </section>
           </ScrollReveal>
@@ -1562,7 +1802,7 @@ export default function AiMarketLandscapeWhiteModule() {
                 <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
                   Designing the System Before Generating the Interface
                 </h3>
-                <p className="whitespace-nowrap text-base text-slate-600 md:text-lg">
+                <p className="text-base text-slate-600 md:text-lg md:whitespace-nowrap">
                   An exploration of how AI accelerates workflow design across product framing,
                   technical planning, interface direction, modular build logic, and debugging
                   precision.
