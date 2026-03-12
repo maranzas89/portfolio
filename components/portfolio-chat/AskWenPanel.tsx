@@ -130,7 +130,7 @@ export default function AskWenPanel({
       <div
         role="dialog"
         aria-label="Ask Wen chat panel"
-        className={`fixed inset-0 sm:inset-auto sm:top-0 sm:right-0 sm:h-full sm:w-[450px] z-[80] flex flex-col sm:border-l border-white/[0.08] bg-[rgba(10,14,24,0.92)] sm:bg-[rgba(10,14,24,0.82)] backdrop-blur-2xl sm:shadow-[0_0_80px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+        className={`fixed inset-0 sm:inset-auto sm:top-0 sm:right-0 sm:h-full sm:w-[450px] z-[80] flex flex-col overflow-hidden sm:border-l border-white/[0.08] bg-[rgba(10,14,24,0.92)] sm:bg-[rgba(10,14,24,0.82)] backdrop-blur-2xl sm:shadow-[0_0_80px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] ${
           isOpen
             ? "translate-y-0 sm:translate-y-0 sm:translate-x-0 opacity-100"
             : "translate-y-full sm:translate-y-0 sm:translate-x-full opacity-0"
@@ -160,7 +160,7 @@ export default function AskWenPanel({
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-5 sm:px-7 py-5 sm:py-6 space-y-4 sm:space-y-5">
+        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-x-hidden px-5 sm:px-7 py-5 sm:py-6 space-y-4 sm:space-y-5">
           {messages.map((msg, i) => (
             <div
               key={i}
@@ -169,7 +169,7 @@ export default function AskWenPanel({
               }`}
             >
               <div
-                className={`max-w-[85%] sm:max-w-[82%] rounded-2xl px-4 sm:px-4.5 py-2.5 sm:py-3 text-[13px] sm:text-[13.5px] leading-[1.65] ${
+                className={`max-w-[85%] sm:max-w-[82%] rounded-2xl px-4 sm:px-4.5 py-2.5 sm:py-3 text-[13px] sm:text-[13.5px] leading-[1.65] overflow-hidden break-words ${
                   msg.role === "user"
                     ? "bg-blue-600/80 text-white/95 shadow-sm"
                     : "bg-white/[0.07] text-white/75 ring-1 ring-white/[0.04]"
@@ -216,14 +216,14 @@ export default function AskWenPanel({
           onSubmit={handleSubmit}
           className="px-5 sm:px-7 pb-6 sm:pb-7 pt-3 sm:pt-4 border-t border-white/[0.05]"
         >
-          <div className="flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3.5 sm:px-4 py-2.5 sm:py-3 focus-within:border-white/[0.15] focus-within:bg-white/[0.06] transition-all duration-200">
+          <div className="flex items-center gap-3 min-w-0 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3.5 sm:px-4 py-2.5 sm:py-3 focus-within:border-white/[0.15] focus-within:bg-white/[0.06] transition-all duration-200">
             <input
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about my work..."
-              className="flex-1 bg-transparent text-[13px] sm:text-[13.5px] text-white/85 placeholder:text-white/20 outline-none"
+              className="flex-1 min-w-0 w-full bg-transparent text-[13px] sm:text-[13.5px] text-white/85 placeholder:text-white/20 outline-none"
               disabled={loading}
             />
             <button
