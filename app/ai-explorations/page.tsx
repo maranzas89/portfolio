@@ -17,6 +17,10 @@ import {
   Rocket,
   Users,
   Phone,
+  RefreshCw,
+  Box,
+  Wrench,
+  Brain,
 } from "lucide-react";
 import AiMarketLandscapeWhiteModule from "@/components/ai-explorations/AiMarketLandscapeWhiteModule";
 import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSubnav";
@@ -116,11 +120,34 @@ export default function AIExplorationsPage() {
 
       <div className="pt-16 md:pt-32">
       <PageHero
-        eyebrow="AI Explorations"
-        headline="Designing with AI as a creative and systems-thinking partner"
-        paragraph="A curated selection of explorations across AI-assisted workflows, rapid prototyping, interface concepts, generative visual directions, and design process experiments. These studies reflect how I use AI not just to move faster, but to think more broadly, test more directions, and expand the range of what design can do."
+        eyebrow="AI Projects"
+        headline="Designing with AI across systems, workflows, and product thinking"
+        paragraph="Explorations across AI-assisted workflows, rapid prototyping, and generative design—showing how I use AI to think broader, test faster, and expand design possibilities."
         backgroundVariant="ai-explorations"
-      />
+      >
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 -mt-[30px] w-full max-w-5xl">
+          <div className="hero-card group p-5 rounded-xl">
+            <RefreshCw className="w-5 h-5 text-blue-400 mb-3" />
+            <h3 className="font-semibold text-2xl text-white mb-1">30+</h3>
+            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Research Loops</p>
+          </div>
+          <div className="hero-card group p-5 rounded-xl">
+            <Box className="w-5 h-5 text-blue-400 mb-3" />
+            <h3 className="font-semibold text-2xl text-white mb-1">4–5</h3>
+            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Prototype Concepts</p>
+          </div>
+          <div className="hero-card group p-5 rounded-xl">
+            <Wrench className="w-5 h-5 text-blue-400 mb-3" />
+            <h3 className="font-semibold text-2xl text-white mb-1">10+</h3>
+            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Tools in Practice</p>
+          </div>
+          <div className="hero-card group p-5 rounded-xl">
+            <Brain className="w-5 h-5 text-blue-400 mb-3" />
+            <h3 className="font-semibold text-2xl text-white mb-1">100+</h3>
+            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Skill-based Uses</p>
+          </div>
+        </div>
+      </PageHero>
 
       <main className="bg-white">
         <AiMarketLandscapeWhiteModule />

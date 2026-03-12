@@ -5,7 +5,7 @@ import styles from "./HeroCube.module.css";
 
 export default function HeroCube() {
   return (
-    <div className="relative z-20 flex items-center justify-center w-[420px] h-[420px] shrink-0 min-w-[320px] min-h-[320px] max-w-[420px] max-h-[420px]">
+    <div className="relative z-20 flex items-center justify-center w-[420px] h-[420px] shrink-0 min-w-[320px] min-h-[320px] max-w-[420px] max-h-[420px] translate-y-[80px]">
       <div className={styles.visual}>
         <div className={styles.coreGlow} />
         <div className={styles.ring} />
