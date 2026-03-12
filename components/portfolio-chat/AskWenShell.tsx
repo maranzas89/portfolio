@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import AskWenButton from "./AskWenButton";
 import AskWenPanel from "./AskWenPanel";
 
@@ -10,15 +11,24 @@ export default function AskWenShell({
   currentProject?: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>
       <AskWenButton onClick={() => setIsOpen(true)} />
-      <AskWenPanel
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        currentProject={currentProject}
-      />
+      {mounted &&
+        createPortal(
+          <AskWenPanel
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+            currentProject={currentProject}
+          />,
+          document.body
+        )}
     </>
   );
 }

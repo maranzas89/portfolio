@@ -7,6 +7,7 @@ import HeroBackgroundFX from "@/components/HeroBackgroundFX";
 import PlaybookMethodology from "@/components/PlaybookMethodology";
 import { WORK_SUB_LINKS, MAILTO_LETS_CONNECT } from "@/lib/nav-config";
 import { ResumeLink } from "@/components/ResumeLink";
+import AskWenShell from "@/components/portfolio-chat/AskWenShell";
 
 export default function Page() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,9 +39,12 @@ export default function Page() {
         }`}
       >
         <div className="max-w-[1600px] mx-auto w-full min-w-0 px-4 py-4 sm:px-6 sm:py-5 md:px-16 lg:px-24 md:py-8 flex justify-between items-center gap-4">
-          <a href="#" className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight uppercase text-text shrink-0">
-            Wen Liu
-          </a>
+          <div className="flex items-center gap-3 shrink-0">
+            <a href="#" className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight uppercase text-text shrink-0">
+              Wen Liu
+            </a>
+            <AskWenShell />
+          </div>
           {/* Desktop nav - hidden below 768px */}
           <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
             <a href="#work" className={`nav-link-underline hover:text-gray-700 transition-colors ${isWorkActive ? "active text-text" : "text-muted"}`}>
