@@ -239,7 +239,7 @@ export default function AIExplorationsPage() {
                 const ghostFront = (
                   <div>
                     <div className="h-[208px] md:h-[240px]" />
-                    <div className="px-6 pt-6 pb-[30px] md:p-8">
+                    <div className="px-6 pt-[54px] pb-0 md:p-8">
                       <span className="text-xs font-semibold uppercase tracking-widest block mb-2">&nbsp;</span>
                       <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-3">{item.title}</h3>
                       <p className="text-sm md:text-base leading-relaxed">{item.description}</p>
@@ -294,7 +294,7 @@ export default function AIExplorationsPage() {
                                 <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
                               </div>
                             )}
-                            <div className="px-6 pt-6 pb-[30px] md:p-8">
+                            <div className="px-6 pt-[54px] pb-0 md:p-8">
                               <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
                                 {item.category}
                               </span>

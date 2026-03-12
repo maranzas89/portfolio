@@ -1437,19 +1437,19 @@ export default function AiMarketLandscapeWhiteModule() {
 
             <div className="grid gap-6 xl:grid-cols-[1.35fr_0.65fr]">
               <div className="rounded-[8px] border border-slate-200 bg-white p-4 md:p-5">
-                <div className="mb-4 flex gap-2 overflow-x-auto md:flex-wrap md:overflow-visible">
+                <div className="mb-4 flex flex-col gap-2 md:flex-row md:flex-wrap">
                   {Object.entries(foundationMetricDeck).map(([key, item]) => (
                     <ChipButton
                       key={key}
                       active={selectedFoundationMetric === key}
                       onClick={() => setSelectedFoundationMetric(key)}
                     >
-                      <span className="whitespace-nowrap text-[10px] md:text-xs">{item.title}</span>
+                      <span className="text-xs">{item.title}</span>
                     </ChipButton>
                   ))}
                 </div>
 
-                <div className="-ml-5 mt-[80px] h-[360px] w-full outline-none [&_*]:outline-none">
+                <div className="md:-ml-5 mt-[80px] h-[360px] w-full outline-none [&_*]:outline-none">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={foundationChartRows}
@@ -1555,19 +1555,19 @@ export default function AiMarketLandscapeWhiteModule() {
 
             <div className="space-y-6">
               <div className="rounded-[8px] border border-slate-200 bg-white px-4 pt-4 pb-3 md:px-5 md:pt-5 md:pb-4">
-                <div className="mb-3 flex gap-2 overflow-x-auto md:flex-wrap md:overflow-visible">
+                <div className="mb-3 flex flex-col gap-2 md:flex-row md:flex-wrap">
                   {Object.entries(validationMetricDeck).map(([key, label]) => (
                     <ChipButton
                       key={key}
                       active={selectedValidationMetric === key}
                       onClick={() => setSelectedValidationMetric(key as ValidationMetricKey)}
                     >
-                      <span className="whitespace-nowrap text-[10px] md:text-xs">{label}</span>
+                      <span className="text-xs">{label}</span>
                     </ChipButton>
                   ))}
                 </div>
 
-                <div className="-ml-5 mt-[80px] h-[220px] w-full outline-none [&_*]:outline-none">
+                <div className="md:-ml-5 mt-[80px] h-[220px] w-full outline-none [&_*]:outline-none">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={validationChartRows}
