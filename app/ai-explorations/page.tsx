@@ -18,32 +18,55 @@ import {
   Box,
   Wrench,
   Brain,
+  GitCompareArrows,
+  Lightbulb,
+  SlidersHorizontal,
+  Swords,
+  BarChart3,
+  Sparkles,
+  Link2,
+  ClipboardCheck,
+  Eye,
+  PhoneCall,
+  Contact,
+  Workflow,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import AiMarketLandscapeWhiteModule from "@/components/ai-explorations/AiMarketLandscapeWhiteModule";
 import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSubnav";
 
 const EXPLORATIONS = [
   {
     id: 5,
-    title: "AI-Enhanced Design Systems Thinking",
-    category: "Systems",
+    title: "Where AI Excels Today",
+    category: "Research System",
     description:
-      "Exploring how AI can support scalable systems, pattern generation, and component thinking.",
+      "A practical look at where current AI tools are strongest across creative exploration, workflow support, and execution.",
     icon: Layers,
     gradient: "from-amber-500/20 to-orange-500/20",
-    backText: "Used structured prompts to generate reusable component patterns, token systems, and layout primitives—accelerating early-stage design system scaffolding across multiple product surfaces.",
-    href: "/ai-explorations/synchronize-orientation",
+    backText: "",
+    backHighlights: [
+      { icon: GitCompareArrows, label: "Cross-capability comparison", text: "Compares where current AI tools perform best across ideation, reasoning, visual generation, and workflow support." },
+      { icon: Lightbulb, label: "Practical use cases", text: "Highlights practical use cases for applying AI in everyday product design, creative exploration, and rapid prototyping." },
+      { icon: SlidersHorizontal, label: "Tool-stage fit", text: "Shows how different tools fit different stages of work, helping translate current AI strengths into real design decisions." },
+    ],
+    href: "/ai-explorations/where-ai-excels",
   },
   {
     id: 6,
-    title: "Rapid Prototype Explorations",
+    title: "World Cup Data Lab",
     category: "Prototyping",
     description:
-      "Testing ideas quickly through lightweight, high-feedback prototypes that help validate direction earlier.",
+      "An interactive concept exploring how AI and live match data can turn tournament signals into a more dynamic, insight-driven fan experience.",
     icon: Rocket,
     gradient: "from-orange-500/20 to-rose-500/20",
-    backText: "Built lightweight prototypes using AI-generated code scaffolds and iterative prompt refinement—validating interaction models and user flows before committing to full implementation.",
-    href: "/ai-explorations/dialpad-modal",
+    backText: "",
+    backHighlights: [
+      { icon: Swords, label: "Matchup Intelligence", text: "Uses structured team data and comparison logic to surface strengths, patterns, and storylines across tournament matchups." },
+      { icon: BarChart3, label: "Interactive experience", text: "Transforms match information into a more interactive experience through dashboards, comparisons, and data-led exploration." },
+      { icon: Sparkles, label: "AI-driven insights", text: "Demonstrates how AI can make sports data more engaging by helping users navigate complexity and discover insights faster." },
+    ],
+    href: "/ai-explorations/world-cup-data-lab",
   },
   {
     id: 7,
@@ -55,9 +78,9 @@ const EXPLORATIONS = [
     gradient: "from-rose-500/20 to-violet-500/20",
     backText: "",
     backHighlights: [
-      { label: "Student–staff sync", text: "Used AI to prototype shared visibility across the student experience and staff portal, enabling file and status continuity between both sides." },
-      { label: "Enrollment support", text: "Designed orientation and onboarding flows around student needs, including enrollment steps, checklist progress, and key to-dos." },
-      { label: "Rethinking staff tracking", text: "Explored a more connected alternative to traditional progress tracking by giving staff clearer, more real-time visibility into student completion states." },
+      { icon: Link2, label: "Student–staff sync", text: "Used AI to prototype shared visibility across the student experience and staff portal, enabling file and status continuity between both sides." },
+      { icon: ClipboardCheck, label: "Enrollment support", text: "Designed orientation and onboarding flows around student needs, including enrollment steps, checklist progress, and key to-dos." },
+      { icon: Eye, label: "Rethinking staff tracking", text: "Explored a more connected alternative to traditional progress tracking by giving staff clearer, more real-time visibility into student completion states." },
     ],
     href: "/ai-explorations/synchronize-orientation",
   },
@@ -69,7 +92,12 @@ const EXPLORATIONS = [
       "A staff-facing dialpad modal for calling students directly from the portal—streamlining outreach, case follow-ups, and student support without leaving the workflow.",
     icon: Phone,
     gradient: "from-teal-500/20 to-blue-500/20",
-    backText: "A fully interactive dialpad modal designed for staff outreach workflows. Supports direct calling, recent contacts, and contextual student info—reducing task-switching and keeping staff focused within the portal.",
+    backText: "",
+    backHighlights: [
+      { icon: PhoneCall, label: "Direct calling", text: "A fully interactive dialpad modal enabling staff to call students directly from the portal without switching tools or losing context." },
+      { icon: Contact, label: "Recent contacts", text: "Supports quick access to recent contacts and contextual student info, streamlining follow-ups and case management." },
+      { icon: Workflow, label: "Workflow integration", text: "Designed to reduce task-switching by keeping outreach actions embedded within the staff portal experience." },
+    ],
     href: "/ai-explorations/dialpad-modal",
   },
 ];
@@ -129,7 +157,7 @@ export default function AIExplorationsPage() {
         <AiMarketLandscapeWhiteModule />
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
           {/* Featured exploration grid */}
-          <section id="ai-product-experiments" className="scroll-mt-[260px] py-16 md:py-24">
+          <section id="ai-product-experiments" className="scroll-mt-[260px] pt-16 md:pt-24 pb-[114px] md:pb-[146px]">
             <ScrollReveal direction="up" className="mb-16">
               <div className="mb-2 flex items-center gap-2">
                 <Layout className="h-4 w-4 shrink-0 text-blue-600" />
@@ -150,8 +178,8 @@ export default function AIExplorationsPage() {
               {EXPLORATIONS.map((item, i) => {
                 const Icon = item.icon;
                 const isFlipped = flippedIds.has(item.id);
-                const hasHighlights = "backHighlights" in item && Array.isArray((item as { backHighlights?: { label: string; text: string }[] }).backHighlights);
-                const highlights = hasHighlights ? (item as { backHighlights: { label: string; text: string }[] }).backHighlights : null;
+                const hasHighlights = "backHighlights" in item && Array.isArray((item as { backHighlights?: { icon?: LucideIcon; label: string; text: string }[] }).backHighlights);
+                const highlights = hasHighlights ? (item as { backHighlights: { icon?: LucideIcon; label: string; text: string }[] }).backHighlights : null;
 
                 /* Back face content */
                 const backContent = highlights ? (
@@ -160,19 +188,25 @@ export default function AIExplorationsPage() {
                       {item.title}
                     </h3>
                     <div className="space-y-3 flex-1">
-                      {highlights.map((h, idx) => (
-                        <div key={idx} className="bg-white rounded-xl p-4 border border-slate-100">
-                          <p className="text-sm font-semibold text-text mb-1">{h.label}</p>
-                          <p className="text-muted text-xs leading-relaxed">{h.text}</p>
-                        </div>
-                      ))}
+                      {highlights.map((h, idx) => {
+                        const HIcon = h.icon;
+                        return (
+                          <div key={idx} className="bg-white rounded-xl p-4 border border-slate-100">
+                            <div className="flex items-center gap-2 mb-1">
+                              {HIcon && <HIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" strokeWidth={2.5} />}
+                              <p className="text-sm font-semibold text-text">{h.label}</p>
+                            </div>
+                            <p className="text-muted text-xs leading-relaxed">{h.text}</p>
+                          </div>
+                        );
+                      })}
                     </div>
                     <a
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700"
+                      className="mt-4 self-end text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
                     >
                       Try demo →
                     </a>
@@ -190,7 +224,7 @@ export default function AIExplorationsPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700"
+                      className="mt-4 self-end text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
                     >
                       Try demo →
                     </a>
@@ -254,7 +288,8 @@ export default function AIExplorationsPage() {
                               <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
                                 {item.category}
                               </span>
-                              <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3">
+                              <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3 flex items-center gap-2">
+                                <Icon className="h-5 w-5 shrink-0 text-text" strokeWidth={2.5} />
                                 {item.title}
                               </h3>
                               <p className="text-muted text-sm md:text-base leading-relaxed">
@@ -266,7 +301,7 @@ export default function AIExplorationsPage() {
                             </div>
                           </div>
                           {/* Back face */}
-                          <div className="absolute inset-0 bg-[#fafbfc] rounded-2xl overflow-hidden shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col">
+                          <div className="absolute inset-0 bg-[#fafbfc] rounded-2xl overflow-hidden shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col transition-shadow duration-300 hover:shadow-lg">
                             {backContent}
                           </div>
                         </div>
