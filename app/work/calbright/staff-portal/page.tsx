@@ -792,10 +792,10 @@ export default function StaffPortalCaseStudyPage() {
                     <button
                       key={tab.id}
                       onClick={() => setCplTab(tab.id)}
-                      className={`text-left p-6 rounded-xl cursor-pointer hover:translate-x-1 transition-[transform,background-color,color] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                      className={`text-left p-6 rounded-xl cursor-pointer transition-all duration-300 ${
                         cplTab === tab.id
                           ? "bg-blue-100"
-                          : "bg-slate-50/80"
+                          : "bg-slate-50/80 hover:bg-slate-100"
                       }`}
                     >
                       <span className={`block mb-3 ${cplTab === tab.id ? "text-[#333] font-bold" : "text-text font-semibold"}`}>{tab.label}</span>

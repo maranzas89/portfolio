@@ -182,7 +182,7 @@ const featuredSignals = [
     vendor: "Maze",
     role: "My top pick for evidence-backed UX research and design validation.",
     statA: "Top pick",
-    labelA: "Validation platform",
+    labelA: "Validation Plat.",
     statB: "End-to-end",
     labelB: "Prototype to live",
     confidence: { Trust: 94, Stability: 92, Speed: 91 },
@@ -525,7 +525,7 @@ function ImagePreviewModal({
         </button>
 
         <div className="bg-white rounded-[8px] overflow-hidden shadow-xl flex flex-col h-full">
-          <div className="flex-1 overflow-auto flex items-center justify-center bg-slate-50 min-h-[400px]">
+          <div className="flex-1 overflow-auto flex items-center justify-center bg-[#fafbfc] min-h-[400px]">
             <img
               src={src}
               alt={caption}
@@ -573,7 +573,7 @@ function AiDesignWorkflowExplorationsSection() {
             (chip) => (
               <span
                 key={chip}
-                className="rounded-[8px] bg-slate-50 px-3 py-2 text-xs text-slate-600"
+                className="rounded-[8px] bg-[#f1f5f9] px-3 py-2 text-sm font-bold text-slate-800"
               >
                 {chip}
               </span>
@@ -595,8 +595,8 @@ function AiDesignWorkflowExplorationsSection() {
                 className={cn(
                   "w-full cursor-pointer rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
                   active
-                    ? "border border-slate-200 bg-white"
-                    : "border border-transparent bg-slate-50 hover:bg-slate-100 active:bg-slate-100",
+                    ? "border border-transparent bg-[#dbeafe]"
+                    : "border border-transparent bg-[#fafbfc] hover:bg-slate-100 active:bg-slate-100",
                 )}
               >
                 <div className="flex items-start gap-3">
@@ -606,10 +606,10 @@ function AiDesignWorkflowExplorationsSection() {
 
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-3">
-                      <div className="text-sm font-medium text-slate-900">{step.short}</div>
+                      <div className={cn("text-sm text-slate-900", active ? "font-bold" : "font-medium")}>{step.short}</div>
                       <div className="text-xs text-slate-400">{String(index + 1).padStart(2, "0")}</div>
                     </div>
-                    <div className="mt-2 text-xs leading-6 text-slate-500">{step.signal}</div>
+                    <div className={cn("mt-2 text-xs leading-6", active ? "text-[#555] font-semibold" : "text-slate-500")}>{step.signal}</div>
                   </div>
                 </div>
               </button>
@@ -617,12 +617,8 @@ function AiDesignWorkflowExplorationsSection() {
           })}
         </div>
 
-        <motion.div
-          key={selectedWorkflowStep.id}
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col rounded-[8px] bg-slate-50 p-5 md:p-6"
+        <div
+          className="flex flex-col rounded-[8px] bg-[#fafbfc] p-5 md:p-6"
         >
           {/* Header row */}
           <div className="mb-4 flex items-start gap-3">
@@ -633,7 +629,7 @@ function AiDesignWorkflowExplorationsSection() {
               <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">Workflow stage</div>
               <div className="text-lg font-semibold leading-snug text-slate-900">{selectedWorkflowStep.title}</div>
             </div>
-            <span className="shrink-0 rounded-[8px] bg-slate-900 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white">
+            <span className="shrink-0 rounded-[8px] bg-[#f1f5f9] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-800">
               {selectedWorkflowStep.signal}
             </span>
           </div>
@@ -666,7 +662,7 @@ function AiDesignWorkflowExplorationsSection() {
               <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">Image placeholder</span>
             </div>
           )}
-        </motion.div>
+        </div>
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-4">
@@ -694,9 +690,9 @@ function AiDesignWorkflowExplorationsSection() {
         ].map((item) => {
           const Icon = item.icon;
           return (
-            <div key={item.title} className="rounded-[8px] bg-slate-50 p-4 pl-[26px]">
-              <div className="flex items-center gap-2 text-base font-medium text-slate-900">
-                <Icon className="h-4 w-4 shrink-0 text-slate-700" />
+            <div key={item.title} className="rounded-[8px] bg-[#fafbfc] p-4 pl-[26px] transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+              <div className="flex items-center gap-2 text-base font-medium text-blue-600">
+                <Icon className="h-4 w-4 shrink-0 text-blue-600" />
                 {item.title}
               </div>
               <p className="mt-3 text-sm leading-7 text-slate-600">{item.body}</p>
@@ -845,10 +841,10 @@ function ChipButton(props: {
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-[8px] border px-3 py-1.5 text-xs transition-all duration-300",
+        "cursor-pointer rounded-[8px] border border-transparent px-4 py-3 text-xs text-left transition-all duration-300",
         active
-          ? "border-slate-900 bg-slate-900 text-white"
-          : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900",
+          ? "bg-[#dbeafe] text-slate-900 font-bold"
+          : "bg-[#fafbfc] text-slate-600 font-semibold hover:bg-slate-100",
       )}
     >
       {children}
@@ -860,9 +856,9 @@ function MetricBar(props: { label: string; value: number }) {
   const { label, value } = props;
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between text-xs text-slate-500">
+      <div className="flex items-center justify-between text-xs font-bold text-slate-700">
         <span>{label}</span>
-        <span className="font-medium text-slate-900">{value}</span>
+        <span className="text-slate-900">{value}</span>
       </div>
       <div className="h-2 overflow-hidden rounded-[8px] bg-white">
         <motion.div
@@ -959,9 +955,9 @@ export default function AiMarketLandscapeWhiteModule() {
 
                   <div className="max-w-4xl space-y-4">
                     <h2 className="text-3xl font-semibold leading-tight md:text-4xl lg:text-[2.85rem] lg:leading-[1.03]">
-                      AI Landscape
+                      <span className="text-slate-400 text-2xl md:text-3xl lg:text-[2rem]">AI Landscape</span>
                       <br />
-                      <span className="text-slate-500">
+                      <span className="text-slate-900">
                         What I Trust for Real Product Work
                       </span>
                     </h2>
@@ -1008,7 +1004,7 @@ export default function AiMarketLandscapeWhiteModule() {
                       return (
                         <div
                           key={item.label}
-                          className="rounded-[8px] bg-slate-50 p-4 pl-[26px]"
+                          className="rounded-[8px] bg-[#fafbfc] p-4 pl-[26px]"
                         >
                           <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-[8px] bg-slate-200">
                             <Icon className="h-4 w-4 text-slate-800" />
@@ -1034,8 +1030,8 @@ export default function AiMarketLandscapeWhiteModule() {
                   <div className="space-y-5 text-sm leading-7 text-slate-600">
                     <p>
                       I evaluate AI tools through two layers:{" "}
-                      <span className="text-slate-900">public performance signals</span> and{" "}
-                      <span className="text-slate-900">workflow reliability</span>.
+                      <span className="font-bold text-slate-900">public performance signals</span> and{" "}
+                      <span className="font-bold text-slate-900">workflow reliability</span>.
                     </p>
                     <div className="grid gap-4">
                       {[
@@ -1059,7 +1055,7 @@ export default function AiMarketLandscapeWhiteModule() {
                         return (
                           <div
                             key={key}
-                            className="flex items-center gap-3 rounded-[8px] bg-slate-50 p-3"
+                            className="flex items-center gap-3 rounded-[8px] bg-[#fafbfc] p-3"
                           >
                             <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-900" />
                             <p className="text-sm leading-6 text-slate-600">{content}</p>
@@ -1067,12 +1063,12 @@ export default function AiMarketLandscapeWhiteModule() {
                         );
                       })}
                     </div>
-                    <div className="rounded-[8px] bg-slate-50 p-3 pl-[22px] text-xs leading-6 text-slate-500">
+                    <div className="rounded-[8px] bg-[#fafbfc] p-3 pl-[22px] text-xs leading-6 text-slate-700">
                       Public benchmark figures are grounded in official model and platform materials.
                       Trust, stability, and editorial-fit scores are my synthesis for portfolio
                       storytelling.
                     </div>
-                    <div className="rounded-[8px] bg-slate-50 p-3 pl-[22px] text-xs leading-6 text-slate-500">
+                    <div className="rounded-[8px] bg-[#fafbfc] p-3 pl-[22px] text-xs leading-6 text-slate-700">
                       Sanity checks: {sanityPassed ? "passed" : "review needed"}
                     </div>
                   </div>
@@ -1102,14 +1098,14 @@ export default function AiMarketLandscapeWhiteModule() {
                         {item.points.map((point) => (
                           <div
                             key={point}
-                            className="flex gap-3 rounded-[8px] bg-slate-50 px-3 py-3 text-sm text-slate-600"
+                            className="flex gap-3 rounded-[8px] bg-[#fafbfc] px-3 py-3 text-sm text-slate-600"
                           >
                             <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
                             <span>{point}</span>
                           </div>
                         ))}
                       </div>
-                      <div className="mt-4 rounded-[8px] bg-slate-50 p-4 text-sm leading-7 text-slate-600">
+                      <div className="mt-4 rounded-[8px] bg-[#fafbfc] p-4 text-sm leading-7 text-slate-600">
                         <span className="font-medium text-slate-900">Bottom line:</span> {item.outcome}
                       </div>
                     </div>
@@ -1137,17 +1133,18 @@ export default function AiMarketLandscapeWhiteModule() {
                       type="button"
                       onClick={() => setSelectedProductId(item.id)}
                       className={cn(
-                        "rounded-[8px] p-4 text-left transition-all duration-300",
+                        "cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
                         isActive
-                          ? "ring-1 ring-slate-200 ring-inset bg-white"
-                          : "bg-slate-50 hover:bg-slate-100",
+                          ? "border-transparent bg-[#dbeafe]"
+                          : "border-transparent bg-[#fafbfc] hover:bg-slate-100",
                       )}
                     >
                     <div className="mb-3 flex items-center justify-between gap-3">
                       <BrandMark vendor={item.vendor} className="h-10 w-10 shrink-0" />
                       <div
                         className={cn(
-                          "flex items-center gap-1 rounded-[8px] border px-2 py-1 text-[10px] uppercase tracking-[0.14em] shrink-0",
+                          "flex items-center gap-1 rounded-[8px] border px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] shrink-0",
+                          isActive ? "bg-white" : "",
                           brandMap[item.vendor].border,
                           brandMap[item.vendor].text,
                         )}
@@ -1155,18 +1152,18 @@ export default function AiMarketLandscapeWhiteModule() {
                         {item.vendor}
                       </div>
                     </div>
-                    <div className="text-sm font-medium text-slate-900">{item.product}</div>
-                    <div className="mt-2 text-xs leading-6 text-slate-500 line-clamp-2">
+                    <div className={cn("text-sm text-slate-900", isActive ? "font-bold" : "font-medium")}>{item.product}</div>
+                    <div className={cn("mt-2 text-xs leading-6 text-slate-500 line-clamp-2", isActive ? "font-semibold" : "")}>
                       {item.role}
                     </div>
                     <div className="mt-3 grid grid-cols-2 gap-2">
-                      <div className={cn("rounded-[8px] p-2", isActive ? "bg-slate-100" : "bg-white")}>
+                      <div className="rounded-[8px] bg-white p-2">
                         <div className="text-sm font-semibold text-slate-900">{item.statA}</div>
                         <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">
                           {item.labelA}
                         </div>
                       </div>
-                      <div className={cn("rounded-[8px] p-2", isActive ? "bg-slate-100" : "bg-white")}>
+                      <div className="rounded-[8px] bg-white p-2">
                         <div className="text-sm font-semibold text-slate-900">{item.statB}</div>
                         <div className="text-[10px] uppercase tracking-[0.12em] text-slate-500">
                           {item.labelB}
@@ -1205,7 +1202,7 @@ export default function AiMarketLandscapeWhiteModule() {
                     {selectedProduct.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-[8px] border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-600"
+                        className="rounded-[8px] border border-slate-200 bg-[#f1f5f9] px-3 py-2 text-sm font-bold text-slate-800"
                       >
                         {tag}
                       </span>
@@ -1236,7 +1233,7 @@ export default function AiMarketLandscapeWhiteModule() {
 
               <div className="mt-6 space-y-4">
                 <div className="rounded-[8px] bg-slate-200 p-4">
-                  <div className="text-sm font-medium text-slate-900 mb-3">
+                  <div className="text-sm font-bold text-slate-900 mb-3">
                     Portfolio editorial signal
                   </div>
                   <div className="grid grid-cols-3 gap-4">
@@ -1246,7 +1243,7 @@ export default function AiMarketLandscapeWhiteModule() {
                   </div>
                 </div>
 
-                <div className="rounded-[8px] bg-slate-50 p-5">
+                <div className="rounded-[8px] bg-[#fafbfc] p-5">
                   <div className="mb-3 text-sm font-medium text-slate-900">
                     Why it stays in my stack
                   </div>
@@ -1312,11 +1309,11 @@ export default function AiMarketLandscapeWhiteModule() {
                         stroke="#64748b"
                         tickLine={false}
                         axisLine={false}
-                        height={56}
+                        height={72}
                         textAnchor="middle"
                         interval={0}
                         fontSize={13}
-                        tick={{ fill: "#334155", fontWeight: 600 }}
+                        tick={{ fill: "#334155", fontWeight: 600, dy: 10 }}
                       />
                       <YAxis
                         stroke="#64748b"
@@ -1328,6 +1325,7 @@ export default function AiMarketLandscapeWhiteModule() {
                       <Tooltip
                         content={<ChartTooltip suffix={currentFoundationMetric.suffix} />}
                         cursor={{ fill: "rgba(15,23,42,0.04)" }}
+                        isAnimationActive={false}
                       />
                       <Bar dataKey="value" radius={0}>
                         {foundationChartRows.map((entry) => (
@@ -1340,7 +1338,7 @@ export default function AiMarketLandscapeWhiteModule() {
               </div>
 
               <div className="space-y-4">
-                <div className="rounded-[8px] bg-slate-50 p-4 md:p-5">
+                <div className="rounded-[8px] bg-[#fafbfc] p-4 md:p-5">
                   <div className="text-sm font-medium text-slate-900">Interpretation</div>
                   <p className="mt-3 text-sm leading-7 text-slate-600">
                     {currentFoundationMetric.note}
@@ -1352,7 +1350,7 @@ export default function AiMarketLandscapeWhiteModule() {
                   </div>
                 </div>
 
-                <div className="rounded-[8px] bg-slate-50 p-4 md:p-5">
+                <div className="rounded-[8px] bg-[#fafbfc] p-4 md:p-5">
                   <div className="mb-3 text-sm font-medium text-slate-900">Current ranking</div>
                   <div className="space-y-3">
                     {foundationChartRows.map((row, index) => (
@@ -1429,11 +1427,11 @@ export default function AiMarketLandscapeWhiteModule() {
                         stroke="#64748b"
                         tickLine={false}
                         axisLine={false}
-                        height={48}
+                        height={64}
                         textAnchor="middle"
                         interval={0}
                         fontSize={13}
-                        tick={{ fill: "#334155", fontWeight: 600 }}
+                        tick={{ fill: "#334155", fontWeight: 600, dy: 10 }}
                       />
                       <YAxis
                         stroke="#64748b"
@@ -1442,7 +1440,7 @@ export default function AiMarketLandscapeWhiteModule() {
                         domain={[0, 100]}
                         fontSize={12}
                       />
-                      <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(15,23,42,0.04)" }} />
+                      <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(15,23,42,0.04)" }} isAnimationActive={false} />
                       <Bar dataKey="value" radius={0}>
                         {validationChartRows.map((entry) => (
                           <Cell key={entry.name} fill={entry.fill} />
@@ -1462,20 +1460,20 @@ export default function AiMarketLandscapeWhiteModule() {
                       type="button"
                       onClick={() => setSelectedValidationToolId(tool.id)}
                     className={cn(
-                      "rounded-[8px] p-4 text-left transition-all duration-300",
+                      "cursor-pointer rounded-[8px] border p-4 text-left transition-all duration-300",
                       active
-                        ? "ring-1 ring-slate-200 ring-inset bg-white"
-                        : "bg-slate-50 hover:bg-slate-100",
+                        ? "border-transparent bg-[#dbeafe]"
+                        : "border-transparent bg-[#fafbfc] hover:bg-slate-100",
                     )}
                     >
                       <div className="mb-3 flex items-center justify-between gap-3">
                         <BrandMark vendor={tool.vendor} className="h-10 w-10" />
-                        <span className="rounded-[8px] bg-slate-100 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                        <span className={cn("rounded-[8px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500", active ? "bg-white" : "bg-slate-100")}>
                           {tool.badge}
                         </span>
                       </div>
-                      <div className="text-sm font-medium text-slate-900">{tool.name}</div>
-                      <div className="mt-2 text-xs leading-6 text-slate-500">{tool.fit}</div>
+                      <div className={cn("text-sm text-slate-900", active ? "font-bold" : "font-medium")}>{tool.name}</div>
+                      <div className={cn("mt-2 text-xs leading-6 text-slate-500", active ? "font-semibold" : "")}>{tool.fit}</div>
                     </button>
                   );
                 })}
@@ -1486,7 +1484,7 @@ export default function AiMarketLandscapeWhiteModule() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.2 }}
-                className="rounded-[8px] bg-slate-50 p-5 md:p-6"
+                className="rounded-[8px] bg-[#fafbfc] p-5 md:p-6"
               >
                 <div className="mb-5 flex items-center gap-3">
                   <BrandMark vendor={selectedValidationTool.vendor} className="h-12 w-12" />
@@ -1506,32 +1504,32 @@ export default function AiMarketLandscapeWhiteModule() {
 
                 <div className="mt-6 flex flex-col gap-6">
                   <div className="rounded-[8px] bg-white p-5">
-                    <div className="mb-4 flex items-center gap-2 text-sm font-medium text-slate-900">
-                      <Search className="h-4 w-4" />
+                    <div className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
+                      <Search className="h-4 w-4 stroke-[2.5]" />
                       Why I would use it
                     </div>
                     <div className="space-y-4">
                       {selectedValidationTool.strengths.map((item) => (
                         <div
                           key={item}
-                          className="flex gap-3 text-sm leading-7 text-slate-600"
+                          className="flex items-center gap-3 text-sm leading-7 text-slate-600"
                         >
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-slate-900" />
+                          <CheckCircle2 className="h-4 w-4 shrink-0 text-slate-900" />
                           <span>{item}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                   <div className="rounded-[8px] bg-white p-5">
-                    <div className="mb-4 flex items-center gap-2 text-sm font-medium text-slate-900">
-                      <Database className="h-4 w-4" />
+                    <div className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900">
+                      <Database className="h-4 w-4 stroke-[2.5]" />
                       Proof signals
                     </div>
                     <div className="flex flex-wrap gap-3">
                       {selectedValidationTool.proof.map((item) => (
                         <span
                           key={item}
-                          className="rounded-[8px] bg-slate-50 px-3 py-1.5 text-xs text-slate-600"
+                          className="rounded-[8px] bg-[#fafbfc] px-3 py-1.5 text-xs font-bold text-slate-800"
                         >
                           {item}
                         </span>
@@ -1541,8 +1539,8 @@ export default function AiMarketLandscapeWhiteModule() {
                 </div>
 
                 <div className="mt-6 rounded-[8px] bg-white p-5 text-sm leading-8 text-slate-600">
-                  <div className="mb-3 flex items-center gap-2 font-medium text-slate-900">
-                    <Eye className="h-4 w-4" />
+                  <div className="mb-3 flex items-center gap-2 font-bold text-slate-900">
+                    <Eye className="h-4 w-4 stroke-[2.5]" />
                     Workflow note
                   </div>
                   {selectedValidationTool.workflow}
