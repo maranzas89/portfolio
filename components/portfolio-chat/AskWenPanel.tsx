@@ -52,13 +52,30 @@ export default function AskWenPanel({
     }
   }, [isOpen]);
 
-  // Lock body scroll on mobile when panel is open
+  // Lock body scroll when panel is open
   useEffect(() => {
     if (!isOpen) return;
-    const original = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const originalStyles = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      touchAction: body.style.touchAction,
+    };
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.touchAction = "none";
     return () => {
-      document.body.style.overflow = original;
+      body.style.overflow = originalStyles.overflow;
+      body.style.position = originalStyles.position;
+      body.style.top = originalStyles.top;
+      body.style.width = originalStyles.width;
+      body.style.touchAction = originalStyles.touchAction;
+      window.scrollTo(0, scrollY);
     };
   }, [isOpen]);
 
@@ -130,7 +147,7 @@ export default function AskWenPanel({
       <div
         role="dialog"
         aria-label="Ask Wen chat panel"
-        className={`fixed inset-0 sm:inset-auto sm:top-0 sm:right-0 sm:h-full sm:w-[450px] z-[80] flex flex-col overflow-hidden sm:border-l border-white/[0.08] bg-[rgba(10,14,24,0.92)] sm:bg-[rgba(10,14,24,0.82)] backdrop-blur-2xl sm:shadow-[0_0_80px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+        className={`fixed inset-0 h-[100dvh] sm:inset-auto sm:top-0 sm:right-0 sm:h-full sm:w-[450px] z-[80] flex flex-col overflow-hidden sm:border-l border-white/[0.08] bg-[rgba(10,14,24,0.92)] sm:bg-[rgba(10,14,24,0.82)] backdrop-blur-2xl sm:shadow-[0_0_80px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] ${
           isOpen
             ? "translate-y-0 sm:translate-y-0 sm:translate-x-0 opacity-100"
             : "translate-y-full sm:translate-y-0 sm:translate-x-full opacity-0"
@@ -214,7 +231,8 @@ export default function AskWenPanel({
         {/* Input */}
         <form
           onSubmit={handleSubmit}
-          className="px-5 sm:px-7 pb-6 sm:pb-7 pt-3 sm:pt-4 border-t border-white/[0.05]"
+          className="px-5 sm:px-7 pt-3 sm:pt-4 border-t border-white/[0.05]"
+          style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom, 1.5rem))" }}
         >
           <div className="flex items-center gap-3 min-w-0 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3.5 sm:px-4 py-2.5 sm:py-3 focus-within:border-white/[0.15] focus-within:bg-white/[0.06] transition-all duration-200">
             <input
