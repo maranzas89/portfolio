@@ -223,7 +223,7 @@ export default function AskWenPanel({
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about my work..."
-              className="flex-1 min-w-0 w-full bg-transparent text-[13px] sm:text-[13.5px] text-white/85 placeholder:text-white/20 outline-none"
+              className="flex-1 min-w-0 w-full bg-transparent text-[16px] sm:text-[13.5px] text-white/85 placeholder:text-white/20 outline-none"
               disabled={loading}
             />
             <button
