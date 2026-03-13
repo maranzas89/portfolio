@@ -2,372 +2,296 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { MapPin, Clock, DollarSign } from "lucide-react";
-import LoginModal from "@/components/jobhatch/LoginModal";
+import {
+  Home,
+  User,
+  FileText,
+  Briefcase,
+  CalendarDays,
+  Users,
+  Mail,
+  Monitor,
+  MessageCircle,
+  Settings,
+  Bell,
+  ChevronDown,
+  Search,
+  Heart,
+} from "lucide-react";
+
+const SIDEBAR_TOP = [
+  { icon: Home, label: "Home", href: "/ai-explorations/jobhatch/dashboard" },
+  { icon: User, label: "Profile", href: "/ai-explorations/jobhatch/profile" },
+  { icon: FileText, label: "Resume", href: "/ai-explorations/jobhatch/resume" },
+  { icon: Briefcase, label: "Jobs", active: true },
+  { icon: CalendarDays, label: "Planner" },
+  { icon: Users, label: "Buddies" },
+];
+
+const SIDEBAR_BOTTOM = [
+  { icon: Mail, label: "Message" },
+  { icon: Monitor, label: "Download APP" },
+  { icon: MessageCircle, label: "Feedback" },
+  { icon: Settings, label: "Setting" },
+];
 
 const JOBS = [
   {
-    company: "Company Name",
-    logo: "/images/jobhatch/company-logo.png",
-    title: "Product Designer",
-    pitch: "One sentence pitch of the co...",
-    tags: ["Architecture", "E-Commerce", "Late Stage"],
-    postedAgo: "2 hours ago",
-    level: "New Grad, Entry Level",
-    location: "Remote - US",
+    logo: null,
+    title: "Digital Product Designer Lead- Credit ...",
+    company: "PNC",
+    industry: "Banking - Finance - Public Company",
+    location: "Madison Avenue NY (NY019)",
+    workMode: "Hybrid",
     type: "Full-time",
-    salary: "$120K/yr - $135K/yr",
-    description:
-      "The Hive Data team plays a central role at Hive in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way. You'll take a critical part in improving a platform of services and tools used by millions, and which is paramount to the success of...",
+    level: "Senior Level",
+    salary: "$65K/yr - $164k/yr",
+    experience: "5+ years exp",
+    applicants: "Less than 25 applicants",
     matchScore: 89,
-    sponsorLikely: true,
   },
   {
-    company: "Company Name",
-    logo: "/images/jobhatch/company-logo.png",
-    title: "Product Designer",
-    pitch: "One sentence pitch of the co...",
-    tags: ["Architecture", "E-Commerce", "Late Stage"],
-    postedAgo: "2 hours ago",
-    level: "New Grad, Entry Level",
-    location: "Remote - US",
+    logo: null,
+    title: "Digital Product Designer Lead- Credit ...",
+    company: "PNC",
+    industry: "Banking - Finance - Public Company",
+    location: "Madison Avenue NY (NY019)",
+    workMode: "Hybrid",
     type: "Full-time",
-    salary: "$120K/yr - $135K/yr",
-    description:
-      "The Hive Data team plays a central role at Hive in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way. You'll take a critical part in improving a platform of services and tools used by millions, and which is paramount to the success of...",
+    level: "Senior Level",
+    salary: "$65K/yr - $164k/yr",
+    experience: "5+ years exp",
+    applicants: "Less than 25 applicants",
     matchScore: 89,
-    sponsorLikely: true,
   },
   {
-    company: "Company Name",
-    logo: "/images/jobhatch/company-logo.png",
-    title: "Product Designer",
-    pitch: "One sentence pitch of the co...",
-    tags: ["Architecture", "E-Commerce", "Late Stage"],
-    postedAgo: "2 hours ago",
-    level: "New Grad, Entry Level",
-    location: "Remote - US",
+    logo: null,
+    title: "Digital Product Designer Lead- Credit ...",
+    company: "PNC",
+    industry: "Banking - Finance - Public Company",
+    location: "Madison Avenue NY (NY019)",
+    workMode: "Hybrid",
     type: "Full-time",
-    salary: "$120K/yr - $135K/yr",
-    description:
-      "The Hive Data team plays a central role at Hive in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way. You'll take a critical part in improving a platform of services and tools used by millions, and which is paramount to the success of...",
+    level: "Senior Level",
+    salary: "$65K/yr - $164k/yr",
+    experience: "5+ years exp",
+    applicants: "Less than 25 applicants",
     matchScore: 89,
-    sponsorLikely: true,
-  },
-  {
-    company: "Company Name",
-    logo: "/images/jobhatch/company-logo.png",
-    title: "Product Designer",
-    pitch: "One sentence pitch of the co...",
-    tags: ["Architecture", "E-Commerce", "Late Stage"],
-    postedAgo: "2 hours ago",
-    level: "New Grad, Entry Level",
-    location: "Remote - US",
-    type: "Full-time",
-    salary: "$120K/yr - $135K/yr",
-    description:
-      "The Hive Data team plays a central role at Hive in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way. You'll take a critical part in improving a platform of services and tools used by millions, and which is paramount to the success of...",
-    matchScore: 89,
-    sponsorLikely: true,
   },
 ];
 
 export default function JobsPage() {
-  const [loginOpen, setLoginOpen] = useState(false);
+  const [tokens] = useState(10);
+  const [likedCount] = useState(0);
+  const [appliedCount] = useState(0);
 
   return (
-    <div className="relative bg-white min-h-screen overflow-x-hidden">
-      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
-      {/* Top Nav */}
-      <header className="relative px-6 md:px-20 py-6 md:py-8 flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/ai-explorations/jobhatch"
-          className="flex items-end gap-3"
-        >
-          <div className="bg-[#fcd038] border border-[#2f327d] rounded-lg shadow-[-4px_4px_0px_0px_#2f327d] w-12 h-12 md:w-14 md:h-14 overflow-hidden flex items-center justify-center">
-            <img
-              src="/images/jobhatch/logo-chick.png"
-              alt="JobHatch"
-              className="w-10 h-10 md:w-12 md:h-12 object-contain"
-            />
-          </div>
-          <span className="font-black text-[#2f327d] text-xl md:text-2xl tracking-[4px]">
-            JOBHATCH
-          </span>
-        </Link>
+    <div className="relative bg-white h-screen flex overflow-hidden">
+      {/* Sidebar */}
+      <aside className="hidden lg:flex flex-col w-[220px] h-full border-r border-gray-100 bg-white px-4 py-6 shrink-0 justify-between overflow-y-auto">
+        <div>
+          {SIDEBAR_TOP.map((item) => {
+            const Icon = item.icon;
+            return item.href ? (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition ${
+                  item.active
+                    ? "bg-[#fff3e0] text-[#e2752c]"
+                    : "text-[#666] hover:text-[#e2752c] hover:bg-gray-50"
+                }`}
+              >
+                <Icon className="w-5 h-5" />
+                {item.label}
+              </Link>
+            ) : (
+              <div
+                key={item.label}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium cursor-default ${
+                  item.active
+                    ? "bg-[#fff3e0] text-[#e2752c]"
+                    : "text-[#666] hover:text-[#e2752c]"
+                }`}
+              >
+                <Icon className="w-5 h-5" />
+                {item.label}
+              </div>
+            );
+          })}
+        </div>
 
-        {/* Center Nav */}
-        <nav className="hidden md:flex items-center gap-4 absolute left-1/2 -translate-x-1/2">
-          {["Home", "About", "Download"].map((label, i) => (
+        <div>
+          {/* Refer card */}
+          <div className="bg-[#fef3e2] rounded-xl p-4 mb-3">
+            <p className="font-bold text-[#333] text-sm underline">
+              Refer and Earn
+            </p>
+            <p className="text-xs text-[#666] mt-1">
+              Invite friends or share on LinkedIn to earn extra rewards!
+            </p>
+          </div>
+          {/* AI card */}
+          <div className="bg-[#2f327d] rounded-xl p-4 mb-4">
+            <span className="text-xl">🌟</span>
+            <p className="font-bold text-white text-sm mt-1">
+              Get Hired Faster with AI Jobhacth!
+            </p>
+          </div>
+
+          {SIDEBAR_BOTTOM.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.label}
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#666] font-medium hover:text-[#e2752c] transition cursor-default"
+              >
+                <Icon className="w-5 h-5" />
+                {item.label}
+              </div>
+            );
+          })}
+        </div>
+      </aside>
+
+      {/* Main */}
+      <div className="flex-1 min-w-0 min-h-0 flex flex-col">
+        {/* Top Nav */}
+        <header className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-gray-100 bg-white shrink-0">
+          <div className="flex items-center gap-4">
             <Link
-              key={label}
-              href={i === 0 ? "/ai-explorations/jobhatch" : "#"}
-              className="px-8 py-3 rounded-full text-lg tracking-wide font-medium text-[#6c6c6c] hover:bg-[#e2752c] hover:text-white transition cursor-pointer"
+              href="/ai-explorations/jobhatch"
+              className="flex items-end gap-2"
             >
-              {label}
+              <div className="bg-[#fcd038] border border-[#2f327d] rounded-lg shadow-[-3px_3px_0px_0px_#2f327d] w-10 h-10 overflow-hidden flex items-center justify-center">
+                <img
+                  src="/images/jobhatch/logo-chick.png"
+                  alt="JobHatch"
+                  className="w-8 h-8 object-contain"
+                />
+              </div>
+              <span className="font-black text-[#2f327d] text-lg tracking-[3px]">
+                JOBHATCH
+              </span>
             </Link>
-          ))}
-        </nav>
-
-        {/* Auth Buttons */}
-        <div className="hidden md:flex items-center gap-3">
-          <button onClick={() => setLoginOpen(true)} className="px-8 py-3 rounded-full text-lg font-bold text-[#333] bg-white shadow-[0px_20px_24px_0px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-[#f48c06] hover:text-white transition">
-            Login
-          </button>
-          <a href="/ai-explorations/jobhatch/signup" className="px-8 py-3 rounded-full text-lg font-bold text-white bg-[#f48c06] cursor-pointer hover:brightness-110 transition">
-            Sign Up
-          </a>
-        </div>
-      </header>
-
-      {/* Page Title + Tips */}
-      <section className="max-w-[1400px] mx-auto px-6 md:px-20 mt-4 md:mt-8">
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="text-3xl md:text-5xl font-bold text-[#2f327d]">
-              Our Popular Jobs
-            </h1>
-            <p className="mt-2 text-lg md:text-2xl font-semibold text-[#757575]">
-              Be one of the first 10 to apply
-            </p>
-          </div>
-
-          {/* Tips Card */}
-          <div className="hidden lg:flex items-start gap-3 bg-white rounded-xl p-4 shadow-lg border border-gray-100 max-w-[340px]">
-            <img
-              src="/images/jobhatch/tips-mascot.png"
-              alt=""
-              className="w-16 h-16 object-contain"
-            />
-            <div>
-              <p className="font-extrabold text-[#2f327d] text-xl">Tips</p>
-              <p className="text-[#333] text-sm mt-1">
-                Register with US to unlock more features!
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Job Listings */}
-      <section className="max-w-[1400px] mx-auto px-6 md:px-20 mt-8 pb-20">
-        <div className="space-y-0 divide-y divide-gray-200">
-          {JOBS.map((job, i) => (
-            <div
-              key={i}
-              className="flex flex-col lg:flex-row gap-6 py-8 first:pt-4"
-            >
-              {/* Left: Job Info */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start gap-4">
-                  {/* Company Logo */}
-                  <div className="shrink-0">
-                    <div className="w-16 h-16 rounded-lg border border-gray-200 overflow-hidden">
-                      <img
-                        src={job.logo}
-                        alt={job.company}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <p className="text-xs text-black mt-1 text-center">
-                      {job.company}
-                    </p>
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    {/* Tags */}
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="bg-[rgba(0,240,160,0.1)] text-black text-xs font-medium px-2 py-1 rounded-md">
-                        {job.postedAgo}
-                      </span>
-                      <span className="bg-[rgba(140,120,255,0.1)] text-black text-xs font-medium px-3 py-1 rounded-md">
-                        {job.level}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-[#e2752c] mt-1">
-                      <a href="/ai-explorations/jobhatch/signup" className="hover:underline">
-                        {job.title}
-                      </a>
-                    </h3>
-
-                    {/* Pitch & Tags */}
-                    <div className="flex items-center gap-4 mt-1 text-sm">
-                      <span className="text-[#525769]">{job.pitch}</span>
-                      <span className="text-black">/</span>
-                      <span className="text-black/45">
-                        {job.tags.join(" · ")}
-                      </span>
-                    </div>
-
-                    {/* Meta */}
-                    <div className="flex items-center gap-4 mt-2 text-sm text-black">
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        {job.location}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {job.type}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <DollarSign className="w-4 h-4" />
-                        {job.salary}
-                      </span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="mt-3 text-xs text-[#757575] leading-relaxed max-w-[600px]">
-                      {job.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: Match Score + Action (blurred) */}
-              <div className="shrink-0 flex flex-row lg:flex-col items-center gap-4 lg:gap-2 lg:w-[160px] blur-[6px] select-none pointer-events-none">
-                {/* Score Circle */}
-                <div className="flex flex-col items-center">
-                  <div className="w-[70px] h-[70px] rounded-full bg-[#abe5ff] flex items-center justify-center">
-                    <span className="text-2xl font-normal text-black">
-                      {job.matchScore}
-                      <span className="text-xs font-extrabold">%</span>
-                    </span>
-                  </div>
-                  <p className="text-sm font-semibold text-black mt-2">
-                    STRONG MATCH
-                  </p>
-                  {job.sponsorLikely && (
-                    <p className="text-xs font-medium text-black mt-1">
-                      H1B Sponsor Likely
-                    </p>
-                  )}
-                </div>
-                <span className="bg-[#e2752c] text-white text-sm font-bold uppercase px-6 py-2 rounded-full mt-2 inline-block">
-                  APPLY NOW
-                </span>
-              </div>
-
-              {/* Far Right: Funder Card (blurred) */}
-              <div className="hidden xl:block shrink-0 w-[180px] blur-[6px] select-none pointer-events-none">
-                <div className="bg-[#abe5ff] rounded-xl p-5 h-full flex flex-col items-center justify-center">
-                  <div className="w-[70px] h-[70px] rounded-full bg-[#abe5ff] border-4 border-white/30 flex items-center justify-center">
-                    <span className="text-lg font-bold text-[#2f327d]">
-                      {job.matchScore}%
-                    </span>
-                  </div>
-                  <p className="text-sm font-semibold text-[#2f327d] mt-3">
-                    Funder Name
-                  </p>
-                  <p className="text-xs font-medium text-[#2f327d] mt-1">
-                    Description of Funder..
-                  </p>
-                  <span className="bg-white text-[#e2752c] text-xs font-bold uppercase px-5 py-2 rounded-full mt-4 inline-block">
-                    Let&apos;s chat
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer
-        className="py-20 md:py-28"
-        style={{
-          background:
-            "linear-gradient(180deg, #e8f4fd 0%, #d4ecfb 40%, #fef3e2 100%)",
-        }}
-      >
-        <div className="max-w-[1200px] mx-auto px-6 md:px-16">
-          <div className="flex flex-col items-center text-center">
-            {/* Logo */}
-            <div className="bg-[#fcd038] rounded-xl w-20 h-20 overflow-hidden flex items-center justify-center mb-4 shadow-[inset_-4px_-4px_4px_rgba(0,0,0,0.25),inset_4px_4px_4px_rgba(0,0,0,0.25)]">
-              <img
-                src="/images/jobhatch/logo-chick.png"
-                alt="JobHatch"
-                className="w-16 h-16 object-contain"
-              />
-            </div>
-            <span className="font-black text-[#2f327d] text-2xl tracking-[4px] mb-12">
-              JOBHATCH
+            <span className="font-black text-[#333] text-[28px] tracking-[2px] ml-2">
+              JOBS
             </span>
-
-            <div className="flex flex-col md:flex-row gap-20 md:gap-32 mb-16 text-left">
-              <div>
-                <h4 className="font-bold text-[#2f327d] text-2xl mb-4">
-                  Quick Link
-                </h4>
-                <ul className="space-y-2 text-[#2f327d]">
-                  {["Home", "About", "Features", "Pricing", "Blog"].map(
-                    (link) => (
-                      <li key={link}>{link}</li>
-                    )
-                  )}
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-bold text-[#2f327d] text-2xl mb-4">
-                  Resources
-                </h4>
-                <ul className="space-y-2 text-[#2f327d]">
-                  <li>Privacy Policy</li>
-                  <li>Terms of Use</li>
-                  <li>Cookie Policy</li>
-                </ul>
-              </div>
-              {/* Social Icons */}
-              <div className="flex items-start gap-3">
-                <img
-                  src="/images/jobhatch/social-1.png"
-                  alt=""
-                  className="w-16 h-16 object-contain"
-                />
-                <img
-                  src="/images/jobhatch/social-2.png"
-                  alt=""
-                  className="w-16 h-16 object-contain"
-                />
-                <img
-                  src="/images/jobhatch/social-3.png"
-                  alt=""
-                  className="w-16 h-16 object-contain"
-                />
-              </div>
-            </div>
-
-            <div className="w-full max-w-[560px]">
-              <h3 className="font-extrabold text-[#2f327d] text-2xl md:text-3xl mb-6">
-                Learn More or Contribute?
-              </h3>
-              <div className="bg-white rounded-full flex items-center p-2 pl-6 shadow-sm">
-                <span className="text-[#686868] text-base flex-1 text-left">
-                  Enter your Email
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 text-sm font-medium text-[#333]">
+              <span>
+                Liked{" "}
+                <span className="bg-[#2f327d] text-white text-xs font-bold px-2 py-0.5 rounded">
+                  {likedCount}
                 </span>
-                <button className="bg-[#e2752c] text-white font-bold px-6 py-3 rounded-full hover:brightness-110 transition">
-                  Contact Us
-                </button>
-              </div>
+              </span>
+              <span>
+                Applied{" "}
+                <span className="bg-[#2f327d] text-white text-xs font-bold px-2 py-0.5 rounded">
+                  {appliedCount}
+                </span>
+              </span>
             </div>
+            <button className="relative text-[#999] hover:text-[#333] transition">
+              <Bell className="w-5 h-5" />
+            </button>
+            <div className="flex items-center gap-2 border border-gray-200 rounded-full px-4 py-2">
+              <Settings className="w-4 h-4 text-[#999]" />
+              <span className="text-sm font-medium text-[#333]">
+                Mia Yue ({tokens} tokens)
+              </span>
+              <ChevronDown className="w-3 h-3 text-[#999]" />
+            </div>
+          </div>
+        </header>
 
-            {/* Footer Stars */}
-            <div className="mt-8">
-              <img
-                src="/images/jobhatch/footer-stars.png"
-                alt=""
-                className="w-20 h-auto mx-auto"
+        {/* Content area with cream bg */}
+        <div
+          className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-[52px]"
+          style={{ scrollbarWidth: "none" }}
+        >
+          {/* Search bar */}
+          <div className="mb-6 max-w-[700px]">
+            <div className="flex items-center bg-white border border-gray-200 rounded-lg px-4 py-3">
+              <input
+                type="text"
+                placeholder="Search jobs..."
+                className="flex-1 text-sm text-[#555] placeholder:text-[#bbb] outline-none bg-transparent"
               />
+              <Search className="w-5 h-5 text-[#999]" />
             </div>
+          </div>
 
-            <p className="mt-8 text-[#2f327d] text-sm tracking-wide">
-              &copy; 2025 JobHatch
-            </p>
+          {/* Job Cards */}
+          <div className="space-y-6">
+            {JOBS.map((job, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl px-8 py-8 flex gap-6"
+              >
+                {/* Left: Logo */}
+                <div className="w-[80px] h-[80px] bg-gray-100 rounded-lg shrink-0" />
+
+                {/* Middle: Job Info */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-xl font-bold text-[#333] mb-1">
+                    {job.title}
+                  </h3>
+                  <p className="text-sm text-[#555] mb-4">
+                    <span className="font-bold">{job.company}</span>
+                    {"  "}
+                    {job.industry}
+                  </p>
+
+                  {/* Info grid */}
+                  <div className="grid grid-cols-3 gap-0 mb-4">
+                    <div className="border-l-2 border-gray-200 pl-3 py-1">
+                      <p className="text-sm text-[#333]">{job.location}</p>
+                      <p className="text-sm text-[#333]">{job.workMode}</p>
+                    </div>
+                    <div className="border-l-2 border-gray-200 pl-3 py-1">
+                      <p className="text-sm text-[#333]">{job.type}</p>
+                      <p className="text-sm text-[#333]">{job.level}</p>
+                    </div>
+                    <div className="border-l-2 border-gray-200 pl-3 py-1">
+                      <p className="text-sm text-[#333]">{job.salary}</p>
+                      <p className="text-sm text-[#333]">{job.experience}</p>
+                    </div>
+                  </div>
+
+                  {/* Bottom row */}
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-[#888]">{job.applicants}</p>
+                    <div className="flex items-center gap-3">
+                      <button className="flex items-center gap-2 border border-gray-300 text-[#333] font-medium text-sm px-6 py-2 rounded-full hover:bg-gray-50 transition cursor-pointer">
+                        <Heart className="w-4 h-4" />
+                        Like
+                      </button>
+                      <button className="bg-[#e2752c] text-white font-bold text-sm px-6 py-2 rounded-full hover:brightness-110 transition cursor-pointer uppercase tracking-wide">
+                        Apply Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Match Score */}
+                <div className="shrink-0 w-[120px] border border-gray-200 rounded-xl flex flex-col items-center justify-center p-4">
+                  <span className="text-3xl font-bold text-[#333]">
+                    {job.matchScore}
+                    <span className="text-lg">%</span>
+                  </span>
+                  <img
+                    src="/images/jobhatch/tips-mascot.png"
+                    alt="Match mascot"
+                    className="w-[70px] h-auto mt-1"
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   );
 }

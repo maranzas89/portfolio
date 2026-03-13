@@ -19,11 +19,12 @@ import {
   Pencil,
   Plus,
 } from "lucide-react";
+import { PROFILE, EDUCATION, WORK_EXPERIENCE, SKILLS } from "../profile-data";
 
 const SIDEBAR_TOP = [
   { icon: Home, label: "Home", href: "/ai-explorations/jobhatch/dashboard" },
   { icon: User, label: "Profile", active: true },
-  { icon: FileText, label: "Resume" },
+  { icon: FileText, label: "Resume", href: "/ai-explorations/jobhatch/resume" },
   { icon: Briefcase, label: "Jobs", href: "/ai-explorations/jobhatch/jobs" },
   { icon: CalendarDays, label: "Planner" },
   { icon: Users, label: "Buddies" },
@@ -44,79 +45,53 @@ const TABS = [
   { label: "Equal Employment", anchor: "equal-employment" },
 ];
 
-const SKILLS = [
-  "UI/UX Design",
-  "Interaction Design",
-  "User Research",
-  "Adobe XD",
-  "HTML",
-  "CSS",
-  "Invision",
-  "Programming",
-  "Figma",
-  "Axure RP",
-];
-
-const WORK_EXPERIENCE = [
-  {
-    period: "03/2022 - Present",
-    company: "DiDi",
-    title: "Product Designer",
-    bullets: [
-      "Simplify complicated inspector page and optimize the user experience on filtering result",
-      "Design admin page to capture network-wide device state and configuration",
-      "Create SmartEvents page that pinpoints deviations from the intent and remediation steps",
-      "UX Research on advantages of verification-driven, agile, proactive operations",
-      "Usability test on the dashboard, ensure the user can capture, analyze and correlate the data",
-      "Completed user stories and delivered UI design updates in each product release",
-    ],
-  },
-  {
-    period: "05/2019 - 02/2022",
-    company: "TikTok",
-    title: "UI Designer",
-    bullets: [
-      "Created data visualizations for study material dashboard with drill down to the detail",
-      "Established new product design pattern, GUI elements, and assets library assets library",
-      "Produce corporate presentations, videos and flow visualization reports",
-    ],
-  },
-  {
-    period: "07/2018 - 04/2019",
-    company: "CISCO",
-    title: "UI Designer Intern",
-    bullets: [
-      "UX Research on advantages of verification-driven, agile, proactive operations",
-      "Usability test on the dashboard, ensure the user can capture, analyze and correlate the data",
-      "Completed user stories and delivered UI design updates in each product release",
-    ],
-  },
-];
-
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("personal");
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const tabBarRef = useRef<HTMLDivElement>(null);
+  const isClickScrolling = useRef(false);
+
   function scrollToSection(anchor: string) {
-    const el = document.getElementById(anchor);
-    if (el && scrollRef.current) {
-      const container = scrollRef.current;
-      const elTop = el.offsetTop - container.offsetTop;
-      container.scrollTo({ top: elTop - 52 - 16, behavior: "smooth" });
+    const container = scrollRef.current;
+    const tabBar = tabBarRef.current;
+    if (!container || !tabBar) return;
+    isClickScrolling.current = true;
+    if (anchor === "personal") {
+      container.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const el = document.getElementById(anchor);
+      if (!el) return;
+      // Calculate how far the tab bar bottom is from the container top
+      const containerRect = container.getBoundingClientRect();
+      const tabBarBottom = tabBar.getBoundingClientRect().bottom - containerRect.top;
+      const elTop = el.getBoundingClientRect().top - containerRect.top;
+      const offset = container.scrollTop + (elTop - tabBarBottom) - 16;
+      container.scrollTo({ top: offset, behavior: "smooth" });
     }
+    const onScrollEnd = () => {
+      isClickScrolling.current = false;
+      container.removeEventListener("scrollend", onScrollEnd);
+    };
+    container.addEventListener("scrollend", onScrollEnd, { once: true });
+    setTimeout(() => { isClickScrolling.current = false; }, 1500);
   }
 
-  // Track active tab on scroll
+  // Track active tab on scroll (only when user manually scrolls)
   useEffect(() => {
     const container = scrollRef.current;
-    if (!container) return;
+    const tabBar = tabBarRef.current;
+    if (!container || !tabBar) return;
     const handleScroll = () => {
+      if (isClickScrolling.current) return;
       const anchors = TABS.map((t) => t.anchor);
+      const containerRect = container.getBoundingClientRect();
+      const tabBarBottom = tabBar.getBoundingClientRect().bottom - containerRect.top;
       for (let i = anchors.length - 1; i >= 0; i--) {
         const el = document.getElementById(anchors[i]);
         if (el) {
-          const elTop = el.offsetTop - container.offsetTop;
-          if (container.scrollTop >= elTop - 70) {
+          const relativeTop = el.getBoundingClientRect().top - containerRect.top;
+          if (relativeTop <= tabBarBottom + 20) {
             setActiveTab(anchors[i]);
             return;
           }
@@ -129,9 +104,9 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div className="relative bg-white min-h-screen flex">
+    <div className="relative bg-white h-screen flex overflow-hidden">
       {/* Sidebar */}
-      <aside className="hidden lg:flex flex-col w-[220px] min-h-screen border-r border-gray-100 bg-white px-4 py-6 shrink-0 justify-between">
+      <aside className="hidden lg:flex flex-col w-[220px] h-full border-r border-gray-100 bg-white px-4 py-6 shrink-0 justify-between overflow-y-auto">
         <div>
           {SIDEBAR_TOP.map((item) => {
             const Icon = item.icon;
@@ -198,7 +173,7 @@ export default function ProfilePage() {
       </aside>
 
       {/* Main */}
-      <div className="flex-1 min-w-0 flex flex-col">
+      <div className="flex-1 min-w-0 min-h-0 flex flex-col">
         {/* Top Nav */}
         <header className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-gray-100 bg-white shrink-0">
           <div className="flex items-center gap-4">
@@ -232,20 +207,20 @@ export default function ProfilePage() {
           </div>
         </header>
 
-        {/* Content area with cream bg — scrollable */}
-        <div ref={scrollRef} className="flex-1 bg-[#fdf8e8] overflow-y-auto">
+        {/* Content area with cream bg */}
+        <div className="flex-1 min-h-0 bg-[#fdf8e8] flex flex-col overflow-hidden">
           {/* White card */}
-          <div className="px-6 md:px-10 lg:px-14 py-8">
-          <div className="bg-white rounded-2xl max-w-[1500px] mx-auto">
-            {/* Sticky header: PROFILE title + tab bar */}
-            <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm rounded-t-2xl px-8 md:px-14 pt-8">
+          <div className="flex-1 min-h-0 flex flex-col p-[52px]">
+          <div className="bg-white rounded-2xl mx-auto w-full flex flex-col min-h-0 flex-1">
+            {/* Fixed header: PROFILE title + tab bar */}
+            <div className="bg-white rounded-t-2xl px-8 md:px-14 pt-8 shrink-0">
               <h1 className="font-black text-[#333] text-[40px] tracking-[3px] mb-1">
                 PROFILE
               </h1>
               <p className="text-base font-semibold text-[#999] mb-4">
                 Your Profile data is kept private and secure
               </p>
-              <div className="flex gap-0 border-b border-gray-200">
+              <div ref={tabBarRef} className="flex gap-0 border-b border-gray-200">
                 {TABS.map((tab) => (
                   <button
                     key={tab.anchor}
@@ -262,11 +237,12 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="px-8 md:px-14 py-10">
+            {/* Scrollable content */}
+            <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto scrollbar-hide px-8 md:px-14 py-10" style={{ scrollbarWidth: 'none' }}>
             {/* Complete profile CTA */}
             <div className="bg-[#fdf8e8] rounded-xl p-8 flex items-center justify-between mb-12">
               <div>
-                <p className="text-base text-[#555] leading-relaxed">
+                <p className="text-base font-bold text-[#555] leading-relaxed">
                   Complete your profile to boost job matching accuracy and enable
                   Autofill extension to autofill your applications.
                 </p>
@@ -282,10 +258,10 @@ export default function ProfilePage() {
             </div>
 
             {/* Personal Info */}
-            <section id="personal" className="mb-12">
+            <section id="personal" className="mb-12 scroll-mt-[140px]">
               <div className="flex items-center justify-between mb-5">
                 <h2 className="text-3xl font-bold text-[#2f327d] tracking-wide">
-                  MIA YUE
+                  {PROFILE.name}
                 </h2>
                 <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
                   <ExternalLink className="w-5 h-5" />
@@ -294,8 +270,8 @@ export default function ProfilePage() {
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-10 text-base text-[#555]">
-                  <span>mia.yue@gmail.com</span>
-                  <span>415-223-3528</span>
+                  <span>{PROFILE.email}</span>
+                  <span>{PROFILE.phone}</span>
                 </div>
                 <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
                   <Pencil className="w-5 h-5" />
@@ -307,7 +283,7 @@ export default function ProfilePage() {
             <hr className="border-gray-200 mb-12" />
 
             {/* Education */}
-            <section id="education" className="mb-12">
+            <section id="education" className="mb-12 scroll-mt-[140px]">
               <div className="flex items-center justify-between mb-7">
                 <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
                   Education
@@ -323,12 +299,12 @@ export default function ProfilePage() {
                   <div className="w-[1px] h-10 bg-gray-200 mt-1" />
                 </div>
                 <div>
-                  <p className="text-sm text-[#999] mb-1">09/2016 - 09/2018</p>
+                  <p className="text-sm text-[#999] mb-1">{EDUCATION[0].period}</p>
                   <p className="font-bold text-[#333] text-base tracking-wide uppercase mb-1">
-                    Standford University
+                    {EDUCATION[0].school}
                   </p>
                   <p className="text-base text-[#555]">
-                    Master of Arts (B.A.) in Multimedia Option
+                    {EDUCATION[0].degree}
                   </p>
                 </div>
               </div>
@@ -337,7 +313,7 @@ export default function ProfilePage() {
             <hr className="border-gray-200 mb-12" />
 
             {/* Work Experience */}
-            <section id="work-experience" className="mb-12">
+            <section id="work-experience" className="mb-12 scroll-mt-[140px]">
               <div className="flex items-center justify-between mb-7">
                 <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
                   Work Experience
@@ -382,7 +358,7 @@ export default function ProfilePage() {
             <hr className="border-gray-200 mb-12" />
 
             {/* Skills */}
-            <section id="skills" className="mb-12">
+            <section id="skills" className="mb-12 scroll-mt-[140px]">
               <div className="flex items-center justify-between mb-7">
                 <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
                   Skills
@@ -407,7 +383,7 @@ export default function ProfilePage() {
             <hr className="border-gray-200 mb-12" />
 
             {/* Equal Employment */}
-            <section id="equal-employment" className="mb-10">
+            <section id="equal-employment" className="mb-10 scroll-mt-[140px]">
               <div className="flex items-center justify-between mb-5">
                 <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
                   Equal Employment

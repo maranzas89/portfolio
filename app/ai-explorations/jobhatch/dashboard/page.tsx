@@ -24,7 +24,7 @@ import {
 const SIDEBAR_TOP = [
   { icon: Home, label: "Home", active: true },
   { icon: User, label: "Profile", href: "/ai-explorations/jobhatch/profile" },
-  { icon: FileText, label: "Resume" },
+  { icon: FileText, label: "Resume", href: "/ai-explorations/jobhatch/resume" },
   { icon: Briefcase, label: "Jobs", href: "/ai-explorations/jobhatch/jobs" },
   { icon: CalendarDays, label: "Planner" },
   { icon: Users, label: "Buddies" },
@@ -118,7 +118,7 @@ function UploadResumeModal({ open, onClose }: { open: boolean; onClose: () => vo
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-[#999] hover:text-[#333] transition"
+          className="absolute top-4 right-4 text-[#999] hover:text-[#333] transition cursor-pointer"
         >
           <X className="w-6 h-6" />
         </button>
@@ -171,7 +171,7 @@ function CheckInModal({ open, onDismiss, onContinue }: { open: boolean; onDismis
       >
         <button
           onClick={onDismiss}
-          className="absolute top-4 right-4 text-[#999] hover:text-[#333] transition"
+          className="absolute top-4 right-4 text-[#999] hover:text-[#333] transition cursor-pointer"
         >
           <X className="w-6 h-6" />
         </button>
@@ -196,10 +196,16 @@ function DashboardContent() {
   const searchParams = useSearchParams();
   const skippedResume = searchParams.get("skipped") === "resume";
   const [checkInOpen, setCheckInOpen] = useState(false);
-  const [checkedIn, setCheckedIn] = useState(false);
+  const [checkedIn, setCheckedIn] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("jobhatch-checked-in") === "true";
+    }
+    return false;
+  });
 
   const handleCheckInClose = () => {
     setCheckedIn(true);
+    localStorage.setItem("jobhatch-checked-in", "true");
     setCheckInOpen(false);
   };
 
@@ -226,11 +232,11 @@ function DashboardContent() {
   const progress = Math.round((completedCount / activeMissions.length) * 100);
 
   return (
-    <div className="relative bg-white min-h-screen flex">
+    <div className="relative bg-white h-screen flex overflow-hidden">
       <CheckInModal open={checkInOpen} onDismiss={() => setCheckInOpen(false)} onContinue={handleCheckInClose} />
       <UploadResumeModal open={uploadResumeOpen} onClose={() => setUploadResumeOpen(false)} />
       {/* Sidebar */}
-      <aside className="hidden lg:flex flex-col w-[220px] min-h-screen border-r border-gray-100 px-4 py-6 shrink-0 justify-between">
+      <aside className="hidden lg:flex flex-col w-[220px] h-full border-r border-gray-100 bg-white px-4 py-6 shrink-0 justify-between overflow-y-auto">
         <div>
           {SIDEBAR_TOP.map((item) => {
             const Icon = item.icon;
@@ -284,9 +290,9 @@ function DashboardContent() {
       </aside>
 
       {/* Main */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 min-h-0 flex flex-col">
         {/* Top Nav */}
-        <header className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-gray-100">
+        <header className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-gray-100 bg-white shrink-0">
           <div className="flex items-center gap-4">
             <Link href="/ai-explorations/jobhatch" className="flex items-end gap-2">
               <div className="bg-[#fcd038] border border-[#2f327d] rounded-lg shadow-[-3px_3px_0px_0px_#2f327d] w-10 h-10 overflow-hidden flex items-center justify-center">
@@ -307,14 +313,15 @@ function DashboardContent() {
           </div>
         </header>
 
-        {/* Content */}
-        <div className="px-6 md:px-10 py-8">
+        {/* Content area with cream bg — scrollable */}
+        <div className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto p-[52px]">
+          <div className="bg-white rounded-2xl mx-auto w-full px-8 md:px-14 py-10">
           <div className="flex flex-col xl:flex-row gap-8">
             {/* Left Column */}
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-[#999] mb-2">Your Dashboard</p>
-              <h1 className="text-3xl md:text-4xl font-bold text-[#2f327d] mb-2">Welcome, Mia!</h1>
-              <p className="text-sm text-[#888] mb-8">
+              <h1 className="font-black text-[#333] text-[40px] tracking-[3px] mb-2">Welcome, Mia!</h1>
+              <p className="text-sm font-bold text-[#888] mb-8">
                 Complete Today&apos;s Mission to let recruiter catch you quickly!
               </p>
 
@@ -342,13 +349,14 @@ function DashboardContent() {
                         setUploadResumeOpen(true);
                       } else if (m.label.startsWith("Complete daily check-in")) {
                         setCheckInOpen(true);
+                      } else if (m.label.startsWith("Connect with 3 people")) {
+                        window.open("https://www.linkedin.com/login", "_blank");
                       }
                     };
                     return (
                     <div
                       key={i}
-                      className={`flex items-start gap-3 relative ${isClickable ? "cursor-pointer" : ""}`}
-                      onClick={handleMissionClick}
+                      className="flex items-start gap-3 relative"
                     >
                       {m.done ? (
                         <CheckSquare className="w-5 h-5 text-[#2f327d] shrink-0 relative z-10 bg-white" />
@@ -356,8 +364,9 @@ function DashboardContent() {
                         <Square className={`w-5 h-5 shrink-0 relative z-10 bg-white ${m.highlight ? "text-[#e2752c]" : "text-gray-300"}`} />
                       )}
                       <span
+                        onClick={handleMissionClick}
                         className={`text-sm ${
-                          m.done ? "font-semibold text-[#333]" : m.highlight ? "font-semibold text-[#e2752c] hover:underline" : "text-[#888]"
+                          m.done ? "font-semibold text-[#333]" : m.highlight ? "font-semibold text-[#e2752c] hover:underline cursor-pointer" : "text-[#888]"
                         }`}
                       >
                         {m.label}
@@ -382,7 +391,11 @@ function DashboardContent() {
                           step.active ? "bg-[#e2752c]" : "bg-gray-100"
                         }`}
                       >
-                        <Rocket className={`w-5 h-5 ${step.active ? "text-white" : "text-gray-400"}`} />
+                        {step.active ? (
+                          <Rocket className="w-5 h-5 text-white" />
+                        ) : (
+                          <img src="/images/jobhatch/egg.png" alt="" className="w-7 h-7 object-contain" />
+                        )}
                       </div>
                       <span className={`text-xs font-medium text-center ${step.active ? "text-[#e2752c]" : "text-[#999]"}`}>
                         {step.label}
@@ -410,20 +423,22 @@ function DashboardContent() {
             </div>
 
             {/* Right Column */}
-            <div className="w-full xl:w-[320px] shrink-0 space-y-6">
-              {/* Welcome card */}
-              <div className="border border-gray-200 rounded-xl p-5">
-                <p className="text-sm text-[#555] leading-relaxed mb-3">
-                  Welcome to Jobhatch today! Your goals are waiting! Do your{" "}
-                  <span className="font-bold">daily check-in</span> and keep moving forward.
-                </p>
-                <button
-                  onClick={() => setCheckInOpen(true)}
-                  className="w-full bg-[#e2752c] text-white font-bold text-sm py-3 rounded-lg hover:brightness-110 transition cursor-pointer"
-                >
-                  Check-in Now
-                </button>
-              </div>
+            <div className="w-full xl:w-[320px] shrink-0 space-y-6 xl:border-l xl:border-gray-200 xl:pl-8">
+              {/* Welcome card — hidden after check-in */}
+              {!checkedIn && (
+                <div className="border border-gray-200 rounded-xl p-5">
+                  <p className="text-sm text-[#555] leading-relaxed mb-3">
+                    Welcome to Jobhatch today! Your goals are waiting! Do your{" "}
+                    <span className="font-bold">daily check-in</span> and keep moving forward.
+                  </p>
+                  <button
+                    onClick={() => setCheckInOpen(true)}
+                    className="w-full bg-[#e2752c] text-white font-bold text-sm py-3 rounded-lg hover:brightness-110 transition cursor-pointer"
+                  >
+                    Check-in Now
+                  </button>
+                </div>
+              )}
 
               {/* Your Strengths */}
               <div>
@@ -452,11 +467,12 @@ function DashboardContent() {
                     <span className="text-sm text-[#555]">Review your resume &gt;</span>
                   </div>
                 </div>
-                <div className="flex justify-end mt-2">
+                <div className="flex justify-start mt-2">
                   <img src="/images/jobhatch/tips-mascot.png" alt="" className="w-20 h-20 object-contain" />
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
