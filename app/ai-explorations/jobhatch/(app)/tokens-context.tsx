@@ -8,7 +8,7 @@ type TokensContextType = {
   setTokens: (updater: number | ((prev: number) => number)) => void;
 };
 
-const TokensContext = createContext<TokensContextType>({ tokens: 40, setTokens: () => {} });
+const TokensContext = createContext<TokensContextType>({ tokens: 0, setTokens: () => {} });
 
 export function TokensProvider({ children }: { children: React.ReactNode }) {
   const [tokens, setTokens] = useTokens();

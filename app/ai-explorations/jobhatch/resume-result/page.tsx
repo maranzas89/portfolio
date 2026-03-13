@@ -98,11 +98,7 @@ export default function ResumeResultPage() {
           </div>
           <span className="font-black text-[#2f327d] text-xl md:text-2xl tracking-[4px]">JOBHATCH</span>
         </Link>
-        <div className="hidden md:flex items-center gap-2">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-gray-300 to-gray-400" />
-          <span className="text-[#333] font-medium">Mia Yue</span>
-          <span className="text-[#999] text-xs">›</span>
-        </div>
+        <div className="hidden md:flex items-center gap-2" />
       </header>
 
       {/* Content */}

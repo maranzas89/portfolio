@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTokensContext } from "../tokens-context";
@@ -169,7 +169,7 @@ function CheckInModal({ open, onDismiss, onContinue }: { open: boolean; onDismis
 function DashboardContent() {
   const searchParams = useSearchParams();
   const skippedResume = searchParams.get("skipped") === "resume";
-  const { tokens } = useTokensContext();
+  const { setTokens } = useTokensContext();
   const [checkInOpen, setCheckInOpen] = useState(false);
   const [checkedIn, setCheckedIn] = useState(() => {
     if (typeof window !== "undefined") {
@@ -182,7 +182,17 @@ function DashboardContent() {
     setCheckedIn(true);
     localStorage.setItem("jobhatch-checked-in", "true");
     setCheckInOpen(false);
+    setTokens((t) => t + 10);
   };
+
+  // Initialize tokens once based on onboarding path, then never override
+  useEffect(() => {
+    const initialized = localStorage.getItem("jobhatch-onboarding-done");
+    if (!initialized) {
+      setTokens(skippedResume ? 10 : 30);
+      localStorage.setItem("jobhatch-onboarding-done", skippedResume ? "skipped" : "complete");
+    }
+  }, [skippedResume, setTokens]);
 
   const missions = MISSIONS.map((m) => {
     if (skippedResume && m.label.startsWith("Upload your resume")) {
@@ -198,16 +208,18 @@ function DashboardContent() {
   });
   const [uploadResumeOpen, setUploadResumeOpen] = useState(false);
 
-  // If resume skipped, also mark onboarding as not done (0% state), highlight first
+  // If resume skipped: onboarding is done, resume is not done (highlight it), rest unchanged
   const activeMissions = skippedResume
-    ? missions.map((m, i) => ({ ...m, done: false, highlight: i === 0 }))
+    ? missions.map((m) => {
+        if (m.label.startsWith("Finish onboarding")) return { ...m, done: true, highlight: false };
+        if (m.label.startsWith("Upload your resume")) return { ...m, done: false, highlight: true };
+        return { ...m, highlight: false };
+      })
     : missions;
 
   const completedCount = activeMissions.filter((m) => m.done).length;
   const progress = Math.round((completedCount / activeMissions.length) * 100);
 
-  // Suppress unused variable warning
-  void tokens;
 
   return (
     <>
@@ -245,7 +257,7 @@ function DashboardContent() {
                   const isClickable = m.highlight && !m.done;
                   const handleMissionClick = () => {
                     if (!isClickable) return;
-                    if (skippedResume && m.label.startsWith("Finish onboarding")) {
+                    if (m.label.startsWith("Upload your resume")) {
                       setUploadResumeOpen(true);
                     } else if (m.label.startsWith("Complete daily check-in")) {
                       setCheckInOpen(true);

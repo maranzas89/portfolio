@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   ChevronLeft,
   ChevronRight,
@@ -16,6 +17,7 @@ import {
   Presentation,
   CircleCheckBig,
   CalendarDays,
+  X,
 } from "lucide-react";
 import { useTokensContext } from "../tokens-context";
 
@@ -103,7 +105,8 @@ function getFirstDayOfMonth(year: number, month: number) {
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export default function PlannerPage() {
-  const { setTokens } = useTokensContext();
+  const { tokens, setTokens } = useTokensContext();
+  const [showInsufficientTokens, setShowInsufficientTokens] = useState(false);
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
@@ -134,7 +137,13 @@ export default function PlannerPage() {
 
   const confirmBooking = () => {
     if (selectedMentor !== null) {
-      setTokens((t) => t - MENTORS[selectedMentor].cost);
+      const cost = MENTORS[selectedMentor].cost;
+      if (tokens < cost) {
+        setShowBookingConfirm(false);
+        setShowInsufficientTokens(true);
+        return;
+      }
+      setTokens((t) => t - cost);
       setShowBookingConfirm(false);
       setBookingComplete(true);
       setTimeout(() => setBookingComplete(false), 3000);
@@ -574,6 +583,41 @@ export default function PlannerPage() {
           <div className="flex items-center gap-3 bg-white rounded-lg shadow-lg border-l-4 border-[#e2752c] px-5 py-4">
             <CircleCheckBig className="w-6 h-6 text-[#2ebb5e] shrink-0" />
             <p className="text-sm font-semibold text-[#333]">Session booked successfully!</p>
+          </div>
+        </div>
+      )}
+
+      {/* Insufficient Tokens Modal */}
+      {showInsufficientTokens && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl w-full max-w-[480px] mx-4 relative">
+            <button
+              onClick={() => setShowInsufficientTokens(false)}
+              className="absolute top-5 right-5 text-[#999] hover:text-[#333] transition cursor-pointer"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <div className="px-10 py-10 flex flex-col items-center text-center">
+              <img src="/images/jobhatch/tips-mascot.png" alt="Mascot" className="w-[100px] h-auto mb-6" />
+              <h2 className="text-xl font-bold text-[#333] mb-3">Not enough tokens</h2>
+              <p className="text-sm text-[#888] mb-6">
+                You need {selectedMentor !== null ? MENTORS[selectedMentor].cost : 0} tokens to book this session but you only have <span className="font-bold text-[#e2752c]">{tokens} tokens</span>. Complete daily missions or recharge to earn more tokens.
+              </p>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setShowInsufficientTokens(false)}
+                  className="border border-gray-300 text-[#555] font-bold text-sm px-8 py-3 rounded-full hover:bg-gray-50 transition cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <Link
+                  href="/ai-explorations/jobhatch/dashboard"
+                  className="bg-[#e2752c] text-white font-bold text-sm px-8 py-3 rounded-full hover:brightness-110 transition"
+                >
+                  Go to Dashboard
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       )}

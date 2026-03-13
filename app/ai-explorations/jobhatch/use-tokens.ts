@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 const STORAGE_KEY = "jobhatch-tokens";
-const DEFAULT_TOKENS = 40;
+const DEFAULT_TOKENS = 0;
 
 export function useTokens() {
   const [tokens, setTokensState] = useState(DEFAULT_TOKENS);
@@ -15,7 +15,8 @@ export function useTokens() {
 
   const setTokens = (updater: number | ((prev: number) => number)) => {
     setTokensState((prev) => {
-      const next = typeof updater === "function" ? updater(prev) : updater;
+      const raw = typeof updater === "function" ? updater(prev) : updater;
+      const next = Math.max(0, raw);
       localStorage.setItem(STORAGE_KEY, String(next));
       return next;
     });

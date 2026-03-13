@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { jsPDF } from "jspdf";
 import { PROFILE, EDUCATION, WORK_EXPERIENCE, SKILLS } from "../../profile-data";
@@ -19,6 +20,7 @@ export default function ResumePage() {
   const { tokens, setTokens } = useTokensContext();
   const [showToast, setShowToast] = useState(false);
   const [coverLetterGenerated, setCoverLetterGenerated] = useState(false);
+  const [showInsufficientTokens, setShowInsufficientTokens] = useState(false);
 
   function handleDownloadPDF() {
     const pdf = new jsPDF("p", "mm", "a4");
@@ -450,6 +452,11 @@ export default function ResumePage() {
                 </button>
                 <button
                   onClick={() => {
+                    if (tokens < 30) {
+                      setShowConfirmModal(false);
+                      setShowInsufficientTokens(true);
+                      return;
+                    }
                     setTokens((t) => t - 30);
                     setShowConfirmModal(false);
                     setShowToast(true);
@@ -459,6 +466,41 @@ export default function ResumePage() {
                 >
                   Yes
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Insufficient Tokens Modal */}
+      {showInsufficientTokens && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl w-full max-w-[480px] mx-4 relative">
+            <button
+              onClick={() => setShowInsufficientTokens(false)}
+              className="absolute top-5 right-5 text-[#999] hover:text-[#333] transition cursor-pointer"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <div className="px-10 py-10 flex flex-col items-center text-center">
+              <img src="/images/jobhatch/tips-mascot.png" alt="Mascot" className="w-[100px] h-auto mb-6" />
+              <h2 className="text-xl font-bold text-[#333] mb-3">Not enough tokens</h2>
+              <p className="text-sm text-[#888] mb-6">
+                You need 30 tokens to optimize your resume but you only have <span className="font-bold text-[#e2752c]">{tokens} tokens</span>. Complete daily missions or recharge to earn more tokens.
+              </p>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setShowInsufficientTokens(false)}
+                  className="border border-gray-300 text-[#555] font-bold text-sm px-8 py-3 rounded-full hover:bg-gray-50 transition cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <Link
+                  href="/ai-explorations/jobhatch/dashboard"
+                  className="bg-[#e2752c] text-white font-bold text-sm px-8 py-3 rounded-full hover:brightness-110 transition"
+                >
+                  Go to Dashboard
+                </Link>
               </div>
             </div>
           </div>
