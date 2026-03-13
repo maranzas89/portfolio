@@ -57,7 +57,7 @@ function RadarChart() {
   const colors = ["#22c55e", "#a855f7", "#facc15", "#3b82f6", "#ef4444", "#ec4899"];
 
   return (
-    <svg width="240" height="240" viewBox="0 0 240 240">
+    <svg width="240" height="240" viewBox="0 0 240 240" className="max-w-full h-auto">
       {gridLevels.map((pts, i) => (
         <polygon key={i} points={pts.map((p) => `${p.x},${p.y}`).join(" ")} fill="none" stroke="#e5e7eb" strokeWidth="1" />
       ))}
@@ -105,7 +105,7 @@ function UploadResumeModal({ open, onClose }: { open: boolean; onClose: () => vo
             Autocomplete your profile in just a few seconds by uploading a resume.
           </p>
 
-          <div className="w-full max-w-[540px] border border-gray-200 rounded-2xl py-10 px-8 flex flex-col items-center mb-6">
+          <div className="w-full max-w-[540px] border border-gray-200 rounded-2xl py-8 sm:py-10 px-4 sm:px-8 flex flex-col items-center mb-6">
             <img
               src="/images/jobhatch/tips-mascot.png"
               alt="Upload mascot"
@@ -116,7 +116,7 @@ function UploadResumeModal({ open, onClose }: { open: boolean; onClose: () => vo
             </p>
             <Link
               href="/ai-explorations/jobhatch/resume-result"
-              className="bg-[#e2752c] text-white font-bold text-lg px-14 py-3.5 rounded-full hover:brightness-110 transition inline-block"
+              className="bg-[#e2752c] text-white font-bold text-base sm:text-lg px-8 sm:px-14 py-3.5 rounded-full hover:brightness-110 transition inline-block"
             >
               Upload Resume
             </Link>
@@ -133,7 +133,7 @@ function CheckInModal({ open, onDismiss, onContinue }: { open: boolean; onDismis
     <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={onDismiss}>
       <div className="absolute inset-0 bg-black/50" />
       <div
-        className="relative bg-white rounded-2xl shadow-2xl w-full max-w-[560px] mx-4 px-10 pt-10 pb-10 text-center"
+        className="relative bg-white rounded-2xl shadow-2xl w-full max-w-[560px] mx-4 px-5 sm:px-10 pt-8 sm:pt-10 pb-8 sm:pb-10 text-center"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -227,13 +227,13 @@ function DashboardContent() {
       <CheckInModal open={checkInOpen} onDismiss={() => setCheckInOpen(false)} onContinue={handleCheckInClose} />
       <UploadResumeModal open={uploadResumeOpen} onClose={() => setUploadResumeOpen(false)} />
       {/* Content area with cream bg — scrollable */}
-      <div className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto p-[52px]">
-        <div className="bg-white rounded-2xl mx-auto w-full px-8 md:px-14 py-10">
+      <div className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto p-4 sm:p-6 md:p-8 lg:p-[52px]">
+        <div className="bg-white rounded-2xl mx-auto w-full px-4 sm:px-8 md:px-14 py-6 sm:py-10">
         <div className="flex flex-col xl:flex-row gap-8">
           {/* Left Column */}
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-[#999] mb-2">Your Dashboard</p>
-            <h1 className="font-black text-[#333] text-[40px] tracking-[3px] mb-2">Welcome, Mia!</h1>
+            <h1 className="font-black text-[#333] text-2xl sm:text-[32px] lg:text-[40px] tracking-[2px] lg:tracking-[3px] mb-2">Welcome, Mia!</h1>
             <p className="text-sm font-bold text-[#888] mb-8">
               Complete Today&apos;s Mission to let recruiter catch you quickly!
             </p>
@@ -291,26 +291,26 @@ function DashboardContent() {
             </div>
 
             {/* Career Journey */}
-            <div className="border border-gray-200 rounded-xl p-6 mb-8">
+            <div className="border border-gray-200 rounded-xl p-4 sm:p-6 mb-8">
               <h3 className="text-lg font-bold text-[#2f327d] mb-1">Your Career Journey:</h3>
               <p className="text-sm text-[#888] mb-6">The Tech Explorer&apos;s Path</p>
-              <div className="flex items-center justify-between relative">
+              <div className="flex items-center justify-between relative overflow-x-auto">
                 {/* Connecting line */}
                 <div className="absolute top-6 left-[10%] right-[10%] h-[2px] bg-gray-200 z-0" />
                 {JOURNEY_STEPS.map((step, i) => (
-                  <div key={i} className="flex flex-col items-center gap-2 flex-1 relative z-10">
+                  <div key={i} className="flex flex-col items-center gap-2 flex-1 min-w-[60px] relative z-10">
                     <div
-                      className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                      className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 ${
                         step.active ? "bg-[#e2752c]" : "bg-gray-100"
                       }`}
                     >
                       {step.active ? (
-                        <Rocket className="w-5 h-5 text-white" />
+                        <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                       ) : (
-                        <img src="/images/jobhatch/egg.png" alt="" className="w-7 h-7 object-contain" />
+                        <img src="/images/jobhatch/egg.png" alt="" className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
                       )}
                     </div>
-                    <span className={`text-xs font-medium text-center ${step.active ? "text-[#e2752c]" : "text-[#999]"}`}>
+                    <span className={`text-[10px] sm:text-xs font-medium text-center ${step.active ? "text-[#e2752c]" : "text-[#999]"}`}>
                       {step.label}
                     </span>
                   </div>
@@ -321,7 +321,7 @@ function DashboardContent() {
             {/* Recently Applied Jobs */}
             <div className="mb-8">
               <h3 className="text-base font-bold text-[#e2752c] mb-3">Recently Applied Jobs</h3>
-              <div className="border border-gray-100 rounded-xl p-8 text-center">
+              <div className="border border-gray-100 rounded-xl p-4 sm:p-8 text-center">
                 <p className="text-sm text-[#999]">It appears you haven&apos;t applied to any jobs</p>
               </div>
             </div>
@@ -329,7 +329,7 @@ function DashboardContent() {
             {/* Followed Jobs */}
             <div>
               <h3 className="text-base font-bold text-[#e2752c] mb-3">Followed Jobs</h3>
-              <div className="border border-gray-100 rounded-xl p-8 text-center">
+              <div className="border border-gray-100 rounded-xl p-4 sm:p-8 text-center">
                 <p className="text-sm text-[#999]">You have not followed any Jobs yet!</p>
               </div>
             </div>

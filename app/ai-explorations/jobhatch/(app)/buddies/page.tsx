@@ -272,6 +272,7 @@ export default function BuddiesPage() {
   });
   const [showMatchDetails, setShowMatchDetails] = useState(true);
   const [selectedActivities, setSelectedActivities] = useState<Set<string>>(new Set(["Mock Interviews", "Resume Feedback"]));
+  const [showChatList, setShowChatList] = useState(true);
 
   const currentBuddyIndex = BUDDIES.findIndex((_, i) => !matchedBuddies.has(i) && !skippedBuddies.has(i));
   const currentBuddy = currentBuddyIndex >= 0 ? BUDDIES[currentBuddyIndex] : null;
@@ -312,17 +313,17 @@ export default function BuddiesPage() {
   };
 
   return (
-    <div className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-[52px]" style={{ scrollbarWidth: "none" }}>
-      <div className="bg-white rounded-2xl mx-auto w-full px-8 md:px-14 py-10">
+    <div className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-4 sm:p-6 md:p-8 lg:p-[52px]" style={{ scrollbarWidth: "none" }}>
+      <div className="bg-white rounded-2xl mx-auto w-full px-4 sm:px-6 md:px-14 py-6 sm:py-8 lg:py-10">
         {/* Page Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="font-black text-[#333] text-[40px] tracking-[3px] mb-1">BUDDIES</h1>
-            <p className="text-base font-semibold text-[#999]">Match with peers on similar career paths and support each other&apos;s journey</p>
+            <h1 className="font-black text-[#333] text-2xl sm:text-[32px] lg:text-[40px] tracking-[3px] mb-1">BUDDIES</h1>
+            <p className="text-sm sm:text-base font-semibold text-[#999]">Match with peers on similar career paths and support each other&apos;s journey</p>
           </div>
-          <div className="flex bg-[#f3f4f6] rounded-lg overflow-hidden">
+          <div className="flex bg-[#f3f4f6] rounded-lg overflow-hidden shrink-0">
             {(["discover", "matched", "chat"] as const).map((tab) => (
-              <button key={tab} onClick={() => setActiveView(tab)} className={`px-5 py-2.5 text-base font-semibold capitalize transition cursor-pointer ${activeView === tab ? "bg-[#e2752c] text-white" : "text-[#555] hover:bg-gray-50"}`}>
+              <button key={tab} onClick={() => { setActiveView(tab); if (tab === "chat") setShowChatList(true); }} className={`px-3 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-base font-semibold capitalize transition cursor-pointer ${activeView === tab ? "bg-[#e2752c] text-white" : "text-[#555] hover:bg-gray-50"}`}>
                 {tab === "discover" ? "Discover" : tab === "matched" ? `Matched (${matchedBuddies.size})` : "Chat"}
               </button>
             ))}
@@ -330,9 +331,9 @@ export default function BuddiesPage() {
         </div>
 
         {activeView === "discover" && (
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             {/* Left: Match Preferences & Stats */}
-            <div className="col-span-1 space-y-6">
+            <div className="col-span-1 space-y-4 sm:space-y-6">
               <h2 className="text-xl font-black text-[#333]">Match Preferences</h2>
               <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-3">
                 {MATCH_CRITERIA.map((criteria) => {
@@ -442,12 +443,12 @@ export default function BuddiesPage() {
             </div>
 
             {/* Middle + Right: Current Buddy Card */}
-            <div className="col-span-2">
+            <div className="col-span-1 lg:col-span-2">
               <h2 className="text-xl font-black text-[#333] mb-6">Buddie</h2>
               {currentBuddy ? (
                 <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
                   {/* Info bar */}
-                  <div className="px-8 pt-6">
+                  <div className="px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
                     <div className="flex items-start gap-3 bg-[#f0f4ff] rounded-lg px-5 py-4">
                       <Info className="w-5 h-5 text-[#6366f1] mt-0.5 shrink-0" strokeWidth={3} />
                       <p className="text-sm text-[#555] leading-relaxed font-semibold">
@@ -456,19 +457,19 @@ export default function BuddiesPage() {
                     </div>
                   </div>
                   {/* Header */}
-                  <div className="p-8 pb-6">
-                    <div className="flex items-start gap-5">
-                      <div className="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold shrink-0" style={{ backgroundColor: currentBuddy.color }}>
+                  <div className="p-4 sm:p-6 lg:p-8 pb-4 sm:pb-6">
+                    <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-white text-xl sm:text-2xl font-bold shrink-0" style={{ backgroundColor: currentBuddy.color }}>
                         {currentBuddy.initials}
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <div className="-mt-[18px]">
-                            <h2 className="text-4xl font-black text-[#333]">{currentBuddy.name}</h2>
-                            <p className="text-lg text-[#888] mt-0.5 font-normal">{currentBuddy.title}</p>
+                      <div className="flex-1 min-w-0 w-full">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                          <div className="sm:-mt-[18px]">
+                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#333]">{currentBuddy.name}</h2>
+                            <p className="text-base sm:text-lg text-[#888] mt-0.5 font-normal">{currentBuddy.title}</p>
                           </div>
-                          <div className="flex items-center gap-4">
-                            <div className="relative w-[80px] h-[80px] shrink-0">
+                          <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+                            <div className="relative w-[64px] h-[64px] sm:w-[80px] sm:h-[80px] shrink-0">
                               <svg className="w-full h-full -rotate-90" viewBox="0 0 80 80">
                                 <defs>
                                   <linearGradient id="matchGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -481,20 +482,20 @@ export default function BuddiesPage() {
                                   strokeDasharray={`${2 * Math.PI * 34 * currentBuddy.matchPercent / 100} ${2 * Math.PI * 34}`} />
                               </svg>
                               <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="text-lg font-black text-[#333]">{currentBuddy.matchPercent}%</span>
+                                <span className="text-base sm:text-lg font-black text-[#333]">{currentBuddy.matchPercent}%</span>
                               </div>
                             </div>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex sm:flex-col gap-2">
                               <button
                                 onClick={() => handleMatch(currentBuddyIndex)}
-                                className="flex items-center justify-center gap-2 w-[120px] py-3.5 rounded-xl bg-[#e2752c] text-white text-sm font-bold hover:brightness-110 transition cursor-pointer"
+                                className="flex items-center justify-center gap-2 w-full sm:w-[120px] px-4 sm:px-0 py-3 sm:py-3.5 rounded-xl bg-[#e2752c] text-white text-sm font-bold hover:brightness-110 transition cursor-pointer"
                               >
                                 <UserPlus className="w-4 h-4" />
                                 Connect
                               </button>
                               <button
                                 onClick={() => handleSkip(currentBuddyIndex)}
-                                className="flex items-center justify-center gap-2 w-[120px] py-3.5 rounded-xl bg-white border border-gray-200 text-sm font-semibold text-[#888] hover:bg-red-50 hover:border-red-200 hover:text-red-400 transition cursor-pointer"
+                                className="flex items-center justify-center gap-2 w-full sm:w-[120px] px-4 sm:px-0 py-3 sm:py-3.5 rounded-xl bg-white border border-gray-200 text-sm font-semibold text-[#888] hover:bg-red-50 hover:border-red-200 hover:text-red-400 transition cursor-pointer"
                               >
                                 <X className="w-4 h-4" />
                                 Skip
@@ -504,21 +505,21 @@ export default function BuddiesPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 mt-2">
-                      <span className="flex items-center gap-1.5 text-base text-[#888] font-semibold"><MapPin className="w-4 h-4" />{currentBuddy.location}</span>
-                      <span className="flex items-center gap-1.5 text-base text-[#888] font-semibold"><Coins className="w-4 h-4" />{currentBuddy.tokens} tokens</span>
-                      <span className={`text-base font-semibold px-3 py-1 rounded-full ${stageColor(currentBuddy.currentStage)}`}>{currentBuddy.currentStage}</span>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-2">
+                      <span className="flex items-center gap-1.5 text-sm sm:text-base text-[#888] font-semibold"><MapPin className="w-4 h-4" />{currentBuddy.location}</span>
+                      <span className="flex items-center gap-1.5 text-sm sm:text-base text-[#888] font-semibold"><Coins className="w-4 h-4" />{currentBuddy.tokens} tokens</span>
+                      <span className={`text-sm sm:text-base font-semibold px-3 py-1 rounded-full ${stageColor(currentBuddy.currentStage)}`}>{currentBuddy.currentStage}</span>
                     </div>
-                    <p className="text-lg text-[#888] mt-5 leading-relaxed font-semibold">{currentBuddy.bio}</p>
+                    <p className="text-base sm:text-lg text-[#888] mt-4 sm:mt-5 leading-relaxed font-semibold">{currentBuddy.bio}</p>
 
                     {/* Support Style Tags */}
-                    <div className="mt-5">
-                      <p className="text-lg font-bold text-[#333] mb-4">Looking for</p>
+                    <div className="mt-4 sm:mt-5">
+                      <p className="text-base sm:text-lg font-bold text-[#333] mb-3 sm:mb-4">Looking for</p>
                       <div className="flex flex-wrap gap-2">
                         {currentBuddy.supportStyles.map((style) => {
                           const Icon = supportStyleIcon(style);
                           return (
-                            <span key={style} className="flex items-center gap-2 text-base font-medium bg-[#eef2ff] text-[#4f46e5] px-5 py-3 rounded-lg">
+                            <span key={style} className="flex items-center gap-2 text-sm sm:text-base font-medium bg-[#eef2ff] text-[#4f46e5] px-3 sm:px-5 py-2 sm:py-3 rounded-lg">
                               <Icon className="w-4 h-4" />
                               {style}
                             </span>
@@ -529,7 +530,7 @@ export default function BuddiesPage() {
                   </div>
 
                   {/* Skills */}
-                  <div className="px-8 pb-6">
+                  <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6">
                     <h3 className="text-lg font-bold text-[#333] mb-4">Skills</h3>
                     <div className="flex flex-wrap gap-2">
                       {currentBuddy.skills.map((skill) => (
@@ -539,16 +540,16 @@ export default function BuddiesPage() {
                   </div>
 
                   {/* Why You Match */}
-                  <div className="px-8 pb-6">
+                  <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6">
                     <h3 className="text-lg font-bold text-[#333] mb-4">Why you match</h3>
-                      <div className="rounded-xl p-5 space-y-5 mt-3 border border-gray-200">
+                      <div className="rounded-xl p-3 sm:p-5 space-y-4 sm:space-y-5 mt-3 border border-gray-200">
                         <p className="text-sm font-semibold text-[#888] mb-4">Match score breakdown</p>
                         {currentBuddy.matchReasons.map((reason) => {
                           const Icon = reason.icon;
                           return (
-                            <div key={reason.label} className="flex items-center gap-3">
+                            <div key={reason.label} className="flex items-center gap-2 sm:gap-3">
                               <Icon className="w-4 h-4 text-[#e2752c] shrink-0" />
-                              <span className="text-sm font-medium text-[#555] w-[170px] shrink-0 whitespace-nowrap">{reason.label}</span>
+                              <span className="text-xs sm:text-sm font-medium text-[#555] w-[120px] sm:w-[170px] shrink-0">{reason.label}</span>
                               <div className="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
                                 <div className="h-full rounded-full transition-all" style={{ width: `${reason.score * 2.5}%`, background: "linear-gradient(to right, #f59e0b, #e2752c)" }} />
                               </div>
@@ -559,7 +560,7 @@ export default function BuddiesPage() {
                         {/* Shared goals */}
                         <div className="pt-3 border-t border-gray-200">
                           <p className="text-sm font-semibold text-[#888] mb-2">Shared goals</p>
-                          <div className="flex gap-2">
+                          <div className="flex flex-wrap gap-2">
                             {currentBuddy.sharedGoals.map((goal) => (
                               <span key={goal} className="text-sm font-medium bg-white text-[#555] px-3 py-1.5 rounded-md border border-gray-200">{goal}</span>
                             ))}
@@ -575,9 +576,9 @@ export default function BuddiesPage() {
                   </div>
 
                   {/* Job Search Activity */}
-                  <div className="px-8 pb-6">
+                  <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6">
                     <h3 className="text-lg font-bold text-[#333] mb-4">Job Search Activity</h3>
-                    <div className="grid grid-cols-3 gap-4 mb-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-5">
                       <div className="bg-[#f9fafb] rounded-lg p-4 text-center">
                         <p className="text-4xl font-black text-[#333]">{currentBuddy.applicationsThisWeek}</p>
                         <p className="text-base text-[#888] font-medium mt-1">Applied this week</p>
@@ -607,7 +608,7 @@ export default function BuddiesPage() {
 
                 </div>
               ) : (
-                <div className="bg-white rounded-2xl border border-gray-200 p-16 text-center">
+                <div className="bg-white rounded-2xl border border-gray-200 p-8 sm:p-16 text-center">
                   <Users className="w-16 h-16 text-[#ddd] mx-auto mb-4" />
                   <h2 className="text-xl font-black text-[#333] mb-2">All caught up!</h2>
                   <p className="text-base text-[#888]">You&apos;ve reviewed all available buddies. Check back later for new matches.</p>
@@ -618,9 +619,9 @@ export default function BuddiesPage() {
         )}
 
         {activeView === "matched" && (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {matchedBuddies.size === 0 ? (
-              <div className="col-span-2 bg-white rounded-xl border border-gray-200 p-16 text-center">
+              <div className="col-span-1 sm:col-span-2 bg-white rounded-xl border border-gray-200 p-8 sm:p-16 text-center">
                 <UserPlus className="w-12 h-12 text-[#ddd] mx-auto mb-3" />
                 <h2 className="text-xl font-black text-[#333] mb-2">No matches yet</h2>
                 <p className="text-base text-[#888]">Start discovering buddies to find your match!</p>
@@ -630,15 +631,15 @@ export default function BuddiesPage() {
               Array.from(matchedBuddies).map((i) => {
                 const buddy = BUDDIES[i];
                 return (
-                  <div key={buddy.name} className="bg-white rounded-xl border border-gray-200 p-8">
+                  <div key={buddy.name} className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 lg:p-8">
                     <div className="flex items-start gap-4">
                       <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg font-bold shrink-0" style={{ backgroundColor: buddy.color }}>
                         {buddy.initials}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                          <p className="font-black text-[#333] text-xl">{buddy.name}</p>
-                          <span className={`text-base font-semibold px-3 py-1 rounded-full ${stageColor(buddy.currentStage)}`}>{buddy.currentStage}</span>
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <p className="font-black text-[#333] text-lg sm:text-xl">{buddy.name}</p>
+                          <span className={`text-sm sm:text-base font-semibold px-3 py-1 rounded-full ${stageColor(buddy.currentStage)}`}>{buddy.currentStage}</span>
                         </div>
                         <p className="text-base text-[#888] mt-0.5 font-medium">{buddy.title}</p>
                         <div className="flex flex-wrap gap-2 mt-3">
@@ -671,9 +672,9 @@ export default function BuddiesPage() {
         )}
 
         {activeView === "chat" && (
-          <div className="grid grid-cols-3 gap-6 h-[calc(100vh-240px)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 h-[calc(100vh-200px)] sm:h-[calc(100vh-220px)] lg:h-[calc(100vh-240px)]">
             {/* Contact List */}
-            <div className="col-span-1 bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col">
+            <div className={`col-span-1 bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col ${!showChatList && selectedBuddy !== null ? "hidden md:flex" : ""}`}>
               <div className="p-4 border-b border-gray-100">
                 <h3 className="text-lg font-bold text-[#333]">Matched Buddies</h3>
               </div>
@@ -688,7 +689,7 @@ export default function BuddiesPage() {
                     return (
                       <div
                         key={buddy.name}
-                        onClick={() => setSelectedBuddy(i)}
+                        onClick={() => { setSelectedBuddy(i); setShowChatList(false); }}
                         className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition ${selectedBuddy === i ? "bg-[#fef3e2]" : "hover:bg-gray-50"}`}
                       >
                         <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0" style={{ backgroundColor: buddy.color }}>
@@ -706,11 +707,14 @@ export default function BuddiesPage() {
             </div>
 
             {/* Chat Area */}
-            <div className="col-span-2 bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col">
+            <div className={`col-span-1 md:col-span-2 bg-white rounded-xl border border-gray-200 overflow-hidden flex-col ${showChatList ? "hidden md:flex" : "flex"}`}>
               {selectedBuddy !== null && matchedBuddies.has(selectedBuddy) ? (
                 <>
-                  <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-100">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: BUDDIES[selectedBuddy].color }}>
+                  <div className="flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 border-b border-gray-100">
+                    <button onClick={() => { setShowChatList(true); setSelectedBuddy(null); }} className="md:hidden text-[#888] hover:text-[#333] transition cursor-pointer shrink-0">
+                      <ChevronDown className="w-5 h-5 rotate-90" />
+                    </button>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0" style={{ backgroundColor: BUDDIES[selectedBuddy].color }}>
                       {BUDDIES[selectedBuddy].initials}
                     </div>
                     <div className="flex-1">

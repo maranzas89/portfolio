@@ -133,10 +133,10 @@ export default function ResumePage() {
       )}
 
       {/* Content area with cream bg */}
-      <div className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-[52px]" style={{ scrollbarWidth: 'none' }}>
-        <div className="bg-white rounded-2xl mx-auto w-full px-8 md:px-14 py-10">
+      <div className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-4 sm:p-6 md:p-8 lg:p-[52px]" style={{ scrollbarWidth: 'none' }}>
+        <div className="bg-white rounded-2xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-14 py-6 sm:py-8 lg:py-10">
           {/* Title */}
-          <h1 className="font-black text-[#333] text-[40px] tracking-[3px] mb-1">
+          <h1 className="font-black text-[#333] text-2xl sm:text-[32px] lg:text-[40px] tracking-[3px] mb-1">
             RESUME
           </h1>
           <p className="text-base font-semibold text-[#999] mb-6">
@@ -144,7 +144,7 @@ export default function ResumePage() {
           </p>
 
           {/* Upload CTA card */}
-          <div className="bg-[#fdf8e8] rounded-xl p-8 flex items-center justify-between mb-10">
+          <div className="bg-[#fdf8e8] rounded-xl p-5 sm:p-6 lg:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 sm:mb-10">
             <div>
               <p className="text-2xl font-bold text-[#333] mb-2">
                 Optimize My Resume
@@ -165,12 +165,12 @@ export default function ResumePage() {
             <img
               src="/images/jobhatch/resume-mascot.png"
               alt="Resume mascot"
-              className="w-[120px] h-auto ml-8 shrink-0"
+              className="w-[80px] sm:w-[100px] lg:w-[120px] h-auto sm:ml-8 shrink-0 order-first sm:order-last"
             />
           </div>
 
           {/* AI Resume Builder Banner */}
-          <div className="flex items-center gap-6 mb-8 bg-gradient-to-r from-[#2f327d] to-[#4a4db0] rounded-xl px-8 py-5">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-8 bg-gradient-to-r from-[#2f327d] to-[#4a4db0] rounded-xl px-5 sm:px-6 lg:px-8 py-5 text-center sm:text-left">
             <img
               src="/images/jobhatch/hero-mascot.png"
               alt="AI mascot"
@@ -193,17 +193,17 @@ export default function ResumePage() {
           </div>
 
           {/* Generate + Copy row */}
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-xl font-black text-[#333]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <p className="text-lg sm:text-xl font-black text-[#333]">
               Recent Updated Resume Preview
             </p>
-            <div className="flex items-center gap-3">
-              <button className="border border-[#e2752c] text-[#e2752c] font-bold text-sm px-8 py-2.5 rounded-full hover:bg-[#e2752c] hover:text-white transition cursor-pointer">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <button className="border border-[#e2752c] text-[#e2752c] font-bold text-xs sm:text-sm px-5 sm:px-8 py-2 sm:py-2.5 rounded-full hover:bg-[#e2752c] hover:text-white transition cursor-pointer">
                 Upload a New Resume
               </button>
               <button
                 onClick={handleDownloadPDF}
-                className="border border-[#e2752c] text-[#e2752c] font-bold text-sm px-8 py-2.5 rounded-full hover:bg-[#e2752c] hover:text-white transition cursor-pointer"
+                className="border border-[#e2752c] text-[#e2752c] font-bold text-xs sm:text-sm px-5 sm:px-8 py-2 sm:py-2.5 rounded-full hover:bg-[#e2752c] hover:text-white transition cursor-pointer"
               >
                 Download as PDF
               </button>
@@ -211,7 +211,7 @@ export default function ResumePage() {
           </div>
 
           {/* Resume text area */}
-          <div className="border border-gray-200 rounded-xl p-8 min-h-[300px]">
+          <div className="border border-gray-200 rounded-xl p-4 sm:p-6 lg:p-8 min-h-[300px]">
             <div className="space-y-6 text-sm text-[#555] leading-relaxed">
               <div>
                 <h3 className="text-lg font-bold text-[#333] mb-1">{PROFILE.name}</h3>
@@ -232,9 +232,9 @@ export default function ResumePage() {
                 <div className="space-y-4">
                   {WORK_EXPERIENCE.map((job, i) => (
                     <div key={i}>
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-0.5 sm:gap-0">
                         <p className="font-bold text-[#333]">{job.title} — {job.company}</p>
-                        <p className="text-xs text-[#999]">{job.period}</p>
+                        <p className="text-xs text-[#999] shrink-0">{job.period}</p>
                       </div>
                       <ul className="mt-1 space-y-1 list-disc list-inside text-[#555]">
                         {job.bullets.map((b, j) => (
@@ -252,9 +252,9 @@ export default function ResumePage() {
                 </h4>
                 {EDUCATION.map((edu, i) => (
                   <div key={i}>
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-0.5 sm:gap-0">
                       <p className="font-bold text-[#333]">{edu.school}</p>
-                      <p className="text-xs text-[#999]">{edu.period}</p>
+                      <p className="text-xs text-[#999] shrink-0">{edu.period}</p>
                     </div>
                     <p>{edu.degree}</p>
                   </div>
@@ -272,13 +272,13 @@ export default function ResumePage() {
 
           {/* My Cover Letter */}
           <div className="mt-10">
-            <div className="flex items-center justify-between mb-6">
-              <p className="text-xl font-black text-[#333]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+              <p className="text-lg sm:text-xl font-black text-[#333]">
                 My Cover Letter
               </p>
               <button
                 onClick={() => setCoverLetterGenerated(true)}
-                className="border border-[#e2752c] text-[#e2752c] font-bold text-sm px-8 py-2.5 rounded-full hover:bg-[#e2752c] hover:text-white transition cursor-pointer"
+                className="border border-[#e2752c] text-[#e2752c] font-bold text-xs sm:text-sm px-5 sm:px-8 py-2 sm:py-2.5 rounded-full hover:bg-[#e2752c] hover:text-white transition cursor-pointer"
               >
                 Generate My Cover Letter
               </button>
@@ -293,7 +293,7 @@ export default function ResumePage() {
               </button>
             </div>
 
-            <div className="border border-gray-200 rounded-xl p-8 min-h-[200px]">
+            <div className="border border-gray-200 rounded-xl p-4 sm:p-6 lg:p-8 min-h-[200px]">
               {coverLetterGenerated ? (
                 <div className="text-sm text-[#555] leading-relaxed space-y-4">
                   <p>Dear [Hiring Manager&apos;s Name],</p>
@@ -339,11 +339,11 @@ export default function ResumePage() {
               <X className="w-6 h-6" />
             </button>
 
-            <div className="px-10 py-10 flex flex-col items-center">
+            <div className="px-5 sm:px-8 lg:px-10 py-8 sm:py-10 flex flex-col items-center">
               <img
                 src="/images/jobhatch/hero-mascot.png"
                 alt="Mascot"
-                className="w-[120px] h-auto mb-6"
+                className="w-[100px] sm:w-[120px] h-auto mb-6"
               />
               <h2 className="text-2xl font-bold text-[#333] mb-2">
                 Optimize My Resume
@@ -443,11 +443,11 @@ export default function ResumePage() {
               <X className="w-6 h-6" />
             </button>
 
-            <div className="px-10 py-10 flex flex-col items-center">
+            <div className="px-5 sm:px-8 lg:px-10 py-8 sm:py-10 flex flex-col items-center">
               <img
                 src="/images/jobhatch/resume-mascot.png"
                 alt="Mascot"
-                className="w-[100px] h-auto mb-6"
+                className="w-[80px] sm:w-[100px] h-auto mb-6"
               />
               <h2 className="text-xl font-bold text-[#333] text-center leading-relaxed mb-6">
                 Are you sure you want to spend 30 token<br />to optimize Resume?
@@ -495,7 +495,7 @@ export default function ResumePage() {
               <X className="w-6 h-6" />
             </button>
 
-            <div className="px-10 pt-10 pb-8">
+            <div className="px-5 sm:px-8 lg:px-10 pt-8 sm:pt-10 pb-6 sm:pb-8">
               <div className="flex items-center gap-4 mb-2">
                 <img src="/images/jobhatch/hero-mascot.png" alt="AI mascot" className="w-[56px] h-auto" />
                 <div>
@@ -555,7 +555,7 @@ export default function ResumePage() {
             >
               <X className="w-6 h-6" />
             </button>
-            <div className="px-10 py-10 flex flex-col items-center text-center">
+            <div className="px-5 sm:px-8 lg:px-10 py-8 sm:py-10 flex flex-col items-center text-center">
               <img src="/images/jobhatch/tips-mascot.png" alt="Mascot" className="w-[100px] h-auto mb-6" />
               <h2 className="text-xl font-bold text-[#333] mb-3">Not enough tokens</h2>
               <p className="text-sm text-[#888] mb-6">

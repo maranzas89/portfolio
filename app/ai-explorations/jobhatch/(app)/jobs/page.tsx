@@ -66,7 +66,7 @@ export default function JobsPage() {
 
   return (
     <div
-      className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-[52px]"
+      className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-4 sm:p-6 md:p-8 lg:p-[52px]"
       style={{ scrollbarWidth: "none" }}
     >
       <div className="bg-white rounded-2xl mx-auto w-full px-8 md:px-14 py-10">
@@ -79,7 +79,7 @@ export default function JobsPage() {
         </p>
 
         {/* Search bar */}
-        <div className="mb-4 flex items-center gap-3">
+        <div className="mb-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <div className="flex items-center flex-1 border border-gray-200 rounded-xl px-5 py-3.5">
             <Search className="w-5 h-5 text-[#999] mr-3 shrink-0" />
             <input
@@ -87,15 +87,15 @@ export default function JobsPage() {
               placeholder="Job title, company, or keyword..."
               className="flex-1 text-sm text-[#555] placeholder:text-[#bbb] outline-none bg-transparent"
             />
-            <div className="w-px h-5 bg-gray-200 mx-4 shrink-0" />
-            <MapPin className="w-5 h-5 text-[#999] mr-3 shrink-0" />
+            <div className="w-px h-5 bg-gray-200 mx-4 shrink-0 hidden sm:block" />
+            <MapPin className="w-5 h-5 text-[#999] mr-3 shrink-0 hidden sm:block" />
             <input
               type="text"
               placeholder="City, state, or remote..."
-              className="flex-1 text-sm text-[#555] placeholder:text-[#bbb] outline-none bg-transparent"
+              className="flex-1 text-sm text-[#555] placeholder:text-[#bbb] outline-none bg-transparent hidden sm:block"
             />
           </div>
-          <button className="bg-[#e2752c] text-white font-bold text-sm w-[118px] py-3.5 rounded-xl hover:brightness-110 transition shrink-0 flex items-center justify-center gap-1.5">
+          <button className="bg-[#e2752c] text-white font-bold text-sm w-full sm:w-[118px] py-3.5 rounded-xl hover:brightness-110 transition shrink-0 flex items-center justify-center gap-1.5">
             <Search className="w-4 h-4" />
             Search
           </button>
@@ -103,8 +103,8 @@ export default function JobsPage() {
 
         {/* Filter bar */}
         <div className="mb-8">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 flex-1 overflow-x-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <div className="flex items-center gap-2 flex-1 overflow-x-auto scrollbar-hide w-full sm:w-auto" style={{ scrollbarWidth: "none" }}>
               {selectedArray.map((tag) => (
                 <button
                   key={tag}
@@ -133,7 +133,7 @@ export default function JobsPage() {
 
         {/* Filter dropdown panel */}
         {showFilters && (
-          <div className="mb-8 border border-gray-200 rounded-xl p-6 grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="mb-8 border border-gray-200 rounded-xl p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {Object.entries(FILTER_OPTIONS).map(([category, options]) => (
               <div key={category}>
                 <p className="text-sm font-bold text-[#333] mb-3">{category}</p>
@@ -160,7 +160,7 @@ export default function JobsPage() {
           {JOBS.map((job, i) => (
             <div
               key={i}
-              className="border border-gray-200 rounded-xl px-6 py-5 flex gap-5"
+              className="border border-gray-200 rounded-xl px-4 sm:px-6 py-5 flex flex-col md:flex-row gap-5"
             >
             {/* Left: Logo – flat geometric */}
             {(() => {
@@ -203,7 +203,7 @@ export default function JobsPage() {
               </p>
 
               {/* Info grid */}
-              <div className="grid grid-cols-3 gap-0 mb-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 mb-3">
                 <div className="border-l-2 border-[#fcd038] pl-3 py-2">
                   <p className="text-sm text-[#333]">{job.location}</p>
                   <p className="text-sm text-[#333] mt-3">{job.workMode}</p>
@@ -223,7 +223,7 @@ export default function JobsPage() {
             </div>
 
             {/* Right: Buttons */}
-            <div className="shrink-0 flex flex-col gap-2 self-center">
+            <div className="shrink-0 flex flex-row md:flex-col gap-2 self-center">
               <Link href={`/ai-explorations/jobhatch/jobs/${i}`} className="bg-[#e2752c] text-white font-bold text-sm px-6 py-2 rounded-full hover:brightness-110 transition cursor-pointer uppercase tracking-wide text-center">
                 Apply Now
               </Link>
@@ -234,7 +234,7 @@ export default function JobsPage() {
             </div>
 
             {/* Right: Match Score */}
-            <div className="shrink-0 w-[140px] bg-gradient-to-b from-[#fef3e2] to-[#fff9f0] border border-[#f5deb3] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
+            <div className="shrink-0 w-full md:w-[140px] bg-gradient-to-b from-[#fef3e2] to-[#fff9f0] border border-[#f5deb3] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
               {/* Decorative dots */}
               <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#e2752c]/20" />
               <div className="absolute top-2 right-5 w-1 h-1 rounded-full bg-[#2f327d]/15" />

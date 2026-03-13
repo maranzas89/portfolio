@@ -139,12 +139,12 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
     <>
       {/* Content */}
       <div
-          className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-6 md:p-[52px]"
+          className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-4 sm:p-6 md:p-8 lg:p-[52px]"
           style={{ scrollbarWidth: "none" }}
         >
-          <div className="bg-white rounded-2xl mx-auto w-full px-8 md:px-14 py-10">
+          <div className="bg-white rounded-2xl mx-auto w-full px-4 sm:px-8 md:px-14 py-6 sm:py-10">
             {/* Back + Actions bar */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
               <button
                 onClick={() => router.push("/ai-explorations/jobhatch/jobs")}
                 className="flex items-center gap-2 text-base font-semibold text-[#888] hover:text-[#333] transition cursor-pointer"
@@ -179,7 +179,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
             <div className="h-[2px] bg-gradient-to-r from-[#e2752c] to-[#f4a261] rounded-full mb-8" />
 
             {/* Job Header */}
-            <div className="flex gap-6 mb-4">
+            <div className="flex flex-col sm:flex-row gap-6 mb-4">
               {/* Logo – flat geometric */}
               <div className="w-[80px] h-[80px] shrink-0 flex items-center justify-center">
                 <div
@@ -215,9 +215,9 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
               </div>
 
               {/* Score Cards */}
-              <div className="shrink-0 flex gap-3">
+              <div className="shrink-0 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {/* Exp. Level */}
-                <div className="w-[110px] bg-gradient-to-b from-[#fefce8] to-[#fefdf0] border border-[#fde68a] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
+                <div className="w-full lg:w-[110px] bg-gradient-to-b from-[#fefce8] to-[#fefdf0] border border-[#fde68a] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
                   <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#eab308]/15" />
                   <div className="relative w-[55px] h-[55px] mb-1">
                     <svg className="w-full h-full -rotate-90" viewBox="0 0 80 80">
@@ -239,7 +239,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
                 </div>
 
                 {/* Skills */}
-                <div className="w-[110px] bg-gradient-to-b from-[#fefce8] to-[#fefdf0] border border-[#fde68a] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
+                <div className="w-full lg:w-[110px] bg-gradient-to-b from-[#fefce8] to-[#fefdf0] border border-[#fde68a] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
                   <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#eab308]/15" />
                   <div className="relative w-[55px] h-[55px] mb-1">
                     <svg className="w-full h-full -rotate-90" viewBox="0 0 80 80">
@@ -261,7 +261,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
                 </div>
 
                 {/* Industry Exp. */}
-                <div className="w-[110px] bg-gradient-to-b from-[#fefce8] to-[#fefdf0] border border-[#fde68a] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
+                <div className="w-full lg:w-[110px] bg-gradient-to-b from-[#fefce8] to-[#fefdf0] border border-[#fde68a] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
                   <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#eab308]/15" />
                   <div className="relative w-[55px] h-[55px] mb-1">
                     <svg className="w-full h-full -rotate-90" viewBox="0 0 80 80">
@@ -283,7 +283,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
                 </div>
 
                 {/* Match Score */}
-                <div className="w-[110px] bg-gradient-to-b from-[#fef3e2] to-[#fff9f0] border border-[#f5deb3] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
+                <div className="w-full lg:w-[110px] bg-gradient-to-b from-[#fef3e2] to-[#fff9f0] border border-[#f5deb3] rounded-xl flex flex-col items-center justify-center p-3 relative overflow-hidden">
                   <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#e2752c]/20" />
                   <div className="relative w-[55px] h-[55px] mb-1">
                     <svg className="w-full h-full -rotate-90" viewBox="0 0 80 80">
@@ -337,7 +337,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
             </div>
 
             {/* Promotional Banner */}
-            <div className="mb-8 relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#dbeafe] via-[#e0e7ff] to-[#ede9fe] px-7 py-7 flex items-center justify-between">
+            <div className="mb-8 relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#dbeafe] via-[#e0e7ff] to-[#ede9fe] px-5 sm:px-7 py-5 sm:py-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               {/* Decorative elements */}
               <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
                 <div className="absolute top-[-30%] right-[10%] w-40 h-40 rounded-full bg-[#6366f1]/10 blur-3xl" />
@@ -363,7 +363,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
             {/* Insider Connection */}
             <div className="mb-8">
               {/* Header */}
-              <div className="flex items-end justify-between mb-5">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-5">
                 <div>
                   <h2 className="text-lg font-black text-[#1e293b] tracking-wide mb-2">Insider Connection <span className="text-[#3b82f6]">@{job.company}</span></h2>
                   <p className="text-sm text-[#64748b] leading-relaxed">
@@ -371,12 +371,12 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
                     Get 3x more responses when you reach out via email instead of LinkedIn.
                   </p>
                 </div>
-                <button className="shrink-0 ml-6 text-sm font-semibold text-[#e2752c] border border-[#e2752c] rounded-full px-5 py-2 hover:bg-[#fef3e2] transition-colors">
+                <button className="shrink-0 text-sm font-semibold text-[#e2752c] border border-[#e2752c] rounded-full px-5 py-2 hover:bg-[#fef3e2] transition-colors">
                   Use 30 Token to send emails
                 </button>
               </div>
               {/* Cards */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[
                   { title: "Beyond Your Network", initials: [["JW", "#6366f1"], ["AL", "#e11d48"]], blurred: [["RK", "#0891b2"], ["MH", "#d946ef"], ["NP", "#059669"]] },
                   { title: "From Your Previous Company", initials: [["KM", "#0284c7"], ["SR", "#16a34a"]], blurred: [["YZ", "#e11d48"], ["BT", "#7c3aed"], ["CF", "#ea580c"]] },
@@ -487,7 +487,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
             {/* Company Info Card */}
             <section className="mb-10">
               <h2 className="text-lg font-black text-[#333] mb-4 tracking-wide">About {job.company}</h2>
-              <div className="flex items-center gap-5 bg-[#fdf8e8] rounded-xl p-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 bg-[#fdf8e8] rounded-xl p-4 sm:p-6">
                 <div className="w-[52px] h-[52px] shrink-0 flex items-center justify-center">
                   <div
                     className={`w-[46px] h-[46px] flex items-center justify-center ${shapeClasses[logo.shape] || "rounded-xl"}`}
@@ -518,7 +518,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
                 <h2 className="text-lg font-black text-[#2f327d] mb-4 tracking-wide">Company</h2>
 
                 {/* Company Overview */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                   <div className="border border-[#e5e7eb] rounded-xl p-5">
                     <div className="flex items-start justify-between mb-3">
                       <p className="text-lg font-black text-[#333]">{job.company}</p>
@@ -546,7 +546,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
 
                 {/* Funding */}
                 <h3 className="text-base font-black text-[#333] mb-3">Funding</h3>
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                   <div className="border border-[#e5e7eb] rounded-xl p-4">
                     <p className="text-xs font-bold text-[#333] mb-1">Current Stage</p>
                     <p className="text-sm text-[#64748b]">{companyInfo.funding.stage}</p>
@@ -565,9 +565,9 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
 
                 {/* Leadership Team */}
                 <h3 className="text-base font-black text-[#333] mb-3">Leadership Team</h3>
-                <div className="flex gap-4 mb-6">
+                <div className="flex flex-wrap gap-4 mb-6">
                   {companyInfo.leadership.map((leader) => (
-                    <div key={leader.name} className="border border-[#e5e7eb] rounded-xl p-5 min-w-[200px] flex-1">
+                    <div key={leader.name} className="border border-[#e5e7eb] rounded-xl p-5 min-w-[160px] sm:min-w-[200px] flex-1">
                       <div className="flex items-center justify-between mb-3">
                         <div className="w-12 h-12 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: leader.color }}>
                           {leader.initials}
@@ -584,7 +584,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
 
                 {/* Recent News */}
                 <h3 className="text-base font-black text-[#333] mb-3">Recent News</h3>
-                <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                   {companyInfo.news.map((article, i) => (
                     <div key={i} className="border border-[#e5e7eb] rounded-xl p-4 hover:shadow-sm transition-shadow cursor-pointer">
                       <p className="font-bold text-[#333] text-sm mb-2">{article.source}</p>
@@ -601,7 +601,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
             )}
 
             {/* Action Bar (bottom sticky) */}
-            <div className="flex items-center justify-between bg-[#f3f4f6] rounded-xl px-6 py-4 mb-8">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#f3f4f6] rounded-xl px-4 sm:px-6 py-4 mb-8">
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setLiked(!liked)}

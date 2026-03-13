@@ -188,17 +188,17 @@ export default function PlannerPage() {
   return (
     <>
       {/* Content */}
-      <div className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-[52px]" style={{ scrollbarWidth: "none" }}>
-        <div className="bg-white rounded-2xl mx-auto w-full px-8 md:px-14 py-10">
+      <div className="flex-1 min-h-0 bg-[#fdf8e8] overflow-y-auto scrollbar-hide p-4 sm:p-6 md:p-8 lg:p-[52px]" style={{ scrollbarWidth: "none" }}>
+        <div className="bg-white rounded-2xl mx-auto w-full px-4 sm:px-8 md:px-14 py-6 sm:py-8 lg:py-10">
           {/* Page Header */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
             <div>
-              <h1 className="font-black text-[#333] text-[40px] tracking-[3px] mb-1">PLANNER</h1>
-              <p className="text-base font-semibold text-[#999]">Book 1:1 mentor sessions to accelerate your career</p>
+              <h1 className="font-black text-[#333] text-2xl sm:text-[32px] lg:text-[40px] tracking-[3px] mb-1">PLANNER</h1>
+              <p className="text-sm sm:text-base font-semibold text-[#999]">Book 1:1 mentor sessions to accelerate your career</p>
             </div>
-            <div className="flex bg-[#f3f4f6] rounded-lg overflow-hidden">
+            <div className="flex bg-[#f3f4f6] rounded-lg overflow-hidden w-full sm:w-auto">
               {(["book", "upcoming", "chat"] as const).map((tab) => (
-                <button key={tab} onClick={() => setActiveTab(tab)} className={`px-5 py-2.5 text-base font-semibold capitalize transition ${activeTab === tab ? "bg-[#e2752c] text-white" : "text-[#555] hover:bg-gray-50"}`}>
+                <button key={tab} onClick={() => setActiveTab(tab)} className={`flex-1 sm:flex-initial px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold capitalize transition ${activeTab === tab ? "bg-[#e2752c] text-white" : "text-[#555] hover:bg-gray-50"}`}>
                   {tab === "book" ? "Book Session" : tab === "upcoming" ? "Upcoming" : "Messages"}
                 </button>
               ))}
@@ -208,7 +208,7 @@ export default function PlannerPage() {
           {activeTab === "book" && (
             <div className="space-y-12">
               {/* Top: Session Topic + Session Mode (full width, horizontal) */}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="bg-white rounded-xl border border-gray-200 pt-5 pb-10 px-7">
                   <h2 className="text-xl font-black text-[#333] mb-5">Session Topic</h2>
                   <div className="flex flex-wrap gap-3">
@@ -245,15 +245,15 @@ export default function PlannerPage() {
               {/* Rows wrapper */}
               <div className="space-y-6">
               {/* Headings row */}
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <h2 className="text-xl font-black text-[#333]">Choose a Mentor</h2>
-                <h2 className="text-xl font-black text-[#333]">Select Date & Time</h2>
-                <h2 className="text-xl font-black text-[#333]">Available Times</h2>
+                <h2 className="text-xl font-black text-[#333] hidden md:block">Select Date & Time</h2>
+                <h2 className="text-xl font-black text-[#333] hidden lg:block">Available Times</h2>
               </div>
               {/* Row 1: First 2 mentors | Calendar | Booking Summary */}
-              <div className="grid grid-cols-3 gap-6 items-stretch">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
                 {/* Left: First 2 mentor cards */}
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {MENTORS.slice(0, 2).map((mentor, i) => (
                     <div
                       key={mentor.name}
@@ -306,7 +306,10 @@ export default function PlannerPage() {
                 </div>
 
                 {/* Middle: Calendar card */}
-                <div className="bg-white rounded-xl border border-gray-200 p-7 h-full flex flex-col">
+                <div className="md:hidden">
+                  <h2 className="text-xl font-black text-[#333] mb-2">Select Date & Time</h2>
+                </div>
+                <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 lg:p-7 h-full flex flex-col">
                   <div className="flex items-center justify-between mb-4">
                     <button onClick={() => { if (currentMonth === 0) { setCurrentMonth(11); setCurrentYear(currentYear - 1); } else setCurrentMonth(currentMonth - 1); }} className="p-1 hover:bg-gray-100 rounded transition"><ChevronLeft className="w-4 h-4 text-[#555]" /></button>
                     <span className="text-lg font-bold text-[#333]">{MONTH_NAMES[currentMonth]} {currentYear}</span>
@@ -329,7 +332,7 @@ export default function PlannerPage() {
                           key={day}
                           disabled={isPast}
                           onClick={() => setSelectedDate(day)}
-                          className={`w-12 h-12 mx-auto rounded-md text-base font-medium transition flex items-center justify-center aspect-square ${
+                          className={`w-9 h-9 sm:w-10 sm:h-10 lg:w-12 lg:h-12 mx-auto rounded-md text-sm lg:text-base font-medium transition flex items-center justify-center aspect-square ${
                             isSelected ? "bg-[#e2752c] text-white" : isToday ? "bg-[#fef3e2] text-[#e2752c] font-bold" : isPast ? "text-[#ddd] cursor-not-allowed" : "text-[#333] hover:bg-[#fef3e2]"
                           }`}
                         >
@@ -341,7 +344,10 @@ export default function PlannerPage() {
                 </div>
 
                 {/* Right: Available Times card */}
-                <div className="bg-white rounded-xl border border-gray-200 p-7 h-full flex flex-col">
+                <div className="lg:hidden">
+                  <h2 className="text-xl font-black text-[#333] mb-2">Available Times</h2>
+                </div>
+                <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 lg:p-7 h-full flex flex-col">
                   <h3 className="text-lg font-bold text-[#333] mb-3 flex items-center gap-2"><Clock className="w-4 h-4 text-[#e2752c]" />Select a time</h3>
                   <div className="grid grid-cols-2 gap-2 flex-1 auto-rows-fr">
                     {TIME_SLOTS.map((time) => (
@@ -358,9 +364,9 @@ export default function PlannerPage() {
               </div>
 
               {/* Row 2: Mentor cards 3-4 | Booking Summary */}
-              <div className="grid grid-cols-3 gap-6 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 items-start">
                 {/* Left: Remaining mentor cards */}
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {MENTORS.slice(2).map((mentor, i) => {
                     const actualIndex = i + 2;
                     return (
@@ -415,7 +421,7 @@ export default function PlannerPage() {
                   })}
                 </div>
                 {/* Booking Summary */}
-                <div className="col-span-2 bg-white rounded-xl border border-gray-200 p-7 min-h-[300px] flex flex-col">
+                <div className="col-span-1 lg:col-span-2 bg-white rounded-xl border border-gray-200 p-5 sm:p-7 min-h-[300px] flex flex-col">
                   <h3 className="text-lg font-bold text-[#333] mb-4">Booking Summary</h3>
                   <div className="space-y-[14px] text-base flex-1">
                     <div className="flex justify-between">
@@ -462,23 +468,23 @@ export default function PlannerPage() {
             <div className="space-y-6 w-full">
               <h2 className="text-2xl font-black text-[#333]">Upcoming Sessions</h2>
               {bookedSessions.map((session, i) => (
-                <div key={i} className="bg-white rounded-xl border border-gray-200 p-10 flex items-center justify-between">
-                  <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 rounded-full bg-[#fef3e2] flex items-center justify-center">
-                      <CalendarDays className="w-7 h-7 text-[#e2752c]" />
+                <div key={i} className="bg-white rounded-xl border border-gray-200 p-5 sm:p-7 lg:p-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div className="flex items-center gap-4 sm:gap-6">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#fef3e2] flex items-center justify-center shrink-0">
+                      <CalendarDays className="w-5 h-5 sm:w-7 sm:h-7 text-[#e2752c]" />
                     </div>
                     <div>
-                      <p className="font-bold text-[#333] text-xl">{session.topic}</p>
-                      <p className="text-base text-[#888] mt-1">with {session.mentor} · {session.mode}</p>
-                      <p className="text-sm text-[#555] mt-1.5">{session.date} at {session.time}</p>
+                      <p className="font-bold text-[#333] text-base sm:text-xl">{session.topic}</p>
+                      <p className="text-sm sm:text-base text-[#888] mt-1">with {session.mentor} · {session.mode}</p>
+                      <p className="text-xs sm:text-sm text-[#555] mt-1.5">{session.date} at {session.time}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <span className={`text-base font-semibold px-4 py-1.5 rounded-full ${session.status === "confirmed" ? "bg-[#ecfdf5] text-[#16a34a]" : "bg-[#fef3e2] text-[#e2752c]"}`}>
+                  <div className="flex items-center gap-4 ml-16 sm:ml-0">
+                    <span className={`text-sm sm:text-base font-semibold px-3 sm:px-4 py-1.5 rounded-full ${session.status === "confirmed" ? "bg-[#ecfdf5] text-[#16a34a]" : "bg-[#fef3e2] text-[#e2752c]"}`}>
                       {session.status === "confirmed" ? "Confirmed" : "Pending"}
                     </span>
-                    <button className="flex items-center gap-2 text-base font-semibold text-[#e2752c] hover:underline">
-                      <Video className="w-5 h-5" />Join
+                    <button className="flex items-center gap-2 text-sm sm:text-base font-semibold text-[#e2752c] hover:underline">
+                      <Video className="w-4 h-4 sm:w-5 sm:h-5" />Join
                     </button>
                   </div>
                 </div>
@@ -497,9 +503,9 @@ export default function PlannerPage() {
               <button onClick={() => setActiveTab("book")} className="flex items-center gap-2 text-[#555] hover:text-[#e2752c] font-medium text-base mb-4 transition">
                 <ChevronLeft className="w-4 h-4" />Back to Book Session
               </button>
-            <div className="grid grid-cols-3 gap-6 h-[calc(100vh-280px)]">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 h-[calc(100vh-200px)] sm:h-[calc(100vh-240px)] lg:h-[calc(100vh-280px)]">
               {/* Contact List */}
-              <div className="col-span-1 bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col">
+              <div className="col-span-1 bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col max-h-[200px] md:max-h-none">
                 <div className="p-4 border-b border-gray-100">
                   <h3 className="text-lg font-bold text-[#333]">Mentors</h3>
                 </div>
@@ -523,7 +529,7 @@ export default function PlannerPage() {
               </div>
 
               {/* Chat Area */}
-              <div className="col-span-2 bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col">
+              <div className="col-span-1 md:col-span-2 bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col">
                 {selectedMentor !== null ? (
                   <>
                     <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-100">

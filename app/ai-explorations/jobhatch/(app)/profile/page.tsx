@@ -77,22 +77,22 @@ export default function ProfilePage() {
   return (
     <div className="flex-1 min-h-0 bg-[#fdf8e8] flex flex-col overflow-hidden">
       {/* White card */}
-      <div className="flex-1 min-h-0 flex flex-col p-[52px]">
+      <div className="flex-1 min-h-0 flex flex-col p-4 sm:p-6 md:p-8 lg:p-[52px]">
       <div className="bg-white rounded-2xl mx-auto w-full flex flex-col min-h-0 flex-1">
         {/* Fixed header: PROFILE title + tab bar */}
-        <div className="bg-white rounded-t-2xl px-8 md:px-14 pt-8 shrink-0">
-          <h1 className="font-black text-[#333] text-[40px] tracking-[3px] mb-1">
+        <div className="bg-white rounded-t-2xl px-4 sm:px-6 md:px-8 lg:px-14 pt-6 sm:pt-8 shrink-0">
+          <h1 className="font-black text-[#333] text-2xl sm:text-[32px] lg:text-[40px] tracking-[3px] mb-1">
             PROFILE
           </h1>
           <p className="text-base font-semibold text-[#999] mb-4">
             Your Profile data is kept private and secure
           </p>
-          <div ref={tabBarRef} className="flex gap-6 border-b border-gray-200">
+          <div ref={tabBarRef} className="flex gap-3 sm:gap-4 lg:gap-6 border-b border-gray-200 overflow-x-auto whitespace-nowrap scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
             {TABS.map((tab) => (
               <button
                 key={tab.anchor}
                 onClick={() => { setActiveTab(tab.anchor); scrollToSection(tab.anchor); }}
-                className={`px-5 py-3 text-base font-black transition border-b-2 -mb-[2px] cursor-pointer ${
+                className={`px-3 sm:px-4 lg:px-5 py-3 text-sm sm:text-base font-black transition border-b-2 -mb-[2px] cursor-pointer shrink-0 ${
                   activeTab === tab.anchor
                     ? "border-[#e2752c] text-[#333]"
                     : "border-transparent text-[#999] hover:text-[#e2752c]"
@@ -105,9 +105,9 @@ export default function ProfilePage() {
         </div>
 
         {/* Scrollable content */}
-        <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto scrollbar-hide px-8 md:px-14 py-10" style={{ scrollbarWidth: 'none' }}>
+        <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto scrollbar-hide px-4 sm:px-6 md:px-8 lg:px-14 py-6 sm:py-8 lg:py-10" style={{ scrollbarWidth: 'none' }}>
         {/* Complete profile CTA */}
-        <div className="bg-[#fdf8e8] rounded-xl p-8 flex items-center justify-between mb-12">
+        <div className="bg-[#fdf8e8] rounded-xl p-5 sm:p-6 lg:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 sm:mb-12">
           <div>
             <p className="text-base font-bold text-[#555] leading-relaxed">
               Complete your profile to boost job matching accuracy and enable
@@ -120,13 +120,13 @@ export default function ProfilePage() {
           <img
             src="/images/jobhatch/hero-mascot.png"
             alt="Profile mascot"
-            className="w-[120px] h-auto ml-8 shrink-0"
+            className="w-[80px] sm:w-[100px] lg:w-[120px] h-auto sm:ml-8 shrink-0 order-first sm:order-last"
           />
         </div>
 
         {/* Personal Info */}
-        <section id="personal" className="mb-12 scroll-mt-[140px]">
-          <div className="flex items-center justify-between mb-5">
+        <section id="personal" className="mb-8 sm:mb-12 scroll-mt-[140px]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 mb-5">
             <h2 className="text-4xl font-black text-[#333]">
               {PROFILE.name}
             </h2>
@@ -135,8 +135,8 @@ export default function ProfilePage() {
               Share My Profile
             </button>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-10 text-base text-[#555]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-10 text-sm sm:text-base text-[#555]">
               <span>{PROFILE.email}</span>
               <span>{PROFILE.phone}</span>
             </div>
