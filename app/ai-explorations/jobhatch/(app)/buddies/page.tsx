@@ -340,7 +340,7 @@ export default function BuddiesPage() {
                   const isSelected = selectedCriteria.has(criteria.label);
                   const priority = criteriaPriority[criteria.label] || "Medium";
                   return (
-                    <div key={criteria.label} className="space-y-1.5">
+                    <div key={criteria.label} className="space-y-3">
                       <button
                         onClick={() => {
                           const next = new Set(selectedCriteria);
@@ -354,12 +354,12 @@ export default function BuddiesPage() {
                         {isSelected && <CheckCircle2 className="w-4 h-4 ml-auto" />}
                       </button>
                       {isSelected && (
-                        <div className="flex gap-1.5 pl-11">
+                        <div className="flex gap-2.5 pl-11">
                           {PRIORITY_OPTIONS.map((p) => (
                             <button
                               key={p}
                               onClick={() => setCriteriaPriority((prev) => ({ ...prev, [criteria.label]: p }))}
-                              className={`text-xs font-medium px-2.5 py-1 rounded-md transition cursor-pointer ${
+                              className={`text-sm font-medium px-3.5 py-1.5 rounded-md transition cursor-pointer ${
                                 priority === p
                                   ? p === "High" ? "bg-[#e2752c] text-white" : p === "Medium" ? "bg-[#fef3e2] text-[#e2752c]" : "bg-gray-100 text-[#555]"
                                   : "bg-gray-50 text-[#aaa] hover:bg-gray-100"
@@ -401,13 +401,6 @@ export default function BuddiesPage() {
                     <span className="font-bold text-[#333]">{matchedBuddies.size}</span>
                   </div>
                   <div className="flex items-center gap-3 text-base">
-                    <div className="w-9 h-9 rounded-lg bg-[#fef3e2] flex items-center justify-center shrink-0">
-                      <Bookmark className="w-4 h-4 text-[#e2752c]" />
-                    </div>
-                    <span className="text-[#555] flex-1">Saved for later</span>
-                    <span className="font-bold text-[#333]">{savedBuddies.size}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-base">
                     <div className="w-9 h-9 rounded-lg bg-[#f3f4f6] flex items-center justify-center shrink-0">
                       <X className="w-4 h-4 text-[#888]" />
                     </div>
@@ -420,7 +413,7 @@ export default function BuddiesPage() {
               {/* Shared Goals Preview */}
               <div className="bg-white rounded-xl border border-gray-200 p-8">
                 <h3 className="text-lg font-bold text-[#333] mb-4">
-                  <span className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#e2752c]" /> Buddy Activities</span>
+                  Buddy Activities
                 </h3>
                 <p className="text-sm text-[#888] mb-5">Select what you want to do with buddies</p>
                 <div className="flex flex-wrap gap-3">
@@ -456,8 +449,8 @@ export default function BuddiesPage() {
                   {/* Info bar */}
                   <div className="px-8 pt-6">
                     <div className="flex items-start gap-3 bg-[#f0f4ff] rounded-lg px-5 py-4">
-                      <Info className="w-5 h-5 text-[#6366f1] mt-0.5 shrink-0" />
-                      <p className="text-sm text-[#555] leading-relaxed">
+                      <Info className="w-5 h-5 text-[#6366f1] mt-0.5 shrink-0" strokeWidth={3} />
+                      <p className="text-sm text-[#555] leading-relaxed font-semibold">
                         If you connect, you can start a chat, share weekly goals, exchange feedback, and stay accountable together.
                       </p>
                     </div>
@@ -470,9 +463,9 @@ export default function BuddiesPage() {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <div className="-mt-[10px]">
+                          <div className="-mt-[18px]">
                             <h2 className="text-4xl font-black text-[#333]">{currentBuddy.name}</h2>
-                            <p className="text-lg text-[#888] mt-0.5 font-bold">{currentBuddy.title}</p>
+                            <p className="text-lg text-[#888] mt-0.5 font-normal">{currentBuddy.title}</p>
                           </div>
                           <div className="flex items-center gap-4">
                             <div className="relative w-[80px] h-[80px] shrink-0">
@@ -494,14 +487,14 @@ export default function BuddiesPage() {
                             <div className="flex flex-col gap-2">
                               <button
                                 onClick={() => handleMatch(currentBuddyIndex)}
-                                className="flex items-center justify-center gap-2 w-[120px] py-2.5 rounded-xl bg-[#e2752c] text-white text-sm font-bold hover:brightness-110 transition cursor-pointer"
+                                className="flex items-center justify-center gap-2 w-[120px] py-3.5 rounded-xl bg-[#e2752c] text-white text-sm font-bold hover:brightness-110 transition cursor-pointer"
                               >
                                 <UserPlus className="w-4 h-4" />
                                 Connect
                               </button>
                               <button
                                 onClick={() => handleSkip(currentBuddyIndex)}
-                                className="flex items-center justify-center gap-2 w-[120px] py-2.5 rounded-xl bg-white border border-gray-200 text-sm font-semibold text-[#888] hover:bg-red-50 hover:border-red-200 hover:text-red-400 transition cursor-pointer"
+                                className="flex items-center justify-center gap-2 w-[120px] py-3.5 rounded-xl bg-white border border-gray-200 text-sm font-semibold text-[#888] hover:bg-red-50 hover:border-red-200 hover:text-red-400 transition cursor-pointer"
                               >
                                 <X className="w-4 h-4" />
                                 Skip
@@ -512,15 +505,15 @@ export default function BuddiesPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-4 mt-2">
-                      <span className="flex items-center gap-1.5 text-base text-[#888]"><MapPin className="w-4 h-4" />{currentBuddy.location}</span>
-                      <span className="flex items-center gap-1.5 text-base text-[#888]"><Coins className="w-4 h-4" />{currentBuddy.tokens} tokens</span>
+                      <span className="flex items-center gap-1.5 text-base text-[#888] font-semibold"><MapPin className="w-4 h-4" />{currentBuddy.location}</span>
+                      <span className="flex items-center gap-1.5 text-base text-[#888] font-semibold"><Coins className="w-4 h-4" />{currentBuddy.tokens} tokens</span>
                       <span className={`text-base font-semibold px-3 py-1 rounded-full ${stageColor(currentBuddy.currentStage)}`}>{currentBuddy.currentStage}</span>
                     </div>
                     <p className="text-lg text-[#888] mt-5 leading-relaxed font-semibold">{currentBuddy.bio}</p>
 
                     {/* Support Style Tags */}
                     <div className="mt-5">
-                      <p className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2"><Search className="w-5 h-5 text-[#e2752c]" />Looking for</p>
+                      <p className="text-lg font-bold text-[#333] mb-4">Looking for</p>
                       <div className="flex flex-wrap gap-2">
                         {currentBuddy.supportStyles.map((style) => {
                           const Icon = supportStyleIcon(style);
@@ -537,7 +530,7 @@ export default function BuddiesPage() {
 
                   {/* Skills */}
                   <div className="px-8 pb-6">
-                    <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2"><Sparkles className="w-5 h-5 text-[#e2752c]" />Skills</h3>
+                    <h3 className="text-lg font-bold text-[#333] mb-4">Skills</h3>
                     <div className="flex flex-wrap gap-2">
                       {currentBuddy.skills.map((skill) => (
                         <span key={skill} className="text-base font-medium bg-[#fef3e2] text-[#e2752c] px-4 py-2 rounded-full">{skill}</span>
@@ -547,10 +540,7 @@ export default function BuddiesPage() {
 
                   {/* Why You Match */}
                   <div className="px-8 pb-6">
-                    <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
-                      <Zap className="w-5 h-5 text-[#e2752c]" />
-                      Why you match
-                    </h3>
+                    <h3 className="text-lg font-bold text-[#333] mb-4">Why you match</h3>
                       <div className="rounded-xl p-5 space-y-5 mt-3 border border-gray-200">
                         <p className="text-sm font-semibold text-[#888] mb-4">Match score breakdown</p>
                         {currentBuddy.matchReasons.map((reason) => {
@@ -586,7 +576,7 @@ export default function BuddiesPage() {
 
                   {/* Job Search Activity */}
                   <div className="px-8 pb-6">
-                    <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2"><Briefcase className="w-5 h-5 text-[#e2752c]" />Job Search Activity</h3>
+                    <h3 className="text-lg font-bold text-[#333] mb-4">Job Search Activity</h3>
                     <div className="grid grid-cols-3 gap-4 mb-5">
                       <div className="bg-[#f9fafb] rounded-lg p-4 text-center">
                         <p className="text-4xl font-black text-[#333]">{currentBuddy.applicationsThisWeek}</p>
@@ -640,36 +630,36 @@ export default function BuddiesPage() {
               Array.from(matchedBuddies).map((i) => {
                 const buddy = BUDDIES[i];
                 return (
-                  <div key={buddy.name} className="bg-white rounded-xl border border-gray-200 p-7">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0" style={{ backgroundColor: buddy.color }}>
+                  <div key={buddy.name} className="bg-white rounded-xl border border-gray-200 p-8">
+                    <div className="flex items-start gap-4">
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg font-bold shrink-0" style={{ backgroundColor: buddy.color }}>
                         {buddy.initials}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <p className="font-bold text-[#333] text-sm">{buddy.name}</p>
-                          <span className={`text-sm font-semibold px-2.5 py-0.5 rounded-full ${stageColor(buddy.currentStage)}`}>{buddy.currentStage}</span>
+                          <p className="font-black text-[#333] text-xl">{buddy.name}</p>
+                          <span className={`text-base font-semibold px-3 py-1 rounded-full ${stageColor(buddy.currentStage)}`}>{buddy.currentStage}</span>
                         </div>
-                        <p className="text-sm text-[#888] mt-0.5">{buddy.title}</p>
-                        <div className="flex flex-wrap gap-1 mt-2">
+                        <p className="text-base text-[#888] mt-0.5 font-medium">{buddy.title}</p>
+                        <div className="flex flex-wrap gap-2 mt-3">
                           {buddy.supportStyles.map((style) => (
-                            <span key={style} className="text-xs font-medium bg-[#eef2ff] text-[#4f46e5] px-2 py-0.5 rounded-full">{style}</span>
+                            <span key={style} className="text-sm font-medium bg-[#eef2ff] text-[#4f46e5] px-3 py-1 rounded-full">{style}</span>
                           ))}
                         </div>
-                        <div className="flex flex-wrap gap-1 mt-2">
+                        <div className="flex flex-wrap gap-2 mt-2">
                           {buddy.skills.map((skill) => (
-                            <span key={skill} className="text-xs font-medium bg-[#fef3e2] text-[#e2752c] px-2 py-0.5 rounded-full">{skill}</span>
+                            <span key={skill} className="text-sm font-medium bg-[#fef3e2] text-[#e2752c] px-3 py-1 rounded-full">{skill}</span>
                           ))}
                         </div>
-                        <div className="flex items-center gap-4 mt-3 text-sm text-[#888]">
+                        <div className="flex items-center gap-4 mt-4 text-base text-[#888]">
                           <span>{buddy.applicationsThisWeek} apps this week</span>
                           <span>{buddy.interviewsScheduled} interviews</span>
                         </div>
                         <button
                           onClick={() => { setSelectedBuddy(i); setActiveView("chat"); }}
-                          className="mt-3 flex items-center gap-1.5 text-sm font-semibold text-[#e2752c] hover:underline cursor-pointer"
+                          className="mt-4 flex items-center gap-2 text-base font-semibold text-[#e2752c] hover:underline cursor-pointer"
                         >
-                          <MessageCircle className="w-3.5 h-3.5" />Send a message
+                          <MessageCircle className="w-4 h-4" />Send a message
                         </button>
                       </div>
                     </div>
