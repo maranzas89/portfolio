@@ -128,7 +128,9 @@ export default function AskWenPanel({
     sendMessage(input);
   };
 
-  const chipsVisible = messages.length === 1;
+  const [usedChips, setUsedChips] = useState<Set<string>>(new Set());
+  const remainingChips = PRESET_CHIPS.filter((c) => !usedChips.has(c));
+  const chipsVisible = remainingChips.length > 0;
 
   return (
     <>
@@ -157,19 +159,19 @@ export default function AskWenPanel({
         <div className="flex items-start justify-between px-5 sm:px-7 pt-6 sm:pt-8 pb-5 sm:pb-6 border-b border-white/[0.05]">
           <div>
             <div className="flex items-center gap-2.5">
-              <Sparkles className="h-[14px] w-[14px] text-blue-400/70" />
-              <h2 className="text-[15px] font-semibold text-white/95 tracking-[-0.01em]">
+              <Sparkles className="h-5 w-5 text-blue-400" strokeWidth={2.5} />
+              <h2 className="text-xl font-black text-white tracking-[-0.01em]">
                 Ask Wen
               </h2>
             </div>
-            <p className="mt-2 text-[12px] text-white/35 leading-relaxed tracking-wide">
+            <p className="mt-2 text-sm text-white/60 font-semibold leading-relaxed tracking-wide">
               AI chat for my projects, decisions, impact, and workflow.
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-2 -m-2 rounded-lg text-white/30 hover:text-white/70 hover:bg-white/[0.05] transition-all duration-200"
+            className="p-2 -m-2 rounded-lg text-white/30 hover:text-white/70 hover:bg-white/[0.05] transition-all duration-200 cursor-pointer"
             aria-label="Close panel"
           >
             <X className="h-[18px] w-[18px]" />
@@ -177,7 +179,7 @@ export default function AskWenPanel({
         </div>
 
         {/* Messages */}
-        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-x-hidden px-5 sm:px-7 py-5 sm:py-6 space-y-4 sm:space-y-5">
+        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-x-hidden px-5 sm:px-7 py-5 sm:py-6 space-y-4 sm:space-y-5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
           {messages.map((msg, i) => (
             <div
               key={i}
@@ -186,10 +188,10 @@ export default function AskWenPanel({
               }`}
             >
               <div
-                className={`max-w-[85%] sm:max-w-[82%] rounded-2xl px-4 sm:px-4.5 py-2.5 sm:py-3 text-[13px] sm:text-[13.5px] leading-[1.65] overflow-hidden break-words ${
+                className={`max-w-[85%] sm:max-w-[82%] rounded-2xl px-4 sm:px-4.5 py-2.5 sm:py-3 text-[13px] sm:text-[13.5px] leading-[1.65] overflow-hidden break-words font-semibold ${
                   msg.role === "user"
-                    ? "bg-blue-600/80 text-white/95 shadow-sm"
-                    : "bg-white/[0.07] text-white/75 ring-1 ring-white/[0.04]"
+                    ? "bg-blue-600/80 text-white shadow-sm"
+                    : "bg-white/[0.07] text-white/85 ring-1 ring-white/[0.04]"
                 }`}
               >
                 {msg.content}
@@ -214,13 +216,13 @@ export default function AskWenPanel({
 
         {/* Preset chips */}
         {chipsVisible && (
-          <div className="px-5 sm:px-7 pb-3 sm:pb-4 flex flex-wrap gap-2 sm:gap-2.5">
-            {PRESET_CHIPS.map((chip) => (
+          <div className="px-5 sm:px-7 pb-3 sm:pb-4 flex flex-col gap-3 sm:gap-4 items-start">
+            {remainingChips.map((chip) => (
               <button
                 key={chip}
                 type="button"
-                onClick={() => sendMessage(chip)}
-                className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-[12px] text-white/50 tracking-wide transition-all duration-200 hover:border-white/[0.14] hover:text-white/70 hover:bg-white/[0.06]"
+                onClick={() => { setUsedChips((prev) => new Set([...prev, chip])); sendMessage(chip); }}
+                className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-[12px] text-white/60 font-semibold tracking-wide transition-all duration-200 cursor-pointer hover:border-white/[0.14] hover:text-white/80 hover:bg-white/[0.06]"
               >
                 {chip}
               </button>
@@ -241,7 +243,7 @@ export default function AskWenPanel({
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about my work..."
-              className="flex-1 min-w-0 w-full bg-transparent text-[16px] sm:text-[13.5px] text-white/85 placeholder:text-white/20 outline-none"
+              className="flex-1 min-w-0 w-full bg-transparent text-[16px] sm:text-[13.5px] text-white/90 font-semibold placeholder:text-white/30 placeholder:font-medium outline-none"
               disabled={loading}
             />
             <button
