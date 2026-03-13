@@ -30,12 +30,34 @@ import {
   PhoneCall,
   Contact,
   Workflow,
+  Briefcase,
+  FileSearch,
+  Target,
+  Coins,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import AiMarketLandscapeWhiteModule from "@/components/ai-explorations/AiMarketLandscapeWhiteModule";
 import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSubnav";
 
 const EXPLORATIONS = [
+  {
+    id: 9,
+    title: "JobHatch",
+    category: "Career Platform",
+    description:
+      "An AI-powered job search system that combines resume analysis, match scoring, and gamified progress to help users apply with more clarity and improve over time.",
+    icon: Briefcase,
+    gradient: "from-emerald-500/20 to-teal-500/20",
+    image: "/images/01q.png",
+    backText: "",
+    backHighlights: [
+      { icon: FileSearch, label: "AI resume analysis", text: "Uses AI to parse resumes, surface improvement opportunities, and help users better position their background against the expectations of specific roles." },
+      { icon: Target, label: "Match-based tracking", text: "Combines application management with match scoring so users can monitor progress, evaluate job fit more clearly, and prioritize stronger opportunities." },
+      { icon: Coins, label: "Token-driven optimization", text: "Introduces a gamified feedback loop where completed actions earn tokens that unlock added value, from resume upgrades to AI-assisted CV creation and job search support." },
+    ],
+    href: "/ai-explorations/jobhatch",
+    figmaHref: "https://www.figma.com/proto/fsYoyR0QL0Q3AvoB7jf84Z/%F0%9F%90%A5-JobHatch-Design?node-id=696-1945&t=rfjUY082xjC3K5Vp-1",
+  },
   {
     id: 5,
     title: "Where AI Excels Today",
@@ -52,6 +74,7 @@ const EXPLORATIONS = [
       { icon: SlidersHorizontal, label: "Tool-stage fit", text: "Shows how different tools fit different stages of work, helping translate current AI strengths into real design decisions." },
     ],
     href: "/ai-explorations/where-ai-excels",
+    figmaHref: "",
   },
   {
     id: 6,
@@ -69,6 +92,7 @@ const EXPLORATIONS = [
       { icon: Sparkles, label: "AI-driven insights", text: "Demonstrates how AI can make sports data more engaging by helping users navigate complexity and discover insights faster." },
     ],
     href: "/ai-explorations/world-cup-data-lab",
+    figmaHref: "",
   },
   {
     id: 7,
@@ -86,6 +110,7 @@ const EXPLORATIONS = [
       { icon: Eye, label: "Rethinking staff tracking", text: "Explored a more connected alternative to traditional progress tracking by giving staff clearer, more real-time visibility into student completion states." },
     ],
     href: "/ai-explorations/synchronize-orientation",
+    figmaHref: "",
   },
   {
     id: 8,
@@ -103,6 +128,7 @@ const EXPLORATIONS = [
       { icon: Workflow, label: "Workflow integration", text: "Designed to reduce task-switching by keeping outreach actions embedded within the staff portal experience." },
     ],
     href: "/ai-explorations/dialpad-modal",
+    figmaHref: "",
   },
 ];
 
@@ -173,9 +199,7 @@ export default function AIExplorationsPage() {
                 Testing Product Hypotheses Through AI-Native Prototyping
               </h3>
               <p className="max-w-5xl text-base text-slate-600 md:text-lg">
-                A portfolio of experimental builds used to explore product behaviors, validate
-                emerging opportunities, and translate early concepts into working prototypes that
-                may inform future applications or commercial products.
+                Prototypes built to evaluate product behavior, de-risk early ideas, and explore practical applications.<br />Flip the cards for more, then select <span className="font-bold text-slate-800">Try Demo</span>.
               </p>
             </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -205,15 +229,30 @@ export default function AIExplorationsPage() {
                         );
                       })}
                     </div>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="mt-4 self-end text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
-                    >
-                      Try demo →
-                    </a>
+                    <div className="mt-4 flex items-center justify-between">
+                      {item.figmaHref ? (
+                        <a
+                          href={item.figmaHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
+                        >
+                          View Figma Prototype →
+                        </a>
+                      ) : (
+                        <span />
+                      )}
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
+                      >
+                        Try demo →
+                      </a>
+                    </div>
                   </div>
                 ) : (
                   <div className="p-6 md:p-8 flex flex-col flex-1">
@@ -223,15 +262,30 @@ export default function AIExplorationsPage() {
                     <p className="text-muted text-sm md:text-base leading-relaxed flex-1">
                       {item.backText}
                     </p>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="mt-4 self-end text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
-                    >
-                      Try demo →
-                    </a>
+                    <div className="mt-4 flex items-center justify-between">
+                      {item.figmaHref ? (
+                        <a
+                          href={item.figmaHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
+                        >
+                          View Figma Prototype →
+                        </a>
+                      ) : (
+                        <span />
+                      )}
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
+                      >
+                        Try demo →
+                      </a>
+                    </div>
                   </div>
                 );
 

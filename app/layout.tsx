@@ -61,6 +61,10 @@ export default function RootLayout({
         />
         {children}
         <Analytics />
+        <Script
+          src="https://mcp.figma.com/mcp/html-to-design/capture.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
