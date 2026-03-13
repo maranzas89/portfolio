@@ -20,6 +20,7 @@ import {
   Plus,
 } from "lucide-react";
 import { PROFILE, EDUCATION, WORK_EXPERIENCE, SKILLS } from "../profile-data";
+import { useTokens } from "../use-tokens";
 
 const SIDEBAR_TOP = [
   { icon: Home, label: "Home", href: "/ai-explorations/jobhatch/dashboard" },
@@ -46,6 +47,7 @@ const TABS = [
 ];
 
 export default function ProfilePage() {
+  const [tokens] = useTokens();
   const [activeTab, setActiveTab] = useState("personal");
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -194,13 +196,23 @@ export default function ProfilePage() {
             </Link>
           </div>
           <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 text-sm font-medium text-[#333]">
+              <span>
+                Liked{" "}
+                <span className="bg-[#2f327d] text-white text-xs font-bold px-2 py-0.5 rounded">0</span>
+              </span>
+              <span>
+                Applied{" "}
+                <span className="bg-[#2f327d] text-white text-xs font-bold px-2 py-0.5 rounded">0</span>
+              </span>
+            </div>
             <button className="relative text-[#999] hover:text-[#333] transition">
               <Bell className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-2 border border-gray-200 rounded-full px-4 py-2">
               <Settings className="w-4 h-4 text-[#999]" />
               <span className="text-sm font-medium text-[#333]">
-                Mia Yue (40 tokens)
+                Mia Yue ({tokens} tokens)
               </span>
               <ChevronDown className="w-3 h-3 text-[#999]" />
             </div>

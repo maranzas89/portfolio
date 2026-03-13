@@ -3,6 +3,7 @@
 import React, { Suspense, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useTokens } from "../use-tokens";
 import {
   Home,
   User,
@@ -195,6 +196,7 @@ function CheckInModal({ open, onDismiss, onContinue }: { open: boolean; onDismis
 function DashboardContent() {
   const searchParams = useSearchParams();
   const skippedResume = searchParams.get("skipped") === "resume";
+  const [tokens] = useTokens();
   const [checkInOpen, setCheckInOpen] = useState(false);
   const [checkedIn, setCheckedIn] = useState(() => {
     if (typeof window !== "undefined") {
@@ -302,12 +304,22 @@ function DashboardContent() {
             </Link>
           </div>
           <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 text-sm font-medium text-[#333]">
+              <span>
+                Liked{" "}
+                <span className="bg-[#2f327d] text-white text-xs font-bold px-2 py-0.5 rounded">0</span>
+              </span>
+              <span>
+                Applied{" "}
+                <span className="bg-[#2f327d] text-white text-xs font-bold px-2 py-0.5 rounded">0</span>
+              </span>
+            </div>
             <button className="relative text-[#999] hover:text-[#333] transition">
               <Bell className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-2 border border-gray-200 rounded-full px-4 py-2">
               <Settings className="w-4 h-4 text-[#999]" />
-              <span className="text-sm font-medium text-[#333]">Mia Yue (40 tokens)</span>
+              <span className="text-sm font-medium text-[#333]">Mia Yue ({tokens} tokens)</span>
               <span className="text-xs text-[#999]">▼</span>
             </div>
           </div>

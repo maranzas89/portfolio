@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { jsPDF } from "jspdf";
 import { PROFILE, EDUCATION, WORK_EXPERIENCE, SKILLS } from "../profile-data";
+import { useTokens } from "../use-tokens";
 import {
   Home,
   User,
@@ -43,7 +44,7 @@ export default function ResumePage() {
   const router = useRouter();
   const [showOptimizeModal, setShowOptimizeModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [tokens, setTokens] = useState(40);
+  const [tokens, setTokens] = useTokens();
   const [showToast, setShowToast] = useState(false);
   const [coverLetterGenerated, setCoverLetterGenerated] = useState(false);
 
@@ -227,6 +228,16 @@ export default function ResumePage() {
             </Link>
           </div>
           <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 text-sm font-medium text-[#333]">
+              <span>
+                Liked{" "}
+                <span className="bg-[#2f327d] text-white text-xs font-bold px-2 py-0.5 rounded">0</span>
+              </span>
+              <span>
+                Applied{" "}
+                <span className="bg-[#2f327d] text-white text-xs font-bold px-2 py-0.5 rounded">0</span>
+              </span>
+            </div>
             <button className="relative text-[#999] hover:text-[#333] transition">
               <Bell className="w-5 h-5" />
             </button>
