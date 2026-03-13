@@ -23,7 +23,7 @@ import {
 
 const SIDEBAR_TOP = [
   { icon: Home, label: "Home", active: true },
-  { icon: User, label: "Profile" },
+  { icon: User, label: "Profile", href: "/ai-explorations/jobhatch/profile" },
   { icon: FileText, label: "Resume" },
   { icon: Briefcase, label: "Jobs", href: "/ai-explorations/jobhatch/jobs" },
   { icon: CalendarDays, label: "Planner" },
@@ -239,7 +239,7 @@ function DashboardContent() {
                 key={item.label}
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition ${
-                  item.active ? "bg-[#fff3e0] text-[#e2752c]" : "text-[#666] hover:bg-gray-50"
+                  item.active ? "bg-[#fff3e0] text-[#e2752c]" : "text-[#666] hover:text-[#e2752c] hover:bg-gray-50"
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -249,7 +249,7 @@ function DashboardContent() {
               <div
                 key={item.label}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium cursor-default ${
-                  item.active ? "bg-[#fff3e0] text-[#e2752c]" : "text-[#666]"
+                  item.active ? "bg-[#fff3e0] text-[#e2752c]" : "text-[#666] hover:text-[#e2752c]"
                 }`}
               >
                 <Icon className="w-5 h-5" />

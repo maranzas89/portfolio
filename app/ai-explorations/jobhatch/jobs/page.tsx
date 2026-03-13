@@ -112,7 +112,7 @@ export default function JobsPage() {
 
         {/* Auth Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <button onClick={() => setLoginOpen(true)} className="px-8 py-3 rounded-full text-lg font-bold text-[#333] bg-white shadow-[0px_20px_24px_0px_rgba(0,0,0,0.03)] cursor-pointer">
+          <button onClick={() => setLoginOpen(true)} className="px-8 py-3 rounded-full text-lg font-bold text-[#333] bg-white shadow-[0px_20px_24px_0px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-[#f48c06] hover:text-white transition">
             Login
           </button>
           <a href="/ai-explorations/jobhatch/signup" className="px-8 py-3 rounded-full text-lg font-bold text-white bg-[#f48c06] cursor-pointer hover:brightness-110 transition">

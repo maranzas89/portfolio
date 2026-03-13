@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   Home,
@@ -36,7 +36,13 @@ const SIDEBAR_BOTTOM = [
   { icon: Settings, label: "Setting" },
 ];
 
-const TABS = ["Personal", "Education", "Work Experience", "Skills", "Equal Employment"] as const;
+const TABS = [
+  { label: "Personal", anchor: "personal" },
+  { label: "Education", anchor: "education" },
+  { label: "Work Experience", anchor: "work-experience" },
+  { label: "Skills", anchor: "skills" },
+  { label: "Equal Employment", anchor: "equal-employment" },
+];
 
 const SKILLS = [
   "UI/UX Design",
@@ -88,12 +94,44 @@ const WORK_EXPERIENCE = [
 ];
 
 export default function ProfilePage() {
-  const [activeTab, setActiveTab] = useState<(typeof TABS)[number]>("Personal");
+  const [activeTab, setActiveTab] = useState("personal");
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  function scrollToSection(anchor: string) {
+    const el = document.getElementById(anchor);
+    if (el && scrollRef.current) {
+      const container = scrollRef.current;
+      const elTop = el.offsetTop - container.offsetTop;
+      container.scrollTo({ top: elTop - 52 - 16, behavior: "smooth" });
+    }
+  }
+
+  // Track active tab on scroll
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const handleScroll = () => {
+      const anchors = TABS.map((t) => t.anchor);
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const el = document.getElementById(anchors[i]);
+        if (el) {
+          const elTop = el.offsetTop - container.offsetTop;
+          if (container.scrollTop >= elTop - 70) {
+            setActiveTab(anchors[i]);
+            return;
+          }
+        }
+      }
+      setActiveTab(anchors[0]);
+    };
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <div className="relative bg-[#fdf8f0] min-h-screen flex">
+    <div className="relative bg-white min-h-screen flex">
       {/* Sidebar */}
-      <aside className="hidden lg:flex flex-col w-[220px] min-h-screen border-r border-gray-200 bg-white px-4 py-6 shrink-0 justify-between">
+      <aside className="hidden lg:flex flex-col w-[220px] min-h-screen border-r border-gray-100 bg-white px-4 py-6 shrink-0 justify-between">
         <div>
           {SIDEBAR_TOP.map((item) => {
             const Icon = item.icon;
@@ -104,7 +142,7 @@ export default function ProfilePage() {
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition ${
                   item.active
                     ? "bg-[#fff3e0] text-[#e2752c]"
-                    : "text-[#666] hover:bg-gray-50"
+                    : "text-[#666] hover:text-[#e2752c] hover:bg-gray-50"
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -116,7 +154,7 @@ export default function ProfilePage() {
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium cursor-default ${
                   item.active
                     ? "bg-[#fff3e0] text-[#e2752c]"
-                    : "text-[#666]"
+                    : "text-[#666] hover:text-[#e2752c]"
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -149,7 +187,7 @@ export default function ProfilePage() {
             return (
               <div
                 key={item.label}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#666] font-medium"
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#666] font-medium hover:text-[#e2752c] transition cursor-default"
               >
                 <Icon className="w-5 h-5" />
                 {item.label}
@@ -160,9 +198,9 @@ export default function ProfilePage() {
       </aside>
 
       {/* Main */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 flex flex-col">
         {/* Top Nav */}
-        <header className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-gray-200 bg-white">
+        <header className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-gray-100 bg-white shrink-0">
           <div className="flex items-center gap-4">
             <Link
               href="/ai-explorations/jobhatch"
@@ -179,9 +217,6 @@ export default function ProfilePage() {
                 JOBHATCH
               </span>
             </Link>
-            <span className="font-black text-[#333] text-lg tracking-[3px] ml-2">
-              PROFILE
-            </span>
           </div>
           <div className="flex items-center gap-4">
             <button className="relative text-[#999] hover:text-[#333] transition">
@@ -197,189 +232,202 @@ export default function ProfilePage() {
           </div>
         </header>
 
-        {/* Content */}
-        <div className="px-6 md:px-10 py-8 max-w-[900px]">
-          {/* Privacy notice */}
-          <p className="text-sm font-semibold text-[#555] mb-6">
-            Your Profile data is kept private and secure
-          </p>
-
-          {/* Tabs */}
-          <div className="flex gap-0 border-b border-gray-200 mb-8">
-            {TABS.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-5 py-3 text-sm font-medium transition border-b-2 -mb-[2px] ${
-                  activeTab === tab
-                    ? "border-[#333] text-[#333]"
-                    : "border-transparent text-[#999] hover:text-[#666]"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* Complete profile CTA */}
-          <div className="bg-[#fef3e2] rounded-xl p-6 flex items-center justify-between mb-10">
-            <div>
-              <p className="text-sm text-[#555] leading-relaxed">
-                Complete your profile to boost job matching accuracy and enable
-                Autofill extension to autofill your applications.
+        {/* Content area with cream bg — scrollable */}
+        <div ref={scrollRef} className="flex-1 bg-[#fdf8e8] overflow-y-auto">
+          {/* White card */}
+          <div className="px-6 md:px-10 lg:px-14 py-8">
+          <div className="bg-white rounded-2xl max-w-[1500px] mx-auto">
+            {/* Sticky header: PROFILE title + tab bar */}
+            <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm rounded-t-2xl px-8 md:px-14 pt-8">
+              <h1 className="font-black text-[#333] text-[40px] tracking-[3px] mb-1">
+                PROFILE
+              </h1>
+              <p className="text-base font-semibold text-[#999] mb-4">
+                Your Profile data is kept private and secure
               </p>
-              <button className="mt-4 bg-[#e2752c] text-white font-bold text-sm px-6 py-2.5 rounded-full hover:brightness-110 transition">
-                Complete Profile
-              </button>
-            </div>
-            <img
-              src="/images/jobhatch/hero-mascot.png"
-              alt="Profile mascot"
-              className="w-[100px] h-auto ml-6 shrink-0"
-            />
-          </div>
-
-          {/* Personal Info */}
-          <div className="mb-10">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
-                MIA YUE
-              </h2>
-              <button className="flex items-center gap-1.5 text-sm text-[#555] hover:text-[#333] transition">
-                <ExternalLink className="w-4 h-4" />
-                Share My Profile
-              </button>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-8 text-sm text-[#555]">
-                <span>mia.yue@gmail.com</span>
-                <span>415-223-3528</span>
+              <div className="flex gap-0 border-b border-gray-200">
+                {TABS.map((tab) => (
+                  <button
+                    key={tab.anchor}
+                    onClick={() => { setActiveTab(tab.anchor); scrollToSection(tab.anchor); }}
+                    className={`px-5 py-3 text-base font-bold transition border-b-2 -mb-[2px] tracking-[1.2px] cursor-pointer ${
+                      activeTab === tab.anchor
+                        ? "border-[#e2752c] text-[#333]"
+                        : "border-transparent text-[#999] hover:text-[#e2752c]"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
-              <button className="flex items-center gap-1.5 text-sm text-[#555] hover:text-[#333] transition">
-                <Pencil className="w-4 h-4" />
-                Edit
-              </button>
             </div>
-          </div>
 
-          <hr className="border-gray-200 mb-10" />
-
-          {/* Education */}
-          <div className="mb-10">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-[#2f327d] tracking-wide">
-                Education
-              </h2>
-              <button className="flex items-center gap-1.5 text-sm text-[#555] hover:text-[#333] transition">
-                <Pencil className="w-4 h-4" />
-                Edit
-              </button>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-5 h-5 rounded-full border-2 border-gray-300 mt-1 shrink-0" />
+            <div className="px-8 md:px-14 py-10">
+            {/* Complete profile CTA */}
+            <div className="bg-[#fdf8e8] rounded-xl p-8 flex items-center justify-between mb-12">
               <div>
-                <p className="text-xs text-[#999] mb-1">09/2016 - 09/2018</p>
-                <p className="font-bold text-[#333] text-sm tracking-wide uppercase mb-1">
-                  Standford University
+                <p className="text-base text-[#555] leading-relaxed">
+                  Complete your profile to boost job matching accuracy and enable
+                  Autofill extension to autofill your applications.
                 </p>
-                <p className="text-sm text-[#555]">
-                  Master of Arts (B.A.) in Multimedia Option
-                </p>
+                <button className="mt-5 bg-[#e2752c] text-white font-bold text-base px-10 py-3.5 rounded-full hover:brightness-110 transition">
+                  Complete Profile
+                </button>
               </div>
+              <img
+                src="/images/jobhatch/hero-mascot.png"
+                alt="Profile mascot"
+                className="w-[120px] h-auto ml-8 shrink-0"
+              />
             </div>
-          </div>
 
-          <hr className="border-gray-200 mb-10" />
-
-          {/* Work Experience */}
-          <div className="mb-10">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-[#2f327d] tracking-wide">
-                Work Experience
-              </h2>
-              <button className="flex items-center gap-1.5 text-sm text-[#555] hover:text-[#333] transition">
-                <Pencil className="w-4 h-4" />
-                Edit
-              </button>
-            </div>
-            <div className="space-y-8">
-              {WORK_EXPERIENCE.map((job, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <div className="w-5 h-5 rounded-full border-2 border-gray-300 mt-1 shrink-0" />
-                  <div className="flex-1">
-                    <p className="text-xs text-[#999] mb-1">{job.period}</p>
-                    <p className="font-bold text-[#333] text-base mb-0.5">
-                      {job.company}
-                    </p>
-                    <p className="font-semibold text-[#555] text-sm mb-2">
-                      {job.title}
-                    </p>
-                    <ul className="space-y-1">
-                      {job.bullets.map((bullet, j) => (
-                        <li
-                          key={j}
-                          className="text-sm text-[#555] leading-relaxed flex items-start gap-2"
-                        >
-                          <span className="mt-1.5 shrink-0">•</span>
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    {i < WORK_EXPERIENCE.length - 1 && (
-                      <hr className="border-gray-200 mt-8" />
-                    )}
-                  </div>
+            {/* Personal Info */}
+            <section id="personal" className="mb-12">
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-3xl font-bold text-[#2f327d] tracking-wide">
+                  MIA YUE
+                </h2>
+                <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
+                  <ExternalLink className="w-5 h-5" />
+                  Share My Profile
+                </button>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-10 text-base text-[#555]">
+                  <span>mia.yue@gmail.com</span>
+                  <span>415-223-3528</span>
                 </div>
-              ))}
-            </div>
-          </div>
+                <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
+                  <Pencil className="w-5 h-5" />
+                  Edit
+                </button>
+              </div>
+            </section>
 
-          <hr className="border-gray-200 mb-10" />
+            <hr className="border-gray-200 mb-12" />
 
-          {/* Skills */}
-          <div className="mb-10">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-[#2f327d] tracking-wide">
-                Skills
-              </h2>
-              <button className="flex items-center gap-1.5 text-sm text-[#555] hover:text-[#333] transition">
-                <Pencil className="w-4 h-4" />
-                Edit
+            {/* Education */}
+            <section id="education" className="mb-12">
+              <div className="flex items-center justify-between mb-7">
+                <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
+                  Education
+                </h2>
+                <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
+                  <Pencil className="w-5 h-5" />
+                  Edit
+                </button>
+              </div>
+              <div className="flex items-start gap-5">
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-5 rounded-full border-2 border-gray-300 shrink-0 bg-white" />
+                  <div className="w-[1px] h-10 bg-gray-200 mt-1" />
+                </div>
+                <div>
+                  <p className="text-sm text-[#999] mb-1">09/2016 - 09/2018</p>
+                  <p className="font-bold text-[#333] text-base tracking-wide uppercase mb-1">
+                    Standford University
+                  </p>
+                  <p className="text-base text-[#555]">
+                    Master of Arts (B.A.) in Multimedia Option
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <hr className="border-gray-200 mb-12" />
+
+            {/* Work Experience */}
+            <section id="work-experience" className="mb-12">
+              <div className="flex items-center justify-between mb-7">
+                <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
+                  Work Experience
+                </h2>
+                <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
+                  <Pencil className="w-5 h-5" />
+                  Edit
+                </button>
+              </div>
+              <div className="relative">
+                {WORK_EXPERIENCE.map((job, i) => (
+                  <div key={i} className="flex items-start gap-5 relative">
+                    <div className="flex flex-col items-center shrink-0">
+                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 bg-white relative z-10" />
+                      <div className={`w-[1px] bg-gray-200 flex-1 ${i < WORK_EXPERIENCE.length - 1 ? "min-h-[140px]" : "min-h-[80px]"}`} />
+                    </div>
+                    <div className="flex-1 pb-10">
+                      <p className="text-sm text-[#999] mb-1">{job.period}</p>
+                      <p className="font-bold text-[#333] text-lg mb-0.5">
+                        {job.company}
+                      </p>
+                      <p className="font-semibold text-[#555] text-base mb-3">
+                        {job.title}
+                      </p>
+                      <ul className="space-y-1.5">
+                        {job.bullets.map((bullet, j) => (
+                          <li
+                            key={j}
+                            className="text-base text-[#555] leading-relaxed flex items-center gap-2"
+                          >
+                            <span className="shrink-0">•</span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <hr className="border-gray-200 mb-12" />
+
+            {/* Skills */}
+            <section id="skills" className="mb-12">
+              <div className="flex items-center justify-between mb-7">
+                <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
+                  Skills
+                </h2>
+                <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
+                  <Pencil className="w-5 h-5" />
+                  Edit
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {SKILLS.map((skill) => (
+                  <span
+                    key={skill}
+                    className="border border-gray-300 rounded-full px-6 py-2.5 text-base text-[#555] font-medium"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </section>
+
+            <hr className="border-gray-200 mb-12" />
+
+            {/* Equal Employment */}
+            <section id="equal-employment" className="mb-10">
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
+                  Equal Employment
+                </h2>
+                <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
+                  <Pencil className="w-5 h-5" />
+                  Edit
+                </button>
+              </div>
+              <p className="text-base text-[#888] mb-5">
+                Add your Employment history for better job matches tailored to
+                your background
+              </p>
+              <button className="flex items-center gap-2 text-base font-medium text-[#555] hover:text-[#333] transition">
+                <Plus className="w-5 h-5" />
+                Employment
               </button>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {SKILLS.map((skill) => (
-                <span
-                  key={skill}
-                  className="border border-gray-300 rounded-full px-5 py-2 text-sm text-[#555] font-medium"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+            </section>
           </div>
-
-          <hr className="border-gray-200 mb-10" />
-
-          {/* Equal Employment */}
-          <div className="mb-10">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-[#2f327d] tracking-wide">
-                Equal Employment
-              </h2>
-              <button className="flex items-center gap-1.5 text-sm text-[#555] hover:text-[#333] transition">
-                <Pencil className="w-4 h-4" />
-                Edit
-              </button>
-            </div>
-            <p className="text-sm text-[#888] mb-4">
-              Add your Employment history for better job matches tailored to
-              your background
-            </p>
-            <button className="flex items-center gap-2 text-sm font-medium text-[#555] hover:text-[#333] transition">
-              <Plus className="w-4 h-4" />
-              Employment
-            </button>
+          </div>
           </div>
         </div>
       </div>
