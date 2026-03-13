@@ -124,10 +124,12 @@ export default function PlannerPage() {
   const daysInMonth = getDaysInMonth(currentYear, currentMonth);
   const firstDay = getFirstDayOfMonth(currentYear, currentMonth);
 
-  const upcomingSessions = [
-    { mentor: "Emily Park", topic: "Portfolio Review", date: "Mar 15, 2026", time: "2:00 PM", status: "confirmed" as const },
-    { mentor: "Sarah Chen", topic: "Career Strategy", date: "Mar 18, 2026", time: "10:00 AM", status: "pending" as const },
-  ];
+  const [bookedSessions, setBookedSessions] = useState<
+    { mentor: string; topic: string; date: string; time: string; status: "confirmed" | "pending"; mode: string }[]
+  >([
+    { mentor: "Emily Park", topic: "Portfolio Review", date: "Mar 15, 2026", time: "2:00 PM", status: "confirmed", mode: "Video Call" },
+    { mentor: "Sarah Chen", topic: "Career Strategy", date: "Mar 18, 2026", time: "10:00 AM", status: "pending", mode: "Video Call" },
+  ]);
 
   const handleBook = () => {
     if (selectedMentor !== null && selectedDate && selectedTime && selectedTopic) {
@@ -135,8 +137,10 @@ export default function PlannerPage() {
     }
   };
 
+  const SESSION_MODE_LABELS: Record<string, string> = { video: "Video Call", inperson: "In Person", phone: "Phone Call", workshop: "Workshop" };
+
   const confirmBooking = () => {
-    if (selectedMentor !== null) {
+    if (selectedMentor !== null && selectedDate && selectedTime && selectedTopic) {
       const cost = MENTORS[selectedMentor].cost;
       if (tokens < cost) {
         setShowBookingConfirm(false);
@@ -144,9 +148,26 @@ export default function PlannerPage() {
         return;
       }
       setTokens((t) => t - cost);
+
+      // Build date string
+      const dateStr = `${MONTH_NAMES[currentMonth].slice(0, 3)} ${selectedDate}, ${currentYear}`;
+
+      // Add to booked sessions
+      setBookedSessions((prev) => [
+        { mentor: MENTORS[selectedMentor].name, topic: selectedTopic!, date: dateStr, time: selectedTime!, status: "confirmed", mode: SESSION_MODE_LABELS[sessionMode] },
+        ...prev,
+      ]);
+
       setShowBookingConfirm(false);
+      setActiveTab("upcoming");
       setBookingComplete(true);
       setTimeout(() => setBookingComplete(false), 3000);
+
+      // Reset selections
+      setSelectedMentor(null);
+      setSelectedDate(null);
+      setSelectedTime(null);
+      setSelectedTopic(null);
     }
   };
 
@@ -440,7 +461,7 @@ export default function PlannerPage() {
           {activeTab === "upcoming" && (
             <div className="space-y-6 w-full">
               <h2 className="text-2xl font-black text-[#333]">Upcoming Sessions</h2>
-              {upcomingSessions.map((session, i) => (
+              {bookedSessions.map((session, i) => (
                 <div key={i} className="bg-white rounded-xl border border-gray-200 p-10 flex items-center justify-between">
                   <div className="flex items-center gap-6">
                     <div className="w-16 h-16 rounded-full bg-[#fef3e2] flex items-center justify-center">
@@ -448,7 +469,7 @@ export default function PlannerPage() {
                     </div>
                     <div>
                       <p className="font-bold text-[#333] text-xl">{session.topic}</p>
-                      <p className="text-base text-[#888] mt-1">with {session.mentor}</p>
+                      <p className="text-base text-[#888] mt-1">with {session.mentor} · {session.mode}</p>
                       <p className="text-sm text-[#555] mt-1.5">{session.date} at {session.time}</p>
                     </div>
                   </div>
@@ -462,7 +483,7 @@ export default function PlannerPage() {
                   </div>
                 </div>
               ))}
-              {upcomingSessions.length === 0 && (
+              {bookedSessions.length === 0 && (
                 <div className="bg-white rounded-xl border border-gray-200 p-14 text-center">
                   <CalendarDays className="w-14 h-14 text-[#ddd] mx-auto mb-4" />
                   <p className="text-lg text-[#888]">No upcoming sessions. Book one to get started!</p>

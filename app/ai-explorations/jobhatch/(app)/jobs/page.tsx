@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import {
   Search,
+  MapPin,
   Heart,
   SlidersHorizontal,
   X,
@@ -78,15 +79,26 @@ export default function JobsPage() {
         </p>
 
         {/* Search bar */}
-        <div className="mb-4">
-          <div className="flex items-center border border-gray-200 rounded-xl px-5 py-3.5">
+        <div className="mb-4 flex items-center gap-3">
+          <div className="flex items-center flex-1 border border-gray-200 rounded-xl px-5 py-3.5">
+            <Search className="w-5 h-5 text-[#999] mr-3 shrink-0" />
             <input
               type="text"
-              placeholder="Search by job title, company, or keyword..."
+              placeholder="Job title, company, or keyword..."
               className="flex-1 text-sm text-[#555] placeholder:text-[#bbb] outline-none bg-transparent"
             />
-            <Search className="w-5 h-5 text-[#999]" />
+            <div className="w-px h-5 bg-gray-200 mx-4 shrink-0" />
+            <MapPin className="w-5 h-5 text-[#999] mr-3 shrink-0" />
+            <input
+              type="text"
+              placeholder="City, state, or remote..."
+              className="flex-1 text-sm text-[#555] placeholder:text-[#bbb] outline-none bg-transparent"
+            />
           </div>
+          <button className="bg-[#e2752c] text-white font-bold text-sm w-[118px] py-3.5 rounded-xl hover:brightness-110 transition shrink-0 flex items-center justify-center gap-1.5">
+            <Search className="w-4 h-4" />
+            Search
+          </button>
         </div>
 
         {/* Filter bar */}

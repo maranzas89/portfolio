@@ -87,12 +87,12 @@ export default function ProfilePage() {
           <p className="text-base font-semibold text-[#999] mb-4">
             Your Profile data is kept private and secure
           </p>
-          <div ref={tabBarRef} className="flex gap-0 border-b border-gray-200">
+          <div ref={tabBarRef} className="flex gap-6 border-b border-gray-200">
             {TABS.map((tab) => (
               <button
                 key={tab.anchor}
                 onClick={() => { setActiveTab(tab.anchor); scrollToSection(tab.anchor); }}
-                className={`px-5 py-3 text-base font-bold transition border-b-2 -mb-[2px] tracking-[1.2px] cursor-pointer ${
+                className={`px-5 py-3 text-base font-black transition border-b-2 -mb-[2px] cursor-pointer ${
                   activeTab === tab.anchor
                     ? "border-[#e2752c] text-[#333]"
                     : "border-transparent text-[#999] hover:text-[#e2752c]"
@@ -152,7 +152,7 @@ export default function ProfilePage() {
         {/* Education */}
         <section id="education" className="mb-12 scroll-mt-[140px]">
           <div className="flex items-center justify-between mb-7">
-            <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
+            <h2 className="text-xl font-black text-[#333]">
               Education
             </h2>
             <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
@@ -160,10 +160,10 @@ export default function ProfilePage() {
               Edit
             </button>
           </div>
-          <div className="flex items-start gap-5">
-            <div className="flex flex-col items-center">
+          <div className="flex items-stretch gap-5">
+            <div className="flex flex-col items-center shrink-0">
               <div className="w-5 h-5 rounded-full border-2 border-gray-300 shrink-0 bg-white" />
-              <div className="w-[1px] h-10 bg-gray-200 mt-1" />
+              <div className="w-[1px] flex-1 bg-gray-200 mt-1" />
             </div>
             <div>
               <p className="text-sm text-[#999] mb-1">{EDUCATION[0].period}</p>
@@ -182,7 +182,7 @@ export default function ProfilePage() {
         {/* Work Experience */}
         <section id="work-experience" className="mb-12 scroll-mt-[140px]">
           <div className="flex items-center justify-between mb-7">
-            <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
+            <h2 className="text-xl font-black text-[#333]">
               Work Experience
             </h2>
             <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
@@ -192,10 +192,10 @@ export default function ProfilePage() {
           </div>
           <div className="relative">
             {WORK_EXPERIENCE.map((job, i) => (
-              <div key={i} className="flex items-start gap-5 relative">
+              <div key={i} className="flex items-stretch gap-5 relative">
                 <div className="flex flex-col items-center shrink-0">
-                  <div className="w-5 h-5 rounded-full border-2 border-gray-300 bg-white relative z-10" />
-                  <div className={`w-[1px] bg-gray-200 flex-1 ${i < WORK_EXPERIENCE.length - 1 ? "min-h-[140px]" : "min-h-[80px]"}`} />
+                  <div className="w-5 h-5 rounded-full border-2 border-gray-300 bg-white relative z-10 shrink-0" />
+                  <div className="w-[1px] bg-gray-200 flex-1 mb-10" />
                 </div>
                 <div className="flex-1 pb-10">
                   <p className="text-sm text-[#999] mb-1">{job.period}</p>
@@ -227,7 +227,7 @@ export default function ProfilePage() {
         {/* Skills */}
         <section id="skills" className="mb-12 scroll-mt-[140px]">
           <div className="flex items-center justify-between mb-7">
-            <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
+            <h2 className="text-xl font-black text-[#333]">
               Skills
             </h2>
             <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">
@@ -252,7 +252,7 @@ export default function ProfilePage() {
         {/* Equal Employment */}
         <section id="equal-employment" className="mb-10 scroll-mt-[140px]">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="text-2xl font-bold text-[#2f327d] tracking-wide">
+            <h2 className="text-xl font-black text-[#333]">
               Equal Employment
             </h2>
             <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">

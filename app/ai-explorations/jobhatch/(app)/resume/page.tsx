@@ -21,6 +21,9 @@ export default function ResumePage() {
   const [showToast, setShowToast] = useState(false);
   const [coverLetterGenerated, setCoverLetterGenerated] = useState(false);
   const [showInsufficientTokens, setShowInsufficientTokens] = useState(false);
+  const [showAIBuilderModal, setShowAIBuilderModal] = useState(false);
+  const [aiBuilderInput, setAiBuilderInput] = useState("");
+  const [aiBuilderSource, setAiBuilderSource] = useState<"paste" | "uploaded">("paste");
 
   function handleDownloadPDF() {
     const pdf = new jsPDF("p", "mm", "a4");
@@ -166,21 +169,27 @@ export default function ResumePage() {
             />
           </div>
 
-          {/* AI Resume Builder */}
-          <div className="flex items-center gap-5 mb-8">
+          {/* AI Resume Builder Banner */}
+          <div className="flex items-center gap-6 mb-8 bg-gradient-to-r from-[#2f327d] to-[#4a4db0] rounded-xl px-8 py-5">
             <img
               src="/images/jobhatch/hero-mascot.png"
               alt="AI mascot"
-              className="w-[80px] h-auto shrink-0"
+              className="w-[72px] h-auto shrink-0"
             />
-            <div>
-              <p className="text-base font-bold text-[#333] mb-1">
+            <div className="flex-1">
+              <p className="text-base font-bold text-white mb-1">
                 AI Resume Builder
               </p>
-              <p className="text-sm text-[#888] leading-relaxed">
+              <p className="text-sm text-white/70 leading-relaxed">
                 Let our AI help you craft a professional resume tailored to your target roles.
               </p>
             </div>
+            <button
+              onClick={() => setShowAIBuilderModal(true)}
+              className="bg-[#e2752c] text-white font-bold text-sm px-6 py-2.5 rounded-full hover:brightness-110 transition shrink-0 cursor-pointer"
+            >
+              Try Now
+            </button>
           </div>
 
           {/* Generate + Copy row */}
@@ -467,6 +476,70 @@ export default function ResumePage() {
                   Yes
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* AI Resume Builder Modal */}
+      {showAIBuilderModal && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50" onClick={() => setShowAIBuilderModal(false)}>
+          <div
+            className="bg-white rounded-2xl w-full max-w-[640px] mx-4 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowAIBuilderModal(false)}
+              className="absolute top-5 right-5 text-[#999] hover:text-[#333] transition cursor-pointer"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="px-10 pt-10 pb-8">
+              <div className="flex items-center gap-4 mb-2">
+                <img src="/images/jobhatch/hero-mascot.png" alt="AI mascot" className="w-[56px] h-auto" />
+                <div>
+                  <h2 className="text-xl font-bold text-[#333]">AI Resume Builder</h2>
+                  <p className="text-sm text-[#888] mt-1">Paste your experience or use your uploaded resume, and let AI craft a polished, role-targeted resume for you.</p>
+                </div>
+              </div>
+
+              {/* Source Toggle */}
+              <div className="flex gap-3 mt-6 mb-5">
+                <button
+                  onClick={() => setAiBuilderSource("paste")}
+                  className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition cursor-pointer ${aiBuilderSource === "paste" ? "bg-[#e2752c] text-white" : "bg-[#f9fafb] text-[#555] border border-gray-200 hover:bg-gray-100"}`}
+                >
+                  Paste Content
+                </button>
+                <button
+                  onClick={() => setAiBuilderSource("uploaded")}
+                  className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition cursor-pointer ${aiBuilderSource === "uploaded" ? "bg-[#e2752c] text-white" : "bg-[#f9fafb] text-[#555] border border-gray-200 hover:bg-gray-100"}`}
+                >
+                  Use Uploaded Resume
+                </button>
+              </div>
+
+              {aiBuilderSource === "paste" ? (
+                <textarea
+                  value={aiBuilderInput}
+                  onChange={(e) => setAiBuilderInput(e.target.value)}
+                  placeholder="Paste your work experience, skills, education, or any relevant content here..."
+                  className="w-full h-[200px] border border-gray-200 rounded-xl p-4 text-sm text-[#333] placeholder:text-[#bbb] resize-none focus:outline-none focus:border-[#e2752c] transition"
+                />
+              ) : (
+                <div className="w-full h-[200px] border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center text-center">
+                  <div className="w-12 h-12 rounded-full bg-[#ecfdf5] flex items-center justify-center mb-3">
+                    <CircleCheckBig className="w-6 h-6 text-[#16a34a]" />
+                  </div>
+                  <p className="text-sm font-semibold text-[#333]">Your uploaded resume is ready</p>
+                  <p className="text-xs text-[#888] mt-1">Mia_Yue_Resume.pdf</p>
+                </div>
+              )}
+
+              <button className="w-full mt-6 bg-[#e2752c] text-white font-bold text-base py-3.5 rounded-full hover:brightness-110 transition cursor-pointer">
+                Generate Resume with AI
+              </button>
             </div>
           </div>
         </div>

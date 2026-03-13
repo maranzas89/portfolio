@@ -76,7 +76,7 @@ function JobHatchSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden lg:flex flex-col w-[220px] h-full border-r border-gray-100 bg-white px-4 py-6 shrink-0 justify-between overflow-y-auto">
+    <aside className="hidden lg:flex flex-col w-[220px] h-full bg-white shadow-[1px_0_6px_rgba(0,0,0,0.04)] z-10 px-4 py-6 shrink-0 justify-between overflow-y-auto">
       <div>
         {SIDEBAR_TOP.map((item) => {
           const Icon = item.icon;
