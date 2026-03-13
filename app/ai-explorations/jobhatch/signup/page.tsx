@@ -120,14 +120,14 @@ export default function JobHatchSignupPage() {
         <div className="hidden md:flex w-[420px] bg-[#b8e6fb] flex-col items-center justify-between px-10 py-10 rounded-l-3xl">
           {/* Logo */}
           <div className="flex items-center gap-2.5 self-end">
-            <div className="bg-[#fcd038] border-2 border-[#2f327d] rounded-lg shadow-[-3px_3px_0px_0px_#2f327d] w-10 h-10 overflow-hidden flex items-center justify-center">
+            <div className="bg-[#fcd038] border-2 border-[#2f327d] rounded-lg w-10 h-10 overflow-hidden flex items-center justify-center">
               <img
-                src="/images/jobhatch/logo-chick.png"
+                src="/images/jobhatch/logo.png"
                 alt="JobHatch"
                 className="w-8 h-8 object-contain"
               />
             </div>
-            <span className="font-black text-[#2f327d] text-lg tracking-[3px]">
+            <span className="font-black text-[#2f327d] text-xl tracking-[4px]">
               JOBHATCH
             </span>
           </div>

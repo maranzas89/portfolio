@@ -9,21 +9,18 @@ export default function JobHatchWelcomePage() {
       {/* Top Nav */}
       <header className="relative px-6 md:px-20 py-6 md:py-8 flex items-center justify-between">
         {/* Logo */}
-        <Link
-          href="/ai-explorations/jobhatch"
-          className="flex items-end gap-3"
-        >
-          <div className="bg-[#fcd038] border border-[#2f327d] rounded-lg shadow-[-4px_4px_0px_0px_#2f327d] w-12 h-12 md:w-14 md:h-14 overflow-hidden flex items-center justify-center">
+        <div className="flex items-end gap-3">
+          <div className="bg-[#fcd038] border-2 border-[#2f327d] rounded-lg w-12 h-12 md:w-14 md:h-14 overflow-hidden flex items-center justify-center">
             <img
-              src="/images/jobhatch/logo-chick.png"
+              src="/images/jobhatch/logo.png"
               alt="JobHatch"
               className="w-10 h-10 md:w-12 md:h-12 object-contain"
             />
           </div>
-          <span className="font-black text-[#2f327d] text-xl md:text-2xl tracking-[4px]">
+          <span className="font-black text-[#2f327d] text-2xl md:text-3xl tracking-[5px]">
             JOBHATCH
           </span>
-        </Link>
+        </div>
 
         {/* Center Nav */}
         <nav className="hidden md:flex items-center gap-4 absolute left-1/2 -translate-x-1/2">
@@ -51,7 +48,7 @@ export default function JobHatchWelcomePage() {
         {/* Chick mascot */}
         <div className="mb-4">
           <img
-            src="/images/jobhatch/logo-chick.png"
+            src="/images/jobhatch/logo.png"
             alt="JobHatch Chick"
             className="w-[160px] md:w-[200px] h-auto"
           />
@@ -93,14 +90,14 @@ export default function JobHatchWelcomePage() {
         <div className="max-w-[1200px] mx-auto px-6 md:px-16">
           <div className="flex flex-col items-center text-center">
             {/* Logo */}
-            <div className="bg-[#fcd038] rounded-xl w-16 h-16 overflow-hidden flex items-center justify-center mb-3 shadow-[inset_-3px_-3px_3px_rgba(0,0,0,0.2),inset_3px_3px_3px_rgba(0,0,0,0.2)]">
+            <div className="bg-[#fcd038] rounded-xl w-16 h-16 overflow-hidden flex items-center justify-center mb-3">
               <img
-                src="/images/jobhatch/logo-chick.png"
+                src="/images/jobhatch/logo.png"
                 alt="JobHatch"
                 className="w-12 h-12 object-contain"
               />
             </div>
-            <span className="font-black text-[#2f327d] text-xl tracking-[4px] mb-10">
+            <span className="font-black text-[#2f327d] text-2xl tracking-[5px] mb-10">
               JOBHATCH
             </span>
 

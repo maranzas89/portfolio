@@ -127,7 +127,7 @@ export default function ProfilePage() {
         {/* Personal Info */}
         <section id="personal" className="mb-12 scroll-mt-[140px]">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="text-3xl font-bold text-[#2f327d] tracking-wide">
+            <h2 className="text-4xl font-black text-[#333]">
               {PROFILE.name}
             </h2>
             <button className="flex items-center gap-2 text-base text-[#555] hover:text-[#333] transition">

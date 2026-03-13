@@ -121,13 +121,6 @@ function UploadResumeModal({ open, onClose }: { open: boolean; onClose: () => vo
               Upload Resume
             </Link>
           </div>
-
-          <button
-            onClick={onClose}
-            className="border border-gray-200 text-[#555] font-medium text-base py-3 px-14 rounded-full hover:bg-gray-50 transition"
-          >
-            Skip for now
-          </button>
         </div>
       </div>
     </div>
@@ -182,17 +175,25 @@ function DashboardContent() {
     setCheckedIn(true);
     localStorage.setItem("jobhatch-checked-in", "true");
     setCheckInOpen(false);
-    setTokens((t) => t + 10);
+    // tokens will recalculate via useEffect since checkedIn changed
   };
 
-  // Initialize tokens once based on onboarding path, then never override
+  // Dynamically recalculate tokens = earned - spent on every load
   useEffect(() => {
-    const initialized = localStorage.getItem("jobhatch-onboarding-done");
-    if (!initialized) {
-      setTokens(skippedResume ? 10 : 30);
+    const state = localStorage.getItem("jobhatch-onboarding-done");
+    if (!state) {
       localStorage.setItem("jobhatch-onboarding-done", skippedResume ? "skipped" : "complete");
     }
-  }, [skippedResume, setTokens]);
+    const onboardingState = state || (skippedResume ? "skipped" : "complete");
+    const isCheckedIn = localStorage.getItem("jobhatch-checked-in") === "true";
+    const spent = Number(localStorage.getItem("jobhatch-tokens-spent") || "0");
+
+    let earned = 10; // Finish onboarding — always earned if on dashboard
+    if (onboardingState === "complete") earned += 20; // Upload resume
+    if (isCheckedIn) earned += 10; // Daily check-in
+
+    setTokens(Math.max(0, earned - spent));
+  }, [skippedResume, setTokens, checkedIn]);
 
   const missions = MISSIONS.map((m) => {
     if (skippedResume && m.label.startsWith("Upload your resume")) {

@@ -17,7 +17,7 @@ export default function ResumePage() {
   const router = useRouter();
   const [showOptimizeModal, setShowOptimizeModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const { tokens, setTokens } = useTokensContext();
+  const { tokens, spendTokens } = useTokensContext();
   const [showToast, setShowToast] = useState(false);
   const [coverLetterGenerated, setCoverLetterGenerated] = useState(false);
   const [showInsufficientTokens, setShowInsufficientTokens] = useState(false);
@@ -194,7 +194,7 @@ export default function ResumePage() {
 
           {/* Generate + Copy row */}
           <div className="flex items-center justify-between mb-6">
-            <p className="text-base font-bold text-[#555]">
+            <p className="text-xl font-black text-[#333]">
               Recent Updated Resume Preview
             </p>
             <div className="flex items-center gap-3">
@@ -273,7 +273,7 @@ export default function ResumePage() {
           {/* My Cover Letter */}
           <div className="mt-10">
             <div className="flex items-center justify-between mb-6">
-              <p className="text-base font-bold text-[#555]">
+              <p className="text-xl font-black text-[#333]">
                 My Cover Letter
               </p>
               <button
@@ -330,8 +330,8 @@ export default function ResumePage() {
       </div>
       {/* Optimize Resume Modal */}
       {showOptimizeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl w-full max-w-[640px] max-h-[90vh] overflow-y-auto mx-4 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setShowOptimizeModal(false)}>
+          <div className="bg-white rounded-2xl w-full max-w-[640px] max-h-[90vh] overflow-y-auto mx-4 relative" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setShowOptimizeModal(false)}
               className="absolute top-6 right-6 text-[#999] hover:text-[#333] transition cursor-pointer"
@@ -434,8 +434,8 @@ export default function ResumePage() {
 
       {/* Confirm Token Spend Modal */}
       {showConfirmModal && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl w-full max-w-[520px] mx-4 relative">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50" onClick={() => setShowConfirmModal(false)}>
+          <div className="bg-white rounded-2xl w-full max-w-[520px] mx-4 relative" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setShowConfirmModal(false)}
               className="absolute top-5 right-5 text-[#999] hover:text-[#333] transition cursor-pointer"
@@ -466,7 +466,7 @@ export default function ResumePage() {
                       setShowInsufficientTokens(true);
                       return;
                     }
-                    setTokens((t) => t - 30);
+                    spendTokens(30);
                     setShowConfirmModal(false);
                     setShowToast(true);
                     setTimeout(() => setShowToast(false), 3000);
@@ -547,8 +547,8 @@ export default function ResumePage() {
 
       {/* Insufficient Tokens Modal */}
       {showInsufficientTokens && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl w-full max-w-[480px] mx-4 relative">
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50" onClick={() => setShowInsufficientTokens(false)}>
+          <div className="bg-white rounded-2xl w-full max-w-[480px] mx-4 relative" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setShowInsufficientTokens(false)}
               className="absolute top-5 right-5 text-[#999] hover:text-[#333] transition cursor-pointer"

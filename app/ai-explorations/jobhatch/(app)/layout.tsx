@@ -41,12 +41,12 @@ function JobHatchHeader() {
   return (
     <header className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-gray-100 bg-white shrink-0">
       <div className="flex items-center gap-4">
-        <Link href="/ai-explorations/jobhatch" className="flex items-end gap-2">
-          <div className="bg-[#fcd038] border border-[#2f327d] rounded-lg shadow-[-3px_3px_0px_0px_#2f327d] w-10 h-10 overflow-hidden flex items-center justify-center">
-            <img src="/images/jobhatch/logo-chick.png" alt="JobHatch" className="w-8 h-8 object-contain" />
+        <div className="flex items-end gap-2">
+          <div className="bg-[#fcd038] border-2 border-[#2f327d] rounded-lg w-10 h-10 overflow-hidden flex items-center justify-center">
+            <img src="/images/jobhatch/logo.png" alt="JobHatch" className="w-8 h-8 object-contain" />
           </div>
-          <span className="font-black text-[#2f327d] text-lg tracking-[3px]">JOBHATCH</span>
-        </Link>
+          <span className="font-black text-[#2f327d] text-xl tracking-[4px]">JOBHATCH</span>
+        </div>
       </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-3 text-base font-medium text-[#333]">

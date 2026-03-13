@@ -691,8 +691,8 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
 
       {/* Apply Modal */}
       {showApplyModal && (
-        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-8 relative">
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setShowApplyModal(false)}>
+          <div className="bg-white rounded-2xl max-w-md w-full p-8 relative" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setShowApplyModal(false)}
               className="absolute top-4 right-4 text-[#999] hover:text-[#333] transition cursor-pointer"

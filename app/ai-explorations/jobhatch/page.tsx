@@ -115,14 +115,14 @@ export default function JobHatchPage() {
       >
         {/* Logo */}
         <div className="absolute top-6 md:top-8 left-6 md:left-20 flex items-end gap-3 z-10">
-          <div className="bg-[#fcd038] border-2 border-[#2f327d] rounded-lg shadow-[-4px_4px_0px_0px_#2f327d] w-12 h-12 md:w-14 md:h-14 overflow-hidden flex items-center justify-center">
+          <div className="bg-[#fcd038] border-2 border-[#2f327d] rounded-lg w-12 h-12 md:w-14 md:h-14 overflow-hidden flex items-center justify-center">
             <img
-              src="/images/jobhatch/logo-chick.png"
+              src="/images/jobhatch/logo.png"
               alt="JobHatch"
               className="w-10 h-10 md:w-12 md:h-12 object-contain"
             />
           </div>
-          <span className="font-black text-[#2f327d] text-xl md:text-2xl tracking-[4px]">
+          <span className="font-black text-[#2f327d] text-2xl md:text-3xl tracking-[5px]">
             JOBHATCH
           </span>
         </div>
@@ -385,14 +385,14 @@ export default function JobHatchPage() {
         <div className="max-w-[1200px] mx-auto px-6 md:px-16">
           <div className="flex flex-col items-center text-center">
             {/* Logo */}
-            <div className="bg-[#fcd038] rounded-xl w-20 h-20 overflow-hidden flex items-center justify-center mb-4 shadow-[inset_-4px_-4px_4px_rgba(0,0,0,0.25),inset_4px_4px_4px_rgba(0,0,0,0.25)]">
+            <div className="bg-[#fcd038] rounded-xl w-20 h-20 overflow-hidden flex items-center justify-center mb-4">
               <img
-                src="/images/jobhatch/logo-chick.png"
+                src="/images/jobhatch/logo.png"
                 alt="JobHatch"
                 className="w-16 h-16 object-contain"
               />
             </div>
-            <span className="font-black text-[#2f327d] text-2xl tracking-[4px] mb-12">
+            <span className="font-black text-[#2f327d] text-3xl tracking-[5px] mb-12">
               JOBHATCH
             </span>
 

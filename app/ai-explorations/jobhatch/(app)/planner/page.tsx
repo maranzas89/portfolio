@@ -105,7 +105,7 @@ function getFirstDayOfMonth(year: number, month: number) {
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export default function PlannerPage() {
-  const { tokens, setTokens } = useTokensContext();
+  const { tokens, spendTokens } = useTokensContext();
   const [showInsufficientTokens, setShowInsufficientTokens] = useState(false);
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
@@ -147,7 +147,7 @@ export default function PlannerPage() {
         setShowInsufficientTokens(true);
         return;
       }
-      setTokens((t) => t - cost);
+      spendTokens(cost);
 
       // Build date string
       const dateStr = `${MONTH_NAMES[currentMonth].slice(0, 3)} ${selectedDate}, ${currentYear}`;
@@ -581,8 +581,8 @@ export default function PlannerPage() {
 
       {/* Booking Confirmation Modal */}
       {showBookingConfirm && selectedMentor !== null && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-xl">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50" onClick={() => setShowBookingConfirm(false)}>
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-xl" onClick={(e) => e.stopPropagation()}>
             <h3 className="text-xl font-black text-[#333] mb-2">Confirm Booking</h3>
             <p className="text-base text-[#888] mb-6">
               Session with <span className="font-bold text-[#333]">{MENTORS[selectedMentor].name}</span> on{" "}
@@ -610,8 +610,8 @@ export default function PlannerPage() {
 
       {/* Insufficient Tokens Modal */}
       {showInsufficientTokens && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl w-full max-w-[480px] mx-4 relative">
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50" onClick={() => setShowInsufficientTokens(false)}>
+          <div className="bg-white rounded-2xl w-full max-w-[480px] mx-4 relative" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setShowInsufficientTokens(false)}
               className="absolute top-5 right-5 text-[#999] hover:text-[#333] transition cursor-pointer"
