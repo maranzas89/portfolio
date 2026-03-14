@@ -87,20 +87,22 @@ export default function ProfilePage() {
           <p className="text-base font-semibold text-[#999] mb-4">
             Your Profile data is kept private and secure
           </p>
-          <div ref={tabBarRef} className="flex gap-3 sm:gap-4 lg:gap-6 border-b border-gray-200 overflow-x-auto whitespace-nowrap scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
-            {TABS.map((tab) => (
-              <button
-                key={tab.anchor}
-                onClick={() => { setActiveTab(tab.anchor); scrollToSection(tab.anchor); }}
-                className={`px-3 sm:px-4 lg:px-5 py-3 text-sm sm:text-base font-black transition border-b-2 -mb-[2px] cursor-pointer shrink-0 ${
-                  activeTab === tab.anchor
-                    ? "border-[#e2752c] text-[#333]"
-                    : "border-transparent text-[#999] hover:text-[#e2752c]"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+          <div ref={tabBarRef} className="relative border-b border-gray-200 hidden sm:block">
+            <div className="flex gap-3 sm:gap-4 lg:gap-6 overflow-x-auto whitespace-nowrap scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
+              {TABS.map((tab) => (
+                <button
+                  key={tab.anchor}
+                  onClick={() => { setActiveTab(tab.anchor); scrollToSection(tab.anchor); }}
+                  className={`px-3 sm:px-4 lg:px-5 py-3 text-sm sm:text-base font-black transition border-b-[3px] -mb-px cursor-pointer shrink-0 ${
+                    activeTab === tab.anchor
+                      ? "border-[#e2752c] text-[#333]"
+                      : "border-transparent text-[#999] hover:text-[#e2752c]"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
