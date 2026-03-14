@@ -24,11 +24,11 @@ export default function ExperiencePage() {
       <PageHero
         eyebrow="About Me"
         avatar="/images/avatar.png"
-        headline="Designing and prototyping AI-native products, systems, and enterprise workflows"
-        paragraph="Product designer with 10+ years shaping complex systems across enterprise SaaS, cybersecurity, and education — combining product thinking, AI-assisted prototyping, and implementation-aware collaboration to move from concept to MVP."
+        headline="Designing AI-driven products, prototyping workflows, and bridging design with implementation"
+        paragraph="Product designer focused on complex systems, workflow-heavy products, and AI-assisted prototyping across enterprise experiences."
         paragraphVariant="compact"
         primaryCta={{ label: "View Work", href: "/#work" }}
-        secondaryCta={{ label: "Download Resume", href: "/FJ/WenLiu_Resume.pdf", download: "WenLiu_Resume.pdf" }}
+        secondaryCta={{ label: "Download Resume", href: "/FJ/WenLiu-Resume.pdf", download: "WenLiu-Resume.pdf" }}
       />
 
       <main>

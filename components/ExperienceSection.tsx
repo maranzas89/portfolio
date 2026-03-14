@@ -37,20 +37,20 @@ import { ResumeLink } from "@/components/ResumeLink";
 const summaries = [
   {
     icon: Award,
-    text: "Product designer with 10+ years shaping complex systems across enterprise SaaS, cybersecurity, and education.",
+    text: "Product designer with 10+ years shaping AI-driven and workflow-heavy products across enterprise SaaS, cybersecurity, and education.",
   },
   {
     icon: Users,
     text: (
       <>
-        Work across product thinking, interaction design, and AI-assisted prototyping <br />
-        to turn ambiguous ideas into testable interfaces and scalable product directions.
+        Combine systems thinking, prototyping, front-end collaboration, <br />
+        and implementation-aware design to turn complexity into testable products.
       </>
     ),
   },
   {
     icon: Cpu,
-    text: "Combine systems thinking, design craft, and implementation-aware collaboration with Product and Engineering to move teams faster from concept to MVP.",
+    text: "Work spans AI-assisted workflows, human-in-the-loop systems, and enterprise platforms where clarity, scalability, and operational usability matter.",
   },
   {
     icon: LineChart,
@@ -64,18 +64,18 @@ const summaries = [
 ];
 
 const competencies = [
-  { icon: Compass, label: "Product Strategy & Roadmap Influence" },
-  { icon: Rocket, label: "0→1 & Scalable Product Architecture" },
-  { icon: Bot, label: "AI-Human Collaborative Systems" },
-  { icon: Cloud, label: "Enterprise SaaS & Governance Architecture" },
-  { icon: Users, label: "Cross-Functional Leadership & Stakeholder Alignment" },
-  { icon: Target, label: "KPI-Driven Experimentation, PLG & Agile Delivery" },
-  { icon: Layers, label: "Organizational Design Systems" },
+  { icon: Bot, label: "AI-Native Product Design & Rapid Prototyping" },
+  { icon: Rocket, label: "0→1 Product Exploration & Concept Validation" },
+  { icon: Code2, label: "Design-to-Build Collaboration & Front-End Fluency" },
+  { icon: Cpu, label: "Human-in-the-Loop AI Experiences" },
+  { icon: Layers, label: "Product Systems & Workflow Architecture" },
+  { icon: Compass, label: "Scalable Component Thinking & Design Systems" },
+  { icon: Users, label: "Cross-Functional Collaboration with Product & Engineering" },
 ];
 
 const toolkitDescriptions = [
-  "Rapidly prototype AI-native product concepts using front-end tooling and vibe coding.",
-  "Design AI-human collaborative systems balancing automation, explainability, and user trust.",
+  "Rapidly prototype AI-native product concepts using front-end tooling and AI-assisted workflows.",
+  "Design human-AI systems that balance automation, explainability, trust, and operational usability.",
 ];
 
 const skillCategories = [
@@ -209,7 +209,7 @@ function PdfPreviewContainer() {
   return (
     <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
       <iframe
-        src="/FJ/WenLiu_Resume.pdf"
+        src="/FJ/WenLiu-Resume.pdf"
         title="Resume preview"
         className="w-full h-full min-h-[600px] border-0"
       />
@@ -277,7 +277,7 @@ export default function ExperienceSection() {
             Wen Liu
           </h2>
           <p className="text-lg text-slate-500 max-w-4xl leading-relaxed">
-            Senior Product Designer | AI Prototyping, Product Systems & Design Engineering
+            Senior Product Designer | UX Engineering, AI Prototyping & Product Systems
           </p>
           <EmailWithCopyButton />
         </section>

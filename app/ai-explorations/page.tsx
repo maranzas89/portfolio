@@ -45,7 +45,7 @@ const EXPLORATIONS = [
     title: "JobHatch",
     category: "Career Platform",
     description:
-      "An AI-powered job search system that combines resume analysis, match scoring, and gamified progress to help users apply with more clarity and improve over time.",
+      "An AI-assisted career platform concept combining resume analysis, match evaluation, and gamified progress systems to test how structured feedback can improve job search clarity and momentum.",
     icon: Briefcase,
     gradient: "from-emerald-500/20 to-teal-500/20",
     image: "/images/01q.png",
@@ -63,7 +63,7 @@ const EXPLORATIONS = [
     title: "Where AI Excels Today",
     category: "Research System",
     description:
-      "A practical look at where current AI tools are strongest across creative exploration, workflow support, and execution.",
+      "A structured evaluation of where current AI tools are most reliable for real product work — across prototyping, workflow support, and design execution.",
     icon: Layers,
     gradient: "from-amber-500/20 to-orange-500/20",
     image: "/images/1q.png",
@@ -81,7 +81,7 @@ const EXPLORATIONS = [
     title: "World Cup Data Lab",
     category: "Prototyping",
     description:
-      "An interactive concept exploring how AI and live match data can turn tournament signals into a more dynamic, insight-driven fan experience.",
+      "An interactive prototype exploring how AI and structured data can transform complex information into a navigable, insight-driven product experience.",
     icon: Rocket,
     gradient: "from-orange-500/20 to-rose-500/20",
     image: "/images/2q.png",
@@ -99,7 +99,7 @@ const EXPLORATIONS = [
     title: "Synchronize Orientation",
     category: "Student-Staff Sync",
     description:
-      "A Calbright-style orientation checklist demonstrating student-staff state sync via localStorage—students complete steps while staff monitors progress in real time.",
+      "A working prototype demonstrating real-time student-staff state sync — students complete orientation steps while staff monitors progress, testing shared visibility across two user types.",
     icon: Users,
     gradient: "from-rose-500/20 to-violet-500/20",
     image: "/images/3q.png",
@@ -117,7 +117,7 @@ const EXPLORATIONS = [
     title: "Dialpad Modal",
     category: "Staff Portal",
     description:
-      "A staff-facing dialpad modal for calling students directly from the portal—streamlining outreach, case follow-ups, and student support without leaving the workflow.",
+      "A functional dialpad prototype embedded in the staff portal — testing whether in-context calling, AI-generated summaries, and suggested next actions can reduce task-switching and improve outreach workflows.",
     icon: Phone,
     gradient: "from-teal-500/20 to-blue-500/20",
     image: "/images/4q.png",
@@ -156,19 +156,19 @@ export default function AIExplorationsPage() {
       <PageHero
         eyebrow="AI Projects"
         headline="Using AI to prototype, test, and shape product directions"
-        paragraph="A curated selection of AI-assisted product explorations across rapid prototyping, interface concepts, workflow design, and early-stage implementation. These projects show how I use AI not only to think faster, but to structure ideas, build testable interfaces, and validate product directions earlier."
+        paragraph="A collection of AI-assisted product explorations across workflow design, interface prototyping, and early-stage implementation — showing how I turn emerging ideas into testable product structures and working concepts."
         backgroundVariant="ai-explorations"
       >
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 -mt-[30px] w-full max-w-5xl">
           <div className="hero-card group p-5 rounded-xl">
             <RefreshCw className="w-5 h-5 text-blue-400 mb-3" />
             <h3 className="font-semibold text-2xl text-white mb-1">30+</h3>
-            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Research Loops</p>
+            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Validation Loops</p>
           </div>
           <div className="hero-card group p-5 rounded-xl">
             <Box className="w-5 h-5 text-blue-400 mb-3" />
             <h3 className="font-semibold text-2xl text-white mb-1">4–5</h3>
-            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Prototype Concepts</p>
+            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Prototype Directions</p>
           </div>
           <div className="hero-card group p-5 rounded-xl">
             <Wrench className="w-5 h-5 text-blue-400 mb-3" />
@@ -178,7 +178,7 @@ export default function AIExplorationsPage() {
           <div className="hero-card group p-5 rounded-xl">
             <Brain className="w-5 h-5 text-blue-400 mb-3" />
             <h3 className="font-semibold text-2xl text-white mb-1">100+</h3>
-            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Skill-based Uses</p>
+            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Applied Use Cases</p>
           </div>
         </div>
       </PageHero>
@@ -196,10 +196,10 @@ export default function AIExplorationsPage() {
                 </h2>
               </div>
               <h3 className="mb-4 text-3xl font-semibold text-text md:text-4xl">
-                From Concept to Testable Interface Through AI-Assisted Prototyping
+                AI-Assisted Prototypes for Testing Product Directions
               </h3>
               <p className="max-w-5xl text-base text-slate-600 md:text-lg">
-                From concept framing to interface prototyping and workflow validation — these explorations show how I use AI-assisted workflows to move from abstract ideas to clearer product structures, interaction patterns, and working demos.<br />Flip the cards for more, then select <span className="font-bold text-slate-800">Try Demo</span>.
+                Prototypes built to test product behavior, validate workflow assumptions, and explore implementation-aware product directions.<br />Flip the cards for more, then select <span className="font-bold text-slate-800">Try Demo</span>.
               </p>
             </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">

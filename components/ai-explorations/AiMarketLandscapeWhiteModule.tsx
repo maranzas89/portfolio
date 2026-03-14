@@ -1001,11 +1001,11 @@ export default function AiMarketLandscapeWhiteModule() {
               </h2>
             </div>
             <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
-              Mapping Strengths Across the Workflow
+              Evaluating AI Tools for Real Prototyping & Workflow Reliability
             </h3>
             <p className="text-base text-slate-600 md:text-lg md:whitespace-nowrap">
-              A comparative review of leading AI products to understand how each tool supports
-              validation, prototyping, evidence traceability, and live behavior insight.
+              Not a generic tools roundup — a structured benchmark to decide which systems are reliable
+              enough to support real product prototyping, validation, and workflow design.
             </p>
             </div>
           </ScrollReveal>
@@ -1827,12 +1827,11 @@ export default function AiMarketLandscapeWhiteModule() {
                   </h2>
                 </div>
                 <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
-                  Designing the System Before Generating the Interface
+                  Designing the Product System Before Building the Interface
                 </h3>
                 <p className="text-base text-slate-600 md:text-lg md:whitespace-nowrap">
-                  An exploration of how AI accelerates workflow design across product framing,
-                  technical planning, interface direction, modular build logic, and debugging
-                  precision.
+                  A practical workflow for using AI to clarify product logic, shape interface direction,
+                  define modular build paths, and reduce ambiguity before implementation.
                 </p>
               </div>
             </ScrollReveal>
