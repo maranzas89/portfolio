@@ -122,7 +122,7 @@ export default function JobHatchPage() {
               className="w-10 h-10 md:w-12 md:h-12 object-contain"
             />
           </div>
-          <span className="font-black text-[#2f327d] text-2xl md:text-3xl tracking-[5px]">
+          <span className="hidden sm:inline font-black text-[#2f327d] text-2xl md:text-3xl tracking-[5px]">
             JOBHATCH
           </span>
         </div>
@@ -142,11 +142,11 @@ export default function JobHatchPage() {
         </nav>
 
         {/* Login / Sign Up */}
-        <div className="hidden md:flex items-center gap-3 absolute top-6 md:top-8 right-6 md:right-20 z-10">
-          <button onClick={() => setLoginOpen(true)} className="px-8 py-3 rounded-full text-lg font-bold text-[#333] bg-white shadow-[0px_20px_24px_0px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-[#e2752c] hover:text-white transition">
+        <div className="flex items-center gap-2 sm:gap-3 absolute top-6 md:top-8 right-6 md:right-20 z-10">
+          <button onClick={() => setLoginOpen(true)} className="px-4 sm:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-lg font-bold text-[#333] bg-white shadow-[0px_20px_24px_0px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-[#e2752c] hover:text-white transition">
             Login
           </button>
-          <a href="/ai-explorations/jobhatch/signup" className="px-8 py-3 rounded-full text-lg font-bold text-white bg-[#e2752c] cursor-pointer hover:brightness-110 transition">
+          <a href="/ai-explorations/jobhatch/signup" className="px-4 sm:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-lg font-bold text-white bg-[#e2752c] cursor-pointer hover:brightness-110 transition">
             Sign Up
           </a>
         </div>
