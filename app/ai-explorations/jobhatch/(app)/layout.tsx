@@ -161,10 +161,11 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
             })}
           </div>
 
-          <div>
-            {/* Refer card — description hidden on mobile */}
+          <div className="mt-10 lg:mt-0">
+            {/* Refer card */}
             <div className="bg-[#fef3e2] rounded-xl p-4 mb-3">
               <p className="font-bold text-[#333] text-sm underline">Refer and Earn</p>
+              <p className="text-xs text-[#666] mt-1">Invite friends or share on LinkedIn to earn extra rewards!</p>
             </div>
             {/* AI card */}
             <div className="bg-[#2f327d] rounded-xl p-4 mb-4">

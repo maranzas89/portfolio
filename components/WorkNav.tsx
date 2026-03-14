@@ -146,15 +146,15 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
               </div>
             </div>
             <div className="flex flex-col gap-8">
-              <Link
+              <a
                 href="/ai-explorations"
-                className={`font-accent font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
-                  pathname.startsWith("/ai-explorations") ? linkActive + " text-text" : linkBase + " text-muted"
+                className={`font-accent block font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
+                  pathname.startsWith("/ai-explorations") ? "text-text " + linkActive : "text-muted " + linkBase
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 AI PROJECTS
-              </Link>
+              </a>
               <div className="flex flex-col gap-8 ml-4 border-l-2 border-gray-200 pl-5">
                 {AI_SUB_LINKS.map(({ href, label }) => {
                   const anchor = href.split("#")[1];
