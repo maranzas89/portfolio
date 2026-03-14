@@ -238,7 +238,7 @@ export default function AIExplorationsPage() {
                           onClick={(e) => e.stopPropagation()}
                           className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
                         >
-                          View Figma Prototype →
+                          Figma →
                         </a>
                       ) : (
                         <span />
@@ -271,7 +271,7 @@ export default function AIExplorationsPage() {
                           onClick={(e) => e.stopPropagation()}
                           className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
                         >
-                          View Figma Prototype →
+                          Figma →
                         </a>
                       ) : (
                         <span />
@@ -291,9 +291,9 @@ export default function AIExplorationsPage() {
 
                 /* Ghost content for sizing — renders both front and back, takes the taller */
                 const ghostFront = (
-                  <div>
-                    <div className="h-[208px] md:h-[240px]" />
-                    <div className="px-6 pt-[54px] pb-0 md:p-8">
+                  <div className="h-[400px] md:h-auto">
+                    <div className="h-[160px] md:h-[240px]" />
+                    <div className="px-6 pt-5 pb-0 md:p-8">
                       <span className="text-xs font-semibold uppercase tracking-widest block mb-2">&nbsp;</span>
                       <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-3">{item.title}</h3>
                       <p className="text-sm md:text-base leading-relaxed">{item.description}</p>
@@ -325,10 +325,15 @@ export default function AIExplorationsPage() {
                       onClick={() => toggleFlip(item.id)}
                     >
                       <div className="relative">
-                        {/* Sizing ghost — render both, CSS grid overlap takes the taller */}
-                        <div className="invisible grid [&>*]:col-start-1 [&>*]:row-start-1" aria-hidden="true">
+                        {/* Sizing ghost — desktop: overlap both, take taller; mobile: swap based on flip state */}
+                        {/* Desktop ghost (md+) */}
+                        <div className="invisible hidden md:grid [&>*]:col-start-1 [&>*]:row-start-1" aria-hidden="true">
                           {ghostFront}
                           {ghostBack}
+                        </div>
+                        {/* Mobile ghost — show only the active face's ghost */}
+                        <div className="invisible md:hidden" aria-hidden="true">
+                          {isFlipped ? ghostBack ?? ghostFront : ghostFront}
                         </div>
 
                         {/* Rotating layer */}
@@ -338,17 +343,17 @@ export default function AIExplorationsPage() {
                           {/* Front face */}
                           <div className="absolute inset-0 bg-[#fafbfc] rounded-2xl overflow-hidden shadow-sm [backface-visibility:hidden] transition-shadow duration-300 hover:shadow-lg">
                             {item.image ? (
-                              <div className="h-[208px] md:h-[240px] overflow-hidden">
-                                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                              <div className="h-[160px] md:h-[240px] overflow-hidden bg-[#fafbfc]">
+                                <img src={item.image} alt={item.title} className="w-full h-full object-contain object-top md:object-cover md:object-center" />
                               </div>
                             ) : (
                               <div
-                                className={`h-[208px] md:h-[240px] bg-gradient-to-br ${item.gradient} flex items-center justify-center`}
+                                className={`h-[160px] md:h-[240px] bg-gradient-to-br ${item.gradient} flex items-center justify-center`}
                               >
                                 <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
                               </div>
                             )}
-                            <div className="px-6 pt-[54px] pb-0 md:p-8">
+                            <div className="px-6 pt-5 pb-0 md:p-8">
                               <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
                                 {item.category}
                               </span>

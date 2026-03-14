@@ -234,7 +234,7 @@ function DashboardContent() {
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-[#999] mb-2">Your Dashboard</p>
             <h1 className="font-black text-[#333] text-2xl sm:text-[32px] lg:text-[40px] tracking-[2px] lg:tracking-[3px] mb-2">Welcome, Mia!</h1>
-            <p className="text-sm font-bold text-[#888] mb-8">
+            <p className="text-base font-semibold text-[#999] mb-8">
               Complete Today&apos;s Mission to let recruiter catch you quickly!
             </p>
 
@@ -242,8 +242,8 @@ function DashboardContent() {
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-[#e2752c] text-lg">■</span>
-                <h2 className="text-xl font-bold text-[#333]">Today&apos;s Missions</h2>
-                <span className="text-sm text-[#888] ml-1">{progress}% complete</span>
+                <h2 className="text-lg sm:text-xl font-black text-[#333]">Today&apos;s Missions</h2>
+                <span className="text-sm font-semibold text-[#888] ml-auto">{progress}% complete</span>
               </div>
               {/* Progress bar */}
               <div className="w-full h-3 bg-gray-100 rounded-full mb-6 overflow-hidden">
@@ -253,7 +253,7 @@ function DashboardContent() {
               {/* Checklist */}
               <div className="space-y-4 relative">
                 {/* Timeline line */}
-                <div className="absolute left-[9px] top-4 bottom-4 w-[2px] bg-gray-200" />
+                <div className="absolute left-[9px] top-[10px] bottom-[-10px] w-[2px] bg-gray-200" />
                 {activeMissions.map((m, i) => {
                   const isClickable = m.highlight && !m.done;
                   const handleMissionClick = () => {
@@ -279,10 +279,15 @@ function DashboardContent() {
                     <span
                       onClick={handleMissionClick}
                       className={`text-sm ${
-                        m.done ? "font-semibold text-[#333]" : m.highlight ? "font-semibold text-[#e2752c] hover:underline cursor-pointer" : "text-[#888]"
+                        m.done ? "font-semibold text-[#333]" : m.highlight ? "font-semibold text-[#e2752c] hover:underline cursor-pointer" : "font-semibold text-[#888]"
                       }`}
                     >
-                      {m.label}
+                      {m.label === "Practice answering 5 interview questions (30 tokens)" ? (
+                        <>
+                          <span className="sm:hidden">Answer 5 interview questions (30 tokens)</span>
+                          <span className="hidden sm:inline">{m.label}</span>
+                        </>
+                      ) : m.label}
                     </span>
                   </div>
                   );
@@ -291,14 +296,15 @@ function DashboardContent() {
             </div>
 
             {/* Career Journey */}
-            <div className="border border-gray-200 rounded-xl p-4 sm:p-6 mb-8">
+            <div className="border border-gray-200 rounded-xl p-4 sm:p-6 sm:pb-[calc(1.5rem+20px)] mb-8">
               <h3 className="text-lg font-bold text-[#2f327d] mb-1">Your Career Journey:</h3>
-              <p className="text-sm text-[#888] mb-6">The Tech Explorer&apos;s Path</p>
-              <div className="flex items-center justify-between relative overflow-x-auto">
-                {/* Connecting line */}
-                <div className="absolute top-6 left-[10%] right-[10%] h-[2px] bg-gray-200 z-0" />
+              <p className="text-sm font-semibold text-[#888] mb-2 sm:mb-6">The Tech Explorer&apos;s Path</p>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between relative">
+                {/* Connecting line — vertical on mobile, horizontal on sm+ */}
+                <div className="absolute left-5 top-[10%] bottom-[10%] w-[2px] bg-gray-200 z-0 sm:hidden" />
+                <div className="absolute hidden sm:block top-6 left-[10%] right-[10%] h-[2px] bg-gray-200 z-0" />
                 {JOURNEY_STEPS.map((step, i) => (
-                  <div key={i} className="flex flex-col items-center gap-2 flex-1 min-w-[60px] relative z-10">
+                  <div key={i} className="flex flex-row sm:flex-col items-center gap-3 sm:gap-2 sm:flex-1 sm:min-w-[60px] relative z-10 py-2 sm:py-0">
                     <div
                       className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 ${
                         step.active ? "bg-[#e2752c]" : "bg-gray-100"
@@ -307,10 +313,10 @@ function DashboardContent() {
                       {step.active ? (
                         <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                       ) : (
-                        <img src="/images/jobhatch/egg.png" alt="" className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
+                        <img src="/images/jobhatch/egg335.png" alt="" className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
                       )}
                     </div>
-                    <span className={`text-[10px] sm:text-xs font-medium text-center ${step.active ? "text-[#e2752c]" : "text-[#999]"}`}>
+                    <span className={`text-xs sm:text-sm font-medium sm:font-bold sm:text-center ${step.active ? "text-[#e2752c]" : "text-[#999]"}`}>
                       {step.label}
                     </span>
                   </div>
@@ -320,17 +326,17 @@ function DashboardContent() {
 
             {/* Recently Applied Jobs */}
             <div className="mb-8">
-              <h3 className="text-base font-bold text-[#e2752c] mb-3">Recently Applied Jobs</h3>
+              <h3 className="text-lg sm:text-xl font-black text-[#333] mb-3">Recently Applied Jobs</h3>
               <div className="border border-gray-100 rounded-xl p-4 sm:p-8 text-center">
-                <p className="text-sm text-[#999]">It appears you haven&apos;t applied to any jobs</p>
+                <p className="text-sm font-semibold text-[#999]">It appears you haven&apos;t applied to any jobs</p>
               </div>
             </div>
 
             {/* Followed Jobs */}
             <div>
-              <h3 className="text-base font-bold text-[#e2752c] mb-3">Followed Jobs</h3>
+              <h3 className="text-lg sm:text-xl font-black text-[#333] mb-3">Followed Jobs</h3>
               <div className="border border-gray-100 rounded-xl p-4 sm:p-8 text-center">
-                <p className="text-sm text-[#999]">You have not followed any Jobs yet!</p>
+                <p className="text-sm font-semibold text-[#999]">You have not followed any Jobs yet!</p>
               </div>
             </div>
           </div>
@@ -359,11 +365,11 @@ function DashboardContent() {
               <div className="flex justify-center">
                 <RadarChart />
               </div>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 mt-3">
+              <div className="grid grid-cols-2 sm:grid-cols-1 gap-x-4 gap-y-1.5 sm:gap-y-2 mt-3">
                 {SKILL_LABELS.map((s) => (
                   <div key={s.label} className="flex items-center gap-2">
                     <div className={`w-2.5 h-2.5 rounded-full ${s.color}`} />
-                    <span className="text-xs text-[#555]">{s.label}</span>
+                    <span className="text-xs sm:text-sm sm:font-bold text-[#555]">{s.label}</span>
                   </div>
                 ))}
               </div>
@@ -371,13 +377,13 @@ function DashboardContent() {
 
             {/* Enhance Strengths */}
             <div>
-              <h3 className="text-base font-bold text-[#2f327d] mb-3">Looking to Enhance Strengths?</h3>
+              <h3 className="text-base sm:text-lg font-bold text-[#2f327d] mb-3">Looking to Enhance Strengths?</h3>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 border-l-4 border-[#2f327d] pl-3">
-                  <span className="text-sm text-[#555]">Get Started with skills training &gt;</span>
+                  <span className="text-sm sm:text-base sm:font-bold text-[#555]">Get Started with skills training &gt;</span>
                 </div>
                 <div className="flex items-center gap-2 border-l-4 border-[#2f327d] pl-3">
-                  <span className="text-sm text-[#555]">Review your resume &gt;</span>
+                  <span className="text-sm sm:text-base sm:font-bold text-[#555]">Review your resume &gt;</span>
                 </div>
               </div>
               <div className="flex justify-start mt-2">

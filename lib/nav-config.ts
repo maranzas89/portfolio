@@ -11,6 +11,12 @@ export const WORK_SUB_LINKS = [
   { href: "/work/didi", label: "DiDi EagleEye" },
 ] as const;
 
+export const AI_SUB_LINKS = [
+  { href: "/ai-explorations#ai-capability-benchmark", label: "AI Capability Benchmark" },
+  { href: "/ai-explorations#ai-design-workflow", label: "AI Design Workflow" },
+  { href: "/ai-explorations#ai-product-experiments", label: "AI Project Showcase" },
+] as const;
+
 /** Pre-filled mailto link for "Let's connect" CTAs. Opens default email app with recipient, subject, and body. */
 export const MAILTO_LETS_CONNECT =
   "mailto:williamliu_1989@hotmail.com?subject=Let%27s%20connect&body=Hi%20Wen,%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect.%0A%0ABest,%0A";

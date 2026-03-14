@@ -4,12 +4,13 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { NAV_LINKS, WORK_SUB_LINKS } from "@/lib/nav-config";
+import { NAV_LINKS, WORK_SUB_LINKS, AI_SUB_LINKS } from "@/lib/nav-config";
 import AskWenShell from "@/components/portfolio-chat/AskWenShell";
 
 export default function WorkNav({ embed = false }: { embed?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeAiSection, setActiveAiSection] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -126,15 +127,42 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
                 ))}
               </div>
             </div>
-            <Link
-              href="/ai-explorations"
-              className={`font-accent font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
-                pathname === "/ai-explorations" ? linkActive : linkBase + " text-muted"
-              }`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              AI PROJECTS
-            </Link>
+            <div className="flex flex-col gap-8">
+              <Link
+                href="/ai-explorations"
+                className={`font-accent font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
+                  pathname.startsWith("/ai-explorations") ? linkActive + " text-text" : linkBase + " text-muted"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                AI PROJECTS
+              </Link>
+              <div className="flex flex-col gap-8 ml-4 border-l-2 border-gray-200 pl-5">
+                {AI_SUB_LINKS.map(({ href, label }) => {
+                  const anchor = href.split("#")[1];
+                  const isActive = pathname === "/ai-explorations" && activeAiSection === anchor;
+                  return (
+                    <a
+                      key={href}
+                      href={href}
+                      className={`text-base font-medium transition-colors ${
+                        isActive ? "text-text" : "text-muted hover:text-text"
+                      }`}
+                      onClick={(e) => {
+                        if (pathname === "/ai-explorations" && anchor) {
+                          e.preventDefault();
+                          document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth" });
+                        }
+                        setActiveAiSection(anchor || null);
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      {label}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
             <Link
               href="/experience"
               className={`font-accent font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${

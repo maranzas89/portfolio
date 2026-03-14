@@ -131,13 +131,13 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                   key={item.label}
                   href={item.href}
                   onClick={onClose}
-                  className={`flex items-center gap-3 px-4 py-4 rounded-lg text-base font-medium transition ${
+                  className={`flex items-center gap-3 px-4 py-4 rounded-lg text-base transition ${
                     isActive
-                      ? "bg-[#fff3e0] text-[#e2752c]"
-                      : "text-[#666] hover:text-[#e2752c] hover:bg-gray-50"
+                      ? "bg-[#fff3e0] text-[#e2752c] font-bold"
+                      : "text-[#666] font-medium hover:text-[#e2752c] hover:bg-gray-50"
                   }`}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-5 h-5" strokeWidth={isActive ? 2.5 : 2} />
                   {item.label}
                 </Link>
               );
@@ -191,13 +191,13 @@ function JobHatchSidebar() {
             <Link
               key={item.label}
               href={item.href}
-              className={`flex items-center gap-3 px-4 py-4 rounded-lg text-base font-medium transition ${
+              className={`flex items-center gap-3 px-4 py-4 rounded-lg text-base transition ${
                 isActive
-                  ? "bg-[#fff3e0] text-[#e2752c]"
-                  : "text-[#666] hover:text-[#e2752c] hover:bg-gray-50"
+                  ? "bg-[#fff3e0] text-[#e2752c] font-bold"
+                  : "text-[#666] font-medium hover:text-[#e2752c] hover:bg-gray-50"
               }`}
             >
-              <Icon className="w-5 h-5" />
+              <Icon className="w-5 h-5" strokeWidth={isActive ? 2.5 : 2} />
               {item.label}
             </Link>
           );
