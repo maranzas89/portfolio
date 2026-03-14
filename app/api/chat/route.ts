@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getPortfolioChatResponse } from "@/lib/portfolio-chat";
+import { BLOCKED_REPLY, isBlockedMessage, isPossiblyOutOfScope } from "@/lib/chat-safety";
 
 export async function POST(req: Request) {
   try {
@@ -12,6 +13,10 @@ export async function POST(req: Request) {
         { error: "Message is required." },
         { status: 400 }
       );
+    }
+
+    if (isBlockedMessage(message) || isPossiblyOutOfScope(message)) {
+      return NextResponse.json({ reply: BLOCKED_REPLY });
     }
 
     const reply = getPortfolioChatResponse({ message, currentProject });
