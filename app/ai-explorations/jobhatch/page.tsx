@@ -127,20 +127,6 @@ export default function JobHatchPage() {
           </span>
         </div>
 
-        {/* Nav Links - centered */}
-        <nav className="hidden md:flex items-center justify-center gap-4 absolute top-6 md:top-8 left-0 right-0 z-10">
-          {["Home", "About", "Download"].map((label, i) => (
-            <span
-              key={label}
-              className={`px-8 py-3 rounded-full text-lg tracking-wide font-medium shadow-[0px_20px_24px_0px_rgba(0,0,0,0.03)] cursor-pointer ${
-                i === 0 ? "text-[#333]" : "text-[#6c6c6c]"
-              }`}
-            >
-              {label}
-            </span>
-          ))}
-        </nav>
-
         {/* Login / Sign Up */}
         <div className="flex items-center gap-2 sm:gap-3 absolute top-6 md:top-8 right-6 md:right-20 z-10">
           <button onClick={() => setLoginOpen(true)} className="px-4 sm:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-lg font-bold text-[#333] bg-white shadow-[0px_20px_24px_0px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-[#e2752c] hover:text-white transition">
@@ -210,7 +196,7 @@ export default function JobHatchPage() {
                 </span>
               </div>
               <a
-                href="/ai-explorations/jobhatch/jobs"
+                href="/ai-explorations/jobhatch/joblist-preview"
                 className="bg-[#e2752c] text-white font-bold text-lg px-10 py-4 rounded-full shadow-[0px_6px_0px_0px_#ba6900] hover:brightness-110 transition-all"
               >
                 Get started

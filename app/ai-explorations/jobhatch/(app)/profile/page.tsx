@@ -127,7 +127,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Personal Info */}
-        <section id="personal" className="mb-8 sm:mb-12 scroll-mt-[140px]">
+        <section id="personal" className="mb-8 sm:mb-12 scroll-mt-[140px] pl-[10px] sm:pl-0">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 mb-5">
             <h2 className="text-4xl font-black text-[#333]">
               {PROFILE.name}
