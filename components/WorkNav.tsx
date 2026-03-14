@@ -7,11 +7,29 @@ import { Menu, X } from "lucide-react";
 import { NAV_LINKS, WORK_SUB_LINKS, AI_SUB_LINKS } from "@/lib/nav-config";
 import AskWenShell from "@/components/portfolio-chat/AskWenShell";
 
+const PATHNAME_PROJECT_MAP: Record<string, string> = {
+  "/work/calbright/student-portal": "calbright-student-portal",
+  "/work/calbright/staff-portal": "staff-portal",
+  "/work/calbright": "calbright-student-portal",
+  "/work/didi": "didi",
+  "/ai-explorations": "ai-explorations",
+};
+
+function resolveCurrentProject(pathname: string): string | undefined {
+  for (const [prefix, slug] of Object.entries(PATHNAME_PROJECT_MAP)) {
+    if (pathname === prefix || pathname.startsWith(prefix + "/")) {
+      return slug;
+    }
+  }
+  return undefined;
+}
+
 export default function WorkNav({ embed = false }: { embed?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeAiSection, setActiveAiSection] = useState<string | null>(null);
   const pathname = usePathname();
+  const currentProject = resolveCurrentProject(pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -45,7 +63,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
           >
             Wen Liu
           </Link>
-          <AskWenShell />
+          <AskWenShell currentProject={currentProject} />
         </div>
         {/* Desktop nav - hidden below 768px */}
         <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">

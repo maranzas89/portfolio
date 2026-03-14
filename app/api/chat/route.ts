@@ -7,6 +7,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const message = body?.message?.trim();
     const currentProject = body?.currentProject ?? null;
+    const conversationProject = body?.conversationProject ?? null;
 
     if (!message) {
       return NextResponse.json(
@@ -19,7 +20,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: BLOCKED_REPLY });
     }
 
-    const reply = getPortfolioChatResponse({ message, currentProject });
+    const reply = getPortfolioChatResponse({
+      message,
+      currentProject,
+      conversationProject,
+    });
 
     return NextResponse.json({ reply });
   } catch {

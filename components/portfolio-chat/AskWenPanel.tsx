@@ -21,6 +21,91 @@ const INITIAL_MESSAGE: Message = {
     "Hi — I can help explain my projects, design decisions, impact, and AI workflow.",
 };
 
+const STORAGE_KEY = "ask-wen-messages";
+const CHIPS_STORAGE_KEY = "ask-wen-used-chips";
+const CONV_PROJECT_KEY = "ask-wen-conv-project";
+
+// --- Project mention detection (client-side) ---
+
+const PROJECT_MENTION_RULES: Array<{ pattern: RegExp; slug: string }> = [
+  { pattern: /\bcalbright\b|\bstudent portal\b/i, slug: "calbright-student-portal" },
+  { pattern: /\bstaff portal\b|\bstaff\b/i, slug: "staff-portal" },
+  { pattern: /\bdidi\b/i, slug: "didi" },
+  { pattern: /\bai exploration|\bai project/i, slug: "ai-explorations" },
+];
+
+function detectProjectFromMessage(text: string): string | null {
+  const q = text.toLowerCase();
+  for (const rule of PROJECT_MENTION_RULES) {
+    if (rule.pattern.test(q)) return rule.slug;
+  }
+  return null;
+}
+
+// --- Storage helpers ---
+
+function loadMessages(): Message[] {
+  try {
+    const stored = sessionStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {
+    // Ignore parse errors
+  }
+  return [INITIAL_MESSAGE];
+}
+
+function saveMessages(messages: Message[]) {
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+function loadUsedChips(): Set<string> {
+  try {
+    const stored = sessionStorage.getItem(CHIPS_STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) return new Set(parsed);
+    }
+  } catch {
+    // Ignore parse errors
+  }
+  return new Set();
+}
+
+function saveUsedChips(chips: Set<string>) {
+  try {
+    sessionStorage.setItem(CHIPS_STORAGE_KEY, JSON.stringify([...chips]));
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+function loadConversationProject(): string | null {
+  try {
+    return sessionStorage.getItem(CONV_PROJECT_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function saveConversationProject(slug: string | null) {
+  try {
+    if (slug) {
+      sessionStorage.setItem(CONV_PROJECT_KEY, slug);
+    } else {
+      sessionStorage.removeItem(CONV_PROJECT_KEY);
+    }
+  } catch {
+    // Ignore storage errors
+  }
+}
+
 type AskWenPanelProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -35,8 +120,32 @@ export default function AskWenPanel({
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+  const [conversationProject, setConversationProject] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Hydrate from sessionStorage on mount
+  useEffect(() => {
+    setMessages(loadMessages());
+    setUsedChips(loadUsedChips());
+    setConversationProject(loadConversationProject());
+    setHydrated(true);
+  }, []);
+
+  // Persist messages to sessionStorage
+  useEffect(() => {
+    if (hydrated) {
+      saveMessages(messages);
+    }
+  }, [messages, hydrated]);
+
+  // Persist conversation project
+  useEffect(() => {
+    if (hydrated) {
+      saveConversationProject(conversationProject);
+    }
+  }, [conversationProject, hydrated]);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -94,6 +203,12 @@ export default function AskWenPanel({
       const trimmed = text.trim();
       if (!trimmed || loading) return;
 
+      // Detect project mention and update conversation context
+      const mentioned = detectProjectFromMessage(trimmed);
+      if (mentioned) {
+        setConversationProject(mentioned);
+      }
+
       const userMsg: Message = { role: "user", content: trimmed };
       setMessages((prev) => [...prev, userMsg]);
       setInput("");
@@ -103,7 +218,11 @@ export default function AskWenPanel({
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: trimmed, currentProject }),
+          body: JSON.stringify({
+            message: trimmed,
+            currentProject,
+            conversationProject: mentioned ?? conversationProject,
+          }),
         });
         const data = await res.json();
         const assistantMsg: Message = {
@@ -120,7 +239,7 @@ export default function AskWenPanel({
         setLoading(false);
       }
     },
-    [loading, currentProject]
+    [loading, currentProject, conversationProject]
   );
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -129,6 +248,14 @@ export default function AskWenPanel({
   };
 
   const [usedChips, setUsedChips] = useState<Set<string>>(new Set());
+
+  // Persist used chips to sessionStorage
+  useEffect(() => {
+    if (hydrated) {
+      saveUsedChips(usedChips);
+    }
+  }, [usedChips, hydrated]);
+
   const remainingChips = PRESET_CHIPS.filter((c) => !usedChips.has(c));
   const chipsVisible = remainingChips.length > 0;
 
