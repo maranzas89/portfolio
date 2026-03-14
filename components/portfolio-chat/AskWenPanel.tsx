@@ -12,14 +12,14 @@ type Message = {
 const PRESET_CHIPS = [
   "What was your role?",
   "Tell me about Calbright",
-  "Show impact metrics",
   "How do you use AI in your workflow?",
+  "What is this assistant?",
 ];
 
 const INITIAL_MESSAGE: Message = {
   role: "assistant",
   content:
-    "Hi — I can help explain my projects, design decisions, impact, and AI workflow.",
+    "Hi — I'm a retrieval-based assistant that can help you navigate my portfolio. Ask about my projects, design decisions, impact, or AI workflow.",
 };
 
 // --- Storage keys ---
@@ -306,7 +306,7 @@ export default function AskWenPanel({
               </h2>
             </div>
             <p className="mt-2 text-sm text-white/60 font-semibold leading-relaxed tracking-wide">
-              AI chat for my projects, decisions, impact, and workflow.
+              Retrieval-based assistant for navigating my portfolio.
             </p>
           </div>
           <button

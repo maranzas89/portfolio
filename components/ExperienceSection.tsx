@@ -37,20 +37,20 @@ import { ResumeLink } from "@/components/ResumeLink";
 const summaries = [
   {
     icon: Award,
-    text: "Senior Product Designer with 10+ years leading AI-driven enterprise systems across complex, regulated environments.",
+    text: "Product designer with 10+ years shaping complex systems across enterprise SaaS, cybersecurity, and education.",
   },
   {
     icon: Users,
     text: (
       <>
-        Partner with Product & Engineering in Agile environments <br />
-        to drive 0→1 transformations and scalable workflows.
+        Work across product thinking, interaction design, and AI-assisted prototyping <br />
+        to turn ambiguous ideas into testable interfaces and scalable product directions.
       </>
     ),
   },
   {
     icon: Cpu,
-    text: "Design operational AI systems that turn complex models and data signals into actionable workflows.",
+    text: "Combine systems thinking, design craft, and implementation-aware collaboration with Product and Engineering to move teams faster from concept to MVP.",
   },
   {
     icon: LineChart,
@@ -277,7 +277,7 @@ export default function ExperienceSection() {
             Wen Liu
           </h2>
           <p className="text-lg text-slate-500 max-w-4xl leading-relaxed">
-            Senior Product Designer | AI Systems, Enterprise Workflow Architecture & Product Strategy
+            Senior Product Designer | AI Prototyping, Product Systems & Design Engineering
           </p>
           <EmailWithCopyButton />
         </section>

@@ -33,6 +33,7 @@ const EXPLICIT_ENTITY_BOOSTS: Array<{
   { pattern: /\bdidi\b/i, target: "didi" },
   { pattern: /\bcisco\b/i, target: "cisco" },
   { pattern: /\bai explorations?\b|\bai projects?\b/i, target: "ai-explorations" },
+  { pattern: /\bask wen\b|\bthis assistant\b|\bthis chatbot\b|\bknowledge retrieval\b/i, target: "ask-wen" },
 
   // --- AI subsection targeting (section-specific within ai-explorations) ---
   { pattern: /\bjobhatch\b|\bjob hatch\b/i, target: "ai-explorations", section: "showcase-jobhatch" },

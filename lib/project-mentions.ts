@@ -12,6 +12,7 @@ export const PROJECT_MENTION_RULES: Array<{ pattern: RegExp; slug: string }> = [
   { pattern: /\bdidi\b/i, slug: "didi" },
   { pattern: /\bcisco\b/i, slug: "cisco" },
   { pattern: /\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bjob hatch\b|\bworld cup\b|\bdata lab\b|\bdialpad\b|\bsynchronize\b|\bwhere ai excels\b/i, slug: "ai-explorations" },
+  { pattern: /\bask wen\b|\bthis assistant\b|\bthis chatbot\b|\bknowledge retrieval\b/i, slug: "ask-wen" },
 ];
 
 export function detectProjectMention(query: string): string | null {

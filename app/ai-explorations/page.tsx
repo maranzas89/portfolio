@@ -155,8 +155,8 @@ export default function AIExplorationsPage() {
       <div className="pt-16 md:pt-32">
       <PageHero
         eyebrow="AI Projects"
-        headline="Designing with AI across systems, workflows, and product thinking"
-        paragraph="Explorations across AI-assisted workflows, rapid prototyping, and generative design—showing how I use AI to think broader, test faster, and expand design possibilities."
+        headline="Using AI to prototype, test, and shape product directions"
+        paragraph="A curated selection of AI-assisted product explorations across rapid prototyping, interface concepts, workflow design, and early-stage implementation. These projects show how I use AI not only to think faster, but to structure ideas, build testable interfaces, and validate product directions earlier."
         backgroundVariant="ai-explorations"
       >
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 -mt-[30px] w-full max-w-5xl">
@@ -196,10 +196,10 @@ export default function AIExplorationsPage() {
                 </h2>
               </div>
               <h3 className="mb-4 text-3xl font-semibold text-text md:text-4xl">
-                Testing Product Hypotheses Through AI-Native Prototyping
+                From Concept to Testable Interface Through AI-Assisted Prototyping
               </h3>
               <p className="max-w-5xl text-base text-slate-600 md:text-lg">
-                Prototypes built to evaluate product behavior, de-risk early ideas, and explore practical applications.<br />Flip the cards for more, then select <span className="font-bold text-slate-800">Try Demo</span>.
+                From concept framing to interface prototyping and workflow validation — these explorations show how I use AI-assisted workflows to move from abstract ideas to clearer product structures, interaction patterns, and working demos.<br />Flip the cards for more, then select <span className="font-bold text-slate-800">Try Demo</span>.
               </p>
             </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -397,7 +397,7 @@ export default function AIExplorationsPage() {
           <ScrollReveal direction="up" className="w-full flex justify-center">
             <div className="max-w-5xl mx-auto flex flex-col items-center text-center px-2">
               <p className="text-gray-400 text-lg md:text-xl font-medium leading-relaxed mb-6 text-balance">
-                Explore how I apply AI in everyday product design through selected work that shows how these tools shape strategy, streamline workflows, and support execution across real projects.
+                See how AI-assisted prototyping and product thinking come together across my featured work — from enterprise systems and education platforms to workflow design and testable product concepts.
               </p>
               <Link
                 href="/#work"

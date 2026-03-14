@@ -140,45 +140,47 @@ export default function Page() {
       >
         <HeroBackgroundFX />
         <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-32 pb-16 md:pt-40 md:pb-20">
-          <div className="max-w-6xl">
+          <div>
+            <div className="max-w-6xl">
               <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">
-                Product Design · AI-Native Building · Systems Thinking · Research-Driven Design
+                Product Design · AI-Assisted Prototyping · Systems Thinking · Implementation-Aware Design
               </p>
               <h1 className="hero-title-gradient text-3xl md:text-4xl lg:text-5xl xl:text-[4rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
                 Hi, I&apos;m Wen,<br />
-                a product designer and AI-native builder
+                a product designer building AI-native product experiences
               </h1>
               <p className="text-base md:text-lg text-[rgba(232,238,249,0.82)] font-normal leading-relaxed mt-5 md:mt-6 mb-0 max-w-[1100px]">
-                I design at staff-level scope across complex systems and enterprise experiences, using AI to prototype, explore, and build faster while bridging product thinking, design craft, front-end fluency, and iterative testing.
+                I design and prototype product experiences across complex systems and enterprise workflows, using AI-assisted workflows to explore faster, validate earlier, and turn ideas into testable interfaces.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 mb-0 w-full max-w-[1184px]">
+            </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 mb-0 w-full">
                 <div className="hero-card group">
                   <div className="flex items-center gap-3 mb-2.5">
                     <Layout className="w-5 h-5 text-blue-400 shrink-0" />
                     <p className="text-[#f6f7fb] font-bold text-base">Product Design</p>
                   </div>
-                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Complex systems & platforms</p>
+                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Complex systems, workflows & platforms</p>
                 </div>
                 <div className="hero-card group">
                   <div className="flex items-center gap-3 mb-2.5">
                     <Sparkles className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-[#f6f7fb] font-bold text-base">AI-Native Builder</p>
+                    <p className="text-[#f6f7fb] font-bold text-base">AI-Assisted Prototyping</p>
                   </div>
-                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Prototype, explore, build</p>
+                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Rapid prototype, test, validate ideas</p>
                 </div>
                 <div className="hero-card group">
                   <div className="flex items-center gap-3 mb-2.5">
                     <GitBranch className="w-5 h-5 text-blue-400 shrink-0" />
                     <p className="text-[#f6f7fb] font-bold text-base">Systems Thinking</p>
                   </div>
-                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Flows, logic, scalability</p>
+                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Workflow logic & scalable system structure</p>
                 </div>
                 <div className="hero-card group">
                   <div className="flex items-center gap-3 mb-2.5">
                     <FileText className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-[#f6f7fb] font-bold text-base">Research-Driven Design</p>
+                    <p className="text-[#f6f7fb] font-bold text-base">Implementation-Aware</p>
                   </div>
-                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Insights, testing, iteration</p>
+                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Front-end fluency, dev collaboration</p>
                 </div>
               </div>
               <div className="relative z-20 flex flex-wrap items-center gap-4 md:gap-[18px] mt-8">

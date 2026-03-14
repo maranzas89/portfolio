@@ -102,6 +102,22 @@ export const projects = [
     tags: ["ai", "exploration", "workflow", "prototyping"],
     url: "/ai-explorations",
   },
+  {
+    slug: "ask-wen",
+    title: "Ask Wen — AI Knowledge Retrieval Assistant",
+    summary:
+      "A retrieval-based conversational assistant I designed and prototyped to help users navigate my portfolio through natural questions instead of static browsing.",
+    role: "I designed the conversation flow, retrieval architecture, knowledge structure, and interaction model, then built a working prototype with page-aware context and session persistence.",
+    problem:
+      "Portfolio visitors often scan without finding the most relevant content. Traditional navigation requires too much guesswork, and static pages don't adapt to what someone is actually looking for.",
+    approach:
+      "I designed a retrieval-oriented conversation experience with intent detection, entity-aware scoring, page-level context boosting, and conversation memory — then prototyped it as a fully functional assistant embedded across the site.",
+    impact:
+      "Created a testable product direction that turns static portfolio content into a guided, navigable knowledge retrieval experience with source-grounded answers and conversation continuity.",
+    tools: ["Next.js", "TypeScript", "AI-assisted prototyping", "sessionStorage"],
+    tags: ["ask wen", "knowledge retrieval", "chatbot", "ai assistant", "portfolio"],
+    url: "",
+  },
 ];
 
 // ============================================================
@@ -321,6 +337,19 @@ export const faqEntries = [
     answer:
       "My work focuses on improving clarity, reducing friction, and building stronger product foundations. Depending on the project, impact can show up through usability improvements, workflow efficiency, better onboarding guidance, or stronger operational support.",
     relatedProjectSlug: null,
+  },
+  // M. What is this assistant / Ask Wen
+  {
+    id: "what-is-ask-wen",
+    triggers: [
+      "what is this assistant", "what is ask wen", "how does this work",
+      "what is this chatbot", "tell me about this assistant",
+      "how was this built", "what powers this", "is this ai",
+      "what is this chat", "how does ask wen work",
+    ],
+    answer:
+      "This is Ask Wen — a retrieval-based knowledge assistant I designed and prototyped for this portfolio. Instead of browsing static pages, you can ask natural questions and get grounded answers drawn from my project content. I designed the conversation flow, retrieval logic, knowledge structure, and interaction model, then built it as a working prototype with page-aware context, intent detection, and session persistence.",
+    relatedProjectSlug: "ask-wen",
   },
 ];
 
@@ -860,5 +889,63 @@ export const contentChunks: ContentChunk[] = [
     content:
       "For prototyping approach, JobHatch and Synchronize Orientation are strong examples. JobHatch shows how I prototype a full product concept with AI-powered features, while Synchronize Orientation shows how I explore real-time state sync between two user types using rapid AI-assisted development.",
     keywords: ["prototyping", "best prototype", "ai prototyping", "rapid", "concept development"],
+  },
+
+  // ============================
+  // Ask Wen — AI Knowledge Retrieval Assistant
+  // ============================
+  {
+    id: "ask-wen-summary",
+    projectSlug: "ask-wen",
+    section: "summary",
+    title: "Ask Wen",
+    content:
+      "Ask Wen is a retrieval-based conversational assistant I designed and prototyped for my portfolio. It helps visitors navigate project content through natural questions instead of static browsing, with page-aware context, intent detection, conversation memory, and source-grounded answers.",
+    keywords: ["ask wen", "assistant", "chatbot", "knowledge retrieval", "portfolio", "conversational"],
+  },
+  {
+    id: "ask-wen-problem",
+    projectSlug: "ask-wen",
+    section: "problem",
+    title: "Ask Wen — Problem",
+    content:
+      "Portfolio visitors often scan pages without finding the most relevant content. Traditional navigation requires too much guesswork, and static pages don't adapt to what someone is actually looking for. I wanted to explore whether retrieval-based conversation could make portfolio content more discoverable and navigable.",
+    keywords: ["ask wen", "problem", "navigation", "discoverability", "scanning", "static content"],
+  },
+  {
+    id: "ask-wen-approach",
+    projectSlug: "ask-wen",
+    section: "approach",
+    title: "Ask Wen — Approach",
+    content:
+      "I designed a retrieval-oriented conversation experience with lightweight intent detection, entity-aware scoring, page-level context boosting, and conversation memory. Content is structured into retrieval-friendly chunks with section targeting, keyword matching, and explicit entity boosts. The system handles ambiguous questions gracefully, supports follow-up context, and grounds answers in real portfolio content rather than generating unchecked responses.",
+    keywords: ["ask wen", "approach", "retrieval", "intent detection", "scoring", "context", "architecture"],
+  },
+  {
+    id: "ask-wen-role",
+    projectSlug: "ask-wen",
+    section: "role",
+    title: "Ask Wen — Role",
+    content:
+      "I owned the full design and prototype: conversation flow design, retrieval-oriented UX, information architecture for the knowledge structure, source visibility and trust cues, interaction modeling, and implementation. This was AI-assisted prototyping end to end — from structuring the content model to building the working assistant.",
+    keywords: ["ask wen", "role", "design", "prototyping", "information architecture", "implementation"],
+  },
+  {
+    id: "ask-wen-product-behavior",
+    projectSlug: "ask-wen",
+    section: "product-behavior",
+    title: "Ask Wen — Product Behavior",
+    content:
+      "The assistant retrieves section-level content from a structured knowledge base, not full pages. It uses intent detection to match question types to the right content section, entity boosts to prioritize explicitly mentioned projects, page-level context as a soft relevance signal, and conversation memory so follow-up questions inherit topic context. When the system can't confidently match a project, it asks the user to clarify rather than guessing.",
+    keywords: ["ask wen", "product behavior", "retrieval", "section level", "intent", "disambiguation", "trust"],
+  },
+  {
+    id: "ask-wen-impact",
+    projectSlug: "ask-wen",
+    section: "impact",
+    title: "Ask Wen — Impact",
+    content:
+      "This exploration shows how AI-assisted retrieval can transform static knowledge systems into more guided, navigable, and testable support experiences. It demonstrates a product direction — not just an interface — for conversational knowledge access with real retrieval logic, grounded answers, and implementation-aware interaction design.",
+    keywords: ["ask wen", "impact", "product direction", "knowledge access", "testable", "retrieval"],
   },
 ];

@@ -94,7 +94,7 @@ const PROJECT_SPECIFIC_INTENTS = new Set([
 ]);
 
 const EXPLICIT_ENTITY_PATTERN =
-  /\bcalbright\b|\bstudent portal\b|\bstaff portal\b|\bdidi\b|\bcisco\b|\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bworld cup\b|\bdialpad\b|\bsynchronize\b/i;
+  /\bcalbright\b|\bstudent portal\b|\bstaff portal\b|\bdidi\b|\bcisco\b|\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bworld cup\b|\bdialpad\b|\bsynchronize\b|\bask wen\b/i;
 
 const AMBIGUOUS_RESPONSES: Record<string, string> = {
   role: "I've had different roles across my projects. Would you like to hear about my role on Calbright Student Portal, Staff Portal, Cisco, Didi, or my AI Explorations?",
