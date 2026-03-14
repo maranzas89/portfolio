@@ -21,17 +21,20 @@ const INITIAL_MESSAGE: Message = {
     "Hi — I can help explain my projects, design decisions, impact, and AI workflow.",
 };
 
+// --- Storage keys ---
+
 const STORAGE_KEY = "ask-wen-messages";
 const CHIPS_STORAGE_KEY = "ask-wen-used-chips";
 const CONV_PROJECT_KEY = "ask-wen-conv-project";
+const INPUT_DRAFT_KEY = "ask-wen-input-draft";
 
 // --- Project mention detection (client-side) ---
 
 const PROJECT_MENTION_RULES: Array<{ pattern: RegExp; slug: string }> = [
   { pattern: /\bcalbright\b|\bstudent portal\b/i, slug: "calbright-student-portal" },
-  { pattern: /\bstaff portal\b|\bstaff\b/i, slug: "staff-portal" },
+  { pattern: /\bstaff portal\b/i, slug: "staff-portal" },
   { pattern: /\bdidi\b/i, slug: "didi" },
-  { pattern: /\bai exploration|\bai project/i, slug: "ai-explorations" },
+  { pattern: /\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bjob hatch\b|\bworld cup\b|\bdata lab\b|\bdialpad\b|\bsynchronize\b|\bwhere ai excels\b/i, slug: "ai-explorations" },
 ];
 
 function detectProjectFromMessage(text: string): string | null {
@@ -44,46 +47,39 @@ function detectProjectFromMessage(text: string): string | null {
 
 // --- Storage helpers ---
 
-function loadMessages(): Message[] {
+function loadFromSession<T>(key: string, fallback: T): T {
   try {
-    const stored = sessionStorage.getItem(STORAGE_KEY);
-    if (stored) {
+    const stored = sessionStorage.getItem(key);
+    if (stored !== null) {
       const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      return parsed as T;
     }
   } catch {
     // Ignore parse errors
   }
-  return [INITIAL_MESSAGE];
+  return fallback;
 }
 
-function saveMessages(messages: Message[]) {
+function saveToSession(key: string, value: unknown) {
   try {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    if (value === null || value === undefined) {
+      sessionStorage.removeItem(key);
+    } else {
+      sessionStorage.setItem(key, JSON.stringify(value));
+    }
   } catch {
     // Ignore storage errors
   }
+}
+
+function loadMessages(): Message[] {
+  const stored = loadFromSession<Message[] | null>(STORAGE_KEY, null);
+  return Array.isArray(stored) && stored.length > 0 ? stored : [INITIAL_MESSAGE];
 }
 
 function loadUsedChips(): Set<string> {
-  try {
-    const stored = sessionStorage.getItem(CHIPS_STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed)) return new Set(parsed);
-    }
-  } catch {
-    // Ignore parse errors
-  }
-  return new Set();
-}
-
-function saveUsedChips(chips: Set<string>) {
-  try {
-    sessionStorage.setItem(CHIPS_STORAGE_KEY, JSON.stringify([...chips]));
-  } catch {
-    // Ignore storage errors
-  }
+  const stored = loadFromSession<string[] | null>(CHIPS_STORAGE_KEY, null);
+  return Array.isArray(stored) ? new Set(stored) : new Set();
 }
 
 function loadConversationProject(): string | null {
@@ -106,6 +102,28 @@ function saveConversationProject(slug: string | null) {
   }
 }
 
+function loadInputDraft(): string {
+  try {
+    return sessionStorage.getItem(INPUT_DRAFT_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function saveInputDraft(draft: string) {
+  try {
+    if (draft) {
+      sessionStorage.setItem(INPUT_DRAFT_KEY, draft);
+    } else {
+      sessionStorage.removeItem(INPUT_DRAFT_KEY);
+    }
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+// --- Component ---
+
 type AskWenPanelProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -117,35 +135,45 @@ export default function AskWenPanel({
   onClose,
   currentProject,
 }: AskWenPanelProps) {
+  // All useState hooks grouped together
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const [conversationProject, setConversationProject] = useState<string | null>(null);
+  const [usedChips, setUsedChips] = useState<Set<string>>(new Set());
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Hydrate from sessionStorage on mount
+  // Hydrate all persisted state from sessionStorage on mount
   useEffect(() => {
     setMessages(loadMessages());
     setUsedChips(loadUsedChips());
     setConversationProject(loadConversationProject());
+    setInput(loadInputDraft());
     setHydrated(true);
   }, []);
 
-  // Persist messages to sessionStorage
+  // Persist messages
   useEffect(() => {
-    if (hydrated) {
-      saveMessages(messages);
-    }
+    if (hydrated) saveToSession(STORAGE_KEY, messages);
   }, [messages, hydrated]);
 
   // Persist conversation project
   useEffect(() => {
-    if (hydrated) {
-      saveConversationProject(conversationProject);
-    }
+    if (hydrated) saveConversationProject(conversationProject);
   }, [conversationProject, hydrated]);
+
+  // Persist used chips
+  useEffect(() => {
+    if (hydrated) saveToSession(CHIPS_STORAGE_KEY, [...usedChips]);
+  }, [usedChips, hydrated]);
+
+  // Persist input draft
+  useEffect(() => {
+    if (hydrated) saveInputDraft(input);
+  }, [input, hydrated]);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -225,11 +253,20 @@ export default function AskWenPanel({
           }),
         });
         const data = await res.json();
+        const replyText = data.reply ?? "Sorry, something went wrong.";
         const assistantMsg: Message = {
           role: "assistant",
-          content: data.reply ?? "Sorry, something went wrong.",
+          content: replyText,
         };
         setMessages((prev) => [...prev, assistantMsg]);
+
+        // Also detect project mentions in assistant reply to update context
+        if (!mentioned) {
+          const replyMention = detectProjectFromMessage(replyText);
+          if (replyMention) {
+            setConversationProject(replyMention);
+          }
+        }
       } catch {
         setMessages((prev) => [
           ...prev,
@@ -242,19 +279,10 @@ export default function AskWenPanel({
     [loading, currentProject, conversationProject]
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     sendMessage(input);
   };
-
-  const [usedChips, setUsedChips] = useState<Set<string>>(new Set());
-
-  // Persist used chips to sessionStorage
-  useEffect(() => {
-    if (hydrated) {
-      saveUsedChips(usedChips);
-    }
-  }, [usedChips, hydrated]);
 
   const remainingChips = PRESET_CHIPS.filter((c) => !usedChips.has(c));
   const chipsVisible = remainingChips.length > 0;

@@ -9,17 +9,34 @@ type ChatInput = {
 
 type ContentChunk = ReturnType<typeof searchKnowledgeBase>[number];
 
-function includesAnyTrigger(message: string, triggers: string[]) {
-  return triggers.some((trigger) => message.includes(trigger.toLowerCase()));
+// ============================================================
+// FAQ matching — phrase-cluster substring matching
+// Triggers are short phrases; a match means the message contains
+// the phrase as a substring. This handles approximate phrasing
+// without embeddings.
+// ============================================================
+
+function matchFaq(message: string) {
+  const q = message.toLowerCase();
+  return faqEntries.find((entry) =>
+    entry.triggers.some((trigger) => q.includes(trigger.toLowerCase()))
+  );
 }
 
-// --- Explicit project detection ---
+// ============================================================
+// Explicit project detection from message text
+// ============================================================
 
 const PROJECT_MENTION_RULES: Array<{ pattern: RegExp; slug: string }> = [
   { pattern: /\bcalbright\b|\bstudent portal\b/i, slug: "calbright-student-portal" },
-  { pattern: /\bstaff portal\b|\bstaff\b/i, slug: "staff-portal" },
+  { pattern: /\bstaff portal\b/i, slug: "staff-portal" },
   { pattern: /\bdidi\b/i, slug: "didi" },
-  { pattern: /\bai exploration|\bai project/i, slug: "ai-explorations" },
+  { pattern: /\bcisco\b/i, slug: "cisco" },
+  { pattern: /\bai explorations?\b|\bai projects?\b/i, slug: "ai-explorations" },
+  { pattern: /\bjobhatch\b|\bjob hatch\b/i, slug: "ai-explorations" },
+  { pattern: /\bworld cup\b|\bdata lab\b/i, slug: "ai-explorations" },
+  { pattern: /\bsynchronize\b|\borientation\b/i, slug: "ai-explorations" },
+  { pattern: /\bdialpad\b/i, slug: "ai-explorations" },
 ];
 
 export function detectProjectMention(query: string): string | null {
@@ -30,7 +47,9 @@ export function detectProjectMention(query: string): string | null {
   return null;
 }
 
-// --- Question intent detection ---
+// ============================================================
+// Question intent detection — maps question type to section
+// ============================================================
 
 const INTENT_RULES: Array<{ pattern: RegExp; section: string }> = [
   { pattern: /\brole\b|\bcontribution\b|\bresponsibilit/i, section: "role" },
@@ -39,9 +58,12 @@ const INTENT_RULES: Array<{ pattern: RegExp; section: string }> = [
   { pattern: /\bimpact\b|\bresult\b|\boutcome\b|\bmetric/i, section: "impact" },
   { pattern: /\bbackground\b|\bexperience\b|\bcareer/i, section: "background" },
   { pattern: /\bstrength\b|\bskill\b|\bgood at\b|\bspecialt/i, section: "strengths" },
-  { pattern: /\beducation\b|\bschool\b|\bdegree\b|\bgraduat|\bstudied\b|\bwhat did you study\b|\bwhere.*(?:study|school|learn)/i, section: "education" },
+  { pattern: /\beducation\b|\bschool\b|\bdegree\b|\bgraduate\b|\bgraduated\b|\bgraduation\b|\bstudied\b|\buniversity\b|\bwhat did you study\b|\bwhere.*(?:study|school|learn)/i, section: "education" },
   { pattern: /\bai workflow\b|\bai tool\b|\bhow.*use ai/i, section: "ai-workflow" },
   { pattern: /\bname\b|\bwho are you\b|\bwho is\b|\bintroduc/i, section: "profile" },
+  { pattern: /\bmethodology\b|\bdesign methodology/i, section: "ai-methodology" },
+  { pattern: /\bbenchmark\b|\bai capability\b|\bcapability benchmark/i, section: "ai-capability-benchmark" },
+  { pattern: /\bmarket landscape\b|\bai landscape/i, section: "ai-market-landscape" },
 ];
 
 function detectIntent(query: string): string | null {
@@ -70,14 +92,19 @@ function rankByIntent(
   return [...matching, ...rest];
 }
 
-// --- Short follow-up detection ---
+// ============================================================
+// Short follow-up detection
+// ============================================================
 
 function isShortFollowUp(query: string): boolean {
   const words = query.split(/\s+/).filter((w) => w.length > 0);
   return words.length <= 4;
 }
 
-// --- Ambiguous question detection ---
+// ============================================================
+// Ambiguous question detection — prevents random project answers
+// on generic pages with no context
+// ============================================================
 
 const PROJECT_SPECIFIC_INTENTS = new Set([
   "role",
@@ -87,16 +114,16 @@ const PROJECT_SPECIFIC_INTENTS = new Set([
 ]);
 
 const EXPLICIT_ENTITY_PATTERN =
-  /\bcalbright\b|\bstudent portal\b|\bstaff portal\b|\bstaff\b|\bdidi\b|\bai exploration|\bai project/i;
+  /\bcalbright\b|\bstudent portal\b|\bstaff portal\b|\bdidi\b|\bcisco\b|\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bworld cup\b|\bdialpad\b|\bsynchronize\b/i;
 
 const AMBIGUOUS_RESPONSES: Record<string, string> = {
-  role: "I've had different roles across my projects. Would you like to hear about my role on Calbright Student Portal, Staff Portal, Didi, or my AI Explorations?",
+  role: "I've had different roles across my projects. Would you like to hear about my role on Calbright Student Portal, Staff Portal, Cisco, Didi, or my AI Explorations?",
   problem:
-    "I've worked on several different product problems across my portfolio. I can walk you through the problem space for Calbright Student Portal, Staff Portal, Didi, or AI Explorations — which one are you curious about?",
+    "I've worked on several different product problems across my portfolio. I can walk you through the problem space for Calbright Student Portal, Staff Portal, Cisco, Didi, or AI Explorations — which one are you curious about?",
   approach:
-    "My approach varied by project. I can share how I approached Calbright Student Portal, Staff Portal, Didi, or my AI Explorations — which would you like to hear about?",
+    "My approach varied by project. I can share how I approached Calbright Student Portal, Staff Portal, Cisco, Didi, or my AI Explorations — which would you like to hear about?",
   impact:
-    "That depends on the project. I can share the impact for Calbright Student Portal, Staff Portal, Didi, or AI Explorations — which one interests you?",
+    "That depends on the project. I can share the impact for Calbright Student Portal, Staff Portal, Cisco, Didi, or AI Explorations — which one interests you?",
 };
 
 function isAmbiguousProjectQuestion(
@@ -110,7 +137,9 @@ function isAmbiguousProjectQuestion(
   return AMBIGUOUS_RESPONSES[intent] ?? null;
 }
 
-// --- Subjective AI opinion detection ---
+// ============================================================
+// Subjective AI opinion detection — resolved early in pipeline
+// ============================================================
 
 const AI_OPINION_PATTERNS: Array<{ pattern: RegExp; response: string }> = [
   {
@@ -157,10 +186,12 @@ function matchAiOpinion(query: string): string | null {
   return null;
 }
 
-// --- Response composition ---
+// ============================================================
+// Response composition — natural first-person blending
+// ============================================================
 
 function stripLeadingEntity(content: string): string {
-  return content.replace(/^(At |On |In my )[^,]+,\s*/i, "");
+  return content.replace(/^(At |On |In my |For )[^,]+,\s*/i, "");
 }
 
 function composeKnowledgeResponse(results: ContentChunk[]) {
@@ -185,7 +216,19 @@ function composeKnowledgeResponse(results: ContentChunk[]) {
   return first.content;
 }
 
-// --- Main entry ---
+// ============================================================
+// Main entry — response pipeline
+//
+// Order:
+// 1. Empty message
+// 2. Subjective AI opinion (early, before FAQ intercepts)
+// 3. FAQ phrase-cluster matching
+// 4. Resolve effective project (mention > conversation > page)
+// 5. Ambiguous project question guard
+// 6. Knowledge base retrieval + intent re-ranking
+// 7. Project fallback
+// 8. Final fallback
+// ============================================================
 
 export function getPortfolioChatResponse({
   message,
@@ -205,11 +248,8 @@ export function getPortfolioChatResponse({
     return aiOpinion;
   }
 
-  // 3. FAQ
-  const faqMatch = faqEntries.find((entry) =>
-    includesAnyTrigger(q, entry.triggers)
-  );
-
+  // 3. FAQ phrase-cluster matching
+  const faqMatch = matchFaq(q);
   if (faqMatch) {
     return faqMatch.answer;
   }
@@ -237,9 +277,12 @@ export function getPortfolioChatResponse({
   }
 
   // 6. Knowledge base retrieval with intent-aware re-ranking
+  // Pass both page-level and conversation-level project context separately
+  // so they can have independent boost weights in scoring
   const knowledgeResults = searchKnowledgeBase({
     query: message,
     currentProject: effectiveProject,
+    conversationProject: conversationProject,
   });
 
   const ranked = rankByIntent(knowledgeResults, intent);

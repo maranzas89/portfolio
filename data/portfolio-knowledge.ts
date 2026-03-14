@@ -88,38 +88,229 @@ export const projects = [
   },
 ];
 
+// ============================================================
+// FAQ entries — open-ended interview-style question buckets
+// Each entry uses phrase-cluster triggers for approximate matching
+// ============================================================
+
 export const faqEntries = [
+  // A. Best / strongest / signature project
+  {
+    id: "best-project",
+    triggers: [
+      "best project", "strongest project", "most proud of", "proudest project",
+      "signature project", "strongest case study", "best case study",
+      "best represents you", "favorite project", "project are you most proud",
+      "project best represents", "most impressive project",
+    ],
+    answer:
+      "A strong example is Calbright Student Portal. I focused on redesigning the experience to make onboarding clearer and help students understand the right next step more easily. What makes it one of my strongest projects is that it brings together product thinking, workflow design, clarity of information, and a meaningful user problem.",
+    relatedProjectSlug: "calbright-student-portal",
+  },
+  // B. Project that represents design thinking
+  {
+    id: "design-thinking-example",
+    triggers: [
+      "how you think as a designer", "represents how you think",
+      "design thinking example", "how you approach design problems",
+      "your design philosophy", "how do you think about design",
+      "clearest example of your thinking",
+    ],
+    answer:
+      "Calbright Student Portal is probably the clearest example. It shows how I approach design as both a systems problem and a user guidance problem. I was focused not just on screens, but on helping people understand what to do next, reducing friction, and creating a stronger product foundation.",
+    relatedProjectSlug: "calbright-student-portal",
+  },
+  // C. Problems I enjoy solving
+  {
+    id: "problems-enjoy",
+    triggers: [
+      "problems do you enjoy", "problems interest you", "problems do you like",
+      "product challenges", "problems you gravitate", "type of problems",
+      "kind of problems", "what draws you", "what excites you about design",
+      "what kind of design work",
+    ],
+    answer:
+      "I'm especially drawn to problems where complexity needs to be translated into clarity. That often means onboarding, workflow design, decision support, or systems that need better structure. I enjoy taking something fragmented or cognitively heavy and turning it into an experience that feels more guided, usable, and intentional.",
+    relatedProjectSlug: null,
+  },
+  // D. My design approach
+  {
+    id: "design-approach",
+    triggers: [
+      "design approach", "design process", "design methodology",
+      "how do you approach", "your methodology", "your process",
+      "how do you design", "describe your approach",
+      "how do you work through a design problem",
+    ],
+    answer:
+      "My design approach is grounded in clarity, structure, and decision support. I usually start by understanding where users get stuck, what context they need, and what actions matter most. From there, I focus on simplifying the workflow, improving hierarchy, and making the next step feel obvious.",
+    relatedProjectSlug: null,
+  },
+  // E. What makes your work different
+  {
+    id: "what-makes-different",
+    triggers: [
+      "makes your work different", "sets you apart", "unique about your work",
+      "differentiates you", "what makes you different", "stand out",
+      "what is special about", "how are you different",
+    ],
+    answer:
+      "I think one differentiator in my work is that I'm not only focused on interface polish — I pay close attention to workflow logic, product clarity, and how people move through complex systems. I care about designing experiences that feel intuitive, but also hold up at the systems level.",
+    relatedProjectSlug: null,
+  },
+  // F1. AI at Calbright (context-specific — matched before generic AI workflow)
+  {
+    id: "ai-at-calbright",
+    triggers: [
+      "ai at calbright", "ai in calbright", "ai calbright college",
+      "ai play at calbright", "ai show up in your calbright",
+      "ai in your calbright work", "used ai at calbright",
+    ],
+    answer:
+      "At Calbright, I think about AI as a way to improve clarity, speed up exploration, and support better decision-making in the design process. I use it to help with ideation, content framing, workflow exploration, and early prototyping, especially when I'm working through complex service or portal experiences.",
+    relatedProjectSlug: "calbright-student-portal",
+  },
+  // F2. AI at Didi
+  {
+    id: "ai-at-didi",
+    triggers: [
+      "ai at didi", "ai in didi", "ai play in your didi",
+      "ai connect to your didi", "ai in your didi work",
+      "ai show up in your didi", "used ai at didi",
+    ],
+    answer:
+      "At Didi, my work was centered more on complex workflows, operational clarity, and enterprise-scale product thinking. AI wasn't the headline of the work itself, but the way I think today about AI absolutely connects back to that experience — especially around systems, scale, and how intelligent tools can reduce complexity and support better decisions.",
+    relatedProjectSlug: "didi",
+  },
+  // F3. AI at Cisco
+  {
+    id: "ai-at-cisco",
+    triggers: [
+      "ai at cisco", "ai in cisco", "ai play in your cisco",
+      "ai show up in your cisco", "ai in your cisco work",
+      "used ai at cisco", "ai connect to your cisco",
+    ],
+    answer:
+      "At Cisco, I worked on AI-driven Network Assurance Engine — an enterprise network intelligence platform. I led UX for telemetry dashboards and model-driven alert systems supporting anomaly detection. That experience deeply shaped how I think about AI in product design: not as a feature layer, but as a way to support clarity, prioritization, and decision-making at enterprise scale.",
+    relatedProjectSlug: null,
+  },
+  // F4. AI in my career
+  {
+    id: "ai-in-career",
+    triggers: [
+      "ai in your career", "ai help in your career",
+      "ai changed your work", "ai professionally",
+      "ai in your job", "ai shaped your career",
+      "ai impact on your career",
+    ],
+    answer:
+      "I use AI in my career as a multiplier for thinking and exploration. It helps me move faster in ideation, compare directions, frame content, prototype concepts, and test possibilities earlier. I still rely on design judgment for the final decisions, but AI helps me explore more broadly and work more efficiently.",
+    relatedProjectSlug: null,
+  },
+  // F5. AI in my life
+  {
+    id: "ai-in-life",
+    triggers: [
+      "ai in your life", "ai personally", "ai in daily life",
+      "ai outside work", "ai in your everyday",
+      "ai help you in daily", "ai day to day life",
+    ],
+    answer:
+      "In my life, I use AI as a practical everyday tool for thinking, organizing, learning, and exploring ideas. Sometimes that means helping structure information more clearly, sometimes it means brainstorming, and sometimes it's just a faster way to work through questions or possibilities in daily life.",
+    relatedProjectSlug: null,
+  },
+  // F. How I use AI (generic — matched after context-specific AI entries above)
+  {
+    id: "ai-workflow",
+    triggers: [
+      "how do you use ai", "ai workflow", "your ai process",
+      "what ai tools do you use", "how does ai fit into your work",
+      "how does ai fit into your process", "how do you work with ai",
+      "how are you ai-native", "ai in your design",
+    ],
+    answer:
+      "I use AI to accelerate ideation, explore interaction directions, support content framing, and prototype concepts more quickly. I see it as a creative and strategic amplifier — something that helps me move faster and explore more broadly, while still relying on design judgment to shape the final outcome.",
+    relatedProjectSlug: "ai-explorations",
+  },
+  // G. Which project to start with
+  {
+    id: "start-here",
+    triggers: [
+      "where should i start", "which project should i look at",
+      "what should i start with", "best introduces your work",
+      "what should i look at first", "which project first",
+      "where do i begin", "start with", "best project to start",
+    ],
+    answer:
+      "I'd usually suggest starting with Calbright Student Portal if you want to see my end-to-end product thinking. If you're more interested in how I apply AI in practice, then AI Explorations is a strong place to start.",
+    relatedProjectSlug: null,
+  },
+  // H. What I learned from enterprise work
+  {
+    id: "enterprise-lessons",
+    triggers: [
+      "learned from enterprise", "enterprise experience",
+      "enterprise work teach", "learned from didi",
+      "enterprise lessons", "takeaway from enterprise",
+      "what did enterprise teach",
+    ],
+    answer:
+      "My enterprise work taught me how important structure, scalability, and operational clarity are. In products like Didi, the challenge is not only usability at the screen level, but also how complex systems support real workflows under pressure. That experience made me much stronger at thinking through edge cases, hierarchy, and system behavior.",
+    relatedProjectSlug: "didi",
+  },
+  // I. AI-native thinking
+  {
+    id: "ai-native",
+    triggers: [
+      "ai-native", "ai native thinking", "most ai-native",
+      "best shows ai", "ai-native project", "ai native project",
+      "most ai project", "what does ai-native mean",
+    ],
+    answer:
+      "AI Explorations is the clearest example. It shows how I use AI not just as a novelty, but as part of a real workflow for concept development, prototyping, and design exploration. It reflects how I think about AI as something practical, iterative, and deeply connected to product work.",
+    relatedProjectSlug: "ai-explorations",
+  },
+  // J. Strongest role
+  {
+    id: "strongest-role",
+    triggers: [
+      "strongest role", "role fits you best", "add the most value",
+      "strongest at professionally", "best role for you",
+      "what role suits you", "what kind of role",
+      "where do you add value", "ideal role",
+    ],
+    answer:
+      "I'm strongest in roles where I can connect product thinking, workflow design, and interface direction. That usually means helping teams frame the problem clearly, design a more effective user experience, and build a solution that feels both intuitive and structurally sound.",
+    relatedProjectSlug: null,
+  },
+  // K. General role overview
   {
     id: "role-overview",
-    triggers: ["what is your role", "what was your role", "what did you do", "your responsibility", "your contribution", "tell me about your role"],
+    triggers: [
+      "what is your role", "what was your role", "what did you do",
+      "your responsibility", "your contribution", "tell me about your role",
+    ],
     answer:
       "I work across product strategy, workflow design, interface direction, and prototype thinking. My role often includes framing problems, shaping UX direction, and aligning design decisions with meaningful outcomes.",
     relatedProjectSlug: null,
   },
+  // L. General impact
   {
-    id: "ai-workflow",
-    triggers: ["how do you use ai", "ai workflow", "your ai process", "what ai tools do you use", "how does ai fit into your work"],
-    answer:
-      "I use AI to accelerate ideation, explore interface directions, support content framing, and prototype product concepts more quickly.",
-    relatedProjectSlug: "ai-explorations",
-  },
-  {
-    id: "impact",
-    triggers: ["what was the impact", "what were the results", "what outcome", "measurable impact", "how did it perform"],
+    id: "impact-general",
+    triggers: [
+      "what was the impact", "what were the results",
+      "what outcome", "measurable impact", "how did it perform",
+      "show impact metrics",
+    ],
     answer:
       "My work focuses on improving clarity, reducing friction, and building stronger product foundations. Depending on the project, impact can show up through usability improvements, workflow efficiency, better onboarding guidance, or stronger operational support.",
     relatedProjectSlug: null,
   },
-  {
-    id: "start-here",
-    triggers: ["which project", "where should i start", "start with", "best project", "what should i look at first"],
-    answer:
-      "A strong place to start is Calbright Student Portal if you want to see end-to-end product thinking, or AI Explorations if you want to see how I apply AI in design workflows.",
-    relatedProjectSlug: null,
-  },
 ];
 
-// --- Content Chunks for knowledge base retrieval ---
+// ============================================================
+// Content Chunks for knowledge base retrieval
+// ============================================================
 
 export interface ContentChunk {
   id: string;
@@ -159,7 +350,7 @@ export const contentChunks: ContentChunk[] = [
     title: "Education",
     content:
       "I studied Multimedia & Art at California State University, East Bay. That's where I built my foundation in interaction design, systems thinking, and user experience strategy.",
-    keywords: ["education", "school", "degree", "study", "university", "academic", "cal state", "east bay", "multimedia"],
+    keywords: ["education", "school", "degree", "study", "university", "academic", "cal state", "east bay", "multimedia", "studied"],
   },
   {
     id: "global-role-overview",
@@ -186,7 +377,7 @@ export const contentChunks: ContentChunk[] = [
     title: "AI Workflow",
     content:
       "I integrate AI into my design workflow for ideation, rapid prototyping, interaction exploration, content framing, and system thinking. I view AI as a tool to accelerate creative exploration rather than replace design judgment.",
-    keywords: ["ai", "artificial intelligence", "workflow", "tools", "chatgpt", "figma ai", "prototyping", "how do you use ai"],
+    keywords: ["ai workflow", "artificial intelligence", "tools", "chatgpt", "figma ai", "prototyping", "how do you use ai"],
   },
 
   // ============================
@@ -337,7 +528,38 @@ export const contentChunks: ContentChunk[] = [
   },
 
   // ============================
-  // AI Explorations
+  // Cisco
+  // ============================
+  {
+    id: "cisco-summary",
+    projectSlug: "cisco",
+    section: "summary",
+    title: "Cisco",
+    content:
+      "At Cisco, I worked as a Senior UI/UX Designer on AI-driven Network Assurance Engine, an enterprise network intelligence platform. I led UX for telemetry dashboards and model-driven alert systems supporting anomaly detection, and built a scalable enterprise design system that accelerated feature deployment by 30%.",
+    keywords: ["cisco", "enterprise", "network", "telemetry", "dashboard", "anomaly detection", "design system", "assurance engine"],
+  },
+  {
+    id: "cisco-role",
+    projectSlug: "cisco",
+    section: "role",
+    title: "Cisco — Role",
+    content:
+      "At Cisco, I served as a Senior UI/UX Designer leading UX for complex telemetry dashboards and model-driven alert systems. I also built a scalable enterprise design system and contributed to initiatives featured in an executive keynote at Cisco Live.",
+    keywords: ["cisco", "role", "senior designer", "telemetry", "design system", "cisco live"],
+  },
+  {
+    id: "cisco-impact",
+    projectSlug: "cisco",
+    section: "impact",
+    title: "Cisco — Impact",
+    content:
+      "At Cisco, I improved operational efficiency by 25%, reduced task time by 20%, and contributed to over $15M in revenue impact. The design system I built accelerated feature deployment by 30% across the platform.",
+    keywords: ["cisco", "impact", "result", "efficiency", "revenue", "design system", "deployment"],
+  },
+
+  // ============================
+  // AI Explorations — Page-level
   // ============================
   {
     id: "ai-explorations-summary",
@@ -345,8 +567,8 @@ export const contentChunks: ContentChunk[] = [
     section: "summary",
     title: "AI Explorations",
     content:
-      "In my AI Explorations, I explore AI-assisted design and prototyping focused on product thinking, workflow acceleration, and interface experimentation. This includes projects like Dialpad Modal and Synchronize Orientation.",
-    keywords: ["ai explorations", "overview", "summary", "ai design", "prototyping", "experiments"],
+      "In my AI Explorations, I explore AI-assisted design and prototyping focused on product thinking, workflow acceleration, and interface experimentation. The page includes an AI market landscape analysis, my design methodology, and a showcase of five AI-native prototype projects.",
+    keywords: ["ai explorations", "overview", "summary", "ai design", "prototyping", "experiments", "ai projects"],
   },
   {
     id: "ai-explorations-role",
@@ -354,8 +576,8 @@ export const contentChunks: ContentChunk[] = [
     section: "role",
     title: "AI Explorations — Role",
     content:
-      "In my AI Explorations, I lead concept framing, prototyping, and AI workflow experimentation, exploring how AI tools can enhance the design process.",
-    keywords: ["ai", "role", "concept", "prototyping", "experimentation", "lead"],
+      "In my AI Explorations, I lead concept framing, prototyping, and AI workflow experimentation, exploring how AI tools can enhance the design process across research, ideation, and execution.",
+    keywords: ["ai explorations", "role", "concept", "prototyping", "experimentation", "lead"],
   },
   {
     id: "ai-explorations-problem",
@@ -363,8 +585,8 @@ export const contentChunks: ContentChunk[] = [
     section: "problem",
     title: "AI Explorations — Problem",
     content:
-      "Traditional design workflows can be slow when exploring many product directions quickly. I saw a gap between ideation speed and the time required to produce meaningful prototypes.",
-    keywords: ["ai", "problem", "challenge", "slow", "traditional", "ideation", "speed"],
+      "Traditional design workflows can be slow when exploring many product directions quickly. I saw a gap between ideation speed and the time required to produce meaningful prototypes, and I wanted to test whether AI could close that gap practically.",
+    keywords: ["ai explorations", "problem", "challenge", "slow", "traditional", "ideation", "speed"],
   },
   {
     id: "ai-explorations-approach",
@@ -372,8 +594,8 @@ export const contentChunks: ContentChunk[] = [
     section: "approach",
     title: "AI Explorations — Approach",
     content:
-      "I use AI tools like ChatGPT, Figma AI, and Adobe Firefly to accelerate ideation, interaction exploration, content framing, and prototype generation across multiple experimental projects.",
-    keywords: ["ai", "approach", "method", "chatgpt", "figma ai", "adobe firefly", "tools", "process"],
+      "I use AI tools like ChatGPT, Figma AI, and Adobe Firefly to accelerate ideation, interaction exploration, content framing, and prototype generation. Each project tests a different hypothesis about where AI creates real leverage in the design process.",
+    keywords: ["ai explorations", "approach", "method", "chatgpt", "figma ai", "adobe firefly", "tools", "process"],
   },
   {
     id: "ai-explorations-impact",
@@ -382,6 +604,245 @@ export const contentChunks: ContentChunk[] = [
     title: "AI Explorations — Impact",
     content:
       "Through my AI Explorations, I've expanded my exploration speed, supported faster concept testing, and created new ways to communicate product ideas through AI-assisted design workflows.",
-    keywords: ["ai", "impact", "result", "outcome", "speed", "concept testing", "communication"],
+    keywords: ["ai explorations", "impact", "result", "outcome", "speed", "concept testing", "communication"],
+  },
+
+  // ============================
+  // AI Explorations — Market Landscape / Capability Benchmark
+  // ============================
+  {
+    id: "ai-market-landscape",
+    projectSlug: "ai-explorations",
+    section: "ai-market-landscape",
+    title: "AI Market Landscape",
+    content:
+      "I maintain a structured AI market landscape that compares current tools across reasoning, engineering, creative work, and workflow support. It covers products like GPT-5.4 Pro, Gemini 3.1 Pro, Claude 4.6, and validation tools like Maze and Hotjar. I evaluate tools through two layers: public performance data and real workflow reliability.",
+    keywords: ["ai market landscape", "benchmark", "comparison", "gpt", "gemini", "claude", "tools", "evaluation", "ai capability"],
+  },
+  {
+    id: "ai-capability-benchmark",
+    projectSlug: "ai-explorations",
+    section: "ai-capability-benchmark",
+    title: "AI Capability Benchmark",
+    content:
+      "I define AI Capability Benchmark as a structured way to compare AI tools based on how well they support real workflow needs — reasoning, prototyping, content framing, validation, and live behavior insight. I benchmark across HLE with tools, web research, abstract reasoning, and real software engineering to understand where each tool is strongest.",
+    keywords: ["ai capability benchmark", "benchmark", "compare", "ai tools", "reasoning", "engineering", "evaluation", "hle"],
+  },
+
+  // ============================
+  // AI Explorations — Methodology
+  // ============================
+  {
+    id: "ai-methodology",
+    projectSlug: "ai-explorations",
+    section: "ai-methodology",
+    title: "AI Design Methodology",
+    content:
+      "My AI design methodology follows five stages: Discover & Empathize using AI-driven analytics and sentiment analysis, Define & Focus using AI summarization and dynamic personas, Ideate & Validate using generative AI for divergent thinking, Design & Prototype using AI UI generators and smart design systems, and Test & Iterate using AI-generated heatmaps and automated feedback analysis. It's less about treating AI as a novelty and more about understanding where it creates real leverage in a product workflow.",
+    keywords: ["ai methodology", "methodology", "design process", "discover", "define", "ideate", "prototype", "test", "iterate", "ai design"],
+  },
+  {
+    id: "ai-research-modal",
+    projectSlug: "ai-explorations",
+    section: "ai-research",
+    title: "AI Research",
+    content:
+      "The AI research aspect of my work reflects how I use AI to explore, synthesize, and frame design thinking more efficiently. I run 30+ research loops across tools and workflows, testing how AI supports real product design tasks rather than just generating output.",
+    keywords: ["ai research", "research modal", "research loops", "synthesis", "design thinking", "exploration"],
+  },
+  {
+    id: "ai-native-meaning",
+    projectSlug: "ai-explorations",
+    section: "ai-native",
+    title: "AI-Native Meaning",
+    content:
+      "When I say AI-native, I mean building with AI as a first-class part of the workflow from the start — not as an afterthought. It means using AI for research, prototyping, content framing, and validation as natural steps in the design process, rather than treating it as a separate novelty layer.",
+    keywords: ["ai-native", "ai native", "meaning", "definition", "what does ai-native mean", "workflow"],
+  },
+
+  // ============================
+  // AI Project Showcase — JobHatch
+  // ============================
+  {
+    id: "ai-jobhatch-summary",
+    projectSlug: "ai-explorations",
+    section: "showcase-jobhatch",
+    title: "JobHatch",
+    content:
+      "JobHatch is an AI-powered career platform I prototyped that combines resume analysis, match scoring, and gamified progress to help users apply for jobs with more clarity and improve over time. It uses AI to parse resumes, surface improvement opportunities, and help users better position their background against specific roles.",
+    keywords: ["jobhatch", "job hatch", "career", "resume", "job search", "ai project", "match scoring", "gamified"],
+  },
+  {
+    id: "ai-jobhatch-problem",
+    projectSlug: "ai-explorations",
+    section: "showcase-jobhatch",
+    title: "JobHatch — Problem",
+    content:
+      "The design question behind JobHatch was: how can AI make the job search feel less overwhelming and more actionable? Traditional job search tools give users too many listings with too little guidance, so I wanted to explore a system that helps users understand their fit and improve over time.",
+    keywords: ["jobhatch", "problem", "job search", "overwhelming", "guidance", "design question"],
+  },
+  {
+    id: "ai-jobhatch-approach",
+    projectSlug: "ai-explorations",
+    section: "showcase-jobhatch",
+    title: "JobHatch — Approach",
+    content:
+      "For JobHatch, I explored how AI could make the job search feel more structured and actionable. The concept includes AI resume analysis, match-based tracking so users can evaluate job fit more clearly, and a token-driven optimization system where completed actions earn tokens that unlock added value like resume upgrades and AI-assisted CV creation.",
+    keywords: ["jobhatch", "approach", "resume analysis", "match tracking", "token", "gamification"],
+  },
+  {
+    id: "ai-jobhatch-why",
+    projectSlug: "ai-explorations",
+    section: "showcase-jobhatch",
+    title: "JobHatch — Why It Matters",
+    content:
+      "JobHatch matters because it demonstrates how AI can transform a frustrating, opaque process into something more structured and motivating. It shows my approach to using AI not just for automation, but for genuine user empowerment through feedback, progress, and clarity.",
+    keywords: ["jobhatch", "why", "matters", "empowerment", "motivation", "ai value"],
+  },
+
+  // ============================
+  // AI Project Showcase — Where AI Excels Today
+  // ============================
+  {
+    id: "ai-where-excels-summary",
+    projectSlug: "ai-explorations",
+    section: "showcase-where-excels",
+    title: "Where AI Excels Today",
+    content:
+      "Where AI Excels Today is a research system I built exploring where current AI tools are strongest across creative exploration, workflow support, and execution. It compares tools across ideation, reasoning, visual generation, and workflow support, and shows how different tools fit different stages of real product design work.",
+    keywords: ["where ai excels", "ai excels", "research", "ai comparison", "ai strengths", "creative", "workflow"],
+  },
+  {
+    id: "ai-where-excels-approach",
+    projectSlug: "ai-explorations",
+    section: "showcase-where-excels",
+    title: "Where AI Excels Today — Approach",
+    content:
+      "For Where AI Excels Today, I evaluated AI tools through public performance data and workflow reliability. I focused on practical use cases — showing where AI genuinely helps in everyday product design, creative exploration, and rapid prototyping, not just where benchmarks look impressive.",
+    keywords: ["where ai excels", "approach", "evaluation", "practical", "benchmark", "workflow reliability"],
+  },
+  {
+    id: "ai-where-excels-why",
+    projectSlug: "ai-explorations",
+    section: "showcase-where-excels",
+    title: "Where AI Excels Today — Why It Matters",
+    content:
+      "This project matters because it translates AI hype into practical clarity. Instead of listing every AI tool, it helps designers and product thinkers understand which tools actually perform well at which stages of real work — from research to creative execution.",
+    keywords: ["where ai excels", "why", "matters", "practical", "clarity", "tool selection"],
+  },
+
+  // ============================
+  // AI Project Showcase — World Cup Data Lab
+  // ============================
+  {
+    id: "ai-worldcup-summary",
+    projectSlug: "ai-explorations",
+    section: "showcase-worldcup",
+    title: "World Cup Data Lab",
+    content:
+      "World Cup Data Lab is an interactive prototype I built exploring how AI and live match data can turn tournament signals into a more dynamic, insight-driven fan experience. It uses structured team data and comparison logic to surface strengths, patterns, and storylines across matchups.",
+    keywords: ["world cup", "data lab", "sports", "matchup", "interactive", "tournament", "fan experience", "data"],
+  },
+  {
+    id: "ai-worldcup-approach",
+    projectSlug: "ai-explorations",
+    section: "showcase-worldcup",
+    title: "World Cup Data Lab — Approach",
+    content:
+      "For World Cup Data Lab, I explored how AI can make sports data more engaging by helping users navigate complexity and discover insights faster. The prototype includes team comparisons, win probability calculations, and bilingual support in English and Chinese.",
+    keywords: ["world cup", "approach", "data visualization", "comparison", "bilingual", "probability"],
+  },
+  {
+    id: "ai-worldcup-why",
+    projectSlug: "ai-explorations",
+    section: "showcase-worldcup",
+    title: "World Cup Data Lab — Why It Matters",
+    content:
+      "This project demonstrates how AI and data can make complex information more engaging and accessible. It shows my ability to build interactive, data-rich prototypes that go beyond static design and explore real product behavior.",
+    keywords: ["world cup", "why", "matters", "data", "interactive", "prototype"],
+  },
+
+  // ============================
+  // AI Project Showcase — Synchronize Orientation
+  // ============================
+  {
+    id: "ai-sync-orientation-summary",
+    projectSlug: "ai-explorations",
+    section: "showcase-sync",
+    title: "Synchronize Orientation",
+    content:
+      "Synchronize Orientation is a Calbright-style orientation checklist I prototyped demonstrating student-staff state sync. Students complete orientation steps while staff monitors progress in real time. I used AI to prototype shared visibility across the student and staff portals, enabling file and status continuity between both sides.",
+    keywords: ["synchronize", "orientation", "student staff sync", "checklist", "onboarding", "calbright", "real time"],
+  },
+  {
+    id: "ai-sync-orientation-problem",
+    projectSlug: "ai-explorations",
+    section: "showcase-sync",
+    title: "Synchronize Orientation — Problem",
+    content:
+      "The design question was: how can student orientation progress be visible to staff in real time, without manual check-ins? Traditional tracking often creates information gaps between student actions and staff awareness, slowing down support.",
+    keywords: ["synchronize", "orientation", "problem", "visibility", "tracking", "information gap"],
+  },
+  {
+    id: "ai-sync-orientation-approach",
+    projectSlug: "ai-explorations",
+    section: "showcase-sync",
+    title: "Synchronize Orientation — Approach",
+    content:
+      "For Synchronize Orientation, I designed orientation flows around student needs — enrollment steps, checklist progress, and key to-dos — while giving staff clearer, more real-time visibility into student completion states. It explores a more connected alternative to traditional progress tracking.",
+    keywords: ["synchronize", "orientation", "approach", "enrollment", "progress tracking", "staff visibility"],
+  },
+
+  // ============================
+  // AI Project Showcase — Dialpad Modal
+  // ============================
+  {
+    id: "ai-dialpad-summary",
+    projectSlug: "ai-explorations",
+    section: "showcase-dialpad",
+    title: "Dialpad Modal",
+    content:
+      "Dialpad Modal is a staff-facing dialpad I prototyped for calling students directly from the portal — streamlining outreach, case follow-ups, and student support without leaving the workflow. It includes recent contacts, call history, voicemail transcripts, and AI-generated call summaries.",
+    keywords: ["dialpad", "modal", "calling", "staff", "outreach", "voicemail", "call summary", "ai summary"],
+  },
+  {
+    id: "ai-dialpad-problem",
+    projectSlug: "ai-explorations",
+    section: "showcase-dialpad",
+    title: "Dialpad Modal — Problem",
+    content:
+      "The design question was: how can staff reach students without leaving the portal? Traditional workflows required switching between the portal and separate communication tools, creating friction and losing context during outreach.",
+    keywords: ["dialpad", "problem", "task switching", "context loss", "outreach", "communication"],
+  },
+  {
+    id: "ai-dialpad-approach",
+    projectSlug: "ai-explorations",
+    section: "showcase-dialpad",
+    title: "Dialpad Modal — Approach",
+    content:
+      "For Dialpad Modal, I focused on reducing task-switching by keeping outreach actions embedded within the staff portal experience. The prototype supports direct calling, quick access to recent contacts and contextual student info, AI-generated call summaries, and suggested next actions after each interaction.",
+    keywords: ["dialpad", "approach", "task switching", "embedded", "call recording", "next actions"],
+  },
+
+  // ============================
+  // AI Project Showcase — General
+  // ============================
+  {
+    id: "ai-showcase-overview",
+    projectSlug: "ai-explorations",
+    section: "showcase-overview",
+    title: "AI Project Showcase",
+    content:
+      "My AI Project Showcase includes five prototypes built to evaluate product behavior, de-risk early ideas, and explore practical applications of AI: JobHatch (career platform), Where AI Excels Today (research system), World Cup Data Lab (data-driven fan experience), Synchronize Orientation (student-staff sync), and Dialpad Modal (staff outreach tool).",
+    keywords: ["ai project showcase", "showcase", "prototypes", "projects", "jobhatch", "world cup", "synchronize", "dialpad", "where ai excels"],
+  },
+  {
+    id: "ai-best-prototyping",
+    projectSlug: "ai-explorations",
+    section: "showcase-overview",
+    title: "Best Prototyping Example",
+    content:
+      "For prototyping approach, JobHatch and Synchronize Orientation are strong examples. JobHatch shows how I prototype a full product concept with AI-powered features, while Synchronize Orientation shows how I explore real-time state sync between two user types using rapid AI-assisted development.",
+    keywords: ["prototyping", "best prototype", "ai prototyping", "rapid", "concept development"],
   },
 ];
