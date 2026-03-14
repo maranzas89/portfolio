@@ -55,7 +55,7 @@ function JobHatchHeader({ onMenuToggle }: { onMenuToggle: () => void }) {
           <div className="bg-[#fcd038] border-2 border-[#2f327d] rounded-lg w-8 h-8 sm:w-10 sm:h-10 overflow-hidden flex items-center justify-center">
             <img src="/images/jobhatch/logo.png" alt="JobHatch" className="w-6 h-6 sm:w-8 sm:h-8 object-contain" />
           </div>
-          <span className="font-black text-[#2f327d] text-base sm:text-xl tracking-[4px]">JOBHATCH</span>
+          <span className="hidden sm:inline font-black text-[#2f327d] text-base sm:text-xl tracking-[4px]">JOBHATCH</span>
         </div>
       </div>
       <div className="flex items-center gap-2 sm:gap-4">
@@ -69,12 +69,29 @@ function JobHatchHeader({ onMenuToggle }: { onMenuToggle: () => void }) {
             <span className="bg-[#2f327d] text-white text-sm font-bold px-2 py-0.5 rounded">0</span>
           </span>
         </div>
+        {/* Mobile: Liked/Applied compact + bell + user */}
+        <div className="flex sm:hidden items-center gap-2 text-xs font-medium text-[#333]">
+          <span>
+            Liked{" "}
+            <span className="bg-[#2f327d] text-white text-[10px] font-bold px-1.5 py-0.5 rounded">0</span>
+          </span>
+          <span>
+            Applied{" "}
+            <span className="bg-[#2f327d] text-white text-[10px] font-bold px-1.5 py-0.5 rounded">0</span>
+          </span>
+        </div>
         <button className="relative text-[#999] hover:text-[#333] transition">
           <Bell className="w-5 h-5" />
         </button>
+        {/* Desktop: full user pill */}
         <div className="hidden md:flex items-center gap-2 border border-gray-200 rounded-full px-4 py-2">
           <Settings className="w-4 h-4 text-[#999]" />
           <span className="text-base font-medium text-[#333]">Mia Yue ({tokens} tokens)</span>
+          <ChevronDown className="w-3 h-3 text-[#999]" />
+        </div>
+        {/* Mobile: compact user name */}
+        <div className="flex md:hidden items-center gap-1.5 border border-gray-200 rounded-full px-3 py-1.5">
+          <span className="text-xs font-medium text-[#333]">Mia Yue ({tokens})</span>
           <ChevronDown className="w-3 h-3 text-[#999]" />
         </div>
       </div>
@@ -145,10 +162,9 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
           </div>
 
           <div>
-            {/* Refer card */}
+            {/* Refer card — description hidden on mobile */}
             <div className="bg-[#fef3e2] rounded-xl p-4 mb-3">
               <p className="font-bold text-[#333] text-sm underline">Refer and Earn</p>
-              <p className="text-xs text-[#666] mt-1">Invite friends or share on LinkedIn to earn extra rewards!</p>
             </div>
             {/* AI card */}
             <div className="bg-[#2f327d] rounded-xl p-4 mb-4">

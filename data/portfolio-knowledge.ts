@@ -71,6 +71,22 @@ export const projects = [
     url: "/work/didi",
   },
   {
+    slug: "cisco",
+    title: "Cisco",
+    summary:
+      "An enterprise network intelligence platform where I led UX for telemetry dashboards, anomaly detection, and a scalable design system.",
+    role: "I served as Senior UI/UX Designer, leading UX for complex telemetry dashboards and model-driven alert systems.",
+    problem:
+      "Enterprise network operations required real-time visibility into telemetry data and anomaly detection, but existing interfaces made it difficult to act on insights quickly.",
+    approach:
+      "I designed telemetry dashboards and model-driven alert systems, and built a scalable enterprise design system that accelerated feature deployment by 30%.",
+    impact:
+      "I improved operational efficiency by 25%, reduced task time by 20%, and contributed to over $15M in revenue impact.",
+    tools: ["Figma", "Enterprise UX", "Design Systems"],
+    tags: ["cisco", "enterprise", "telemetry", "design system", "anomaly detection"],
+    url: "/experience",
+  },
+  {
     slug: "ai-explorations",
     title: "AI Explorations",
     summary:
@@ -239,7 +255,7 @@ export const faqEntries = [
       "where should i start", "which project should i look at",
       "what should i start with", "best introduces your work",
       "what should i look at first", "which project first",
-      "where do i begin", "start with", "best project to start",
+      "where do i begin", "should i start with", "best project to start",
     ],
     answer:
       "I'd usually suggest starting with Calbright Student Portal if you want to see my end-to-end product thinking. If you're more interested in how I apply AI in practice, then AI Explorations is a strong place to start.",

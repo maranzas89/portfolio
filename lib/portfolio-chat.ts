@@ -1,5 +1,6 @@
 import { faqEntries, projects } from "@/data/portfolio-knowledge";
 import { searchKnowledgeBase } from "@/lib/search-knowledge-base";
+import { detectProjectMention } from "@/lib/project-mentions";
 
 type ChatInput = {
   message: string;
@@ -23,29 +24,8 @@ function matchFaq(message: string) {
   );
 }
 
-// ============================================================
-// Explicit project detection from message text
-// ============================================================
-
-const PROJECT_MENTION_RULES: Array<{ pattern: RegExp; slug: string }> = [
-  { pattern: /\bcalbright\b|\bstudent portal\b/i, slug: "calbright-student-portal" },
-  { pattern: /\bstaff portal\b/i, slug: "staff-portal" },
-  { pattern: /\bdidi\b/i, slug: "didi" },
-  { pattern: /\bcisco\b/i, slug: "cisco" },
-  { pattern: /\bai explorations?\b|\bai projects?\b/i, slug: "ai-explorations" },
-  { pattern: /\bjobhatch\b|\bjob hatch\b/i, slug: "ai-explorations" },
-  { pattern: /\bworld cup\b|\bdata lab\b/i, slug: "ai-explorations" },
-  { pattern: /\bsynchronize\b|\borientation\b/i, slug: "ai-explorations" },
-  { pattern: /\bdialpad\b/i, slug: "ai-explorations" },
-];
-
-export function detectProjectMention(query: string): string | null {
-  const q = query.toLowerCase();
-  for (const rule of PROJECT_MENTION_RULES) {
-    if (rule.pattern.test(q)) return rule.slug;
-  }
-  return null;
-}
+// Explicit project detection — imported from shared helper
+// See lib/project-mentions.ts for the single source of truth
 
 // ============================================================
 // Question intent detection — maps question type to section

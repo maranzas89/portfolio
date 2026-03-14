@@ -194,8 +194,8 @@ export default function JobListPreviewPage() {
                     <span className="text-[#888]">{job.industry}</span>
                   </p>
 
-                  {/* Location / Type / Salary */}
-                  <div className="flex items-center gap-4 text-sm text-[#555] mb-3">
+                  {/* Location / Type / Salary — stacked on mobile, inline on sm+ */}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm text-[#555] mb-3">
                     <span className="flex items-center gap-1">
                       <MapPin className="w-3.5 h-3.5 text-[#999]" />
                       {job.location}

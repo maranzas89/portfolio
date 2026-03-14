@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { X, Send, Sparkles } from "lucide-react";
+import { detectProjectMention } from "@/lib/project-mentions";
 
 type Message = {
   role: "assistant" | "user";
@@ -28,22 +29,7 @@ const CHIPS_STORAGE_KEY = "ask-wen-used-chips";
 const CONV_PROJECT_KEY = "ask-wen-conv-project";
 const INPUT_DRAFT_KEY = "ask-wen-input-draft";
 
-// --- Project mention detection (client-side) ---
-
-const PROJECT_MENTION_RULES: Array<{ pattern: RegExp; slug: string }> = [
-  { pattern: /\bcalbright\b|\bstudent portal\b/i, slug: "calbright-student-portal" },
-  { pattern: /\bstaff portal\b/i, slug: "staff-portal" },
-  { pattern: /\bdidi\b/i, slug: "didi" },
-  { pattern: /\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bjob hatch\b|\bworld cup\b|\bdata lab\b|\bdialpad\b|\bsynchronize\b|\bwhere ai excels\b/i, slug: "ai-explorations" },
-];
-
-function detectProjectFromMessage(text: string): string | null {
-  const q = text.toLowerCase();
-  for (const rule of PROJECT_MENTION_RULES) {
-    if (rule.pattern.test(q)) return rule.slug;
-  }
-  return null;
-}
+// Project mention detection — imported from lib/project-mentions.ts
 
 // --- Storage helpers ---
 
@@ -232,7 +218,7 @@ export default function AskWenPanel({
       if (!trimmed || loading) return;
 
       // Detect project mention and update conversation context
-      const mentioned = detectProjectFromMessage(trimmed);
+      const mentioned = detectProjectMention(trimmed);
       if (mentioned) {
         setConversationProject(mentioned);
       }
@@ -262,7 +248,7 @@ export default function AskWenPanel({
 
         // Also detect project mentions in assistant reply to update context
         if (!mentioned) {
-          const replyMention = detectProjectFromMessage(replyText);
+          const replyMention = detectProjectMention(replyText);
           if (replyMention) {
             setConversationProject(replyMention);
           }
