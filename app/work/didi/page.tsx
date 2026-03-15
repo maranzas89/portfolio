@@ -786,15 +786,15 @@ export default function DidiCaseStudyPage() {
             <div>
               <div
                 className="group relative overflow-hidden rounded-2xl cursor-pointer"
-                onClick={() => openPreview({ videoSrc: "/videos/EagleEyeBigScreen_Web.mp4", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", videoPlaybackRate: 1.5 })}
+                onClick={() => openPreview({ videoSrc: "/videos/EagleEyeBigScreen_Web_1080p.mp4", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", videoPlaybackRate: 1.5 })}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => e.key === "Enter" && openPreview({ videoSrc: "/videos/EagleEyeBigScreen_Web.mp4", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", videoPlaybackRate: 1.5 })}
+                onKeyDown={(e) => e.key === "Enter" && openPreview({ videoSrc: "/videos/EagleEyeBigScreen_Web_1080p.mp4", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", videoPlaybackRate: 1.5 })}
               >
                 <div className="overflow-hidden rounded-2xl">
                   <video
                     ref={inlineVideoRef}
-                    src="/videos/EagleEyeBigScreen_Web.mp4"
+                    src="/videos/EagleEyeBigScreen_Web_1080p.mp4"
                     autoPlay
                     loop
                     muted
