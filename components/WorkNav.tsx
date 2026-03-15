@@ -188,7 +188,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
               }`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Experience
+              About Me
             </Link>
             <Link
               href="/kind-words"

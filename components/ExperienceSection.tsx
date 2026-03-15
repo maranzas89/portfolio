@@ -66,11 +66,11 @@ const summaries = [
 const competencies = [
   { icon: Bot, label: "AI-Native Product Design & Rapid Prototyping" },
   { icon: Rocket, label: "0→1 Product Exploration & Concept Validation" },
-  { icon: Code2, label: "Design-to-Build Collaboration & Front-End Fluency" },
+  { icon: Code2, label: "Design-to-Build Front-End Fluency" },
   { icon: Cpu, label: "Human-in-the-Loop AI Experiences" },
   { icon: Layers, label: "Product Systems & Workflow Architecture" },
   { icon: Compass, label: "Scalable Component Thinking & Design Systems" },
-  { icon: Users, label: "Cross-Functional Collaboration with Product & Engineering" },
+  { icon: Users, label: "Bridging Product & Engineering" },
 ];
 
 const toolkitDescriptions = [
@@ -293,7 +293,7 @@ export default function ExperienceSection() {
               return (
                 <div
                   key={idx}
-                  className="bg-white rounded-2xl p-5 hover:shadow-md hover:-translate-y-0.5 transition-all flex gap-4 items-center group cursor-default"
+                  className="bg-white rounded-2xl p-5 hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col items-start md:flex-row gap-4 md:items-center group cursor-default"
                 >
                   <div className="p-3 bg-blue-50 rounded-xl text-blue-600 group-hover:scale-110 group-hover:bg-blue-100 transition-all shrink-0">
                     <Icon size={20} />
@@ -474,7 +474,7 @@ export default function ExperienceSection() {
                   flows, data-heavy interfaces, enterprise dashboards, and stakeholder collaboration.
                 </p>
 
-                <div className="flex flex-wrap items-center gap-2 pt-6 border-t border-slate-100">
+                <div className="flex flex-col gap-2 pt-6 border-t border-slate-100 md:flex-row md:flex-wrap md:items-center">
                   <span className="text-sm font-bold text-slate-700 mr-1">Company:</span>
                   {["Tynker", "SunSpec Alliance", "New Cyberian Systems", "GLOBAL COURIER EXPRESS LTD"].map(
                     (company, idx) => (

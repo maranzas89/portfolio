@@ -730,7 +730,7 @@ export default function WhereAiExcelsPage() {
                     <BarChart3 className="h-4 w-4 text-violet-300" />
                     Benchmark Lab
                   </div>
-                  <h3 className="text-2xl font-semibold text-white">Where each model actually wins</h3>
+                  <h3 className="text-2xl font-semibold text-white"><span className="md:hidden">Where each model wins</span><span className="hidden md:inline">Where each model actually wins</span></h3>
                   <p className="mt-2 max-w-3xl text-sm leading-7 text-white/70">
                     Instead of pretending there is one universal winner, I compare models lane by lane. That is the more useful mindset for real workflows.
                   </p>

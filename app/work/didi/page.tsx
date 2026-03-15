@@ -11,7 +11,7 @@ import { DIDI_SECTIONS } from "@/lib/section-nav-config";
 import AnimatedWorkflowHero from "@/components/AnimatedWorkflowHero";
 import { EyeOff, GitMerge, TrendingDown, AlertCircle, Shield, GitBranch, BarChart3, Layers, LayoutGrid, Crown, Quote, Target, CheckCircle, TrendingUp, Zap, Rocket } from "lucide-react";
 
-/* --- Image Preview Modal --- */
+/* --- Image / Video Preview Modal --- */
 function ImagePreviewModal({
   open,
   onClose,
@@ -19,6 +19,8 @@ function ImagePreviewModal({
   placeholder,
   caption,
   fillImage,
+  videoSrc,
+  videoPlaybackRate,
 }: {
   open: boolean;
   onClose: () => void;
@@ -26,8 +28,11 @@ function ImagePreviewModal({
   placeholder?: string;
   caption?: string;
   fillImage?: boolean;
+  videoSrc?: string;
+  videoPlaybackRate?: number;
 }) {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const modalVideoRef = useRef<HTMLVideoElement>(null);
 
   const handleOverlayClick = useCallback(
     (e: React.MouseEvent) => {
@@ -50,6 +55,12 @@ function ImagePreviewModal({
     };
   }, [open, onClose]);
 
+  useEffect(() => {
+    if (open && modalVideoRef.current && videoPlaybackRate) {
+      modalVideoRef.current.playbackRate = videoPlaybackRate;
+    }
+  }, [open, videoPlaybackRate]);
+
   if (!open) return null;
 
   return (
@@ -67,7 +78,20 @@ function ImagePreviewModal({
           ×
         </button>
         <div className="bg-white rounded-2xl overflow-hidden shadow-2xl max-h-[92vh] flex flex-col w-full">
-          {src ? (
+          {videoSrc ? (
+            <div className="flex items-center justify-center bg-black">
+              <video
+                ref={modalVideoRef}
+                src={videoSrc}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="max-w-full max-h-[85vh] object-contain"
+              />
+            </div>
+          ) : src ? (
             fillImage ? (
               <div className="relative w-full h-[78vh] overflow-hidden">
                 <img
@@ -255,15 +279,22 @@ function IconAward({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-type PreviewState = { open: true; src?: string; placeholder?: string; caption?: string; fillImage?: boolean } | { open: false };
+type PreviewState = { open: true; src?: string; placeholder?: string; caption?: string; fillImage?: boolean; videoSrc?: string; videoPlaybackRate?: number } | { open: false };
 
 export default function DidiCaseStudyPage() {
   const [preview, setPreview] = useState<PreviewState>({ open: false });
+  const inlineVideoRef = useRef<HTMLVideoElement>(null);
 
-  const openPreview = useCallback((opts: { src?: string; placeholder?: string; caption?: string; fillImage?: boolean }) => {
+  const openPreview = useCallback((opts: { src?: string; placeholder?: string; caption?: string; fillImage?: boolean; videoSrc?: string; videoPlaybackRate?: number }) => {
     setPreview({ open: true, ...opts });
   }, []);
   const closePreview = useCallback(() => setPreview({ open: false }), []);
+
+  useEffect(() => {
+    if (inlineVideoRef.current) {
+      inlineVideoRef.current.playbackRate = 1.5;
+    }
+  }, []);
   const isMobile = useIsMobile();
 
   return (
@@ -275,6 +306,8 @@ export default function DidiCaseStudyPage() {
         placeholder={preview.open ? preview.placeholder : undefined}
         caption={preview.open ? preview.caption : undefined}
         fillImage={preview.open && preview.fillImage}
+        videoSrc={preview.open ? preview.videoSrc : undefined}
+        videoPlaybackRate={preview.open ? preview.videoPlaybackRate : undefined}
       />
       <header className="fixed top-0 left-0 right-0 z-50 w-full">
         <WorkNav embed />
@@ -753,17 +786,21 @@ export default function DidiCaseStudyPage() {
             <div>
               <div
                 className="group relative overflow-hidden rounded-2xl cursor-pointer"
-                onClick={() => openPreview({ src: "/images/didi/Untitled-212.svg", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", fillImage: true })}
+                onClick={() => openPreview({ videoSrc: "/videos/EagleEyeBigScreen_Web.mp4", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", videoPlaybackRate: 1.5 })}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => e.key === "Enter" && openPreview({ src: "/images/didi/Untitled-212.svg", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", fillImage: true })}
+                onKeyDown={(e) => e.key === "Enter" && openPreview({ videoSrc: "/videos/EagleEyeBigScreen_Web.mp4", caption: "Designed as a system extension, the live screen made security signals more visible, dynamic, and decision-ready.", videoPlaybackRate: 1.5 })}
               >
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img
-                    src="/images/didi/Untitled-212.svg"
-                    alt="EagleEye live monitoring screen"
-                    loading="lazy"
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                <div className="overflow-hidden rounded-2xl">
+                  <video
+                    ref={inlineVideoRef}
+                    src="/videos/EagleEyeBigScreen_Web.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 </div>
               </div>

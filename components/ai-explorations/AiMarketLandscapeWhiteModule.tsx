@@ -1151,7 +1151,7 @@ export default function AiMarketLandscapeWhiteModule() {
               return (
                 <ScrollReveal key={item.title} direction="up" delay={i * 80}>
                   <div className="rounded-[8px] border border-slate-200 bg-white p-6">
-                      <div className="mb-4 flex items-center gap-3">
+                      <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center">
                         <div className="flex h-11 w-11 items-center justify-center rounded-[8px] bg-slate-100">
                           <Icon className="h-5 w-5 text-slate-800" />
                         </div>
@@ -1448,7 +1448,8 @@ export default function AiMarketLandscapeWhiteModule() {
                   Foundation model benchmark lab
                 </div>
                 <h3 className="text-2xl font-semibold text-slate-900">
-                  Where each model actually wins
+                  <span className="md:hidden">Where each model wins</span>
+                  <span className="hidden md:inline">Where each model actually wins</span>
                 </h3>
                 <p className="mt-2 text-sm leading-7 text-slate-600 md:whitespace-nowrap">
                   Instead of pretending there is one universal winner, I compare models lane by lane.
@@ -1693,7 +1694,7 @@ export default function AiMarketLandscapeWhiteModule() {
                                   <Database className="h-4 w-4 stroke-[2.5]" />
                                   Proof signals
                                 </div>
-                                <div className="flex flex-wrap gap-3">
+                                <div className="flex flex-col gap-2 md:flex-row md:flex-wrap md:gap-3">
                                   {tool.proof.map((p) => (
                                     <span key={p} className="rounded-[8px] bg-[#fafbfc] px-3 py-1.5 text-xs font-bold text-slate-800">{p}</span>
                                   ))}
@@ -1823,7 +1824,8 @@ export default function AiMarketLandscapeWhiteModule() {
                 <div className="mb-2 flex items-center gap-2">
                   <Layout className="h-4 w-4 shrink-0 text-blue-600" />
                   <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                    02. AI Design Workflow Explorations
+                    <span className="md:hidden">02. AI Design Workflow</span>
+                    <span className="hidden md:inline">02. AI Design Workflow Explorations</span>
                   </h2>
                 </div>
                 <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
