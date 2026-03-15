@@ -4,9 +4,9 @@ import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
 const SUBNAV_ITEMS = [
-  { id: "ai-capability-benchmark", label: "AI Capability Benchmark" },
+  { id: "ai-product-experiments", label: "AI Prototype Showcase" },
   { id: "ai-design-workflow", label: "AI Design Workflow" },
-  { id: "ai-product-experiments", label: "AI Project Showcase" },
+  { id: "ai-capability-benchmark", label: "AI Capability Benchmark" },
 ];
 
 const THRESHOLD = 180;
@@ -70,9 +70,9 @@ export default function AiExplorationsSubnav() {
         <nav aria-label="Breadcrumb" className="text-sm">
           <Link
             href="/ai-explorations"
-            className="text-muted hover:text-blue-600 transition-colors font-semibold"
+            className="text-text hover:text-blue-600 transition-colors font-semibold"
           >
-            AI Explorations
+            AI Projects
           </Link>
         </nav>
         <div className="flex items-center justify-end gap-0">

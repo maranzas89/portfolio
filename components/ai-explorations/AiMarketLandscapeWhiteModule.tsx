@@ -991,13 +991,37 @@ export default function AiMarketLandscapeWhiteModule() {
     <section className="w-full py-14 md:py-16">
       <div className="mx-auto w-full max-w-[1600px] px-8 md:px-16 lg:px-24">
         <div className="space-y-10">
-          <div id="ai-capability-benchmark" className="scroll-mt-[260px]">
+          <div id="ai-design-workflow" className="scroll-mt-[260px]">
+            <ScrollReveal direction="up">
+              <div className="mb-5">
+                <div className="mb-2 flex items-center gap-2">
+                  <Layout className="h-4 w-4 shrink-0 text-blue-600" />
+                  <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
+                    <span className="md:hidden">02. AI Design Workflow</span>
+                    <span className="hidden md:inline">02. AI Design Workflow Explorations</span>
+                  </h2>
+                </div>
+                <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
+                  Designing the Product System Before Building the Interface
+                </h3>
+                <p className="text-base text-slate-600 md:text-lg md:whitespace-nowrap">
+                  A practical workflow for using AI to clarify product logic, shape interface direction,
+                  define modular build paths, and reduce ambiguity before implementation.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={50}>
+              <AiDesignWorkflowExplorationsSection />
+            </ScrollReveal>
+          </div>
+
+          <div id="ai-capability-benchmark" className="scroll-mt-[260px] mt-20 md:mt-32">
           <ScrollReveal direction="up">
             <div className="mb-10">
               <div className="mb-2 flex items-center gap-2">
               <Layout className="h-4 w-4 shrink-0 text-blue-600" />
               <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                01. AI Capability Benchmark
+                03. AI Capability Benchmark
               </h2>
             </div>
             <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
@@ -1818,29 +1842,6 @@ export default function AiMarketLandscapeWhiteModule() {
           </section>
           </ScrollReveal>
 
-          <div id="ai-design-workflow" className="scroll-mt-[260px] mt-20 md:mt-32">
-            <ScrollReveal direction="up">
-              <div className="mb-5">
-                <div className="mb-2 flex items-center gap-2">
-                  <Layout className="h-4 w-4 shrink-0 text-blue-600" />
-                  <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                    <span className="md:hidden">02. AI Design Workflow</span>
-                    <span className="hidden md:inline">02. AI Design Workflow Explorations</span>
-                  </h2>
-                </div>
-                <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
-                  Designing the Product System Before Building the Interface
-                </h3>
-                <p className="text-base text-slate-600 md:text-lg md:whitespace-nowrap">
-                  A practical workflow for using AI to clarify product logic, shape interface direction,
-                  define modular build paths, and reduce ambiguity before implementation.
-                </p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal direction="up" delay={50}>
-              <AiDesignWorkflowExplorationsSection />
-            </ScrollReveal>
-          </div>
         </div>
       </div>
     </section>

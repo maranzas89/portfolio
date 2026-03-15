@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
 import WorkNav from "@/components/WorkNav";
 import PageHero from "@/components/PageHero";
 import PageFooter from "@/components/PageFooter";
@@ -35,7 +34,6 @@ import {
   Target,
   Coins,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import AiMarketLandscapeWhiteModule from "@/components/ai-explorations/AiMarketLandscapeWhiteModule";
 import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSubnav";
 
@@ -45,7 +43,7 @@ const EXPLORATIONS = [
     title: "JobHatch",
     category: "Career Platform",
     description:
-      "An AI-assisted career platform concept combining resume analysis, match evaluation, and gamified progress systems to test how structured feedback can improve job search clarity and momentum.",
+      "An AI-assisted career platform concept combining resume analysis, match scoring, and gamified incentives to improve job search clarity and momentum.",
     icon: Briefcase,
     gradient: "from-emerald-500/20 to-teal-500/20",
     image: "/images/01q.png",
@@ -99,7 +97,7 @@ const EXPLORATIONS = [
     title: "Synchronize Orientation",
     category: "Student-Staff Sync",
     description:
-      "A working prototype demonstrating real-time student-staff state sync — students complete orientation steps while staff monitors progress, testing shared visibility across two user types.",
+      "A prototype for real-time student-staff sync, improving visibility across orientation progress and support.",
     icon: Users,
     gradient: "from-rose-500/20 to-violet-500/20",
     image: "/images/3q.png",
@@ -117,7 +115,7 @@ const EXPLORATIONS = [
     title: "Dialpad Modal",
     category: "Staff Portal",
     description:
-      "A functional dialpad prototype embedded in the staff portal — testing whether in-context calling, AI-generated summaries, and suggested next actions can reduce task-switching and improve outreach workflows.",
+      "A staff portal dialpad prototype exploring in-context calling, AI summaries, and next-step guidance.",
     icon: Phone,
     gradient: "from-teal-500/20 to-blue-500/20",
     image: "/images/4q.png",
@@ -133,17 +131,6 @@ const EXPLORATIONS = [
 ];
 
 export default function AIExplorationsPage() {
-  const [flippedIds, setFlippedIds] = useState<Set<number>>(new Set());
-
-  const toggleFlip = useCallback((id: number) => {
-    setFlippedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }, []);
-
   return (
     <div className="relative bg-bg text-text min-h-screen overflow-x-hidden">
       <header className="fixed top-0 left-0 right-0 z-50 w-full">
@@ -167,8 +154,8 @@ export default function AIExplorationsPage() {
           </div>
           <div className="hero-card group p-5 rounded-xl">
             <Box className="w-5 h-5 text-blue-400 mb-3" />
-            <h3 className="font-semibold text-2xl text-white mb-1">4–5</h3>
-            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Prototype Directions</p>
+            <h3 className="font-semibold text-2xl text-white mb-1">6–7</h3>
+            <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Solo Prototypes</p>
           </div>
           <div className="hero-card group p-5 rounded-xl">
             <Wrench className="w-5 h-5 text-blue-400 mb-3" />
@@ -184,7 +171,6 @@ export default function AIExplorationsPage() {
       </PageHero>
 
       <main className="bg-white">
-        <AiMarketLandscapeWhiteModule />
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
           {/* Featured exploration grid */}
           <section id="ai-product-experiments" className="scroll-mt-[260px] pt-16 md:pt-24 pb-[114px] md:pb-[146px]">
@@ -192,190 +178,53 @@ export default function AIExplorationsPage() {
               <div className="mb-2 flex items-center gap-2">
                 <Layout className="h-4 w-4 shrink-0 text-blue-600" />
                 <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                  03. AI Project Showcase
+                  01. AI Prototype Showcase
                 </h2>
               </div>
               <h3 className="mb-4 text-3xl font-semibold text-text md:text-4xl">
                 AI-Assisted Prototypes for Testing Product Directions
               </h3>
               <p className="max-w-5xl text-base text-slate-600 md:text-lg">
-                Prototypes built to test product behavior, validate workflow assumptions, and explore implementation-aware product directions.<br />Flip the cards for more, then select <span className="font-bold text-slate-800">Try Demo</span>.
+                Prototypes built to test product behavior, validate workflow assumptions, and explore implementation-aware product directions.
               </p>
             </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {EXPLORATIONS.map((item, i) => {
                 const Icon = item.icon;
-                const isFlipped = flippedIds.has(item.id);
-                const hasHighlights = "backHighlights" in item && Array.isArray((item as { backHighlights?: { icon?: LucideIcon; label: string; text: string }[] }).backHighlights);
-                const highlights = hasHighlights ? (item as { backHighlights: { icon?: LucideIcon; label: string; text: string }[] }).backHighlights : null;
-
-                /* Back face content */
-                const backContent = highlights ? (
-                  <div className="p-6 md:p-8 flex flex-col flex-1">
-                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-4">
-                      {item.title}
-                    </h3>
-                    <div className="space-y-3 flex-1">
-                      {highlights.map((h, idx) => {
-                        const HIcon = h.icon;
-                        return (
-                          <div key={idx} className="bg-white rounded-xl p-4 border border-slate-100">
-                            <div className="flex items-center gap-2 mb-1">
-                              {HIcon && <HIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" strokeWidth={2.5} />}
-                              <p className="text-sm font-semibold text-text">{h.label}</p>
-                            </div>
-                            <p className="text-muted text-xs leading-relaxed">{h.text}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div className="mt-4 flex items-center justify-between">
-                      {item.figmaHref ? (
-                        <a
-                          href={item.figmaHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
-                        >
-                          Figma →
-                        </a>
-                      ) : (
-                        <span />
-                      )}
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
-                      >
-                        Try demo →
-                      </a>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="p-6 md:p-8 flex flex-col flex-1">
-                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3">
-                      {item.title}
-                    </h3>
-                    <p className="text-muted text-sm md:text-base leading-relaxed flex-1">
-                      {item.backText}
-                    </p>
-                    <div className="mt-4 flex items-center justify-between">
-                      {item.figmaHref ? (
-                        <a
-                          href={item.figmaHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
-                        >
-                          Figma →
-                        </a>
-                      ) : (
-                        <span />
-                      )}
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#f1f5f9] px-3 py-1.5 rounded-lg transition-colors duration-200"
-                      >
-                        Try demo →
-                      </a>
-                    </div>
-                  </div>
-                );
-
-                /* Ghost content for sizing — renders both front and back, takes the taller */
-                const ghostFront = (
-                  <div className="h-[400px] md:h-auto">
-                    <div className="h-[160px] md:h-[240px]" />
-                    <div className="px-6 pt-5 pb-0 md:p-8">
-                      <span className="text-xs font-semibold uppercase tracking-widest block mb-2">&nbsp;</span>
-                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-3">{item.title}</h3>
-                      <p className="text-sm md:text-base leading-relaxed">{item.description}</p>
-                      <p className="mt-4 text-sm font-semibold uppercase tracking-widest">Learn more →</p>
-                    </div>
-                  </div>
-                );
-                const ghostBack = highlights ? (
-                  <div>
-                    <div className="p-6 md:p-8">
-                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-4">{item.title}</h3>
-                      <div className="space-y-3">
-                        {highlights.map((h, idx) => (
-                          <div key={idx} className="rounded-xl p-4">
-                            <p className="text-sm font-semibold mb-1">{h.label}</p>
-                            <p className="text-xs leading-relaxed">{h.text}</p>
-                          </div>
-                        ))}
-                      </div>
-                      <p className="mt-4 text-sm font-semibold uppercase tracking-widest">Try demo →</p>
-                    </div>
-                  </div>
-                ) : null;
 
                 return (
-                  <ScrollReveal key={item.id} direction="up" delay={i * 50}>
-                    <div
-                      className="cursor-pointer [perspective:1200px]"
-                      onClick={() => toggleFlip(item.id)}
+                  <ScrollReveal key={item.id} direction="up" delay={i * 50} className="h-full">
+                    <Link
+                      href={item.href}
+                      className="flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     >
-                      <div className="relative">
-                        {/* Sizing ghost — desktop: overlap both, take taller; mobile: swap based on flip state */}
-                        {/* Desktop ghost (md+) */}
-                        <div className="invisible hidden md:grid [&>*]:col-start-1 [&>*]:row-start-1" aria-hidden="true">
-                          {ghostFront}
-                          {ghostBack}
+                      {item.image ? (
+                        <div className="h-[160px] md:h-[240px] overflow-hidden bg-[#fafbfc] shrink-0">
+                          <img src={item.image} alt={item.title} className="w-full h-full object-contain object-top md:object-cover md:object-center" />
                         </div>
-                        {/* Mobile ghost — show only the active face's ghost */}
-                        <div className="invisible md:hidden" aria-hidden="true">
-                          {isFlipped ? ghostBack ?? ghostFront : ghostFront}
-                        </div>
-
-                        {/* Rotating layer */}
+                      ) : (
                         <div
-                          className={`absolute inset-0 [transform-style:preserve-3d] transition-transform duration-600 ${isFlipped ? "[transform:rotateY(180deg)]" : ""}`}
+                          className={`h-[160px] md:h-[240px] bg-gradient-to-br ${item.gradient} flex items-center justify-center shrink-0`}
                         >
-                          {/* Front face */}
-                          <div className="absolute inset-0 bg-[#fafbfc] rounded-2xl overflow-hidden shadow-sm [backface-visibility:hidden] transition-shadow duration-300 hover:shadow-lg">
-                            {item.image ? (
-                              <div className="h-[160px] md:h-[240px] overflow-hidden bg-[#fafbfc]">
-                                <img src={item.image} alt={item.title} className="w-full h-full object-contain object-top md:object-cover md:object-center" />
-                              </div>
-                            ) : (
-                              <div
-                                className={`h-[160px] md:h-[240px] bg-gradient-to-br ${item.gradient} flex items-center justify-center`}
-                              >
-                                <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
-                              </div>
-                            )}
-                            <div className="px-6 pt-5 pb-0 md:p-8">
-                              <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
-                                {item.category}
-                              </span>
-                              <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3 flex items-center gap-2">
-                                <Icon className="h-5 w-5 shrink-0 text-text" strokeWidth={2.5} />
-                                {item.title}
-                              </h3>
-                              <p className="text-muted text-sm md:text-base leading-relaxed">
-                                {item.description}
-                              </p>
-                              <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
-                                Learn more →
-                              </p>
-                            </div>
-                          </div>
-                          {/* Back face */}
-                          <div className="absolute inset-0 bg-[#fafbfc] rounded-2xl overflow-hidden shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col transition-shadow duration-300 hover:shadow-lg">
-                            {backContent}
-                          </div>
+                          <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
                         </div>
+                      )}
+                      <div className="px-6 pt-5 pb-6 md:p-8 flex flex-col flex-1">
+                        <span className="text-xs font-semibold uppercase tracking-widest text-muted block mb-2">
+                          {item.category}
+                        </span>
+                        <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3 flex items-center gap-2">
+                          <Icon className="h-5 w-5 shrink-0 text-text" strokeWidth={2.5} />
+                          {item.title}
+                        </h3>
+                        <p className="text-muted text-sm md:text-base leading-relaxed flex-1">
+                          {item.description}
+                        </p>
+                        <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
+                          View Project →
+                        </p>
                       </div>
-                    </div>
+                    </Link>
                   </ScrollReveal>
                 );
               })}
@@ -383,6 +232,8 @@ export default function AIExplorationsPage() {
           </section>
 
         </div>
+        <AiMarketLandscapeWhiteModule />
+        <div className="h-[80px]" />
       </main>
 
       <section
