@@ -377,11 +377,11 @@ const workflowSteps = [
   },
   {
     id: "stack-ui",
-    title: "Step 3 — Define the tech stack and interaction draft in parallel",
-    short: "Stack and UI draft",
+    title: "Step 3 — Define AI-Led Stack & Design Systems (Figma Make)",
+    short: "Stack and design system",
     icon: Layers3,
     summary:
-      "Technical choices and interaction design are developed together because each one constrains the other.",
+      "Leveraging AI to architect scalable tech stacks and automate cohesive design systems from the ground up.",
     details: [
       "Discuss frontend, backend, database, deployment, and external APIs with AI, then document the chosen structure.",
       "Generate a rough UI draft in tools like Lovable, then refine it in Figma.",
@@ -393,11 +393,11 @@ const workflowSteps = [
   },
   {
     id: "code",
-    title: "Step 4 — Generate code after the thinking is clear",
-    short: "Generate code",
+    title: "Step 4 — Implement the UI, interactions, and workflow",
+    short: "Generate the UI and workflow",
     icon: Code2,
     summary:
-      "Once requirements and UI are clear, feed the PRD and design context into Cursor and let agentic coding begin.",
+      "Use the PRD, tech stack, and design system in Claude or Cursor to build the product, then check the code, interactions, and user flow.",
     details: [
       "This step becomes faster because the ambiguity was handled upstream.",
       "Give AI the PRD, the design draft, and the implementation expectations together.",

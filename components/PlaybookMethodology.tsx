@@ -95,7 +95,7 @@ export default function PlaybookMethodology() {
         <div className="text-left mb-10 md:mb-12 w-full max-w-6xl">
           <div className="font-accent inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs mb-6 backdrop-blur-md">
             <Activity size={14} className="animate-pulse" />
-            <span>AI DESIGN METHODOLOGY</span>
+            <span>Basic Design Methodology</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white">
             From{" "}
