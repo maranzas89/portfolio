@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { jsPDF } from "jspdf";
+import type { jsPDF as JsPDFType } from "jspdf";
 import { PROFILE, EDUCATION, WORK_EXPERIENCE, SKILLS } from "../../profile-data";
 import { useTokensContext } from "../tokens-context";
 import {
@@ -25,8 +25,9 @@ export default function ResumePage() {
   const [aiBuilderInput, setAiBuilderInput] = useState("");
   const [aiBuilderSource, setAiBuilderSource] = useState<"paste" | "uploaded">("paste");
 
-  function handleDownloadPDF() {
-    const pdf = new jsPDF("p", "mm", "a4");
+  async function handleDownloadPDF() {
+    const { jsPDF } = await import("jspdf");
+    const pdf: JsPDFType = new jsPDF("p", "mm", "a4");
     const w = pdf.internal.pageSize.getWidth();
     const margin = 20;
     const maxW = w - margin * 2;
