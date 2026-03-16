@@ -404,7 +404,7 @@ const workflowSteps = [
       "The cleaner the preparation, the closer the generated code gets to the intended result.",
     ],
     detailIcons: [Zap, FileText, CheckCircle2],
-    signal: "Preparation compresses build time",
+    signal: "Rapid prototyping and deployment",
     image: "/images/4444.jpg",
   },
   {
