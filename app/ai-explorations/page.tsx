@@ -34,7 +34,28 @@ import {
   Target,
   Coins,
 } from "lucide-react";
-import AiMarketLandscapeWhiteModule from "@/components/ai-explorations/AiMarketLandscapeWhiteModule";
+import dynamic from "next/dynamic";
+
+const AiMarketLandscapeWhiteModule = dynamic(
+  () => import("@/components/ai-explorations/AiMarketLandscapeWhiteModule"),
+  {
+    loading: () => (
+      <div className="w-full py-14 md:py-16" aria-hidden="true">
+        <div className="mx-auto w-full max-w-[1600px] px-8 md:px-16 lg:px-24 space-y-6">
+          <div className="h-3 w-48 rounded bg-slate-200/60 animate-pulse" />
+          <div className="h-5 w-80 rounded bg-slate-200/40 animate-pulse" />
+          <div className="h-3 w-64 rounded bg-slate-100/60 animate-pulse" />
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="h-36 rounded-xl bg-slate-100/50 animate-pulse" />
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+    ssr: false,
+  }
+);
 import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSubnav";
 
 const EXPLORATIONS = [
