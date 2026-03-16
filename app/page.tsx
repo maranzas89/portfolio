@@ -93,7 +93,7 @@ export default function Page() {
               <div className="flex flex-col gap-8">
                 <a
                   href="#work"
-                  className={`font-accent nav-link-underline font-semibold uppercase tracking-widest text-base block hover:text-gray-700 transition-colors ${isWorkActive ? "active text-text" : "text-muted"}`}
+                  className="font-accent text-muted font-semibold uppercase tracking-widest text-base block hover:text-gray-700 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Work

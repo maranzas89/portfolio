@@ -124,9 +124,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             <div className="flex flex-col gap-8">
               <a
                 href="/#work"
-                className={`font-accent block font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
-                  pathname.startsWith("/work/") ? "text-text " + linkActive : "text-muted " + linkBase
-                }`}
+                className="font-accent block text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                 onClick={(e) => {
                   if (pathname === "/") {
                     e.preventDefault();
@@ -142,9 +140,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
                   <Link
                     key={href}
                     href={href}
-                    className={`text-base font-medium transition-colors ${
-                      pathname === href ? "text-text" : "text-muted hover:text-text"
-                    }`}
+                    className="text-base font-medium text-muted hover:text-text transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {label}
@@ -155,9 +151,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             <div className="flex flex-col gap-8">
               <a
                 href="/ai-explorations"
-                className={`font-accent block font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
-                  pathname.startsWith("/ai-explorations") ? "text-text " + linkActive : "text-muted " + linkBase
-                }`}
+                className="font-accent block text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 AI PROJECTS
@@ -170,9 +164,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
                     <a
                       key={href}
                       href={href}
-                      className={`text-base font-medium transition-colors ${
-                        isActive ? "text-text" : "text-muted hover:text-text"
-                      }`}
+                      className="text-base font-medium text-muted hover:text-text transition-colors"
                       onClick={(e) => {
                         if (pathname === "/ai-explorations" && anchor) {
                           e.preventDefault();
@@ -190,18 +182,14 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             </div>
             <Link
               href="/experience"
-              className={`font-accent font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
-                pathname === "/experience" ? linkActive : linkBase + " text-muted"
-              }`}
+              className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               About Me
             </Link>
             <Link
               href="/kind-words"
-              className={`font-accent font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
-                pathname === "/kind-words" ? linkActive : linkBase + " text-muted"
-              }`}
+              className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Kind Words
