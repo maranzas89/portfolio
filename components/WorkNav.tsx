@@ -116,9 +116,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
           <div className="h-full overflow-y-auto flex flex-col pt-[calc(1rem+1.75rem+0.625rem)] px-6 gap-8">
             <Link
               href="/"
-              className={`font-accent font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
-                pathname === "/" ? "text-text " + linkActive : "text-muted " + linkBase
-              }`}
+              className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Home

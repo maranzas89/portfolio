@@ -85,7 +85,7 @@ export default function Page() {
             <div className="h-full overflow-y-auto flex flex-col pt-[calc(1rem+1.75rem+0.625rem)] px-6 gap-8">
               <a
                 href="/"
-                className="font-accent nav-link-underline active text-text font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
+                className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
