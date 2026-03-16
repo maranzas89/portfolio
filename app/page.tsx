@@ -85,7 +85,7 @@ export default function Page() {
             <div className="h-full overflow-y-auto flex flex-col pt-[calc(1rem+1.75rem+0.625rem)] px-6 gap-8">
               <a
                 href="/"
-                className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
+                className="font-accent text-text font-bold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
@@ -114,7 +114,7 @@ export default function Page() {
               <div className="flex flex-col gap-8">
                 <Link
                   href="/ai-explorations"
-                  className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
+                  className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   AI PROJECTS
@@ -134,14 +134,14 @@ export default function Page() {
               </div>
               <Link
                 href="/experience"
-                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
+                className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 ABOUT ME
               </Link>
               <Link
                 href="/kind-words"
-                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
+                className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Kind Words
