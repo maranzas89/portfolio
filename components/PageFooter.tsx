@@ -1,5 +1,3 @@
-"use client";
-
 import { ResumeLink } from "@/components/ResumeLink";
 import { MAILTO_LETS_CONNECT } from "@/lib/nav-config";
 

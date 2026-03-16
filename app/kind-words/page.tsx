@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import WorkNav from "@/components/WorkNav";
 import PageHero from "@/components/PageHero";
