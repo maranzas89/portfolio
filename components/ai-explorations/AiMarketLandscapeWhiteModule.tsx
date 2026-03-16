@@ -997,8 +997,8 @@ export default function AiMarketLandscapeWhiteModule() {
                 <div className="mb-2 flex items-center gap-2">
                   <Layout className="h-4 w-4 shrink-0 text-blue-600" />
                   <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                    <span className="md:hidden">02. AI Design Workflow</span>
-                    <span className="hidden md:inline">02. AI Design Workflow Explorations</span>
+                    <span className="md:hidden">02. AI Design Methodology</span>
+                    <span className="hidden md:inline">02. AI Design Methodology</span>
                   </h2>
                 </div>
                 <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">

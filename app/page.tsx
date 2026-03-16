@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Layout, Sparkles, GitBranch, FileText, Menu, X } from "lucide-react";
 import HeroBackgroundFX from "@/components/HeroBackgroundFX";
 import PlaybookMethodology from "@/components/PlaybookMethodology";
-import { WORK_SUB_LINKS, MAILTO_LETS_CONNECT } from "@/lib/nav-config";
+import { WORK_SUB_LINKS, AI_SUB_LINKS, MAILTO_LETS_CONNECT } from "@/lib/nav-config";
 import { ResumeLink } from "@/components/ResumeLink";
 import AskWenShell from "@/components/portfolio-chat/AskWenShell";
 
@@ -83,6 +83,13 @@ export default function Page() {
               <X className="w-7 h-7" />
             </button>
             <div className="h-full overflow-y-auto flex flex-col pt-[calc(1rem+1.75rem+0.625rem)] px-6 gap-8">
+              <a
+                href="/"
+                className="font-accent nav-link-underline active text-text font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </a>
               <div className="flex flex-col gap-8">
                 <a
                   href="#work"
@@ -104,13 +111,27 @@ export default function Page() {
                   ))}
                 </div>
               </div>
-              <Link
-                href="/ai-explorations"
-                className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                AI PROJECTS
-              </Link>
+              <div className="flex flex-col gap-8">
+                <Link
+                  href="/ai-explorations"
+                  className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  AI PROJECTS
+                </Link>
+                <div className="flex flex-col gap-8 ml-4 border-l-2 border-gray-200 pl-5">
+                  {AI_SUB_LINKS.map(({ href, label }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="text-muted font-medium text-base hover:text-text transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
               <Link
                 href="/experience"
                 className="font-accent nav-link-underline text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"

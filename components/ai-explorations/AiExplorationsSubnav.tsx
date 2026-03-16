@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const SUBNAV_ITEMS = [
   { id: "ai-product-experiments", label: "AI Prototype Showcase" },
-  { id: "ai-design-workflow", label: "AI Design Workflow" },
+  { id: "ai-design-workflow", label: "AI Design Methodology" },
   { id: "ai-capability-benchmark", label: "AI Capability Benchmark" },
 ];
 
@@ -38,6 +38,12 @@ export default function AiExplorationsSubnav() {
   }, []);
 
   useEffect(() => {
+    // On mount, check URL hash and pre-set active state
+    const hash = window.location.hash.replace("#", "");
+    if (hash && SUBNAV_ITEMS.some((item) => item.id === hash)) {
+      scrollTargetRef.current = hash;
+      setActiveId(hash);
+    }
     updateActive();
     const handleScroll = () => {
       updateActive();
