@@ -28,6 +28,20 @@ export default function Page() {
     window.addEventListener("hashchange", checkHash);
     return () => window.removeEventListener("hashchange", checkHash);
   }, []);
+
+  // Handle hash-based scroll with nav offset
+  useEffect(() => {
+    if (window.location.hash === "#work") {
+      requestAnimationFrame(() => {
+        const el = document.getElementById("work");
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      });
+    }
+  }, []);
+
   return (
     <div className="relative bg-bg text-text">
       {/* Navigation */}
@@ -230,7 +244,7 @@ export default function Page() {
         <section
           id="work"
           ref={workSectionRef}
-          className="relative overflow-visible py-32"
+          className="relative overflow-visible py-32 scroll-mt-[80px]"
         >
           <div className="relative z-10 mb-20 bg-transparent">
             <span className="font-accent text-sm font-semibold uppercase tracking-widest text-muted block mb-6">

@@ -77,6 +77,10 @@ export default function AiExplorationsSubnav() {
           <Link
             href="/ai-explorations"
             className="text-text hover:text-blue-600 transition-colors font-semibold"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
           >
             AI Projects
           </Link>

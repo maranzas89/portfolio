@@ -82,7 +82,12 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
                         e.preventDefault();
                         document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
                       }
-                    : undefined
+                    : href === pathname
+                      ? (e) => {
+                          e.preventDefault();
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }
+                      : undefined
                 }
                 className={isActive ? linkActive : linkBase}
               >
@@ -160,7 +165,13 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
                 className={`font-accent block uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
                   pathname.startsWith("/ai-explorations") ? "text-text font-bold" : "text-muted font-semibold"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  if (pathname === "/ai-explorations") {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                  setMobileMenuOpen(false);
+                }}
               >
                 AI PROJECTS
               </a>
@@ -195,7 +206,13 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
               className={`font-accent uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
                 pathname === "/experience" ? "text-text font-bold" : "text-muted font-semibold"
               }`}
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => {
+                if (pathname === "/experience") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+                setMobileMenuOpen(false);
+              }}
             >
               About Me
             </Link>
@@ -204,7 +221,13 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
               className={`font-accent uppercase tracking-widest text-base hover:text-gray-700 transition-colors ${
                 pathname === "/kind-words" ? "text-text font-bold" : "text-muted font-semibold"
               }`}
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => {
+                if (pathname === "/kind-words") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+                setMobileMenuOpen(false);
+              }}
             >
               Kind Words
             </Link>
