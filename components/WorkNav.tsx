@@ -42,6 +42,16 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
+
   const linkBase = "nav-link-underline hover:text-gray-700 transition-colors";
   const linkActive = "nav-link-underline active text-text cursor-pointer hover:text-gray-700 transition-colors";
 
@@ -109,7 +119,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
       </div>
       {/* Mobile menu - full-page overlay when open (md:hidden) */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 z-[60] bg-white">
+        <div className="md:hidden fixed inset-0 z-[999] bg-white">
           <button
             type="button"
             className="absolute top-4 right-4 p-2 -m-2 text-text hover:text-muted transition-colors z-10"
