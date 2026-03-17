@@ -232,7 +232,7 @@ export default function AIExplorationsPage() {
                   <ScrollReveal key={item.id} direction="up" delay={i * 50} className="h-full">
                     <Link
                       href={item.href}
-                      className="flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm transition-[transform,box-shadow] duration-300 hover:shadow-lg hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 [-webkit-tap-highlight-color:transparent]"
                     >
                       {item.image ? (
                         <div className="h-[180px] md:h-[240px] overflow-hidden bg-[#fafbfc] shrink-0">
