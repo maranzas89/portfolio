@@ -69,6 +69,7 @@ const EXPLORATIONS = [
     icon: Palette,
     gradient: "from-sky-500/20 to-indigo-500/20",
     image: "/images/ds.png",
+    mobileImageClass: "object-cover object-top",
     backText: "",
     backHighlights: [],
     href: "https://des.wensproject.com",
@@ -83,6 +84,7 @@ const EXPLORATIONS = [
     icon: Briefcase,
     gradient: "from-emerald-500/20 to-teal-500/20",
     image: "/images/01q.png",
+    mobileImageClass: "object-contain object-top",
     backText: "",
     backHighlights: [
       { icon: FileSearch, label: "AI resume analysis", text: "Uses AI to parse resumes, surface improvement opportunities, and help users better position their background against the expectations of specific roles." },
@@ -237,7 +239,7 @@ export default function AIExplorationsPage() {
                     >
                       {item.image ? (
                         <div className="h-[180px] md:h-[240px] overflow-hidden shrink-0">
-                          <img src={item.image} alt={item.title} className="w-full h-full object-cover object-top md:object-center" />
+                          <img src={item.image} alt={item.title} className={`w-full h-full md:object-cover md:object-center ${"mobileImageClass" in item && item.mobileImageClass ? item.mobileImageClass : "object-cover object-top"}`} />
                         </div>
                       ) : (
                         <div
