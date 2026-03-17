@@ -8,6 +8,7 @@ export async function POST(req: Request) {
     const message = body?.message?.trim();
     const currentProject = body?.currentProject ?? null;
     const conversationProject = body?.conversationProject ?? null;
+    const conversationEntity = body?.conversationEntity ?? null;
 
     if (!message) {
       return NextResponse.json(
@@ -24,6 +25,7 @@ export async function POST(req: Request) {
       message,
       currentProject,
       conversationProject,
+      conversationEntity,
     });
 
     return NextResponse.json({ reply });

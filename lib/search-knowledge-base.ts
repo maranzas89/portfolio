@@ -4,6 +4,7 @@ type SearchInput = {
   query: string;
   currentProject?: string | null;
   conversationProject?: string | null;
+  conversationEntity?: string | null;
 };
 
 type ContentChunk = (typeof contentChunks)[number];
@@ -45,10 +46,11 @@ const EXPLICIT_ENTITY_BOOSTS: Array<{
   { pattern: /\bcapability benchmark\b|\bai benchmark\b/i, target: "ai-explorations", section: "ai-capability-benchmark" },
   { pattern: /\bai methodology\b|\bdesign methodology\b/i, target: "ai-explorations", section: "ai-methodology" },
   { pattern: /\bai research\b|\bresearch modal\b/i, target: "ai-explorations", section: "ai-research" },
+  { pattern: /\bliquid glass\b|\bglass design system\b|\bdesign system project\b/i, target: "ai-explorations", section: "showcase-liquid-glass" },
   { pattern: /\bproject showcase\b/i, target: "ai-explorations", section: "showcase-overview" },
 
   // --- Global section-targeted (only the matching global section gets boosted) ---
-  { pattern: /\bname\b|\bwho are you\b|\bwen liu\b/i, target: null, section: "profile" },
+  { pattern: /\bname\b|\bwho are you\b|\bwen liu\b|\babout you\b|\babout yourself\b|\bintroduce yourself\b|\bwho is wen\b|\btell me about you\b|\byourself\b|\bquick intro\b/i, target: null, section: "profile" },
   { pattern: /\bschool\b|\beducation\b|\bgraduate\b|\bgraduated\b|\bgraduation\b|\bstudied\b|\buniversity\b|\bdegree\b|\bwhat did you study\b|\bwhere.*(?:study|school|learn)/i, target: null, section: "education" },
   { pattern: /\bbackground\b|\bexperience\b/i, target: null, section: "background" },
   { pattern: /\bstrength\b|\bskill/i, target: null, section: "strengths" },
@@ -79,7 +81,8 @@ function scoreChunk(
   tokens: string[],
   query: string,
   currentProject?: string | null,
-  conversationProject?: string | null
+  conversationProject?: string | null,
+  conversationEntity?: string | null
 ) {
   let score = 0;
 
@@ -103,6 +106,13 @@ function scoreChunk(
   // Conversation context boost (lighter, stacks with page boost if same project)
   if (conversationProject && chunk.projectSlug === conversationProject) {
     score += 3;
+  }
+
+  // Sub-entity boost — strongly prefer chunks from the tracked sub-entity
+  // This makes follow-up questions like "how did you create it" resolve to
+  // the specific sub-project (e.g., JobHatch) rather than generic AI Explorations
+  if (conversationEntity && chunk.section === conversationEntity) {
+    score += 8;
   }
 
   for (const rule of EXPLICIT_ENTITY_BOOSTS) {
@@ -135,6 +145,7 @@ export function searchKnowledgeBase({
   query,
   currentProject,
   conversationProject,
+  conversationEntity,
 }: SearchInput): ContentChunk[] {
   const normalizedQuery = query.trim().toLowerCase();
   if (!normalizedQuery) return [];
@@ -144,7 +155,7 @@ export function searchKnowledgeBase({
   const scored: ScoredChunk[] = contentChunks
     .map((chunk) => ({
       chunk,
-      score: scoreChunk(chunk, tokens, normalizedQuery, currentProject, conversationProject),
+      score: scoreChunk(chunk, tokens, normalizedQuery, currentProject, conversationProject, conversationEntity),
     }))
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score);

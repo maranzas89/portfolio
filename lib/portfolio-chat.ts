@@ -1,11 +1,12 @@
 import { faqEntries, projects } from "@/data/portfolio-knowledge";
 import { searchKnowledgeBase } from "@/lib/search-knowledge-base";
-import { detectProjectMention } from "@/lib/project-mentions";
+import { detectProjectMention, detectSubEntity } from "@/lib/project-mentions";
 
 type ChatInput = {
   message: string;
   currentProject?: string | null;
   conversationProject?: string | null;
+  conversationEntity?: string | null;
 };
 
 type ContentChunk = ReturnType<typeof searchKnowledgeBase>[number];
@@ -35,12 +36,13 @@ const INTENT_RULES: Array<{ pattern: RegExp; section: string }> = [
   { pattern: /\brole\b|\bcontribution\b|\bresponsibilit/i, section: "role" },
   { pattern: /\bproblem\b|\bchallenge\b|\bpain point/i, section: "problem" },
   { pattern: /\bapproach\b|\bprocess\b|\bmethod\b|\bhow did you/i, section: "approach" },
+  { pattern: /\bhow.*(?:create|build|made|built|make)\b|\bcreate it\b|\bbuild it\b|\bmade it\b/i, section: "approach" },
   { pattern: /\bimpact\b|\bresult\b|\boutcome\b|\bmetric/i, section: "impact" },
   { pattern: /\bbackground\b|\bexperience\b|\bcareer/i, section: "background" },
   { pattern: /\bstrength\b|\bskill\b|\bgood at\b|\bspecialt/i, section: "strengths" },
   { pattern: /\beducation\b|\bschool\b|\bdegree\b|\bgraduate\b|\bgraduated\b|\bgraduation\b|\bstudied\b|\buniversity\b|\bwhat did you study\b|\bwhere.*(?:study|school|learn)/i, section: "education" },
   { pattern: /\bai workflow\b|\bai tool\b|\bhow.*use ai/i, section: "ai-workflow" },
-  { pattern: /\bname\b|\bwho are you\b|\bwho is\b|\bintroduc/i, section: "profile" },
+  { pattern: /\bname\b|\bwho are you\b|\bwho is\b|\bintroduc\b|\babout you\b|\babout yourself/i, section: "profile" },
   { pattern: /\bmethodology\b|\bdesign methodology/i, section: "ai-methodology" },
   { pattern: /\bbenchmark\b|\bai capability\b|\bcapability benchmark/i, section: "ai-capability-benchmark" },
   { pattern: /\bmarket landscape\b|\bai landscape/i, section: "ai-market-landscape" },
@@ -78,7 +80,8 @@ function rankByIntent(
 
 function isShortFollowUp(query: string): boolean {
   const words = query.split(/\s+/).filter((w) => w.length > 0);
-  return words.length <= 4;
+  // Allow up to 6 words for follow-ups like "how did you create it"
+  return words.length <= 6;
 }
 
 // ============================================================
@@ -94,7 +97,7 @@ const PROJECT_SPECIFIC_INTENTS = new Set([
 ]);
 
 const EXPLICIT_ENTITY_PATTERN =
-  /\bcalbright\b|\bstudent portal\b|\bstaff portal\b|\bdidi\b|\bcisco\b|\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bworld cup\b|\bdialpad\b|\bsynchronize\b|\bask wen\b/i;
+  /\bcalbright\b|\bstudent portal\b|\bstaff portal\b|\bdidi\b|\bcisco\b|\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bworld cup\b|\bdialpad\b|\bsynchronize\b|\bliquid glass\b|\bask wen\b/i;
 
 const AMBIGUOUS_RESPONSES: Record<string, string> = {
   role: "I've had different roles across my projects. Would you like to hear about my role on Calbright Student Portal, Staff Portal, Cisco, Didi, or my AI Explorations?",
@@ -167,6 +170,43 @@ function matchAiOpinion(query: string): string | null {
 }
 
 // ============================================================
+// Navigation hints — where content lives in the portfolio
+// ============================================================
+
+const NAV_HINTS: Record<string, string> = {
+  "calbright-student-portal": "You can explore this further in Work > Calbright > Student Portal.",
+  "staff-portal": "You can explore this further in Work > Calbright > Staff Portal.",
+  "didi": "You can find this in Experience > Didi.",
+  "cisco": "You can find this in Experience.",
+  "ai-explorations": "You can find this on the AI Explorations page.",
+  "ask-wen": "You're using it right now!",
+};
+
+const SECTION_NAV_HINTS: Record<string, string> = {
+  "showcase-jobhatch": "You can find this in AI Explorations > JobHatch.",
+  "showcase-worldcup": "You can find this in AI Explorations > World Cup Data Lab.",
+  "showcase-sync": "You can find this in AI Explorations > Synchronize Orientation.",
+  "showcase-dialpad": "You can find this in AI Explorations > Dialpad Modal.",
+  "showcase-where-excels": "You can find this in AI Explorations > Where AI Excels Today.",
+  "showcase-liquid-glass": "You can find this in AI Explorations > Project Liquid Glass.",
+  "ai-market-landscape": "You can find this in AI Explorations > AI Market Landscape.",
+  "ai-capability-benchmark": "You can find this in AI Explorations > AI Capability Benchmark.",
+  "ai-methodology": "You can find this in AI Explorations > AI Design Methodology.",
+};
+
+const NAVIGATION_PATTERN =
+  /\bwhere\b.*\bfind\b|\bwhere\b.*\blook\b|\bwhere\b.*\bsee\b|\bnavigate\b|\bshow me\b|\bfind.*\bportfolio\b|\bwhere is\b|\bwhere can i\b/i;
+
+function getNavHint(chunk: ContentChunk): string | null {
+  // Try section-level hint first (more specific)
+  const sectionHint = SECTION_NAV_HINTS[chunk.section];
+  if (sectionHint) return sectionHint;
+  // Fall back to project-level hint
+  if (chunk.projectSlug) return NAV_HINTS[chunk.projectSlug] ?? null;
+  return null;
+}
+
+// ============================================================
 // Response composition — natural first-person blending
 // ============================================================
 
@@ -174,26 +214,40 @@ function stripLeadingEntity(content: string): string {
   return content.replace(/^(At |On |In my |For )[^,]+,\s*/i, "");
 }
 
-function composeKnowledgeResponse(results: ContentChunk[]) {
+function composeKnowledgeResponse(
+  results: ContentChunk[],
+  query: string
+): string | null {
   if (!results.length) return null;
 
   const [first, second] = results;
+  let response: string;
 
   // Single result
   if (!second) {
-    return first.content;
-  }
-
-  // Two results from the same project — blend naturally
-  if (first.projectSlug && second.projectSlug === first.projectSlug) {
+    response = first.content;
+  } else if (first.projectSlug && second.projectSlug === first.projectSlug) {
+    // Two results from the same project — blend naturally
     const secondContent = stripLeadingEntity(second.content);
     const blended =
       secondContent.charAt(0).toUpperCase() + secondContent.slice(1);
-    return `${first.content} ${blended}`;
+    response = `${first.content} ${blended}`;
+  } else {
+    // Different sources — top match only
+    response = first.content;
   }
 
-  // Different sources — top match only
-  return first.content;
+  // Append navigation hint for navigation queries or summary-level answers
+  const isNavQuery = NAVIGATION_PATTERN.test(query);
+  const isSummaryChunk = first.section === "summary" || first.section.startsWith("showcase-");
+  if (isNavQuery || isSummaryChunk) {
+    const hint = getNavHint(first);
+    if (hint) {
+      response = `${response} ${hint}`;
+    }
+  }
+
+  return response;
 }
 
 // ============================================================
@@ -214,6 +268,7 @@ export function getPortfolioChatResponse({
   message,
   currentProject,
   conversationProject,
+  conversationEntity,
 }: ChatInput) {
   const q = message.toLowerCase().trim();
 
@@ -234,19 +289,26 @@ export function getPortfolioChatResponse({
     return faqMatch.answer;
   }
 
-  // 4. Resolve effective project context
+  // 4. Resolve effective project and sub-entity context
   // Priority: explicit mention in message > conversation context > page context
   const mentionedProject = detectProjectMention(q);
+  const mentionedSubEntity = detectSubEntity(q);
   const shortFollowUp = isShortFollowUp(q);
 
   let effectiveProject: string | null | undefined = currentProject;
+  let effectiveEntity: string | null | undefined = null;
 
   if (mentionedProject) {
-    // User explicitly mentioned a project — use it
     effectiveProject = mentionedProject;
   } else if (shortFollowUp && conversationProject) {
-    // Short follow-up with no explicit mention — inherit conversation context
     effectiveProject = conversationProject;
+  }
+
+  // Resolve sub-entity: explicit mention > conversation entity (for follow-ups)
+  if (mentionedSubEntity) {
+    effectiveEntity = mentionedSubEntity.section;
+  } else if (shortFollowUp && conversationEntity) {
+    effectiveEntity = conversationEntity;
   }
 
   // 5. Ambiguous project-specific question without any context
@@ -257,17 +319,16 @@ export function getPortfolioChatResponse({
   }
 
   // 6. Knowledge base retrieval with intent-aware re-ranking
-  // Pass both page-level and conversation-level project context separately
-  // so they can have independent boost weights in scoring
   const knowledgeResults = searchKnowledgeBase({
     query: message,
     currentProject: effectiveProject,
     conversationProject: conversationProject,
+    conversationEntity: effectiveEntity,
   });
 
   const ranked = rankByIntent(knowledgeResults, intent);
 
-  const knowledgeReply = composeKnowledgeResponse(ranked);
+  const knowledgeReply = composeKnowledgeResponse(ranked, q);
   if (knowledgeReply) {
     return knowledgeReply;
   }
@@ -292,7 +353,9 @@ export function getPortfolioChatResponse({
   });
 
   if (projectMatch) {
-    return `${projectMatch.summary} ${projectMatch.role}`;
+    const hint = NAV_HINTS[projectMatch.slug];
+    const base = `${projectMatch.summary} ${projectMatch.role}`;
+    return hint ? `${base} ${hint}` : base;
   }
 
   // 8. Final fallback

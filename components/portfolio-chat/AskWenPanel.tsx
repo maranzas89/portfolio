@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { X, Send, Sparkles } from "lucide-react";
-import { detectProjectMention } from "@/lib/project-mentions";
+import { detectProjectMention, detectSubEntity } from "@/lib/project-mentions";
 
 type Message = {
   role: "assistant" | "user";
@@ -27,6 +27,7 @@ const INITIAL_MESSAGE: Message = {
 const STORAGE_KEY = "ask-wen-messages";
 const CHIPS_STORAGE_KEY = "ask-wen-used-chips";
 const CONV_PROJECT_KEY = "ask-wen-conv-project";
+const CONV_ENTITY_KEY = "ask-wen-conv-entity";
 const INPUT_DRAFT_KEY = "ask-wen-input-draft";
 
 // Project mention detection — imported from lib/project-mentions.ts
@@ -127,6 +128,7 @@ export default function AskWenPanel({
   const [loading, setLoading] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const [conversationProject, setConversationProject] = useState<string | null>(null);
+  const [conversationEntity, setConversationEntity] = useState<string | null>(null);
   const [usedChips, setUsedChips] = useState<Set<string>>(new Set());
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -137,6 +139,7 @@ export default function AskWenPanel({
     setMessages(loadMessages());
     setUsedChips(loadUsedChips());
     setConversationProject(loadConversationProject());
+    setConversationEntity(loadFromSession<string | null>(CONV_ENTITY_KEY, null));
     setInput(loadInputDraft());
     setHydrated(true);
   }, []);
@@ -146,10 +149,14 @@ export default function AskWenPanel({
     if (hydrated) saveToSession(STORAGE_KEY, messages);
   }, [messages, hydrated]);
 
-  // Persist conversation project
+  // Persist conversation project and entity
   useEffect(() => {
     if (hydrated) saveConversationProject(conversationProject);
   }, [conversationProject, hydrated]);
+
+  useEffect(() => {
+    if (hydrated) saveToSession(CONV_ENTITY_KEY, conversationEntity);
+  }, [conversationEntity, hydrated]);
 
   // Persist used chips
   useEffect(() => {
@@ -217,10 +224,14 @@ export default function AskWenPanel({
       const trimmed = text.trim();
       if (!trimmed || loading) return;
 
-      // Detect project mention and update conversation context
+      // Detect project and sub-entity mentions
       const mentioned = detectProjectMention(trimmed);
+      const subEntity = detectSubEntity(trimmed);
       if (mentioned) {
         setConversationProject(mentioned);
+      }
+      if (subEntity) {
+        setConversationEntity(subEntity.section);
       }
 
       const userMsg: Message = { role: "user", content: trimmed };
@@ -236,6 +247,7 @@ export default function AskWenPanel({
             message: trimmed,
             currentProject,
             conversationProject: mentioned ?? conversationProject,
+            conversationEntity: subEntity?.section ?? conversationEntity,
           }),
         });
         const data = await res.json();
@@ -262,7 +274,7 @@ export default function AskWenPanel({
         setLoading(false);
       }
     },
-    [loading, currentProject, conversationProject]
+    [loading, currentProject, conversationProject, conversationEntity]
   );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

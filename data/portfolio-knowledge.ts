@@ -126,6 +126,35 @@ export const projects = [
 // ============================================================
 
 export const faqEntries = [
+  // 0. About me — personal introduction / who is Wen
+  {
+    id: "about-me",
+    triggers: [
+      "tell me about you", "tell me about yourself", "about yourself",
+      "who is wen", "who are you", "introduce yourself",
+      "tell me who you are", "about wen", "about you",
+      "what do you do", "describe yourself", "your background",
+      "give me an overview", "overview of you", "quick intro",
+      "what should i know about you", "know about you",
+    ],
+    answer:
+      "I'm Wen Liu, a Senior Product Designer focused on turning complex systems into clear, guided experiences. My work spans education (Calbright College), enterprise platforms (Didi, Cisco), and AI-assisted design exploration. I'm especially drawn to problems involving workflow clarity, onboarding, and decision support. I also actively explore how AI tools can enhance the design process — from ideation to prototyping.",
+    relatedProjectSlug: null,
+  },
+  // 0b. Favorite / preferred AI project
+  {
+    id: "favorite-ai-project",
+    triggers: [
+      "ai project you like", "favorite ai project", "preferred ai project",
+      "which ai project", "ai project you prefer", "ai project you enjoy",
+      "which project do you like", "project do you like most",
+      "which one is your favorite", "which exploration do you like",
+      "what is your favorite project", "project you like the most",
+    ],
+    answer:
+      "If I had to pick one, I'd say JobHatch. It's the project where I felt the strongest connection between AI capability and a genuine user problem — the frustration of job searching without clear feedback. I liked how the concept brought together resume analysis, match scoring, and a gamified improvement loop. It felt like a real product direction, not just a demo. You can find it in AI Explorations > JobHatch.",
+    relatedProjectSlug: "ai-explorations",
+  },
   // A. Best / strongest / signature project
   {
     id: "best-project",
@@ -351,6 +380,22 @@ export const faqEntries = [
       "This is Ask Wen — a retrieval-based knowledge assistant I designed and prototyped for this portfolio. Instead of browsing static pages, you can ask natural questions and get grounded answers drawn from my project content. I designed the conversation flow, retrieval logic, knowledge structure, and interaction model, then built it as a working prototype with page-aware context, intent detection, and session persistence.",
     relatedProjectSlug: "ask-wen",
   },
+  // N. Compare two AI projects
+  {
+    id: "compare-ai-projects",
+    triggers: [
+      "compare jobhatch and world cup",
+      "compare world cup and jobhatch",
+      "jobhatch vs world cup",
+      "world cup vs jobhatch",
+      "difference between jobhatch and world cup",
+      "compare these projects",
+      "how are they different",
+    ],
+    answer:
+      "JobHatch and World Cup Data Lab explore AI from different angles. JobHatch is a career platform focused on helping users improve through AI-driven resume analysis, match scoring, and gamified progress — it's about empowerment and actionable feedback. World Cup Data Lab is a data-rich interactive prototype that uses AI to turn tournament data into insight-driven fan experiences — team comparisons, win probabilities, and bilingual support. JobHatch is more product-oriented (solving a real user problem), while World Cup Data Lab is more exploratory (showing how AI can make complex data engaging). You can find both in AI Explorations.",
+    relatedProjectSlug: "ai-explorations",
+  },
 ];
 
 // ============================================================
@@ -532,8 +577,8 @@ export const contentChunks: ContentChunk[] = [
     section: "summary",
     title: "Didi",
     content:
-      "At Didi, I focused on workflow clarity, operational efficiency, and product scalability for a large-scale enterprise mobility platform.",
-    keywords: ["didi", "enterprise", "overview", "summary", "platform", "mobility", "ride-hailing"],
+      "At Didi (the world's largest ride-hailing platform), I worked on the enterprise side — designing complex operational tools that supported fleet management, driver operations, and business workflows at massive scale. This wasn't the consumer app; it was the internal platform that powered how Didi operated behind the scenes.",
+    keywords: ["didi", "enterprise", "overview", "summary", "platform", "mobility", "ride-hailing", "fleet", "operations"],
   },
   {
     id: "didi-role",
@@ -541,8 +586,8 @@ export const contentChunks: ContentChunk[] = [
     section: "role",
     title: "Didi — Role",
     content:
-      "At Didi, I contributed to product design across enterprise workflows and system-level thinking, helping shape complex operational tools at scale.",
-    keywords: ["didi", "role", "contribution", "enterprise", "system design"],
+      "At Didi, I was a product designer working on enterprise-facing tools. I contributed to the design of operational dashboards, driver management workflows, and system-level product thinking. My role involved collaborating with PMs, engineers, and operations teams to translate complex business logic into usable interfaces.",
+    keywords: ["didi", "role", "contribution", "enterprise", "system design", "product designer", "dashboards", "driver management"],
   },
   {
     id: "didi-problem",
@@ -550,8 +595,8 @@ export const contentChunks: ContentChunk[] = [
     section: "problem",
     title: "Didi — Problem",
     content:
-      "At Didi, the core challenge was that complex product logic and operational demands made it difficult for users to move efficiently through key tasks. The platform needed clearer structure to support high-volume enterprise operations.",
-    keywords: ["didi", "problem", "challenge", "complexity", "enterprise", "efficiency", "pain point"],
+      "At Didi, the core challenge was operational complexity at scale. Enterprise teams needed to manage thousands of drivers, monitor fleet performance, and respond to real-time operational issues — but the tools were fragmented and hard to navigate. Key tasks required too many steps and too much context switching.",
+    keywords: ["didi", "problem", "challenge", "complexity", "enterprise", "efficiency", "pain point", "fleet", "scale"],
   },
   {
     id: "didi-approach",
@@ -559,8 +604,8 @@ export const contentChunks: ContentChunk[] = [
     section: "approach",
     title: "Didi — Approach",
     content:
-      "At Didi, I simplified flows, clarified system behavior, and supported a more scalable product experience. My work involved interaction design and enterprise UX patterns.",
-    keywords: ["didi", "approach", "method", "simplification", "interaction design", "scalability", "enterprise ux"],
+      "At Didi, I simplified multi-step operational flows, clarified system behavior through better visual hierarchy and status design, and supported a more scalable product architecture. I focused on reducing context switching, surfacing the right information at the right time, and designing patterns that could handle edge cases at enterprise scale.",
+    keywords: ["didi", "approach", "method", "simplification", "interaction design", "scalability", "enterprise ux", "hierarchy"],
   },
   {
     id: "didi-impact",
@@ -568,8 +613,8 @@ export const contentChunks: ContentChunk[] = [
     section: "impact",
     title: "Didi — Impact",
     content:
-      "At Didi, I helped strengthen usability, reduce friction, and support more effective enterprise operations across the platform.",
-    keywords: ["didi", "impact", "result", "outcome", "usability", "friction", "operations"],
+      "At Didi, I helped strengthen usability across enterprise tools, reduce operational friction for teams managing large fleets, and establish design patterns that supported more effective enterprise operations. The work deepened my experience with complex systems, real-time data, and designing for high-stakes operational environments.",
+    keywords: ["didi", "impact", "result", "outcome", "usability", "friction", "operations", "fleet", "patterns"],
   },
 
   // ============================
@@ -744,6 +789,15 @@ export const contentChunks: ContentChunk[] = [
       "JobHatch matters because it demonstrates how AI can transform a frustrating, opaque process into something more structured and motivating. It shows my approach to using AI not just for automation, but for genuine user empowerment through feedback, progress, and clarity.",
     keywords: ["jobhatch", "why", "matters", "empowerment", "motivation", "ai value"],
   },
+  {
+    id: "ai-jobhatch-process",
+    projectSlug: "ai-explorations",
+    section: "showcase-jobhatch",
+    title: "JobHatch — How I Created It",
+    content:
+      "I created JobHatch by starting with a real user frustration: job search platforms give too many listings with too little guidance. I framed the design question first, then used ChatGPT to help brainstorm the concept — resume analysis, match scoring, and a gamification layer. I prototyped the UI in Figma, explored interaction patterns for the token system, and iterated on how AI feedback could feel motivating rather than judgmental. The whole process used AI as a creative partner from ideation through prototyping.",
+    keywords: ["jobhatch", "process", "how", "create", "build", "made", "prototype", "figma", "chatgpt"],
+  },
 
   // ============================
   // AI Project Showcase — Where AI Excels Today
@@ -805,6 +859,15 @@ export const contentChunks: ContentChunk[] = [
     content:
       "This project demonstrates how AI and data can make complex information more engaging and accessible. It shows my ability to build interactive, data-rich prototypes that go beyond static design and explore real product behavior.",
     keywords: ["world cup", "why", "matters", "data", "interactive", "prototype"],
+  },
+  {
+    id: "ai-worldcup-process",
+    projectSlug: "ai-explorations",
+    section: "showcase-worldcup",
+    title: "World Cup Data Lab — How I Created It",
+    content:
+      "I created World Cup Data Lab by combining structured tournament data with AI-assisted comparison logic. I started with team stats and match data, then designed an interactive interface for exploring matchups, win probabilities, and team strengths. I prototyped the bilingual support (English and Chinese) and used AI to help generate insight narratives from raw data. The focus was on making complex sports data feel explorable rather than overwhelming.",
+    keywords: ["world cup", "process", "how", "create", "build", "made", "data", "bilingual", "prototype"],
   },
 
   // ============================
@@ -870,6 +933,46 @@ export const contentChunks: ContentChunk[] = [
   },
 
   // ============================
+  // AI Project Showcase — Project Liquid Glass
+  // ============================
+  {
+    id: "ai-liquid-glass-summary",
+    projectSlug: "ai-explorations",
+    section: "showcase-liquid-glass",
+    title: "Project Liquid Glass",
+    content:
+      "Project Liquid Glass is a coded design system I built exploring reusable glassmorphism UI components for modern web and mobile applications. Instead of staying in Figma or static mockups, I moved into code to create real, reusable components with glassmorphism effects — blur, transparency, layered surfaces, and interactive states. It's a design infrastructure project that bridges visual exploration with implementation-ready foundations.",
+    keywords: ["liquid glass", "project liquid glass", "design system", "glassmorphism", "coded prototype", "ui components", "design infrastructure", "reusable", "glass"],
+  },
+  {
+    id: "ai-liquid-glass-problem",
+    projectSlug: "ai-explorations",
+    section: "showcase-liquid-glass",
+    title: "Project Liquid Glass — Problem",
+    content:
+      "The design question behind Project Liquid Glass was: how do you move beyond tool-only visual exploration into reusable, implementation-aware UI foundations? Most glassmorphism work stays in design tools as one-off visuals. I wanted to test whether glass-style UI could be built as a real component system — with variants, tokens, and interaction patterns that work in production.",
+    keywords: ["liquid glass", "problem", "design system", "glassmorphism", "implementation", "reusable", "visual exploration"],
+  },
+  {
+    id: "ai-liquid-glass-process",
+    projectSlug: "ai-explorations",
+    section: "showcase-liquid-glass",
+    title: "Project Liquid Glass — How I Built It",
+    content:
+      "I built Project Liquid Glass using system thinking and component architecture. I started by defining the visual language — blur layers, transparency levels, border treatments, and surface hierarchies. Then I coded each component as a reusable unit with variants, design tokens, and consistent interaction patterns. The process involved prototyping in code rather than static tools, iterating on real browser rendering, and building a foundation that could scale across different UI contexts. AI assisted with exploring interaction patterns and generating component variations quickly.",
+    keywords: ["liquid glass", "process", "how", "create", "build", "made", "system thinking", "component architecture", "coded", "tokens", "variants"],
+  },
+  {
+    id: "ai-liquid-glass-why",
+    projectSlug: "ai-explorations",
+    section: "showcase-liquid-glass",
+    title: "Project Liquid Glass — Why It Matters",
+    content:
+      "Project Liquid Glass matters because it demonstrates scalable system thinking and bridges visual design with implementation. It shows that I don't just design screens — I think about how design decisions translate into reusable, maintainable code. It reflects my approach to design infrastructure: building foundations that support consistency, flexibility, and real production use rather than one-off visuals.",
+    keywords: ["liquid glass", "why", "matters", "system thinking", "design infrastructure", "implementation", "scalable", "reusable"],
+  },
+
+  // ============================
   // AI Project Showcase — General
   // ============================
   {
@@ -878,8 +981,8 @@ export const contentChunks: ContentChunk[] = [
     section: "showcase-overview",
     title: "AI Project Showcase",
     content:
-      "My AI Project Showcase includes five prototypes built to evaluate product behavior, de-risk early ideas, and explore practical applications of AI: JobHatch (career platform), Where AI Excels Today (research system), World Cup Data Lab (data-driven fan experience), Synchronize Orientation (student-staff sync), and Dialpad Modal (staff outreach tool).",
-    keywords: ["ai project showcase", "showcase", "prototypes", "projects", "jobhatch", "world cup", "synchronize", "dialpad", "where ai excels"],
+      "My AI Project Showcase includes six prototypes built to evaluate product behavior, de-risk early ideas, and explore practical applications of AI: JobHatch (career platform), Where AI Excels Today (research system), World Cup Data Lab (data-driven fan experience), Synchronize Orientation (student-staff sync), Dialpad Modal (staff outreach tool), and Project Liquid Glass (coded glassmorphism design system).",
+    keywords: ["ai project showcase", "showcase", "prototypes", "projects", "jobhatch", "world cup", "synchronize", "dialpad", "where ai excels", "liquid glass"],
   },
   {
     id: "ai-best-prototyping",
