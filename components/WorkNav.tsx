@@ -56,6 +56,16 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
       }`}
     >
       <div className="max-w-[1600px] mx-auto w-full min-w-0 px-4 py-4 sm:px-6 sm:py-5 md:px-16 lg:px-24 md:py-8 flex justify-between items-center gap-4">
+        {/* Mobile hamburger - visible below 768px, placed first (left) on mobile */}
+        <button
+          type="button"
+          className="flex md:hidden p-2 -ml-2 text-text hover:text-muted transition-colors shrink-0 items-center justify-center order-first md:order-none"
+          onClick={() => setMobileMenuOpen((v) => !v)}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/"
@@ -96,16 +106,6 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             );
           })}
         </div>
-        {/* Mobile hamburger - visible below 768px */}
-        <button
-          type="button"
-          className="flex md:hidden p-2 -mr-2 text-text hover:text-muted transition-colors shrink-0 items-center justify-center"
-          onClick={() => setMobileMenuOpen((v) => !v)}
-          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileMenuOpen}
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
       </div>
       {/* Mobile menu - full-page overlay when open (md:hidden) */}
       {mobileMenuOpen && (

@@ -29,6 +29,7 @@ import {
   PhoneCall,
   Contact,
   Workflow,
+  Palette,
   Briefcase,
   FileSearch,
   Target,
@@ -59,6 +60,20 @@ const AiMarketLandscapeWhiteModule = dynamic(
 import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSubnav";
 
 const EXPLORATIONS = [
+  {
+    id: 10,
+    title: "Project Liquid Glass",
+    category: "Design Infrastructure",
+    description:
+      "A coded design system that replaces tool-only visual workflows with reusable UI foundations for modern digital products.",
+    icon: Palette,
+    gradient: "from-sky-500/20 to-indigo-500/20",
+    image: "/images/ds.png",
+    backText: "",
+    backHighlights: [],
+    href: "https://des.wensproject.com",
+    figmaHref: "",
+  },
   {
     id: 9,
     title: "JobHatch",
@@ -153,7 +168,7 @@ const EXPLORATIONS = [
 
 export default function AIExplorationsPage() {
   return (
-    <div className="relative bg-bg text-text min-h-screen overflow-x-hidden">
+    <div className="relative max-md:bg-black bg-bg text-text min-h-screen overflow-x-hidden">
       <header className="fixed top-0 left-0 right-0 z-50 w-full">
         <WorkNav embed />
         <AiExplorationsSubnav />
@@ -217,11 +232,11 @@ export default function AIExplorationsPage() {
                   <ScrollReveal key={item.id} direction="up" delay={i * 50} className="h-full">
                     <Link
                       href={item.href}
-                      className="flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="group flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     >
                       {item.image ? (
-                        <div className="h-[160px] md:h-[240px] overflow-hidden bg-[#fafbfc] shrink-0">
-                          <img src={item.image} alt={item.title} className="w-full h-full object-contain object-top md:object-cover md:object-center" />
+                        <div className="h-[200px] md:h-[240px] overflow-hidden bg-[#fafbfc] shrink-0">
+                          <img src={item.image} alt={item.title} className="w-full h-full object-cover object-center" />
                         </div>
                       ) : (
                         <div
