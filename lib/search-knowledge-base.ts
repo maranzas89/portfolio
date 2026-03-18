@@ -9,7 +9,7 @@ type SearchInput = {
 
 type ContentChunk = (typeof contentChunks)[number];
 
-type ScoredChunk = {
+export type ScoredChunk = {
   chunk: ContentChunk;
   score: number;
 };
@@ -33,7 +33,7 @@ const EXPLICIT_ENTITY_BOOSTS: Array<{
   { pattern: /\bstaff portal\b/i, target: "staff-portal" },
   { pattern: /\bdidi\b/i, target: "didi" },
   { pattern: /\bcisco\b/i, target: "cisco" },
-  { pattern: /\bai explorations?\b|\bai projects?\b/i, target: "ai-explorations" },
+  { pattern: /\bai explorations?\b/i, target: "ai-explorations" },
   { pattern: /\bask wen\b|\bthis assistant\b|\bthis chatbot\b|\bknowledge retrieval\b/i, target: "ask-wen" },
 
   // --- AI subsection targeting (section-specific within ai-explorations) ---
@@ -44,10 +44,12 @@ const EXPLICIT_ENTITY_BOOSTS: Array<{
   { pattern: /\bwhere ai excels\b/i, target: "ai-explorations", section: "showcase-where-excels" },
   { pattern: /\bai market\b|\bai landscape\b/i, target: "ai-explorations", section: "ai-market-landscape" },
   { pattern: /\bcapability benchmark\b|\bai benchmark\b/i, target: "ai-explorations", section: "ai-capability-benchmark" },
-  { pattern: /\bai methodology\b|\bdesign methodology\b/i, target: "ai-explorations", section: "ai-methodology" },
   { pattern: /\bai research\b|\bresearch modal\b/i, target: "ai-explorations", section: "ai-research" },
   { pattern: /\bliquid glass\b|\bglass design system\b|\bdesign system project\b/i, target: "ai-explorations", section: "showcase-liquid-glass" },
   { pattern: /\bproject showcase\b/i, target: "ai-explorations", section: "showcase-overview" },
+
+  // --- Methodology: STRONG dedicated boost (must beat Liquid Glass on methodology queries) ---
+  { pattern: /\bmethodology\b|\bdesign methodology\b|\bai methodology\b|\bdesign process\b|\bai workflow method\b|\bai design methodology\b|\bworkflow methodology\b/i, target: "ai-explorations", section: "ai-methodology" },
 
   // --- Global section-targeted (only the matching global section gets boosted) ---
   { pattern: /\bname\b|\bwho are you\b|\bwen liu\b|\babout you\b|\babout yourself\b|\bintroduce yourself\b|\bwho is wen\b|\btell me about you\b|\byourself\b|\bquick intro\b/i, target: null, section: "profile" },
@@ -56,6 +58,17 @@ const EXPLICIT_ENTITY_BOOSTS: Array<{
   { pattern: /\bstrength\b|\bskill/i, target: null, section: "strengths" },
   { pattern: /\bai workflow\b|\bhow.*use ai/i, target: null, section: "ai-workflow" },
 ];
+
+// ============================================================
+// AI Projects overview detection — broad queries about AI work
+// ============================================================
+
+const AI_PROJECTS_OVERVIEW_PATTERN =
+  /^(?:ai projects?\??|tell me about (?:your |the )?ai projects?\??|what (?:are )?(?:your |the )?ai projects?\??|show me (?:your |the )?ai projects?\??|(?:your )?ai projects?\??|list (?:your |the )?ai projects?\??)$/i;
+
+export function isAiProjectsOverviewQuery(query: string): boolean {
+  return AI_PROJECTS_OVERVIEW_PATTERN.test(query.trim());
+}
 
 // Stopwords prevent common short words from inflating unrelated chunk scores
 const STOPWORDS = new Set([
@@ -75,6 +88,18 @@ function tokenize(text: string) {
     .split(/[^a-z0-9]+/i)
     .filter((token) => token.length > 1 && !STOPWORDS.has(token));
 }
+
+// ============================================================
+// Liquid Glass penalty — prevent it from winning unrelated queries
+//
+// If the query does NOT explicitly mention liquid glass / glass design system,
+// apply a penalty to all showcase-liquid-glass chunks so they don't
+// accidentally rank first due to broad keyword overlap (e.g., "design",
+// "system", "process", "build").
+// ============================================================
+
+const LIQUID_GLASS_EXPLICIT =
+  /\bliquid glass\b|\bglass design system\b|\bglassmorphism\b|\bdesign system project\b/i;
 
 function scoreChunk(
   chunk: ContentChunk,
@@ -109,8 +134,6 @@ function scoreChunk(
   }
 
   // Sub-entity boost — strongly prefer chunks from the tracked sub-entity
-  // This makes follow-up questions like "how did you create it" resolve to
-  // the specific sub-project (e.g., JobHatch) rather than generic AI Explorations
   if (conversationEntity && chunk.section === conversationEntity) {
     score += 8;
   }
@@ -138,6 +161,18 @@ function scoreChunk(
     }
   }
 
+  // --- Liquid Glass fallback penalty ---
+  // If the query does NOT explicitly mention liquid glass, penalize
+  // liquid glass chunks to prevent them from winning on generic terms
+  if (
+    chunk.section === "showcase-liquid-glass" &&
+    !LIQUID_GLASS_EXPLICIT.test(query)
+  ) {
+    // Reduce score so it doesn't outrank more relevant chunks
+    // but keep it above 0 so it's still findable when genuinely relevant
+    score = Math.max(0, score - 6);
+  }
+
   return score;
 }
 
@@ -146,7 +181,7 @@ export function searchKnowledgeBase({
   currentProject,
   conversationProject,
   conversationEntity,
-}: SearchInput): ContentChunk[] {
+}: SearchInput): ScoredChunk[] {
   const normalizedQuery = query.trim().toLowerCase();
   if (!normalizedQuery) return [];
 
@@ -160,12 +195,15 @@ export function searchKnowledgeBase({
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score);
 
-  const uniqueById = new Map<string, ContentChunk>();
+  // Deduplicate by chunk id, preserving score order
+  const seen = new Set<string>();
+  const unique: ScoredChunk[] = [];
   for (const item of scored) {
-    if (!uniqueById.has(item.chunk.id)) {
-      uniqueById.set(item.chunk.id, item.chunk);
+    if (!seen.has(item.chunk.id)) {
+      seen.add(item.chunk.id);
+      unique.push(item);
     }
   }
 
-  return Array.from(uniqueById.values()).slice(0, 3);
+  return unique.slice(0, 3);
 }

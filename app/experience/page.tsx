@@ -28,7 +28,7 @@ export default function ExperiencePage() {
         paragraph="Product designer focused on complex systems, workflow-heavy products, and AI-assisted prototyping across enterprise experiences."
         paragraphVariant="compact"
         primaryCta={{ label: "View Work", href: "/#work" }}
-        secondaryCta={{ label: "Download Resume", href: "/FJ/WenLiu-Resume.pdf", download: "WenLiu-Resume.pdf" }}
+        secondaryCta={{ label: "Download Resume", href: "/FJ/WenLiu_Resume.pdf", download: "WenLiu_Resume.pdf" }}
       />
 
       <main>

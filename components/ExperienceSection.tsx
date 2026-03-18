@@ -132,10 +132,13 @@ const experiences = [
       { label: "Faster common-case actions", value: "30%", icon: Sparkles },
     ],
     highlights: [
-      "Led 0-1 redesign of Student Journey lifecycle architecture across a multi-program institution, improving enrollment and engagement.",
-      "Designed AI-assisted recommendation workflows, translating behavioral signals into adaptive academic pathways.",
-      "Replaced legacy Salesforce CRM with a custom Staff Portal supporting cross-functional teams.",
+      "Led 0→1 redesign of Student Journey lifecycle architecture across a multi-program institution serving 8,000+ students and 200+ staff users statewide, improving enrollment and engagement in competency training programs.",
+      "Designed AI-assisted recommendation workflows, translating behavioral signals and performance data into adaptive academic pathways across multiple certificate tracks.",
+      "Replaced legacy Salesforce CRM with a custom Staff Portal supporting cross-functional teams across Academic Operations, Student Services, and Leadership.",
       "Established a hypothesis-driven product discovery framework adopted across Product and Engineering.",
+      "Partnered directly with executive leadership to align UX strategy with institutional and regulatory objectives.",
+      "Worked in an Agile / Scrum environment with PM and Engineering leadership.",
+      "Shaped product direction through cross-functional leadership forums and executive reviews.",
     ],
     tags: ["0-1 Redesign", "AI Recommendations", "Workflow Architecture", "Agile/Scrum"],
   },
@@ -153,8 +156,10 @@ const experiences = [
     description:
       "Enterprise cybersecurity SaaS platform spanning threat monitoring, incident response, and governance.",
     highlights: [
-      "Designed human-in-the-loop AI workflows, translating machine learning threat models into explainable security interfaces.",
+      "Led design strategy for enterprise cybersecurity SaaS platform spanning threat monitoring, incident response, and governance systems.",
+      "Designed human-in-the-loop AI workflows, translating machine learning threat models into explainable security operations interfaces.",
       "Architected scalable permission models and governance systems for enterprise deployment.",
+      "Increased enterprise trial conversion by 75% through systemic onboarding redesign and behavioral funnel optimization.",
       "Influenced roadmap prioritization through KPI analysis, usability testing, and cross-functional collaboration.",
     ],
     metrics: [
@@ -176,9 +181,11 @@ const experiences = [
     date: "06/2015 - 04/2020",
     description: "AI-driven Network Assurance Engine, an enterprise network intelligence platform.",
     highlights: [
-      "Led UX for complex telemetry dashboards and model-driven alert systems supporting anomaly detection.",
-      "Built a scalable enterprise design system, accelerating feature deployment by 30%.",
-      "Contributed to enterprise customers globally and initiatives featured in an executive keynote at Cisco Live.",
+      "Led design strategy for enterprise cybersecurity SaaS platform spanning threat monitoring, incident response, and governance systems.",
+      "Designed human-in-the-loop AI workflows, translating machine learning threat models into explainable security operations interfaces.",
+      "Architected scalable permission models and governance systems for enterprise deployment.",
+      "Increased enterprise trial conversion by 75% through systemic onboarding redesign and behavioral funnel optimization.",
+      "Influenced roadmap prioritization through KPI analysis, usability testing, and cross-functional collaboration.",
     ],
     metrics: [
       { label: "Operational Efficiency", value: "+25%", icon: TrendingUp },
@@ -209,7 +216,7 @@ function PdfPreviewContainer() {
   return (
     <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
       <iframe
-        src="/FJ/WenLiu-Resume.pdf"
+        src="/FJ/WenLiu_Resume.pdf"
         title="Resume preview"
         className="w-full h-full min-h-[600px] border-0"
       />
@@ -277,7 +284,7 @@ export default function ExperienceSection() {
             Wen Liu
           </h2>
           <p className="text-lg text-slate-500 max-w-4xl leading-relaxed">
-            Senior Product Designer | UX Engineering, AI Prototyping & Product Systems
+            Senior Product Designer | AI-Native Product Design, UX Engineering & Enterprise Product Strategy
           </p>
           <EmailWithCopyButton />
         </section>
@@ -430,9 +437,9 @@ export default function ExperienceSection() {
                         {exp.highlights.map((item, idx) => (
                           <li
                             key={idx}
-                            className="flex items-center gap-3 text-slate-600 text-sm md:text-base leading-relaxed group/item"
+                            className="flex items-start gap-3 text-slate-600 text-sm md:text-base leading-relaxed group/item"
                           >
-                            <div className="shrink-0 w-1.5 h-1.5 rounded-full bg-slate-300 group-hover/item:bg-blue-500 group-hover/item:scale-150 transition-all duration-300" />
+                            <div className="shrink-0 w-1.5 h-1.5 mt-2.5 rounded-full bg-slate-300 group-hover/item:bg-blue-500 group-hover/item:scale-150 transition-all duration-300" />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -458,8 +465,8 @@ export default function ExperienceSection() {
           {/* Early Career Note */}
           <div className="relative flex flex-col md:flex-row gap-6 md:gap-10 mt-12 group cursor-default">
             <div className="relative z-10 flex-shrink-0 flex items-start pl-2 md:pl-4">
-              <div className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] rounded-2xl bg-white flex items-center justify-center group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10">
-                <Building2 size={24} strokeWidth={1.5} className="text-slate-400 relative z-10" />
+              <div className="w-[58px] h-[58px] md:w-[67px] md:h-[67px] rounded-2xl bg-blue-50 flex items-center justify-center group-hover:shadow-lg transition-all duration-500 group-hover:scale-110 z-10">
+                <Building2 size={30} strokeWidth={1.5} className="text-blue-600 relative z-10" />
               </div>
             </div>
 
@@ -470,13 +477,13 @@ export default function ExperienceSection() {
                 </h4>
 
                 <p className="text-sm md:text-base text-slate-500 leading-relaxed mb-6">
-                  UX roles across EdTech and enterprise platforms. Developed foundation in onboarding
-                  flows, data-heavy interfaces, enterprise dashboards, and stakeholder collaboration.
+                  UX roles across EdTech and enterprise platforms, including Tynker, SunSpec Alliance, New Cyberian Systems and Global Courier Express.
+                  Developed foundation in onboarding flows, data-heavy interfaces, enterprise dashboards, and stakeholder collaboration.
                 </p>
 
                 <div className="flex flex-col gap-2 pt-6 border-t border-slate-100 md:flex-row md:flex-wrap md:items-center">
                   <span className="text-sm font-bold text-slate-700 mr-1">Company:</span>
-                  {["Tynker", "SunSpec Alliance", "New Cyberian Systems", "GLOBAL COURIER EXPRESS LTD"].map(
+                  {["Tynker", "SunSpec Alliance", "New Cyberian Systems", "Global Courier Express"].map(
                     (company, idx) => (
                       <span
                         key={idx}

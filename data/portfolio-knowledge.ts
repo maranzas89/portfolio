@@ -202,10 +202,12 @@ export const faqEntries = [
       "how do you approach", "your methodology", "your process",
       "how do you design", "describe your approach",
       "how do you work through a design problem",
+      "methodology", "ai design methodology", "ai methodology",
+      "workflow methodology",
     ],
     answer:
-      "My design approach is grounded in clarity, structure, and decision support. I usually start by understanding where users get stuck, what context they need, and what actions matter most. From there, I focus on simplifying the workflow, improving hierarchy, and making the next step feel obvious.",
-    relatedProjectSlug: null,
+      "My design methodology follows five stages: Discover & Empathize using AI-driven analytics and sentiment analysis, Define & Focus using AI summarization and dynamic personas, Ideate & Validate using generative AI for divergent thinking, Design & Prototype using AI UI generators and smart design systems, and Test & Iterate using AI-generated heatmaps and automated feedback analysis. It's less about treating AI as a novelty and more about understanding where it creates real leverage in a product workflow. You can find this in AI Explorations > AI Design Methodology.",
+    relatedProjectSlug: "ai-explorations",
   },
   // E. What makes your work different
   {

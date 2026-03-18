@@ -1,6 +1,9 @@
 import { faqEntries, projects } from "@/data/portfolio-knowledge";
-import { searchKnowledgeBase } from "@/lib/search-knowledge-base";
+import { searchKnowledgeBase, isAiProjectsOverviewQuery } from "@/lib/search-knowledge-base";
+import type { ScoredChunk } from "@/lib/search-knowledge-base";
 import { detectProjectMention, detectSubEntity } from "@/lib/project-mentions";
+import { normalizeQuery } from "@/lib/query-normalize";
+import { classifyQuery, OUT_OF_SCOPE_REPLY } from "@/lib/query-classify";
 
 type ChatInput = {
   message: string;
@@ -9,7 +12,7 @@ type ChatInput = {
   conversationEntity?: string | null;
 };
 
-type ContentChunk = ReturnType<typeof searchKnowledgeBase>[number];
+type ContentChunk = ScoredChunk["chunk"];
 
 // ============================================================
 // FAQ matching — phrase-cluster substring matching
@@ -43,7 +46,7 @@ const INTENT_RULES: Array<{ pattern: RegExp; section: string }> = [
   { pattern: /\beducation\b|\bschool\b|\bdegree\b|\bgraduate\b|\bgraduated\b|\bgraduation\b|\bstudied\b|\buniversity\b|\bwhat did you study\b|\bwhere.*(?:study|school|learn)/i, section: "education" },
   { pattern: /\bai workflow\b|\bai tool\b|\bhow.*use ai/i, section: "ai-workflow" },
   { pattern: /\bname\b|\bwho are you\b|\bwho is\b|\bintroduc\b|\babout you\b|\babout yourself/i, section: "profile" },
-  { pattern: /\bmethodology\b|\bdesign methodology/i, section: "ai-methodology" },
+  { pattern: /\bmethodology\b|\bdesign methodology\b|\bdesign process\b|\bworkflow methodology\b/i, section: "ai-methodology" },
   { pattern: /\bbenchmark\b|\bai capability\b|\bcapability benchmark/i, section: "ai-capability-benchmark" },
   { pattern: /\bmarket landscape\b|\bai landscape/i, section: "ai-market-landscape" },
 ];
@@ -57,18 +60,18 @@ function detectIntent(query: string): string | null {
 }
 
 function rankByIntent(
-  results: ContentChunk[],
+  results: ScoredChunk[],
   intent: string | null
-): ContentChunk[] {
+): ScoredChunk[] {
   if (!intent || results.length <= 1) return results;
 
-  const matching: ContentChunk[] = [];
-  const rest: ContentChunk[] = [];
-  for (const chunk of results) {
-    if (chunk.section === intent) {
-      matching.push(chunk);
+  const matching: ScoredChunk[] = [];
+  const rest: ScoredChunk[] = [];
+  for (const item of results) {
+    if (item.chunk.section === intent) {
+      matching.push(item);
     } else {
-      rest.push(chunk);
+      rest.push(item);
     }
   }
   return [...matching, ...rest];
@@ -207,7 +210,18 @@ function getNavHint(chunk: ContentChunk): string | null {
 }
 
 // ============================================================
+// Confidence threshold — minimum score to consider a result
+// trustworthy enough to answer from
+// ============================================================
+
+const MIN_CONFIDENCE_SCORE = 5;
+
+// ============================================================
 // Response composition — natural first-person blending
+//
+// RULE: Only blend results from the SAME entity/project.
+// Never append content from a different entity unless the user
+// explicitly asked for comparison or overview.
 // ============================================================
 
 function stripLeadingEntity(content: string): string {
@@ -215,33 +229,50 @@ function stripLeadingEntity(content: string): string {
 }
 
 function composeKnowledgeResponse(
-  results: ContentChunk[],
+  results: ScoredChunk[],
   query: string
 ): string | null {
   if (!results.length) return null;
 
-  const [first, second] = results;
+  // Confidence check: if the top result's score is too low, bail
+  if (results[0].score < MIN_CONFIDENCE_SCORE) return null;
+
+  const first = results[0];
+  const second = results[1];
   let response: string;
 
   // Single result
   if (!second) {
-    response = first.content;
-  } else if (first.projectSlug && second.projectSlug === first.projectSlug) {
-    // Two results from the same project — blend naturally
-    const secondContent = stripLeadingEntity(second.content);
+    response = first.chunk.content;
+  } else if (
+    first.chunk.projectSlug &&
+    second.chunk.projectSlug === first.chunk.projectSlug &&
+    first.chunk.section === second.chunk.section
+  ) {
+    // Two results from the same project AND same section — blend naturally
+    const secondContent = stripLeadingEntity(second.chunk.content);
     const blended =
       secondContent.charAt(0).toUpperCase() + secondContent.slice(1);
-    response = `${first.content} ${blended}`;
+    response = `${first.chunk.content} ${blended}`;
+  } else if (
+    first.chunk.projectSlug &&
+    second.chunk.projectSlug === first.chunk.projectSlug
+  ) {
+    // Same project, different sections — blend
+    const secondContent = stripLeadingEntity(second.chunk.content);
+    const blended =
+      secondContent.charAt(0).toUpperCase() + secondContent.slice(1);
+    response = `${first.chunk.content} ${blended}`;
   } else {
-    // Different sources — top match only
-    response = first.content;
+    // Different sources — top match only (single-entity grounding)
+    response = first.chunk.content;
   }
 
   // Append navigation hint for navigation queries or summary-level answers
   const isNavQuery = NAVIGATION_PATTERN.test(query);
-  const isSummaryChunk = first.section === "summary" || first.section.startsWith("showcase-");
+  const isSummaryChunk = first.chunk.section === "summary" || first.chunk.section.startsWith("showcase-");
   if (isNavQuery || isSummaryChunk) {
-    const hint = getNavHint(first);
+    const hint = getNavHint(first.chunk);
     if (hint) {
       response = `${response} ${hint}`;
     }
@@ -251,17 +282,36 @@ function composeKnowledgeResponse(
 }
 
 // ============================================================
+// AI Projects overview — concise project list answer
+// ============================================================
+
+const AI_PROJECTS_OVERVIEW_RESPONSE =
+  "I have several AI-native prototype projects including JobHatch (career platform with AI-powered match scoring), World Cup Data Lab (data-driven fan experience), Synchronize Orientation (real-time student-staff coordination), Dialpad Modal (embedded staff outreach tool), Where AI Excels Today (research-driven analysis), and Project Liquid Glass (coded glassmorphism design system). You can explore all of them on the AI Explorations page.";
+
+// ============================================================
+// Methodology direct answer — for single-word "methodology" queries
+// ============================================================
+
+const METHODOLOGY_PATTERN =
+  /^(?:methodology\??|design methodology\??|ai design methodology\??|ai methodology\??|your methodology\??|workflow methodology\??|design process\??)$/i;
+
+// ============================================================
 // Main entry — response pipeline
 //
 // Order:
-// 1. Empty message
-// 2. Subjective AI opinion (early, before FAQ intercepts)
-// 3. FAQ phrase-cluster matching
-// 4. Resolve effective project (mention > conversation > page)
-// 5. Ambiguous project question guard
-// 6. Knowledge base retrieval + intent re-ranking
-// 7. Project fallback
-// 8. Final fallback
+// 0. Normalize query (typo correction, alias expansion)
+// 1. Classify query (out-of-scope check)
+// 2. Empty message
+// 3. Subjective AI opinion (early, before FAQ intercepts)
+// 4. FAQ phrase-cluster matching
+// 5. AI Projects overview detection (broad "ai projects?" queries)
+// 6. Methodology direct match (short exact queries)
+// 7. Resolve effective project (mention > conversation > page)
+// 8. Ambiguous project question guard
+// 9. Knowledge base retrieval + intent re-ranking
+// 10. Confidence-gated response composition
+// 11. Project fallback
+// 12. Final fallback / low-confidence redirect
 // ============================================================
 
 export function getPortfolioChatResponse({
@@ -270,26 +320,58 @@ export function getPortfolioChatResponse({
   conversationProject,
   conversationEntity,
 }: ChatInput) {
-  const q = message.toLowerCase().trim();
+  // 0. Normalize query — fix typos and expand aliases
+  const normalized = normalizeQuery(message);
+  const q = normalized.trim();
 
   // 1. Empty message
   if (!q) {
     return "Feel free to ask me about my projects, role, impact, or how I use AI in my design workflow.";
   }
 
-  // 2. Subjective AI opinion — checked early so FAQ/KB don't intercept
+  // 2. Out-of-scope classification
+  const category = classifyQuery(q);
+  if (category === "off_topic_personal" || category === "unsupported") {
+    return OUT_OF_SCOPE_REPLY;
+  }
+
+  // 3. Subjective AI opinion — checked early so FAQ/KB don't intercept
   const aiOpinion = matchAiOpinion(q);
   if (aiOpinion) {
     return aiOpinion;
   }
 
-  // 3. FAQ phrase-cluster matching
+  // 4. AI Projects overview — broad "ai projects?" queries
+  // Checked BEFORE FAQ because FAQ triggers like "about you" can
+  // false-positive on "tell me about your ai projects"
+  if (isAiProjectsOverviewQuery(q)) {
+    return AI_PROJECTS_OVERVIEW_RESPONSE;
+  }
+
+  // 5. FAQ phrase-cluster matching
   const faqMatch = matchFaq(q);
   if (faqMatch) {
     return faqMatch.answer;
   }
 
-  // 4. Resolve effective project and sub-entity context
+  // 6. Methodology direct match — short exact methodology queries
+  if (METHODOLOGY_PATTERN.test(q)) {
+    // Return the methodology content directly from KB search
+    const methodologyResults = searchKnowledgeBase({
+      query: "ai design methodology",
+      currentProject: null,
+      conversationProject: null,
+      conversationEntity: null,
+    });
+    const methodChunk = methodologyResults.find(
+      (r) => r.chunk.section === "ai-methodology"
+    );
+    if (methodChunk) {
+      return `${methodChunk.chunk.content} You can find this in AI Explorations > AI Design Methodology.`;
+    }
+  }
+
+  // 7. Resolve effective project and sub-entity context
   // Priority: explicit mention in message > conversation context > page context
   const mentionedProject = detectProjectMention(q);
   const mentionedSubEntity = detectSubEntity(q);
@@ -311,16 +393,16 @@ export function getPortfolioChatResponse({
     effectiveEntity = conversationEntity;
   }
 
-  // 5. Ambiguous project-specific question without any context
+  // 8. Ambiguous project-specific question without any context
   const intent = detectIntent(q);
   const ambiguousReply = isAmbiguousProjectQuestion(q, intent, effectiveProject);
   if (ambiguousReply) {
     return ambiguousReply;
   }
 
-  // 6. Knowledge base retrieval with intent-aware re-ranking
+  // 9. Knowledge base retrieval with intent-aware re-ranking
   const knowledgeResults = searchKnowledgeBase({
-    query: message,
+    query: normalized,
     currentProject: effectiveProject,
     conversationProject: conversationProject,
     conversationEntity: effectiveEntity,
@@ -328,36 +410,38 @@ export function getPortfolioChatResponse({
 
   const ranked = rankByIntent(knowledgeResults, intent);
 
+  // 10. Confidence-gated response composition
   const knowledgeReply = composeKnowledgeResponse(ranked, q);
   if (knowledgeReply) {
     return knowledgeReply;
   }
 
-  // 7. Fallback: match across all projects
-  const projectMatch = projects.find((project) => {
-    const haystack = [
-      project.title,
-      project.summary,
-      project.role,
-      project.problem,
-      project.approach,
-      project.impact,
-      ...project.tags,
-    ]
-      .join(" ")
-      .toLowerCase();
+  // 11. Fallback: match across all projects (but only if query has substance)
+  const queryWords = q.split(/\s+/).filter((w) => w.length > 2);
+  if (queryWords.length > 0) {
+    const projectMatch = projects.find((project) => {
+      const haystack = [
+        project.title,
+        project.summary,
+        project.role,
+        project.problem,
+        project.approach,
+        project.impact,
+        ...project.tags,
+      ]
+        .join(" ")
+        .toLowerCase();
 
-    return q
-      .split(/\s+/)
-      .some((word) => word.length > 2 && haystack.includes(word));
-  });
+      return queryWords.some((word) => haystack.includes(word));
+    });
 
-  if (projectMatch) {
-    const hint = NAV_HINTS[projectMatch.slug];
-    const base = `${projectMatch.summary} ${projectMatch.role}`;
-    return hint ? `${base} ${hint}` : base;
+    if (projectMatch) {
+      const hint = NAV_HINTS[projectMatch.slug];
+      const base = `${projectMatch.summary} ${projectMatch.role}`;
+      return hint ? `${base} ${hint}` : base;
+    }
   }
 
-  // 8. Final fallback
+  // 12. Final fallback — low confidence redirect
   return "I can share more about my projects, design decisions, role, impact, or how I use AI in my workflow. Try asking about Calbright, Staff Portal, Didi, or my AI explorations.";
 }
