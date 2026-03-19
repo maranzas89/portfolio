@@ -12,7 +12,7 @@ import { ResumeLink } from "@/components/ResumeLink";
 
 type CtaItem = { label: string; href: string; download?: boolean | string };
 type PageHeroProps = {
-  eyebrow: string;
+  eyebrow: React.ReactNode;
   headline: string;
   paragraph: string;
   avatar?: string;
@@ -81,7 +81,7 @@ export default function PageHero({
                   </div>
                 )}
               </div>
-              <div className="relative z-20 flex items-center justify-center w-full lg:w-auto lg:mr-[-2rem] min-h-[220px] lg:min-h-0">
+              <div className="relative z-20 flex items-center justify-center w-full lg:w-auto lg:mr-[-2rem] min-h-[220px] lg:min-h-0 -translate-y-5">
                 <HeroCube />
               </div>
             </div>
