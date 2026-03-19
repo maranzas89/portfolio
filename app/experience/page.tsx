@@ -22,7 +22,7 @@ export default function ExperiencePage() {
       <SectionNav sections={EXPERIENCE_SECTIONS_DISPLAY} />
 
       <PageHero
-        eyebrow="About Me"
+        eyebrow="Think deeply. Build fast. Ship with purpose."
         avatar="/images/avatar.png"
         headline="Designing complex systems, enterprise workflows, and implementation-aware product experiences"
         paragraph="Product designer with 10+ years of experience turning ambiguity into clear product direction across enterprise SaaS, education platforms, and operational systems."

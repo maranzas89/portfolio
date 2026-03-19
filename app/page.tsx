@@ -177,7 +177,7 @@ export default function Page() {
           <div>
             <div className="max-w-6xl">
               <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">
-                Product Design · Complex Systems · Enterprise Workflows · Implementation-Aware Design
+                Systems Thinking. Product Judgment. Fast Prototyping.
               </p>
               <h1 className="hero-title-gradient text-3xl md:text-4xl lg:text-5xl xl:text-[4rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
                 Hi, I&apos;m Wen,<br />

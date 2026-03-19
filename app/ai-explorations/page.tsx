@@ -179,7 +179,7 @@ export default function AIExplorationsPage() {
 
       <div className="pt-[96px] md:pt-[128px]">
       <PageHero
-        eyebrow="Explorations"
+        eyebrow="From product judgment to working prototype. Fast."
         headline="Prototyping ideas, testing assumptions, and shaping product direction"
         paragraph="Selected explorations across workflow design, interface prototyping, and early-stage product investigation — showing how I turn emerging ideas into testable structures and working concepts."
         backgroundVariant="ai-explorations"
