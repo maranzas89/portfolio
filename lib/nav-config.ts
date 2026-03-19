@@ -1,6 +1,6 @@
 export const NAV_LINKS = [
   { href: "/#work", label: "Work" },
-  { href: "/ai-explorations", label: "AI PROJECTS" },
+  { href: "/ai-explorations", label: "EXPLORATIONS" },
   { href: "/experience", label: "ABOUT ME" },
   { href: "/kind-words", label: "Kind Words" },
 ] as const;
@@ -12,9 +12,9 @@ export const WORK_SUB_LINKS = [
 ] as const;
 
 export const AI_SUB_LINKS = [
-  { href: "/ai-explorations#ai-product-experiments", label: "AI Prototype Showcase" },
-  { href: "/ai-explorations#ai-design-workflow", label: "AI Design Workflow" },
-  { href: "/ai-explorations#ai-capability-benchmark", label: "AI Capability Benchmark" },
+  { href: "/ai-explorations#ai-product-experiments", label: "Prototype Showcase" },
+  { href: "/ai-explorations#ai-design-workflow", label: "Design Methodology" },
+  { href: "/ai-explorations#ai-capability-benchmark", label: "Capability Benchmark" },
 ] as const;
 
 /** Pre-filled mailto link for "Let's connect" CTAs. Opens default email app with recipient, subject, and body. */

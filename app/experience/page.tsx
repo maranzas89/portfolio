@@ -24,8 +24,8 @@ export default function ExperiencePage() {
       <PageHero
         eyebrow="About Me"
         avatar="/images/avatar.png"
-        headline="Designing AI-driven products, prototyping workflows, and bridging design with implementation"
-        paragraph="Product designer focused on complex systems, workflow-heavy products, and AI-assisted prototyping across enterprise experiences."
+        headline="Designing complex systems, enterprise workflows, and implementation-aware product experiences"
+        paragraph="Product designer with 10+ years of experience turning ambiguity into clear product direction across enterprise SaaS, education platforms, and operational systems."
         paragraphVariant="compact"
         primaryCta={{ label: "View Work", href: "/#work" }}
         secondaryCta={{ label: "Download Resume", href: "/FJ/WenLiu_Resume.pdf", download: "WenLiu_Resume.pdf" }}

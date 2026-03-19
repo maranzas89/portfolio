@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS, WORK_SUB_LINKS, AI_SUB_LINKS } from "@/lib/nav-config";
-import AskWenShell from "@/components/portfolio-chat/AskWenShell";
 
 const PATHNAME_PROJECT_MAP: Record<string, string> = {
   "/work/calbright/student-portal": "calbright-student-portal",
@@ -83,7 +82,6 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
           >
             Wen Liu
           </Link>
-          <AskWenShell currentProject={currentProject} />
         </div>
         {/* Desktop nav - hidden below 768px */}
         <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
@@ -183,7 +181,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
                   setMobileMenuOpen(false);
                 }}
               >
-                AI PROJECTS
+                EXPLORATIONS
               </a>
               <div className="flex flex-col gap-8 ml-4 border-l-2 border-gray-200 pl-5">
                 {AI_SUB_LINKS.map(({ href, label }) => {

@@ -12,8 +12,8 @@ const steps = [
     icon: Compass,
     color: "from-cyan-400 to-blue-500",
     shadow: "shadow-cyan-500/50",
-    desc: "Leverage AI-driven analytics to process vast user data and uncover hidden patterns. Build a strong foundation of empathy by combining human insights with AI-assisted sentiment analysis.",
-    keywords: ["AI Sentiment Analysis", "Competitor Analysis", "Data Mining", "Empathy Map"],
+    desc: "Understand users, workflows, and constraints through research, interviews, and data analysis. Build a strong foundation of empathy by combining behavioral insights with contextual observation.",
+    keywords: ["User Research", "Competitor Analysis", "Data Synthesis", "Empathy Map"],
   },
   {
     id: "define",
@@ -22,8 +22,8 @@ const steps = [
     icon: Target,
     color: "from-blue-500 to-indigo-500",
     shadow: "shadow-blue-500/50",
-    desc: "Extract core problems from massive datasets using AI summarization tools. Define clear user journeys and generate dynamic, AI-backed personas to anchor design goals precisely.",
-    keywords: ["AI Persona Generation", "Experience Map", "Core Pain Points", "Predictive Journeys"],
+    desc: "Extract core problems from research findings and stakeholder input. Define clear user journeys and create actionable personas to anchor design goals precisely.",
+    keywords: ["Persona Development", "Experience Map", "Core Pain Points", "Journey Mapping"],
   },
   {
     id: "ideate",
@@ -32,8 +32,8 @@ const steps = [
     icon: Lightbulb,
     color: "from-indigo-500 to-purple-500",
     shadow: "shadow-indigo-500/50",
-    desc: "Expand divergent thinking with Generative AI to explore infinite possible solutions. Rapidly visualize concepts and validate information architecture through AI-assisted wireframing.",
-    keywords: ["GenAI Brainstorming", "Info Architecture", "Rapid Concepting", "Interaction Flow"],
+    desc: "Expand divergent thinking to explore a wide range of possible solutions. Rapidly visualize concepts and validate information architecture through wireframing and early stakeholder review.",
+    keywords: ["Divergent Thinking", "Info Architecture", "Rapid Concepting", "Interaction Flow"],
   },
   {
     id: "design",
@@ -42,8 +42,8 @@ const steps = [
     icon: Layers,
     color: "from-purple-500 to-pink-500",
     shadow: "shadow-purple-500/50",
-    desc: "Inject aesthetics and precise interactions into high-fidelity prototypes. Utilize AI UI generators and smart design systems to scale components and ensure pixel-perfect consistency at speed.",
-    keywords: ["AI-Powered UI", "Design System", "Micro-interactions", "Hi-Fi Prototyping"],
+    desc: "Build high-fidelity prototypes with precise interactions and scalable design systems. Use modern tooling to accelerate component design and ensure consistency across complex interfaces.",
+    keywords: ["Design Systems", "Component Library", "Micro-interactions", "Hi-Fi Prototyping"],
   },
   {
     id: "test",
@@ -52,8 +52,8 @@ const steps = [
     icon: RefreshCw,
     color: "from-pink-500 to-rose-500",
     shadow: "shadow-pink-500/50",
-    desc: "Evolve the product through continuous optimization. Implement AI-generated heatmaps and automated feedback analysis to accelerate usability testing and drive data-informed iterations.",
-    keywords: ["AI Usability Testing", "Automated Feedback", "Data Tracking", "Experience Audit"],
+    desc: "Evolve the product through continuous optimization. Leverage behavioral analytics, usability testing, and cross-functional feedback to drive data-informed iterations.",
+    keywords: ["Usability Testing", "Behavioral Analytics", "Data Tracking", "Experience Audit"],
   },
 ];
 
@@ -97,24 +97,24 @@ export default function PlaybookMethodology() {
           <div className="text-left flex-1 min-w-0">
             <div className="font-accent inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs mb-6 backdrop-blur-md">
               <Activity size={14} className="animate-pulse" />
-              <span>Basic Design Methodology</span>
+              <span>Product Design Methodology</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white">
               From{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600">Chaos</span> to
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500"> Order</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600">Ambiguity</span> to
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500"> Product Clarity</span>
             </h2>
             <p className="text-gray-400 text-lg leading-relaxed">
               Design is a rigorous process to solve complex problems.
               <br />
-              <span className="md:whitespace-nowrap">Below is my core methodology, supercharged by AI tools to accelerate research, enhance creativity, and drive data-informed decisions.</span>
+              <span className="md:whitespace-nowrap">My methodology turns complexity into clear product direction through research, systems thinking, and iterative validation.</span>
             </p>
           </div>
           <Link
             href="/ai-explorations#ai-design-workflow"
             className="inline-flex items-center justify-center gap-2 shrink-0 rounded-xl border-2 border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10 hover:border-white/60 whitespace-nowrap md:-translate-y-[16px]"
           >
-            View My AI Design Methodology
+            View Full Methodology
             <span aria-hidden>→</span>
           </Link>
         </div>

@@ -4,9 +4,9 @@ import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
 const SUBNAV_ITEMS = [
-  { id: "ai-product-experiments", label: "AI Prototype Showcase" },
-  { id: "ai-design-workflow", label: "AI Design Methodology" },
-  { id: "ai-capability-benchmark", label: "AI Capability Benchmark" },
+  { id: "ai-product-experiments", label: "Prototype Showcase" },
+  { id: "ai-design-workflow", label: "Design Methodology" },
+  { id: "ai-capability-benchmark", label: "Capability Benchmark" },
 ];
 
 const THRESHOLD = 180;
@@ -82,7 +82,7 @@ export default function AiExplorationsSubnav() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            AI Projects
+            Explorations
           </Link>
         </nav>
         <div className="flex items-center justify-end gap-0">

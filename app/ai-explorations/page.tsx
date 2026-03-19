@@ -80,14 +80,14 @@ const EXPLORATIONS = [
     title: "JobHatch",
     category: "Career Platform",
     description:
-      "An AI-assisted career platform concept combining resume analysis, match scoring, and gamified incentives to improve job search clarity and momentum.",
+      "A career platform concept combining resume analysis, match scoring, and gamified incentives to improve job search clarity and momentum.",
     icon: Briefcase,
     gradient: "from-emerald-500/20 to-teal-500/20",
     image: "/images/01q.png",
     mobileImageClass: "object-contain object-top",
     backText: "",
     backHighlights: [
-      { icon: FileSearch, label: "AI resume analysis", text: "Uses AI to parse resumes, surface improvement opportunities, and help users better position their background against the expectations of specific roles." },
+      { icon: FileSearch, label: "Resume analysis", text: "Parses resumes to surface improvement opportunities and help users better position their background against the expectations of specific roles." },
       { icon: Target, label: "Match-based tracking", text: "Combines application management with match scoring so users can monitor progress, evaluate job fit more clearly, and prioritize stronger opportunities." },
       { icon: Coins, label: "Token-driven optimization", text: "Introduces a gamified feedback loop where completed actions earn tokens that unlock added value, from resume upgrades to AI-assisted CV creation and job search support." },
     ],
@@ -125,7 +125,7 @@ const EXPLORATIONS = [
     backHighlights: [
       { icon: Swords, label: "Matchup Intelligence", text: "Uses structured team data and comparison logic to surface strengths, patterns, and storylines across tournament matchups." },
       { icon: BarChart3, label: "Interactive experience", text: "Transforms match information into a more interactive experience through dashboards, comparisons, and data-led exploration." },
-      { icon: Sparkles, label: "AI-driven insights", text: "Demonstrates how AI can make sports data more engaging by helping users navigate complexity and discover insights faster." },
+      { icon: Sparkles, label: "Data-driven insights", text: "Demonstrates how structured data and intelligent filtering can make sports information more engaging and easier to navigate." },
     ],
     href: "/ai-explorations/world-cup-data-lab",
     figmaHref: "",
@@ -141,7 +141,7 @@ const EXPLORATIONS = [
     image: "/images/3q.png",
     backText: "",
     backHighlights: [
-      { icon: Link2, label: "Student–staff sync", text: "Used AI to prototype shared visibility across the student experience and staff portal, enabling file and status continuity between both sides." },
+      { icon: Link2, label: "Student–staff sync", text: "Prototyped shared visibility across the student experience and staff portal, enabling file and status continuity between both sides." },
       { icon: ClipboardCheck, label: "Enrollment support", text: "Designed orientation and onboarding flows around student needs, including enrollment steps, checklist progress, and key to-dos." },
       { icon: Eye, label: "Rethinking staff tracking", text: "Explored a more connected alternative to traditional progress tracking by giving staff clearer, more real-time visibility into student completion states." },
     ],
@@ -153,7 +153,7 @@ const EXPLORATIONS = [
     title: "Dialpad Modal",
     category: "Staff Portal",
     description:
-      "A staff portal dialpad prototype exploring in-context calling, AI summaries, and next-step guidance.",
+      "A staff portal dialpad prototype exploring in-context calling, call summaries, and next-step guidance.",
     icon: Phone,
     gradient: "from-teal-500/20 to-blue-500/20",
     image: "/images/4q.png",
@@ -177,11 +177,11 @@ export default function AIExplorationsPage() {
       </header>
       <SectionNav sections={AI_EXPLORATIONS_SECTIONS} />
 
-      <div className="pt-16 md:pt-32">
+      <div className="pt-[96px] md:pt-[128px]">
       <PageHero
-        eyebrow="AI Projects"
-        headline="Using AI to prototype, test, and shape product directions"
-        paragraph="A collection of AI-assisted product explorations across workflow design, interface prototyping, and early-stage implementation — showing how I turn emerging ideas into testable product structures and working concepts."
+        eyebrow="Explorations"
+        headline="Prototyping ideas, testing assumptions, and shaping product direction"
+        paragraph="Selected explorations across workflow design, interface prototyping, and early-stage product investigation — showing how I turn emerging ideas into testable structures and working concepts."
         backgroundVariant="ai-explorations"
       >
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 -mt-[30px] w-full max-w-5xl">
@@ -216,14 +216,14 @@ export default function AIExplorationsPage() {
               <div className="mb-2 flex items-center gap-2">
                 <Layout className="h-4 w-4 shrink-0 text-blue-600" />
                 <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                  01. AI Prototype Showcase
+                  01. Prototype Showcase
                 </h2>
               </div>
               <h3 className="mb-4 text-2xl font-semibold text-text md:text-4xl">
-                AI-Assisted Prototypes for Testing Product Directions
+                Prototypes for Testing Product Directions
               </h3>
               <p className="max-w-5xl text-base text-slate-600 md:text-lg">
-                Prototypes built to test product behavior, validate workflow assumptions, and explore implementation-aware product directions.
+                Prototypes built to test product behavior, validate workflow assumptions, and explore implementation-aware directions. I use modern tools — including AI — to move faster from concept to testable interface.
               </p>
             </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -287,7 +287,7 @@ export default function AIExplorationsPage() {
           <ScrollReveal direction="up" className="w-full flex justify-center">
             <div className="max-w-5xl mx-auto flex flex-col items-center text-center px-2">
               <p className="text-gray-400 text-base md:text-xl font-medium leading-relaxed mb-6 text-balance">
-                See how AI-assisted prototyping and product thinking come together across my featured work — from enterprise systems and education platforms to workflow design and testable product concepts.
+                See how product thinking and prototyping come together across my featured work — from enterprise systems and education platforms to workflow design and testable product concepts.
               </p>
               <Link
                 href="/#work"

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { X, Send, Sparkles } from "lucide-react";
+import { X, Send, Compass } from "lucide-react";
 import { detectProjectMention, detectSubEntity } from "@/lib/project-mentions";
 
 type Message = {
@@ -10,16 +10,16 @@ type Message = {
 };
 
 const PRESET_CHIPS = [
-  "What was your role?",
   "Tell me about Calbright",
-  "How do you use AI in your workflow?",
-  "What is this assistant?",
+  "What did Wen do at Didi?",
+  "Show me product design work",
+  "Which case studies show impact?",
 ];
 
 const INITIAL_MESSAGE: Message = {
   role: "assistant",
   content:
-    "Hi — I'm a retrieval-based assistant that can help you navigate my portfolio. Ask about my projects, design decisions, impact, or AI workflow.",
+    "Quickly explore Wen's work across product design, enterprise systems, and shipped experiences. Ask about projects, decisions, or impact.",
 };
 
 // --- Storage keys ---
@@ -29,8 +29,6 @@ const CHIPS_STORAGE_KEY = "ask-wen-used-chips";
 const CONV_PROJECT_KEY = "ask-wen-conv-project";
 const CONV_ENTITY_KEY = "ask-wen-conv-entity";
 const INPUT_DRAFT_KEY = "ask-wen-input-draft";
-
-// Project mention detection — imported from lib/project-mentions.ts
 
 // --- Storage helpers ---
 
@@ -182,9 +180,14 @@ export default function AskWenPanel({
     }
   }, [isOpen]);
 
-  // Lock body scroll when panel is open
+  // Lock body scroll when panel is open (mobile only)
   useEffect(() => {
     if (!isOpen) return;
+
+    // Only lock scroll on mobile (below sm breakpoint)
+    const isMobile = window.innerWidth < 640;
+    if (!isMobile) return;
+
     const scrollY = window.scrollY;
     const body = document.body;
     const originalStyles = {
@@ -287,9 +290,9 @@ export default function AskWenPanel({
 
   return (
     <>
-      {/* Backdrop — hidden on mobile since panel is full-screen */}
+      {/* Backdrop — hidden on mobile since panel is full-screen; lighter on desktop since panel is smaller */}
       <div
-        className={`fixed inset-0 z-[70] hidden sm:block bg-black/20 backdrop-blur-[3px] transition-opacity duration-400 ease-out ${
+        className={`fixed inset-0 z-[70] hidden sm:block bg-black/10 backdrop-blur-[2px] transition-opacity duration-400 ease-out ${
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -298,28 +301,25 @@ export default function AskWenPanel({
         aria-hidden="true"
       />
 
-      {/* Panel — full-screen on mobile, right slide-over on sm+ */}
+      {/* Panel — full-screen on mobile, bottom-right floating panel on sm+ */}
       <div
         role="dialog"
-        aria-label="Ask Wen chat panel"
-        className={`fixed inset-0 h-[100dvh] sm:inset-auto sm:top-0 sm:right-0 sm:h-full sm:w-[450px] z-[80] flex flex-col overflow-hidden sm:border-l border-white/[0.08] bg-[rgba(10,14,24,0.92)] sm:bg-[rgba(10,14,24,0.82)] backdrop-blur-2xl sm:shadow-[0_0_80px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+        aria-label="Portfolio guide panel"
+        className={`fixed inset-0 h-[100dvh] sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(680px,calc(100vh-48px))] sm:w-[420px] z-[80] flex flex-col overflow-hidden sm:rounded-2xl sm:border border-white/[0.08] bg-[rgba(10,14,24,0.92)] sm:bg-[rgba(10,14,24,0.88)] backdrop-blur-2xl sm:shadow-[0_8px_60px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06)] transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] ${
           isOpen
-            ? "translate-y-0 sm:translate-y-0 sm:translate-x-0 opacity-100"
-            : "translate-y-full sm:translate-y-0 sm:translate-x-full opacity-0"
+            ? "translate-y-0 sm:translate-y-0 opacity-100 sm:scale-100"
+            : "translate-y-full sm:translate-y-4 opacity-0 sm:scale-[0.97] pointer-events-none"
         }`}
       >
         {/* Header */}
-        <div className="flex items-start justify-between px-5 sm:px-7 pt-6 sm:pt-8 pb-5 sm:pb-6 border-b border-white/[0.05]">
+        <div className="flex items-start justify-between px-5 sm:px-6 pt-5 sm:pt-6 pb-4 sm:pb-5 border-b border-white/[0.05]">
           <div>
             <div className="flex items-center gap-2.5">
-              <Sparkles className="h-5 w-5 text-blue-400" strokeWidth={2.5} />
-              <h2 className="text-xl font-black text-white tracking-[-0.01em]">
-                Ask Wen
+              <Compass className="h-5 w-5 text-blue-400" strokeWidth={2.5} />
+              <h2 className="text-lg font-bold text-white tracking-[-0.01em]">
+                Explore Wen&apos;s Work
               </h2>
             </div>
-            <p className="mt-2 text-sm text-white/60 font-semibold leading-relaxed tracking-wide">
-              Retrieval-based assistant for navigating my portfolio.
-            </p>
           </div>
           <button
             type="button"
@@ -332,7 +332,7 @@ export default function AskWenPanel({
         </div>
 
         {/* Messages */}
-        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-x-hidden px-5 sm:px-7 py-5 sm:py-6 space-y-4 sm:space-y-5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
+        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-x-hidden px-5 sm:px-6 py-4 sm:py-5 space-y-4 sm:space-y-5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
           {messages.map((msg, i) => (
             <div
               key={i}
@@ -369,7 +369,7 @@ export default function AskWenPanel({
 
         {/* Preset chips */}
         {chipsVisible && (
-          <div className="px-5 sm:px-7 pb-3 sm:pb-4 flex flex-col gap-3 sm:gap-4 items-start">
+          <div className="px-5 sm:px-6 pb-3 sm:pb-3 flex flex-col gap-2.5 sm:gap-3 items-start">
             {remainingChips.map((chip) => (
               <button
                 key={chip}
@@ -386,8 +386,8 @@ export default function AskWenPanel({
         {/* Input */}
         <form
           onSubmit={handleSubmit}
-          className="px-5 sm:px-7 pt-3 sm:pt-4 border-t border-white/[0.05]"
-          style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom, 1.5rem))" }}
+          className="px-5 sm:px-6 pt-3 sm:pt-3 border-t border-white/[0.05]"
+          style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom, 1rem))" }}
         >
           <div className="flex items-center gap-3 min-w-0 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3.5 sm:px-4 py-2.5 sm:py-3 focus-within:border-white/[0.15] focus-within:bg-white/[0.06] transition-all duration-200">
             <input

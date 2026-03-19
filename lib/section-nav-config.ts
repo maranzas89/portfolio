@@ -46,16 +46,16 @@ export const DIDI_SECTIONS: SectionItem[] = [
 ];
 
 export const AI_EXPLORATIONS_SECTIONS: SectionItem[] = [
-  { id: "ai-product-experiments", label: "01. AI Prototype Showcase" },
-  { id: "ai-design-workflow", label: "02. AI Design Methodology" },
-  { id: "ai-capability-benchmark", label: "03. AI Capability Benchmark" },
+  { id: "ai-product-experiments", label: "01. Prototype Showcase" },
+  { id: "ai-design-workflow", label: "02. Design Methodology" },
+  { id: "ai-capability-benchmark", label: "03. Capability Benchmark" },
 ];
 
 export const EXPERIENCE_SECTIONS: SectionItem[] = [
   { id: "summary", label: "02. Summary" },
   { id: "core-competencies", label: "03. Core Competencies" },
   { id: "professional-experience", label: "04. Professional Experience" },
-  { id: "toolkit", label: "05. AI-Native Toolkit" },
+  { id: "toolkit", label: "05. Design Toolkit" },
   { id: "education", label: "06. Education" },
   { id: "resume", label: "07. Resume" },
 ];

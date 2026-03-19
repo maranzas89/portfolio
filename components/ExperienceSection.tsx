@@ -37,7 +37,7 @@ import { ResumeLink } from "@/components/ResumeLink";
 const summaries = [
   {
     icon: Award,
-    text: "Product designer with 10+ years shaping AI-driven and workflow-heavy products across enterprise SaaS, cybersecurity, and education.",
+    text: "Product designer with 10+ years shaping workflow-heavy products across enterprise SaaS, cybersecurity, and education platforms.",
   },
   {
     icon: Users,
@@ -49,8 +49,8 @@ const summaries = [
     ),
   },
   {
-    icon: Cpu,
-    text: "Work spans AI-assisted workflows, human-in-the-loop systems, and enterprise platforms where clarity, scalability, and operational usability matter.",
+    icon: Compass,
+    text: "Work spans enterprise platforms, operational workflows, and complex systems where clarity, scalability, and cross-functional execution matter.",
   },
   {
     icon: LineChart,
@@ -64,33 +64,28 @@ const summaries = [
 ];
 
 const competencies = [
-  { icon: Bot, label: "AI-Native Product Design & Rapid Prototyping" },
-  { icon: Rocket, label: "0→1 Product Exploration & Concept Validation" },
-  { icon: Code2, label: "Design-to-Build Front-End Fluency" },
-  { icon: Cpu, label: "Human-in-the-Loop AI Experiences" },
-  { icon: Layers, label: "Product Systems & Workflow Architecture" },
-  { icon: Compass, label: "Scalable Component Thinking & Design Systems" },
-  { icon: Users, label: "Bridging Product & Engineering" },
+  { icon: Target, label: "Product Strategy & Direction" },
+  { icon: Layers, label: "Systems Thinking & Workflow Architecture" },
+  { icon: Rocket, label: "0→1 Product Exploration & Validation" },
+  { icon: Code2, label: "Implementation-Aware Design & Front-End Fluency" },
+  { icon: Compass, label: "Information Architecture & Scalable Patterns" },
+  { icon: Users, label: "Cross-Functional Collaboration & Execution" },
+  { icon: Sparkles, label: "Rapid Prototyping & Modern Tooling" },
 ];
 
 const toolkitDescriptions = [
-  "Rapidly prototype AI-native product concepts using front-end tooling and AI-assisted workflows.",
-  "Design human-AI systems that balance automation, explainability, trust, and operational usability.",
+  "Rapidly prototype and validate product concepts using front-end tooling, design systems, and modern workflows.",
+  "I use AI to accelerate exploration and prototyping, but the core of my work is product judgment, systems thinking, and cross-functional execution.",
 ];
 
 const skillCategories = [
   {
-    name: "AI",
-    icon: Bot,
-    skills: ["ChatGPT", "Claude", "Gemini", "Cursor", "Lovable", "Stitch", "v0", "Figma AI", "Adobe Firefly"],
-  },
-  {
-    name: "Practice",
+    name: "Research & Strategy",
     icon: FlaskRound,
-    skills: ["Workshops", "Testing", "Synthesis", "Iteration", "Critique", "Strategy", "Discovery", "Validation"],
+    skills: ["Workshops", "User Testing", "Synthesis", "Discovery", "Critique", "Strategy", "Validation", "Iteration"],
   },
   {
-    name: "Design & Video Editing",
+    name: "Design & Prototyping",
     icon: PenTool,
     skills: ["Figma (Dev Mode, Variables, AI)", "Adobe XD", "Adobe CC", "Axure RP", "Sketch", "Final Cut", "CapCut"],
   },
@@ -100,7 +95,7 @@ const skillCategories = [
     skills: ["HTML", "CSS", "JavaScript", "Tailwind CSS", "React", "Next.js", "Vercel", "GitHub"],
   },
   {
-    name: "Analytics",
+    name: "Analytics & Testing",
     icon: BarChart3,
     skills: ["GA4", "Hotjar", "Maze", "Amplitude", "Mixpanel", "FullStory", "Looker Studio", "Tableau"],
   },
@@ -108,6 +103,11 @@ const skillCategories = [
     name: "Collaboration",
     icon: Kanban,
     skills: ["Jira", "Asana", "Miro", "Notion", "Slack", "Loom", "FigJam", "Confluence", "Zoom"],
+  },
+  {
+    name: "AI & Automation",
+    icon: Sparkles,
+    skills: ["ChatGPT", "Claude", "Gemini", "Cursor", "Lovable", "v0", "Figma AI", "Adobe Firefly"],
   },
 ];
 
@@ -166,7 +166,7 @@ const experiences = [
       { label: "Trial Conversion", value: "+75%", icon: TrendingUp },
       { label: "Engagement Lift", value: "+40%", icon: Zap },
     ],
-    tags: ["Cybersecurity SaaS", "Human-in-the-loop AI", "Governance Systems"],
+    tags: ["Cybersecurity SaaS", "Enterprise Workflows", "Governance Systems"],
   },
   {
     id: "cisco",
@@ -284,7 +284,7 @@ export default function ExperienceSection() {
             Wen Liu
           </h2>
           <p className="text-lg text-slate-500 max-w-4xl leading-relaxed">
-            Senior Product Designer | AI-Native Product Design, UX Engineering & Enterprise Product Strategy
+            Senior Product Designer | Complex Systems, Enterprise Workflows & Implementation-Aware Design
           </p>
           <EmailWithCopyButton />
         </section>
@@ -504,7 +504,7 @@ export default function ExperienceSection() {
         <section id="toolkit" className="mt-24">
           <div className="mb-12 flex items-center gap-4">
             <h3 className="font-accent text-3xl font-extrabold tracking-tight text-slate-900">
-              AI-Native Design Practice & Toolkit
+              Design Practice & Toolkit
             </h3>
             <div className="h-px bg-slate-200 flex-1 mt-2" />
           </div>

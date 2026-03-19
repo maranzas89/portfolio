@@ -57,7 +57,7 @@ export default function PageHero({
       }}
     >
       {backgroundVariant === "ai-explorations" ? <HeroBackgroundFXAI /> : <HeroBackgroundFXEditorial />}
-      <div className={`hero-content-entrance relative z-10 flex-1 flex flex-col ${CONTENT_CONTAINER_CLASS} ${backgroundVariant === "ai-explorations" ? "justify-start pt-[34px] pb-[60px] md:pt-[2px] md:pb-[68px]" : "justify-center pt-32 pb-20 md:pt-40 md:pb-24"}`}>
+      <div className={`hero-content-entrance relative z-10 flex-1 flex flex-col ${CONTENT_CONTAINER_CLASS} ${backgroundVariant === "ai-explorations" ? "justify-start pt-[64px] pb-[60px] md:pt-[32px] md:pb-[68px]" : "justify-center pt-32 pb-20 md:pt-40 md:pb-24"}`}>
         {backgroundVariant === "ai-explorations" ? (
           <>
             <div className="flex flex-col lg:grid lg:grid-cols-[1fr_auto] gap-4 lg:gap-10 items-start lg:items-center">

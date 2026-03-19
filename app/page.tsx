@@ -7,7 +7,7 @@ import HeroBackgroundFX from "@/components/HeroBackgroundFX";
 import PlaybookMethodology from "@/components/PlaybookMethodology";
 import { WORK_SUB_LINKS, AI_SUB_LINKS, MAILTO_LETS_CONNECT } from "@/lib/nav-config";
 import { ResumeLink } from "@/components/ResumeLink";
-import AskWenShell from "@/components/portfolio-chat/AskWenShell";
+
 
 export default function Page() {
   const [scrolled, setScrolled] = useState(false);
@@ -57,7 +57,6 @@ export default function Page() {
             <a href="#" className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight uppercase text-text shrink-0">
               Wen Liu
             </a>
-            <AskWenShell />
           </div>
           {/* Desktop nav - hidden below 768px */}
           <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
@@ -65,7 +64,7 @@ export default function Page() {
               Work
             </a>
             <Link href="/ai-explorations" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
-              AI PROJECTS
+              EXPLORATIONS
             </Link>
             <Link href="/experience" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
               ABOUT ME
@@ -131,7 +130,7 @@ export default function Page() {
                   className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  AI PROJECTS
+                  EXPLORATIONS
                 </Link>
                 <div className="flex flex-col gap-8 ml-4 border-l-2 border-gray-200 pl-5">
                   {AI_SUB_LINKS.map(({ href, label }) => (
@@ -178,14 +177,14 @@ export default function Page() {
           <div>
             <div className="max-w-6xl">
               <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">
-                Product Design · AI-Assisted Prototyping · Systems Thinking · Implementation-Aware Design
+                Product Design · Complex Systems · Enterprise Workflows · Implementation-Aware Design
               </p>
               <h1 className="hero-title-gradient text-3xl md:text-4xl lg:text-5xl xl:text-[4rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
                 Hi, I&apos;m Wen,<br />
-                a product designer building AI-native product experiences
+                a product designer for complex systems and enterprise workflows
               </h1>
               <p className="text-base md:text-lg text-[rgba(232,238,249,0.82)] font-normal leading-relaxed mt-5 md:mt-6 mb-0 max-w-[1100px]">
-                I design and prototype product experiences across complex systems and enterprise workflows, using AI-assisted workflows to explore faster, validate earlier, and turn ideas into testable interfaces.
+                I turn ambiguity into product direction — designing across enterprise platforms, operational workflows, and data-rich systems with a focus on clarity, usability, and measurable outcomes.
               </p>
             </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 mb-0 w-full">
@@ -199,9 +198,9 @@ export default function Page() {
                 <div className="hero-card group">
                   <div className="flex items-center gap-3 mb-2.5">
                     <Sparkles className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-[#f6f7fb] font-bold text-base">AI-Assisted Prototyping</p>
+                    <p className="text-[#f6f7fb] font-bold text-base">Rapid Prototyping</p>
                   </div>
-                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Rapid prototype, test, validate ideas</p>
+                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Prototype, test, and validate early</p>
                 </div>
                 <div className="hero-card group">
                   <div className="flex items-center gap-3 mb-2.5">
@@ -400,10 +399,11 @@ export default function Page() {
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
           <div className="font-accent flex justify-between items-center text-sm font-semibold uppercase tracking-widest text-white/60">
             <p>© 2026 Wen Liu</p>
-            <p className="font-accent">Shaped with AI, craft, and product thinking</p>
+            <p className="font-accent">Shaped with craft, systems thinking, and product judgment</p>
           </div>
         </div>
       </footer>
+
     </div>
   );
 }

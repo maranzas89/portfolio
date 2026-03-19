@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { Inter, Quantico, Geist_Mono } from "next/font/google";
+import AskWenShell from "@/components/portfolio-chat/AskWenShell";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -60,6 +61,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         {children}
+        <AskWenShell />
         <Analytics />
         <Script
           src="https://mcp.figma.com/mcp/html-to-design/capture.js"
