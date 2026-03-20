@@ -4,9 +4,9 @@ import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
 const SUBNAV_ITEMS = [
-  { id: "ai-product-experiments", label: "Prototype Showcase" },
-  { id: "ai-design-workflow", label: "Design Methodology" },
-  { id: "ai-capability-benchmark", label: "Capability Benchmark" },
+  { id: "ai-design-workflow", label: "Design Workflow" },
+  { id: "ai-capability-benchmark", label: "Research & Benchmarks" },
+  { id: "ai-product-experiments", label: "Showcase" },
 ];
 
 const THRESHOLD = 180;

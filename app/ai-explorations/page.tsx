@@ -209,21 +209,22 @@ export default function AIExplorationsPage() {
       </PageHero>
 
       <main className="bg-white">
+        <AiMarketLandscapeWhiteModule />
         <div className="max-w-[1600px] mx-auto px-5 md:px-16 lg:px-24">
-          {/* Featured exploration grid */}
-          <section id="ai-product-experiments" className="scroll-mt-[260px] pt-12 md:pt-24 pb-[80px] md:pb-[146px]">
+          {/* Showcase grid */}
+          <section className="pt-12 md:pt-24 pb-[80px] md:pb-[146px]">
             <ScrollReveal direction="up" className="mb-10 md:mb-16">
-              <div className="mb-2 flex items-center gap-2">
+              <div id="ai-product-experiments" className="mb-2 flex items-center gap-2 scroll-mt-[190px]">
                 <Layout className="h-4 w-4 shrink-0 text-blue-600" />
                 <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                  01. Prototype Showcase
+                  03. Showcase
                 </h2>
               </div>
               <h3 className="mb-4 text-2xl font-semibold text-text md:text-4xl">
                 Prototypes for Testing Product Directions
               </h3>
               <p className="max-w-5xl text-base text-slate-600 md:text-lg">
-                Prototypes built to test product behavior, validate workflow assumptions, and explore implementation-aware directions. I use modern tools — including AI — to move faster from concept to testable interface.
+                Working prototypes that test workflow assumptions and product behavior.
               </p>
             </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -260,7 +261,7 @@ export default function AIExplorationsPage() {
                           {item.description}
                         </p>
                         <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
-                          View Project →
+                          View Demo →
                         </p>
                       </div>
                     </Link>
@@ -271,7 +272,6 @@ export default function AIExplorationsPage() {
           </section>
 
         </div>
-        <AiMarketLandscapeWhiteModule />
         <div className="h-[40px] md:h-[80px]" />
       </main>
 
@@ -293,7 +293,7 @@ export default function AIExplorationsPage() {
                 href="/#work"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/40 px-8 py-3 md:px-10 md:py-4 text-sm md:text-base font-semibold text-white transition hover:bg-white/10 hover:border-white/60 shrink-0"
               >
-                View Featured Work
+                View Featured Projects
                 <span aria-hidden>→</span>
               </Link>
             </div>

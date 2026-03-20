@@ -35,8 +35,7 @@ export default function Page() {
       requestAnimationFrame(() => {
         const el = document.getElementById("work");
         if (el) {
-          const top = el.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({ top, behavior: "smooth" });
+          el.scrollIntoView({ behavior: "smooth" });
         }
       });
     }
@@ -61,7 +60,7 @@ export default function Page() {
           {/* Desktop nav - hidden below 768px */}
           <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
             <a href="#work" className={`nav-link-underline hover:text-gray-700 transition-colors ${isWorkActive ? "active text-text" : "text-muted"}`}>
-              Work
+              Projects
             </a>
             <Link href="/ai-explorations" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
               EXPLORATIONS
@@ -109,7 +108,7 @@ export default function Page() {
                   className="font-accent text-muted font-semibold uppercase tracking-widest text-base block hover:text-gray-700 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Work
+                  Projects
                 </a>
                 <div className="flex flex-col gap-8 ml-4 border-l-2 border-gray-200 pl-5">
                   {WORK_SUB_LINKS.map(({ href, label }) => (
@@ -173,43 +172,41 @@ export default function Page() {
         }}
       >
         <HeroBackgroundFX />
-        <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-32 pb-16 md:pt-40 md:pb-20">
-          <div>
-            <div className="max-w-6xl">
+        <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-32 pb-16 md:pt-40 md:pb-20 text-center">
+          <div className="flex flex-col items-center">
+            <div className="w-full">
               <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">
                 Systems Thinking. Product Judgment. Fast Prototyping.
               </p>
-              <h1 className="hero-title-gradient text-3xl md:text-4xl lg:text-5xl xl:text-[4rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
+              <h1 className="text-white text-3xl md:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
                 Hi, I&apos;m Wen,<br />
-                a product designer for complex systems and enterprise workflows
+                a product designer for complex systems<br />
+                and enterprise workflows
               </h1>
-              <p className="text-base md:text-lg text-[rgba(232,238,249,0.82)] font-normal leading-relaxed mt-5 md:mt-6 mb-0 max-w-[1100px]">
-                I turn ambiguity into product direction — designing across enterprise platforms, operational workflows, and data-rich systems with a focus on clarity, usability, and measurable outcomes.
-              </p>
             </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 mb-0 w-full">
-                <div className="hero-card group">
+                <div className="hero-card group text-left">
                   <div className="flex items-center gap-3 mb-2.5">
                     <Layout className="w-5 h-5 text-blue-400 shrink-0" />
                     <p className="text-[#f6f7fb] font-bold text-base">Product Design</p>
                   </div>
                   <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Complex systems, workflows & platforms</p>
                 </div>
-                <div className="hero-card group">
+                <div className="hero-card group text-left">
                   <div className="flex items-center gap-3 mb-2.5">
                     <Sparkles className="w-5 h-5 text-blue-400 shrink-0" />
                     <p className="text-[#f6f7fb] font-bold text-base">Rapid Prototyping</p>
                   </div>
                   <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Prototype, test, and validate early</p>
                 </div>
-                <div className="hero-card group">
+                <div className="hero-card group text-left">
                   <div className="flex items-center gap-3 mb-2.5">
                     <GitBranch className="w-5 h-5 text-blue-400 shrink-0" />
                     <p className="text-[#f6f7fb] font-bold text-base">Systems Thinking</p>
                   </div>
                   <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Workflow logic & scalable system structure</p>
                 </div>
-                <div className="hero-card group">
+                <div className="hero-card group text-left">
                   <div className="flex items-center gap-3 mb-2.5">
                     <FileText className="w-5 h-5 text-blue-400 shrink-0" />
                     <p className="text-[#f6f7fb] font-bold text-base">Implementation-Aware</p>
@@ -217,20 +214,12 @@ export default function Page() {
                   <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Front-end fluency, dev collaboration</p>
                 </div>
               </div>
-              <div className="relative z-20 flex flex-wrap items-center gap-4 md:gap-[18px] mt-8">
-                <a
-                  href={MAILTO_LETS_CONNECT}
-                  className="inline-block cursor-pointer rounded-[14px] bg-[#2563ff] px-10 py-5 text-lg font-bold text-white transition hover:bg-[#1d4ed8]"
-                  aria-label="Open email to connect"
-                >
-                  Let&apos;s talk
-                </a>
+              <div className="relative z-20 flex justify-center mt-8">
                 <a
                   href="#work"
-                  className="nav-link-underline nav-link-gradient-hover-dark inline-flex items-center gap-2 text-white font-semibold text-base transition-colors"
+                  className="inline-block cursor-pointer rounded-[14px] bg-[#2563ff] px-10 py-5 text-lg font-bold text-white transition hover:bg-[#1d4ed8]"
                 >
-                  View Featured Work
-                  <span className="inline-block" aria-hidden>↓</span>
+                  View Featured Projects
                 </a>
               </div>
             </div>
@@ -241,47 +230,49 @@ export default function Page() {
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
         {/* Work Section */}
         <section
-          id="work"
           ref={workSectionRef}
-          className="relative overflow-visible py-32 scroll-mt-[80px]"
+          className="relative overflow-visible py-32"
         >
-          <div className="relative z-10 mb-20 bg-transparent">
+          <div id="work" className="relative z-10 mb-20 bg-transparent scroll-mt-[130px]">
             <span className="font-accent text-sm font-semibold uppercase tracking-widest text-muted block mb-6">
-              Featured Work
+              Featured Projects
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text">
               Design that gets results
             </h2>
           </div>
           <div className="relative z-10 flex flex-col gap-12 md:gap-16 bg-transparent">
-            {/* Project 1: Calbright (图在右) */}
+            {/* Project 1: DiDi (图在右) */}
             <a
-              href="/work/calbright/student-portal"
+              href="/work/didi"
               className="feature-card bg-card rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
             >
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
                 <div>
                   <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 leading-snug">
-                    Shaping a More Guided Student Portal Experience
+                    DiDi · EagleEye Endpoint Protection Platform
                   </h3>
                   <p className="text-muted leading-relaxed font-light text-base md:text-lg">
-                    Designing a more supportive student experience around clarity, action, and progress—helping learners better understand what matters, what comes next, and how to move forward.
+                    Designed investigation and governance workflows for an
+                    enterprise security platform. Turned ML threat signals into
+                    triage and response interfaces that analysts use during
+                    live incidents.
                   </p>
                 </div>
                 <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
                   <span className="font-accent text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
-                    8k+
+                    +75%
                   </span>
                   <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
-                    Students supported statewide<br />across learning programs
+                    Increase in enterprise trial-to-paid<br />conversion performance
                   </span>
                 </div>
               </div>
-              <div className="flex-1 w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
+              <div className="flex-1 w-full bg-white rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
                 <img
-                  src="/images/calbright/calbright-landing.svg"
-                  alt="Calbright Student Portal redesigned dashboard"
-                  className="absolute inset-0 w-full h-full object-cover object-[30%_center] bg-[#8a9bb8] group-hover:scale-[1.05] transition-transform duration-500"
+                  src="/images/didi/eagleeye-dashboard.png"
+                  alt="EagleEye enterprise security platform dashboard"
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.05] transition-transform duration-500"
                 />
               </div>
             </a>
@@ -320,37 +311,34 @@ export default function Page() {
               </div>
             </a>
 
-            {/* Project 3: DiDi (图在右) */}
+            {/* Project 3: Calbright Student Portal (图在右) */}
             <a
-              href="/work/didi"
+              href="/work/calbright/student-portal"
               className="feature-card bg-card rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
             >
               <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
                 <div>
                   <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 leading-snug">
-                    DiDi · EagleEye Endpoint Protection Platform
+                    Shaping a More Guided Student Portal Experience
                   </h3>
                   <p className="text-muted leading-relaxed font-light text-base md:text-lg">
-                    Designed investigation and governance workflows for an
-                    enterprise security platform. Turned ML threat signals into
-                    triage and response interfaces that analysts use during
-                    live incidents.
+                    Designing a more supportive student experience around clarity, action, and progress—helping learners better understand what matters, what comes next, and how to move forward.
                   </p>
                 </div>
                 <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
                   <span className="font-accent text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
-                    +75%
+                    8k+
                   </span>
                   <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
-                    Increase in enterprise trial-to-paid<br />conversion performance
+                    Students supported statewide<br />across learning programs
                   </span>
                 </div>
               </div>
-              <div className="flex-1 w-full bg-white rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
+              <div className="flex-1 w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
                 <img
-                  src="/images/didi/eagleeye-dashboard.png"
-                  alt="EagleEye enterprise security platform dashboard"
-                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.05] transition-transform duration-500"
+                  src="/images/calbright/calbright-landing.svg"
+                  alt="Calbright Student Portal redesigned dashboard"
+                  className="absolute inset-0 w-full h-full object-cover object-[30%_center] bg-[#8a9bb8] group-hover:scale-[1.05] transition-transform duration-500"
                 />
               </div>
             </a>

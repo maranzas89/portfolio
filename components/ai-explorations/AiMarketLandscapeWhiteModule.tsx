@@ -991,21 +991,21 @@ export default function AiMarketLandscapeWhiteModule() {
     <section className="w-full py-14 md:py-16">
       <div className="mx-auto w-full max-w-[1600px] px-8 md:px-16 lg:px-24">
         <div className="space-y-10">
-          <div id="ai-design-workflow" className="scroll-mt-[260px]">
+          <div>
             <ScrollReveal direction="up">
-              <div className="mb-5">
+              <div id="ai-design-workflow" className="mb-5 scroll-mt-[190px]">
                 <div className="mb-2 flex items-center gap-2">
                   <Layout className="h-4 w-4 shrink-0 text-blue-600" />
                   <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                    <span className="md:hidden">02. Full Design Methodology</span>
-                    <span className="hidden md:inline">02. Full Design Methodology</span>
+                    <span className="md:hidden">01. Design Workflow</span>
+                    <span className="hidden md:inline">01. Design Workflow</span>
                   </h2>
                 </div>
                 <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
                   Designing the Product System Before Building the Interface
                 </h3>
-                <p className="text-base text-slate-600 md:text-lg md:whitespace-nowrap">
-                  A workflow I use to clarify product logic, shape interface direction, and define modular build paths before anything gets implemented.
+                <p className="text-base text-slate-600 md:text-lg">
+                  How I clarify product logic and define build paths before implementation.
                 </p>
               </div>
             </ScrollReveal>
@@ -1014,21 +1014,20 @@ export default function AiMarketLandscapeWhiteModule() {
             </ScrollReveal>
           </div>
 
-          <div id="ai-capability-benchmark" className="scroll-mt-[260px] mt-20 md:mt-32">
+          <div className="mt-20 md:mt-32">
           <ScrollReveal direction="up">
-            <div className="mb-10">
+            <div id="ai-capability-benchmark" className="mb-10 scroll-mt-[190px]">
               <div className="mb-2 flex items-center gap-2">
               <Layout className="h-4 w-4 shrink-0 text-blue-600" />
               <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                03. AI Capability Benchmark
+                02. Research & Benchmarks
               </h2>
             </div>
             <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
               Evaluating AI Tools for Real Prototyping & Workflow Reliability
             </h3>
-            <p className="text-base text-slate-600 md:text-lg md:whitespace-nowrap">
-              Not a generic tools roundup — a structured benchmark to decide which systems are reliable
-              enough to support real product prototyping, validation, and workflow design.
+            <p className="text-base text-slate-600 md:text-lg">
+              Structured benchmarks on which AI tools actually hold up in real product work.
             </p>
             </div>
           </ScrollReveal>

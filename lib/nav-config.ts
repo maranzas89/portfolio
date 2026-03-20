@@ -1,20 +1,20 @@
 export const NAV_LINKS = [
-  { href: "/#work", label: "Work" },
+  { href: "/#work", label: "Projects" },
   { href: "/ai-explorations", label: "EXPLORATIONS" },
   { href: "/experience", label: "ABOUT ME" },
   { href: "/kind-words", label: "Kind Words" },
 ] as const;
 
 export const WORK_SUB_LINKS = [
-  { href: "/work/calbright/student-portal", label: "Student Portal Redesign" },
-  { href: "/work/calbright/staff-portal", label: "Staff Portal 0→1" },
   { href: "/work/didi", label: "DiDi EagleEye" },
+  { href: "/work/calbright/staff-portal", label: "Staff Portal 0→1" },
+  { href: "/work/calbright/student-portal", label: "Student Portal Redesign" },
 ] as const;
 
 export const AI_SUB_LINKS = [
-  { href: "/ai-explorations#ai-product-experiments", label: "Prototype Showcase" },
-  { href: "/ai-explorations#ai-design-workflow", label: "Design Methodology" },
-  { href: "/ai-explorations#ai-capability-benchmark", label: "Capability Benchmark" },
+  { href: "/ai-explorations#ai-design-workflow", label: "Design Workflow" },
+  { href: "/ai-explorations#ai-capability-benchmark", label: "Research & Benchmarks" },
+  { href: "/ai-explorations#ai-product-experiments", label: "Showcase" },
 ] as const;
 
 /** Pre-filled mailto link for "Let's connect" CTAs. Opens default email app with recipient, subject, and body. */

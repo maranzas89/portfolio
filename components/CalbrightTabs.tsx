@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 export const CALBRIGHT_TABS = [
-  { id: "student-portal", label: "Student Portal Redesign", href: "/work/calbright/student-portal" },
-  { id: "staff-portal", label: "Staff Portal 0→1", href: "/work/calbright/staff-portal" },
-  { id: "ai-works", label: "AI Works", href: "/work/calbright/ai-works" },
   { id: "didi-eagleeye", label: "DiDi EagleEye", href: "/work/didi" },
+  { id: "staff-portal", label: "Staff Portal 0→1", href: "/work/calbright/staff-portal" },
+  { id: "student-portal", label: "Student Portal Redesign", href: "/work/calbright/student-portal" },
+  { id: "ai-works", label: "AI Works", href: "/work/calbright/ai-works" },
 ];
 
 export default function CalbrightTabs({ linksOnly = false }: { linksOnly?: boolean }) {

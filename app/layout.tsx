@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Analytics } from "@vercel/analytics/next";
+import ConditionalAnalytics from "@/components/ConditionalAnalytics";
 import { Inter, Quantico, Geist_Mono } from "next/font/google";
 import AskWenShell from "@/components/portfolio-chat/AskWenShell";
 import "./globals.css";
@@ -62,7 +62,7 @@ export default function RootLayout({
         />
         {children}
         <AskWenShell />
-        <Analytics />
+        <ConditionalAnalytics />
         <Script
           src="https://mcp.figma.com/mcp/html-to-design/capture.js"
           strategy="afterInteractive"

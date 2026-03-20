@@ -5,9 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const TABS = [
-  { id: "student-portal", label: "Student Portal Redesign", href: "/work/calbright/student-portal" },
-  { id: "staff-portal", label: "Staff Portal 0→1", href: "/work/calbright/staff-portal" },
   { id: "didi-eagleeye", label: "DiDi EagleEye", href: "/work/didi" },
+  { id: "staff-portal", label: "Staff Portal 0→1", href: "/work/calbright/staff-portal" },
+  { id: "student-portal", label: "Student Portal Redesign", href: "/work/calbright/student-portal" },
 ];
 
 export default function CalbrightCaseStudyTabs() {
@@ -36,7 +36,7 @@ export default function CalbrightCaseStudyTabs() {
       <div className="max-w-[1600px] mx-auto w-full px-4 sm:px-6 md:px-16 lg:px-24 py-3 md:py-4 flex justify-between items-center">
         <nav aria-label="Breadcrumb" className="text-sm">
           <Link href="/#work" className="text-muted hover:text-blue-600 transition-colors font-semibold">
-            Work
+            Projects
           </Link>
           {activeTab && (
             <>

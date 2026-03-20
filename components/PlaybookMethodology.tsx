@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import { Compass, Target, Lightbulb, Layers, RefreshCw, Activity } from "lucide-react";
 
 const steps = [
@@ -93,30 +92,14 @@ export default function PlaybookMethodology() {
 
       <div className="max-w-[1600px] w-full mx-auto px-8 md:px-16 lg:px-24 relative z-10 flex flex-col items-start">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10 md:mb-12 w-full">
-          <div className="text-left flex-1 min-w-0">
-            <div className="font-accent inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs mb-6 backdrop-blur-md">
-              <Activity size={14} className="animate-pulse" />
-              <span>Product Design Methodology</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white">
-              From{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600">Ambiguity</span> to
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500"> Product Clarity</span>
-            </h2>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              Design is a rigorous process to solve complex problems.
-              <br />
-              <span className="md:whitespace-nowrap">My methodology turns complexity into clear product direction through research, systems thinking, and iterative validation.</span>
-            </p>
+        <div className="flex flex-col items-center gap-6 mb-10 md:mb-12 w-full text-center">
+          <div className="font-accent inline-flex items-center gap-3 px-7 py-3 rounded-full bg-white/5 border border-white/20 text-white text-base mb-6 backdrop-blur-md">
+            <Activity size={18} className="animate-pulse" />
+            <span>Core Design Methodology</span>
           </div>
-          <Link
-            href="/ai-explorations#ai-design-workflow"
-            className="inline-flex items-center justify-center gap-2 shrink-0 rounded-xl border-2 border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10 hover:border-white/60 whitespace-nowrap md:-translate-y-[16px]"
-          >
-            View Full Methodology
-            <span aria-hidden>→</span>
-          </Link>
+          <h2 className="text-4xl md:text-5xl lg:text-[3.25rem] xl:text-6xl font-semibold mb-6 tracking-tight text-white">
+            From Ambiguity to Product Clarity
+          </h2>
         </div>
 
         {/* Methodology Interactive Visualizer */}

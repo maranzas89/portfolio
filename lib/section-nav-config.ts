@@ -46,9 +46,9 @@ export const DIDI_SECTIONS: SectionItem[] = [
 ];
 
 export const AI_EXPLORATIONS_SECTIONS: SectionItem[] = [
-  { id: "ai-product-experiments", label: "01. Prototype Showcase" },
-  { id: "ai-design-workflow", label: "02. Design Methodology" },
-  { id: "ai-capability-benchmark", label: "03. Capability Benchmark" },
+  { id: "ai-design-workflow", label: "01. Design Workflow" },
+  { id: "ai-capability-benchmark", label: "02. Research & Benchmarks" },
+  { id: "ai-product-experiments", label: "03. Showcase" },
 ];
 
 export const EXPERIENCE_SECTIONS: SectionItem[] = [

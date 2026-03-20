@@ -202,7 +202,7 @@ export default function KindWordsPage() {
                     href="/#work"
                     className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/40 px-10 py-4 text-base font-semibold text-white transition hover:bg-white/10 hover:border-white/60 shrink-0"
                   >
-                    View Featured Work
+                    View Featured Projects
                     <span aria-hidden>→</span>
                   </Link>
                 </div>

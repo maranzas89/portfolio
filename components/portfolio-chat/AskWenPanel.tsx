@@ -317,7 +317,7 @@ export default function AskWenPanel({
             <div className="flex items-center gap-2.5">
               <Compass className="h-5 w-5 text-blue-400" strokeWidth={2.5} />
               <h2 className="text-lg font-bold text-white tracking-[-0.01em]">
-                Explore Wen&apos;s Work
+                Explore Wen&apos;s Projects
               </h2>
             </div>
           </div>
