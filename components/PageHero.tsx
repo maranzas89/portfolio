@@ -13,7 +13,7 @@ import { ResumeLink } from "@/components/ResumeLink";
 type CtaItem = { label: string; href: string; download?: boolean | string };
 type PageHeroProps = {
   eyebrow: React.ReactNode;
-  headline: string;
+  headline: React.ReactNode;
   paragraph: string;
   avatar?: string;
   primaryCta?: CtaItem;
@@ -57,13 +57,13 @@ export default function PageHero({
       }}
     >
       {backgroundVariant === "ai-explorations" ? <HeroBackgroundFXAI /> : <HeroBackgroundFXEditorial />}
-      <div className={`hero-content-entrance relative z-10 flex-1 flex flex-col ${CONTENT_CONTAINER_CLASS} ${backgroundVariant === "ai-explorations" ? "justify-start pt-[64px] pb-[60px] md:pt-[32px] md:pb-[68px]" : "justify-center pt-32 pb-20 md:pt-40 md:pb-24"}`}>
+      <div className={`hero-content-entrance relative z-10 flex-1 flex flex-col ${CONTENT_CONTAINER_CLASS} ${backgroundVariant === "ai-explorations" ? "justify-start pt-[44px] pb-[60px] md:pt-[12px] md:pb-[68px]" : "justify-center pt-32 pb-20 md:pt-40 md:pb-24"}`}>
         {backgroundVariant === "ai-explorations" ? (
           <>
-            <div className="flex flex-col lg:grid lg:grid-cols-[1fr_auto] gap-4 lg:gap-10 items-start lg:items-center">
-              <div className="min-w-0 max-w-5xl">
+            <div className="flex flex-col lg:grid lg:grid-cols-[2fr_auto] gap-4 lg:gap-6 items-start lg:items-center">
+              <div className="min-w-0">
                 <p className="font-accent text-sm font-semibold tracking-widest text-white/60 uppercase mb-3">{eyebrow}</p>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight text-white mb-4">
+                <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] xl:text-6xl font-semibold tracking-tight leading-tight text-white mb-4">
                   {headline}
                 </h1>
                 <p className={`${paragraphClass} ${hasCtas ? "mb-0" : ""}`}>{paragraph}</p>

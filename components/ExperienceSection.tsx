@@ -87,7 +87,7 @@ const skillCategories = [
   {
     name: "Design & Prototyping",
     icon: PenTool,
-    skills: ["Figma (Dev Mode, Variables, AI)", "Adobe XD", "Adobe CC", "Axure RP", "Sketch", "Final Cut", "CapCut"],
+    skills: ["Figma (Dev Mode, Variables, AI)", "Adobe XD", "Adobe CC", "Axure RP", "Sketch"],
   },
   {
     name: "Front-End & Dev",
@@ -115,32 +115,30 @@ const experiences = [
   {
     id: "calbright",
     company: "Calbright College",
+    companyFull: "Calbright College - Statewide Digital Learning Platform",
     logoIcon: GraduationCap,
     logoImg: "/images/calbright-logo.png",
     logoColor: "from-blue-500 to-indigo-500",
     logoBg: "bg-white",
     logoTextColor: "text-blue-600",
     role: "Senior UI/UX Designer",
-    scope: "(Operating at Staff-Level Scope)",
-    date: "05/2023 - Present",
+    scope: "(Sole Designer, Staff-Level Scope)",
+    date: "May 2023 - Present",
     description:
-      "Statewide Digital Learning Platform serving 8,000+ students and 200+ staff users.",
+      "Scaled from ~2,000 to 8,000+ students and 3 to 7 programs in under 2 years.",
     metrics: [
       { label: "Hotjar satisfaction", value: "4.6 / 5", icon: BarChart3 },
       { label: "Engagement rate", value: "67%", icon: Zap },
-      { label: "Staff Faster time-to-action", value: "35%", icon: TrendingUp },
-      { label: "Faster common-case actions", value: "30%", icon: Sparkles },
+      { label: "Staff time-to-action", value: "+35%", icon: TrendingUp },
+      { label: "Common-case actions", value: "+30%", icon: Sparkles },
     ],
     highlights: [
-      "Led 0→1 redesign of Student Journey lifecycle architecture across a multi-program institution serving 8,000+ students and 200+ staff users statewide, improving enrollment and engagement in competency training programs.",
-      "Designed AI-assisted recommendation workflows, translating behavioral signals and performance data into adaptive academic pathways across multiple certificate tracks.",
-      "Replaced legacy Salesforce CRM with a custom Staff Portal supporting cross-functional teams across Academic Operations, Student Services, and Leadership.",
-      "Established a hypothesis-driven product discovery framework adopted across Product and Engineering.",
-      "Partnered directly with executive leadership to align UX strategy with institutional and regulatory objectives.",
-      "Worked in an Agile / Scrum environment with PM and Engineering leadership.",
-      "Shaped product direction through cross-functional leadership forums and executive reviews.",
+      "Rebuilt student journey into adaptive, signal-driven pathways. Faster common-case actions by 30%.",
+      "Supported DEAC accreditation and credit-bearing program transition.",
+      "Replaced Salesforce CRM with a custom Staff Portal. Staff time-to-action improved 35%.",
+      "Introduced Credit for Prior Learning and state compliance reporting.",
     ],
-    tags: ["0-1 Redesign", "AI Recommendations", "Workflow Architecture", "Agile/Scrum"],
+    tags: ["0→1 Redesign", "Workflow Architecture", "Accreditation", "Staff Portal"],
   },
   {
     id: "didi",
@@ -151,22 +149,22 @@ const experiences = [
     logoBg: "bg-white",
     logoTextColor: "text-blue-600",
     role: "UX Design Lead / Design Expert",
-    scope: "(Promoted within 1.5 years)",
-    date: "04/2020 - 05/2023",
+    scope: "(Sole designer, Promoted in 1.5 yrs)",
+    date: "Apr 2020 - May 2023",
     description:
-      "Enterprise cybersecurity SaaS platform spanning threat monitoring, incident response, and governance.",
+      "Built foundational design language. Grew team to 2 designers + 1 product intern.",
     highlights: [
-      "Led design strategy for enterprise cybersecurity SaaS platform spanning threat monitoring, incident response, and governance systems.",
-      "Designed human-in-the-loop AI workflows, translating machine learning threat models into explainable security operations interfaces.",
-      "Architected scalable permission models and governance systems for enterprise deployment.",
-      "Increased enterprise trial conversion by 75% through systemic onboarding redesign and behavioral funnel optimization.",
-      "Influenced roadmap prioritization through KPI analysis, usability testing, and cross-functional collaboration.",
+      "EagleEye — Evolved a single DLP tool into a five-hub security platform. +75% trial conversion, +40% engagement lift.",
+      "Translated ML threat models into explainable operator interfaces.",
+      "Led junior team shipping a real-time security monitoring dashboard.",
+      "IDR — Launched live incident detection platform with automated reporting.",
+      "DiDi International Privacy Center — Created a global breach monitoring platform with real-time incident tracking.",
     ],
     metrics: [
       { label: "Trial Conversion", value: "+75%", icon: TrendingUp },
       { label: "Engagement Lift", value: "+40%", icon: Zap },
     ],
-    tags: ["Cybersecurity SaaS", "Enterprise Workflows", "Governance Systems"],
+    tags: ["DLP → Security Platform", "Incident Response", "Privacy Center"],
   },
   {
     id: "cisco",
@@ -177,22 +175,21 @@ const experiences = [
     logoBg: "bg-white",
     logoTextColor: "text-blue-600",
     role: "Senior UI/UX Designer",
-    scope: "",
-    date: "06/2015 - 04/2020",
-    description: "AI-driven Network Assurance Engine, an enterprise network intelligence platform.",
+    scope: "(4-person design team)",
+    date: "Jun 2015 - Apr 2020",
+    description: "Co-built shared component library. Worked across three products.",
     highlights: [
-      "Led design strategy for enterprise cybersecurity SaaS platform spanning threat monitoring, incident response, and governance systems.",
-      "Designed human-in-the-loop AI workflows, translating machine learning threat models into explainable security operations interfaces.",
-      "Architected scalable permission models and governance systems for enterprise deployment.",
-      "Increased enterprise trial conversion by 75% through systemic onboarding redesign and behavioral funnel optimization.",
-      "Influenced roadmap prioritization through KPI analysis, usability testing, and cross-functional collaboration.",
+      "CNAE — Core designer for Radial View, dashboard, and search token experience. +25% operational efficiency, -20% task time.",
+      "Contributed to product line generating $15M+ in revenue. Featured at Cisco Live keynote.",
+      "CLN — Built a CCIE/CCNA certification platform — first deep EdTech experience, through-line to Calbright.",
+      "Atlas — Network ops platform translating telemetry into actionable dashboards. Feature deployment accelerated 30%.",
     ],
     metrics: [
       { label: "Operational Efficiency", value: "+25%", icon: TrendingUp },
       { label: "Task Time", value: "-20%", icon: Zap },
       { label: "Revenue Impact", value: "$15M+", icon: Sparkles },
     ],
-    tags: ["Telemetry Dashboards", "Design System", "Anomaly Detection"],
+    tags: ["Telemetry Dashboards", "Design System", "EdTech", "Network Ops"],
   },
 ];
 
@@ -224,7 +221,7 @@ function PdfPreviewContainer() {
   );
 }
 
-const EMAIL = "williamliu_1989@hotmail.com";
+const EMAIL = "wenliu.ux@gmail.com";
 
 function EmailWithCopyButton() {
   const [copied, setCopied] = useState(false);
@@ -284,7 +281,7 @@ export default function ExperienceSection() {
             Wen Liu
           </h2>
           <p className="text-lg text-slate-500 max-w-4xl leading-relaxed">
-            Senior Product Designer | Complex Systems, Enterprise Workflows & Implementation-Aware Design
+            Senior Product Designer — Complex Enterprise Systems · Workflow Architecture · Product Strategy
           </p>
           <EmailWithCopyButton />
         </section>
@@ -389,7 +386,9 @@ export default function ExperienceSection() {
                       <div className="flex flex-col xl:flex-row xl:justify-between xl:items-start gap-4 mb-6">
                         <div>
                           <h3 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-3">
-                            {exp.company}
+                            {"companyFull" in exp && exp.companyFull ? (
+                              <>{exp.company}<span className="hidden md:inline"> - {exp.companyFull.split(" - ")[1]}</span></>
+                            ) : exp.company}
                           </h3>
                           <div className="mt-2 flex flex-wrap items-center gap-2 text-slate-600 font-medium">
                             <span className="text-blue-600">{exp.role}</span>
@@ -407,7 +406,7 @@ export default function ExperienceSection() {
                         </div>
                       </div>
 
-                      <p className="text-slate-500 mb-6 text-sm md:text-base">{exp.description}</p>
+                      <p className="text-slate-600 mb-6 text-sm md:text-base italic font-semibold">{exp.description}</p>
 
                       {exp.metrics && (
                         <div className="flex flex-wrap gap-3 mb-6">
@@ -472,13 +471,18 @@ export default function ExperienceSection() {
 
             <div className="flex-1 min-w-0">
               <div className="bg-white rounded-3xl p-6 md:p-8 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default">
-                <h4 className="text-xl font-bold text-slate-900 tracking-tight mb-3">
-                  Early Career
-                </h4>
+                <div className="flex flex-col xl:flex-row xl:justify-between xl:items-start gap-4 mb-3">
+                  <h4 className="text-xl font-bold text-slate-900 tracking-tight">
+                    Early Career
+                  </h4>
+                  <div className="flex items-center gap-2 text-sm text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100 shrink-0 w-fit">
+                    <Calendar size={14} />
+                    <span className="font-medium">Jun 2011 - Jun 2015</span>
+                  </div>
+                </div>
 
                 <p className="text-sm md:text-base text-slate-500 leading-relaxed mb-6">
                   UX roles across EdTech and enterprise platforms, including Tynker, SunSpec Alliance, New Cyberian Systems and Global Courier Express.
-                  Developed foundation in onboarding flows, data-heavy interfaces, enterprise dashboards, and stakeholder collaboration.
                 </p>
 
                 <div className="flex flex-col gap-2 pt-6 border-t border-slate-100 md:flex-row md:flex-wrap md:items-center">

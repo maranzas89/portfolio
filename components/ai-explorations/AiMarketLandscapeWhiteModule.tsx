@@ -997,16 +997,15 @@ export default function AiMarketLandscapeWhiteModule() {
                 <div className="mb-2 flex items-center gap-2">
                   <Layout className="h-4 w-4 shrink-0 text-blue-600" />
                   <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                    <span className="md:hidden">02. AI Design Methodology</span>
-                    <span className="hidden md:inline">02. AI Design Methodology</span>
+                    <span className="md:hidden">02. Full Design Methodology</span>
+                    <span className="hidden md:inline">02. Full Design Methodology</span>
                   </h2>
                 </div>
                 <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
                   Designing the Product System Before Building the Interface
                 </h3>
                 <p className="text-base text-slate-600 md:text-lg md:whitespace-nowrap">
-                  A practical workflow for using AI to clarify product logic, shape interface direction,
-                  define modular build paths, and reduce ambiguity before implementation.
+                  A workflow I use to clarify product logic, shape interface direction, and define modular build paths before anything gets implemented.
                 </p>
               </div>
             </ScrollReveal>
