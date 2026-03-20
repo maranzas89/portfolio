@@ -184,26 +184,26 @@ export default function AIExplorationsPage() {
         paragraph="Selected explorations across workflow design, interface prototyping, and early-stage product investigation — showing how I turn emerging ideas into testable structures and working concepts."
         backgroundVariant="ai-explorations"
       >
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 -mt-[30px] w-full max-w-5xl">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 -mt-[30px] w-full max-w-6xl">
           <div className="hero-card group p-3 sm:p-5 rounded-xl">
             <Box className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mb-2 sm:mb-3" />
             <h3 className="font-semibold text-xl sm:text-2xl text-white mb-1">6–7</h3>
-            <p className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide font-medium">Solo Prototypes</p>
+            <p className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide font-medium">End-to-End Prototypes</p>
+          </div>
+          <div className="hero-card group p-3 sm:p-5 rounded-xl">
+            <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mb-2 sm:mb-3" />
+            <h3 className="font-semibold text-xl sm:text-2xl text-white mb-1">3+</h3>
+            <p className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide font-medium">Reusable Design Frameworks</p>
           </div>
           <div className="hero-card group p-3 sm:p-5 rounded-xl">
             <Wrench className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mb-2 sm:mb-3" />
             <h3 className="font-semibold text-xl sm:text-2xl text-white mb-1">10+</h3>
-            <p className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide font-medium">Tools in Practice</p>
-          </div>
-          <div className="hero-card group p-3 sm:p-5 rounded-xl">
-            <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mb-2 sm:mb-3" />
-            <h3 className="font-semibold text-xl sm:text-2xl text-white mb-1">4</h3>
-            <p className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide font-medium">Domain Areas Explored</p>
+            <p className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide font-medium">Tools & Workflows Integrated</p>
           </div>
           <div className="hero-card group p-3 sm:p-5 rounded-xl">
             <RefreshCw className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mb-2 sm:mb-3" />
-            <h3 className="font-semibold text-xl sm:text-2xl text-white mb-1">20+</h3>
-            <p className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide font-medium">Concepts Tested</p>
+            <h3 className="font-semibold text-xl sm:text-2xl text-white mb-1">30+</h3>
+            <p className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide font-medium">Design Iterations Shipped</p>
           </div>
         </div>
       </PageHero>
