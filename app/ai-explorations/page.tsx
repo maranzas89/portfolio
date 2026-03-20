@@ -72,7 +72,7 @@ const EXPLORATIONS = [
     mobileImageClass: "object-cover object-top",
     backText: "",
     backHighlights: [],
-    href: "https://des.wensproject.com",
+    href: "/ai-explorations/liquid",
     figmaHref: "",
   },
   {
