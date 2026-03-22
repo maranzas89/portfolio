@@ -176,7 +176,7 @@ export default function Page() {
         <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-[98px] pb-8 md:pt-[130px] md:pb-10 text-center">
           <div className="flex flex-col items-center">
             <div className="w-full">
-              <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">
+              <p className="font-accent text-[13px] md:text-[14px] text-white/60 font-medium tracking-[0.2em] uppercase mb-5">
                 Systems Thinking. Product Judgment. Fast Prototyping.
               </p>
               <h1 className="text-white text-3xl md:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
@@ -188,22 +188,22 @@ export default function Page() {
                 <div className="text-center rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] px-6 py-5 transition-transform duration-300 hover:-translate-y-1 cursor-default">
                   <p className="font-accent text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">+75%</p>
                   <p className="text-white/80 text-sm font-medium mt-2 tracking-wide uppercase">Trial Conversion</p>
-                  <p className="text-white/70 text-xs mt-1">DiDi</p>
+                  <p className="text-white/70 text-[11px] font-medium mt-1">DiDi</p>
                 </div>
                 <div className="text-center rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] px-6 py-5 transition-transform duration-300 hover:-translate-y-1 cursor-default">
                   <p className="font-accent text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">8K+</p>
                   <p className="text-white/80 text-sm font-medium mt-2 tracking-wide uppercase">Users Scaled</p>
-                  <p className="text-white/70 text-xs mt-1">Calbright</p>
+                  <p className="text-white/70 text-[11px] font-medium mt-1">Calbright</p>
                 </div>
                 <div className="text-center rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] px-6 py-5 transition-transform duration-300 hover:-translate-y-1 cursor-default">
                   <p className="font-accent text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">35%</p>
                   <p className="text-white/80 text-sm font-medium mt-2 tracking-wide uppercase">Efficiency Gains</p>
-                  <p className="text-white/70 text-xs mt-1">Calbright</p>
+                  <p className="text-white/70 text-[11px] font-medium mt-1">Calbright</p>
                 </div>
                 <div className="text-center rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] px-6 py-5 transition-transform duration-300 hover:-translate-y-1 cursor-default">
                   <p className="font-accent text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">$15M+</p>
                   <p className="text-white/80 text-sm font-medium mt-2 tracking-wide uppercase">Product Revenue</p>
-                  <p className="text-white/70 text-xs mt-1">Cisco</p>
+                  <p className="text-white/70 text-[11px] font-medium mt-1">Cisco</p>
                 </div>
               </div>
               <div className="relative z-20 flex justify-center mt-8">
@@ -223,7 +223,7 @@ export default function Page() {
         {/* Work Section */}
         <section
           ref={workSectionRef}
-          className="relative overflow-visible pt-16 pb-32"
+          className="relative overflow-visible pt-8 pb-32"
         >
           <div id="work" className="relative z-10 mb-12 bg-transparent scroll-mt-[130px]">
             <span className="font-accent text-sm font-semibold uppercase tracking-widest text-muted block mb-6">
@@ -325,6 +325,38 @@ export default function Page() {
                   </span>
                   <span className="text-sm text-muted max-w-[140px] leading-snug block">
                     Staff workflow efficiency gains
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            {/* Project 4: AI Explorations (image dominant) */}
+            <a
+              href="/ai-explorations"
+              className="feature-card bg-card rounded-[40px] p-6 md:p-8 lg:p-10 flex flex-col cursor-pointer group transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-gray-400 block"
+            >
+              <div className="w-full bg-gray-100 rounded-[24px] overflow-hidden aspect-[16/9] relative mb-6">
+                <img
+                  src="/images/AI_explore.jpg"
+                  alt="AI Explorations — prototyping and design iterations"
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
+                />
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5 leading-snug">
+                    Shaping Product Direction Through AI Prototyping
+                  </h3>
+                  <p className="text-muted font-light text-base md:text-lg leading-relaxed">
+                    Turned early ideas into testable concepts through rapid explorations, interface prototypes, and workflow experiments.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="font-accent text-5xl md:text-6xl font-medium tracking-tighter leading-none text-text">
+                    30+
+                  </span>
+                  <span className="text-sm text-muted max-w-[140px] leading-snug block">
+                    Design iterations shipped
                   </span>
                 </div>
               </div>
