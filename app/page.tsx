@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Layout, Sparkles, GitBranch, FileText, Menu, X } from "lucide-react";
-import HeroBackgroundFX from "@/components/HeroBackgroundFX";
+import { Menu, X } from "lucide-react";
 import PlaybookMethodology from "@/components/PlaybookMethodology";
+import HeroBackgroundFX from "@/components/HeroBackgroundFX";
+
 import { WORK_SUB_LINKS, AI_SUB_LINKS, MAILTO_LETS_CONNECT } from "@/lib/nav-config";
 import { ResumeLink } from "@/components/ResumeLink";
 
@@ -165,53 +166,44 @@ export default function Page() {
 
       {/* Hero Section - FX background */}
       <header
-        className="relative overflow-hidden min-h-[592px] border-b border-white/14 isolate"
+        className="relative overflow-hidden border-b border-white/14 isolate"
         style={{
           background:
             "radial-gradient(circle at 32% 12%, rgba(50, 95, 185, 0.22), transparent 26%), linear-gradient(90deg, #020611 0%, #031128 18%, #0a1b3c 52%, #051634 76%, #031126 100%)",
         }}
       >
         <HeroBackgroundFX />
-        <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-32 pb-16 md:pt-40 md:pb-20 text-center">
+        <div className="relative z-10 max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 pt-[98px] pb-8 md:pt-[130px] md:pb-10 text-center">
           <div className="flex flex-col items-center">
             <div className="w-full">
               <p className="font-accent text-sm text-white/60 font-bold tracking-widest uppercase mb-5">
                 Systems Thinking. Product Judgment. Fast Prototyping.
               </p>
               <h1 className="text-white text-3xl md:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
-                Hi, I&apos;m Wen,<br />
-                a product designer for complex systems<br />
-                and enterprise workflows
+                Hi, I&apos;m Wen, a product designer<br />
+                for complex systems and enterprise workflows
               </h1>
             </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-7 mb-0 w-full">
-                <div className="hero-card group text-left">
-                  <div className="flex items-center gap-3 mb-2.5">
-                    <Layout className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-[#f6f7fb] font-bold text-base">Product Design</p>
-                  </div>
-                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Complex systems, workflows & platforms</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5 mt-8 mb-0 w-full max-w-[1060px] mx-auto">
+                <div className="text-center rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] px-6 py-5 transition-transform duration-300 hover:-translate-y-1 cursor-default">
+                  <p className="font-accent text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">+75%</p>
+                  <p className="text-white/80 text-sm font-medium mt-2 tracking-wide uppercase">Trial Conversion</p>
+                  <p className="text-white/70 text-xs mt-1">DiDi</p>
                 </div>
-                <div className="hero-card group text-left">
-                  <div className="flex items-center gap-3 mb-2.5">
-                    <Sparkles className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-[#f6f7fb] font-bold text-base">Rapid Prototyping</p>
-                  </div>
-                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Prototype, test, and validate early</p>
+                <div className="text-center rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] px-6 py-5 transition-transform duration-300 hover:-translate-y-1 cursor-default">
+                  <p className="font-accent text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">8K+</p>
+                  <p className="text-white/80 text-sm font-medium mt-2 tracking-wide uppercase">Users Scaled</p>
+                  <p className="text-white/70 text-xs mt-1">Calbright</p>
                 </div>
-                <div className="hero-card group text-left">
-                  <div className="flex items-center gap-3 mb-2.5">
-                    <GitBranch className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-[#f6f7fb] font-bold text-base">Systems Thinking</p>
-                  </div>
-                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Workflow logic & scalable system structure</p>
+                <div className="text-center rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] px-6 py-5 transition-transform duration-300 hover:-translate-y-1 cursor-default">
+                  <p className="font-accent text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">35%</p>
+                  <p className="text-white/80 text-sm font-medium mt-2 tracking-wide uppercase">Efficiency Gains</p>
+                  <p className="text-white/70 text-xs mt-1">Calbright</p>
                 </div>
-                <div className="hero-card group text-left">
-                  <div className="flex items-center gap-3 mb-2.5">
-                    <FileText className="w-5 h-5 text-blue-400 shrink-0" />
-                    <p className="text-[#f6f7fb] font-bold text-base">Implementation-Aware</p>
-                  </div>
-                  <p className="text-[rgba(232,238,249,0.64)] text-sm leading-[1.45]">Front-end fluency, dev collaboration</p>
+                <div className="text-center rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] px-6 py-5 transition-transform duration-300 hover:-translate-y-1 cursor-default">
+                  <p className="font-accent text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">$15M+</p>
+                  <p className="text-white/80 text-sm font-medium mt-2 tracking-wide uppercase">Product Revenue</p>
+                  <p className="text-white/70 text-xs mt-1">Cisco</p>
                 </div>
               </div>
               <div className="relative z-20 flex justify-center mt-8">
@@ -231,9 +223,9 @@ export default function Page() {
         {/* Work Section */}
         <section
           ref={workSectionRef}
-          className="relative overflow-visible py-32"
+          className="relative overflow-visible pt-16 pb-32"
         >
-          <div id="work" className="relative z-10 mb-20 bg-transparent scroll-mt-[130px]">
+          <div id="work" className="relative z-10 mb-12 bg-transparent scroll-mt-[130px]">
             <span className="font-accent text-sm font-semibold uppercase tracking-widest text-muted block mb-6">
               Featured Projects
             </span>
@@ -242,104 +234,99 @@ export default function Page() {
             </h2>
           </div>
           <div className="relative z-10 flex flex-col gap-12 md:gap-16 bg-transparent">
-            {/* Project 1: DiDi (图在右) */}
+            {/* Project 1: DiDi (image dominant) */}
             <a
               href="/work/didi"
-              className="feature-card bg-card rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
+              className="feature-card bg-card rounded-[40px] p-6 md:p-8 lg:p-10 flex flex-col cursor-pointer group transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-gray-400 block"
             >
-              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
-                <div>
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 leading-snug">
-                    DiDi · EagleEye Endpoint Protection Platform
-                  </h3>
-                  <p className="text-muted leading-relaxed font-light text-base md:text-lg">
-                    Designed investigation and governance workflows for an
-                    enterprise security platform. Turned ML threat signals into
-                    triage and response interfaces that analysts use during
-                    live incidents.
-                  </p>
-                </div>
-                <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
-                  <span className="font-accent text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
-                    +75%
-                  </span>
-                  <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
-                    Increase in enterprise trial-to-paid<br />conversion performance
-                  </span>
-                </div>
-              </div>
-              <div className="flex-1 w-full bg-white rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
+              <div className="w-full bg-white rounded-[24px] overflow-hidden aspect-[16/9] relative mb-6">
                 <img
                   src="/images/didi/eagleeye-dashboard.png"
                   alt="EagleEye enterprise security platform dashboard"
-                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.05] transition-transform duration-500"
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
                 />
               </div>
-            </a>
-
-            {/* Project 2: Calbright Staff Portal (图在左) */}
-            <a
-              href="/work/calbright/staff-portal"
-              className="feature-card bg-card rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-12 cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
-            >
-              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
-                <div>
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 leading-snug">
-                    Shaping the Staff Portal for Operational Workflows
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5 leading-snug">
+                    DiDi · EagleEye Endpoint Protection Platform
                   </h3>
-                  <p className="text-muted leading-relaxed font-light text-base md:text-lg">
-                    Designed a 0→1 staff platform to support cross-functional workflows,
-                    improve visibility into student context, and create a more effective
-                    operational experience for internal teams.
+                  <p className="text-muted font-light text-base md:text-lg leading-relaxed">
+                    Designed investigation and governance workflows for an enterprise security platform.
                   </p>
                 </div>
-                <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
-                  <span className="font-accent text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
-                    35%
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="font-accent text-5xl md:text-6xl font-medium tracking-tighter leading-none text-text">
+                    +75%
                   </span>
-                  <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
-                    Measured efficiency gains across <span className="whitespace-nowrap">core staff workflows</span>
+                  <span className="text-sm text-muted max-w-[140px] leading-snug block">
+                    Trial-to-paid conversion
                   </span>
                 </div>
               </div>
-              <div className="flex-1 w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
-                <img
-                  src="/images/calbright/staff-portal-mock.png"
-                  alt="Calbright Staff Portal - Student profile view"
-                  className="absolute inset-0 w-full h-full object-cover object-center bg-[#8a9bb8] group-hover:scale-[1.05] transition-transform duration-500"
-                />
-              </div>
             </a>
 
-            {/* Project 3: Calbright Student Portal (图在右) */}
+            {/* Project 2: Calbright Student Portal (image dominant) */}
             <a
               href="/work/calbright/student-portal"
-              className="feature-card bg-card rounded-[40px] p-8 md:p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
+              className="feature-card bg-card rounded-[40px] p-6 md:p-8 lg:p-10 flex flex-col cursor-pointer group transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-gray-400 block"
             >
-              <div className="flex-1 flex flex-col h-full justify-between w-full min-h-0">
-                <div>
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 leading-snug">
-                    Shaping a More Guided Student Portal Experience
-                  </h3>
-                  <p className="text-muted leading-relaxed font-light text-base md:text-lg">
-                    Designing a more supportive student experience around clarity, action, and progress—helping learners better understand what matters, what comes next, and how to move forward.
-                  </p>
-                </div>
-                <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
-                  <span className="font-accent text-6xl md:text-[6rem] font-medium tracking-tighter leading-none text-text">
-                    8k+
-                  </span>
-                  <span className="text-sm md:text-base text-muted max-w-[280px] leading-snug block">
-                    Students supported statewide<br />across learning programs
-                  </span>
-                </div>
-              </div>
-              <div className="flex-1 w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[4/3] relative flex items-center justify-center">
+              <div className="w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[16/9] relative mb-6">
                 <img
                   src="/images/calbright/calbright-landing.svg"
                   alt="Calbright Student Portal redesigned dashboard"
-                  className="absolute inset-0 w-full h-full object-cover object-[30%_center] bg-[#8a9bb8] group-hover:scale-[1.05] transition-transform duration-500"
+                  className="absolute inset-0 w-full h-full object-cover object-[30%_center] bg-[#8a9bb8] group-hover:scale-[1.03] transition-transform duration-500"
                 />
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5 leading-snug">
+                    Shaping a More Guided Student Portal Experience
+                  </h3>
+                  <p className="text-muted font-light text-base md:text-lg leading-relaxed">
+                    Designing a supportive student experience around clarity, action, and progress.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="font-accent text-5xl md:text-6xl font-medium tracking-tighter leading-none text-text">
+                    8K+
+                  </span>
+                  <span className="text-sm text-muted max-w-[140px] leading-snug block">
+                    Students supported statewide
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            {/* Project 3: Calbright Staff Portal (image dominant) */}
+            <a
+              href="/work/calbright/staff-portal"
+              className="feature-card bg-card rounded-[40px] p-6 md:p-8 lg:p-10 flex flex-col cursor-pointer group transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-gray-400 block"
+            >
+              <div className="w-full bg-[#8a9bb8] rounded-[24px] overflow-hidden aspect-[16/9] relative mb-6">
+                <img
+                  src="/images/calbright/staff-portal-mock.png"
+                  alt="Calbright Staff Portal - Student profile view"
+                  className="absolute inset-0 w-full h-full object-cover object-center bg-[#8a9bb8] group-hover:scale-[1.03] transition-transform duration-500"
+                />
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5 leading-snug">
+                    Shaping the Staff Portal for Operational Workflows
+                  </h3>
+                  <p className="text-muted font-light text-base md:text-lg leading-relaxed">
+                    Designed a 0-to-1 staff platform to support cross-functional workflows.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="font-accent text-5xl md:text-6xl font-medium tracking-tighter leading-none text-text">
+                    35%
+                  </span>
+                  <span className="text-sm text-muted max-w-[140px] leading-snug block">
+                    Staff workflow efficiency gains
+                  </span>
+                </div>
               </div>
             </a>
 

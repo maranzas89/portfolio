@@ -352,7 +352,7 @@ export default function DidiCaseStudyPage() {
             <Reveal reduceMotion={false} direction="up" delay={300}>
               <div className="group bg-white/5 hover:bg-white/10 p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2">
                 <IconTrendingUp />
-                <h3 className="font-medium text-2xl mb-1 mt-3">83%</h3>
+                <h3 className="font-medium text-2xl mb-1 mt-3">+75%</h3>
                 <p className="text-xs text-white/60 uppercase tracking-wide font-medium">Trial Conversion</p>
               </div>
             </Reveal>
