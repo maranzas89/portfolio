@@ -771,7 +771,7 @@ export default function CiscoCaseStudyPage() {
           <section className="space-y-10">
             <div className="pt-4">
               <a
-                href="#"
+                href="/WenLiu_CiscoProject.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-10 py-5 text-lg font-medium text-white transition hover:bg-blue-700"
