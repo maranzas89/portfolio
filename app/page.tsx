@@ -53,12 +53,23 @@ export default function Page() {
         }`}
       >
         <div className="max-w-[1600px] mx-auto w-full min-w-0 px-4 py-4 sm:px-6 sm:py-5 md:px-16 lg:px-24 md:py-8 flex justify-between items-center gap-4">
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Mobile hamburger - left side, visible below 768px */}
+          <button
+            type="button"
+            className="flex md:hidden p-2 -ml-2 text-text hover:text-muted transition-colors shrink-0 items-center justify-center"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+          {/* Desktop: Wen Liu on left */}
+          <div className="hidden md:flex items-center gap-3 shrink-0">
             <a href="#" className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight uppercase text-text shrink-0">
               Wen Liu
             </a>
           </div>
-          {/* Desktop nav - hidden below 768px */}
+          {/* Desktop nav */}
           <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
             <a href="#work" className={`nav-link-underline hover:text-gray-700 transition-colors ${isWorkActive ? "active text-text" : "text-muted"}`}>
               Projects
@@ -73,16 +84,10 @@ export default function Page() {
               Kind Words
             </Link>
           </div>
-          {/* Mobile hamburger - visible below 768px */}
-          <button
-            type="button"
-            className="flex md:hidden p-2 -mr-2 text-text hover:text-muted transition-colors shrink-0 items-center justify-center"
-            onClick={() => setMobileMenuOpen((v) => !v)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileMenuOpen}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile: Wen Liu on right, visible below 768px */}
+          <a href="#" className="md:hidden text-lg sm:text-xl font-semibold tracking-tight uppercase text-text shrink-0">
+            Wen Liu
+          </a>
         </div>
         {/* Mobile menu - full-page overlay when open (md:hidden) */}
         {mobileMenuOpen && (

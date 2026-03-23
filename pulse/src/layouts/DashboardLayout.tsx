@@ -1,22 +1,28 @@
+import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
 function PulseIcon() {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M3 12h3l3-8 4 16 3-8h5"
-      />
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h3l3-8 4 16 3-8h5" />
+    </svg>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
   );
 }
@@ -85,17 +91,45 @@ const NAV_ITEMS = [
 // ─── Layout ───────────────────────────────────────────────────────────────────
 
 export function DashboardLayout() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
-    <div className="pt-10 min-h-screen flex relative overflow-hidden">
+    <div className="pt-10 min-h-screen flex relative overflow-x-hidden bg-[#0a0a1a]">
+      {/* Fixed background */}
       <div className="fixed inset-0 -z-10 bg-[#0a0a1a]" />
-      {/* Sidebar */}
-      <aside className="w-56 fixed top-10 left-0 bottom-0 bg-[var(--glass-bg-light)] backdrop-blur-xl border-r border-[var(--glass-border)] flex flex-col z-30">
+
+      {/* Mobile backdrop */}
+      {sidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 z-40 bg-black/60"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar — fixed on desktop, slide-in drawer on mobile */}
+      <aside
+        className={`
+          fixed top-10 left-0 bottom-0 w-56 bg-[var(--glass-bg-light)] backdrop-blur-xl border-r border-[var(--glass-border)] flex flex-col z-50
+          transition-transform duration-300 ease-in-out
+          md:translate-x-0
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}
+      >
         {/* Logo area */}
-        <div className="flex items-center gap-2.5 px-4 py-5 border-b border-[var(--glass-border)]">
-          <span className="text-[var(--lg-brand-primary)]">
-            <PulseIcon />
-          </span>
-          <span className="text-xl font-bold font-display text-[var(--lg-brand-primary)] tracking-tight">Pulse</span>
+        <div className="flex items-center justify-between px-4 py-5 border-b border-[var(--glass-border)]">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[var(--lg-brand-primary)]">
+              <PulseIcon />
+            </span>
+            <span className="text-xl font-bold font-display text-[var(--lg-brand-primary)] tracking-tight">Pulse</span>
+          </div>
+          {/* Close button on mobile */}
+          <button
+            className="md:hidden text-dash-text-secondary hover:text-dash-text transition-colors"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <CloseIcon />
+          </button>
         </div>
 
         {/* Nav items */}
@@ -105,6 +139,7 @@ export function DashboardLayout() {
               key={to}
               to={to}
               end={end}
+              onClick={() => setSidebarOpen(false)}
               className={({ isActive }) =>
                 [
                   'flex items-center gap-3 py-2.5 px-4 rounded-lg text-sm font-medium transition-colors',
@@ -121,8 +156,19 @@ export function DashboardLayout() {
         </nav>
       </aside>
 
-      {/* Main content */}
-      <main className="ml-56 flex-1 min-h-screen p-6">
+      {/* Mobile top bar with hamburger */}
+      <div className="md:hidden fixed top-10 left-0 right-0 z-30 h-12 bg-[#0a0a1a] border-b border-[var(--glass-border)] flex items-center px-4">
+        <button
+          className="text-dash-text-secondary hover:text-dash-text transition-colors"
+          onClick={() => setSidebarOpen(true)}
+        >
+          <MenuIcon />
+        </button>
+        <span className="ml-3 text-sm font-bold font-display text-[var(--lg-brand-primary)]">Pulse</span>
+      </div>
+
+      {/* Main content — offset for sidebar on desktop, offset for top bar on mobile */}
+      <main className="md:ml-56 flex-1 min-h-screen p-4 pt-16 md:p-6 md:pt-6 w-full">
         <Outlet />
       </main>
     </div>
