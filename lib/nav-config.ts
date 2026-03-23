@@ -6,10 +6,10 @@ export const NAV_LINKS = [
 ] as const;
 
 export const WORK_SUB_LINKS = [
-  { href: "/work/cisco", label: "Cisco NAE" },
   { href: "/work/didi", label: "DiDi EagleEye" },
-  { href: "/work/calbright/staff-portal", label: "Staff Portal 0→1" },
   { href: "/work/calbright/student-portal", label: "Student Portal Redesign" },
+  { href: "/work/calbright/staff-portal", label: "Staff Portal 0→1" },
+  { href: "/work/cisco", label: "Cisco NAE" },
 ] as const;
 
 export const AI_SUB_LINKS = [

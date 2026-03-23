@@ -32,7 +32,7 @@ export default function AskWenShell({
           >
             <Compass className="h-4 w-4 text-blue-400" strokeWidth={2.5} />
             <span className="hidden sm:inline">Ask Wen&apos;s AI</span>
-            <span className="sm:hidden">Ask AI</span>
+            <span className="sm:hidden">Ask Wen</span>
           </button>,
           document.body
         )}
