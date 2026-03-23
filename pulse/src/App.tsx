@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom'
 
 import { StorefrontLayout } from '@/layouts/StorefrontLayout'
 import { DashboardLayout } from '@/layouts/DashboardLayout'
@@ -80,8 +80,8 @@ function AppRoutes() {
 
 export function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename="/pulse">
       <AppRoutes />
-    </HashRouter>
+    </BrowserRouter>
   )
 }

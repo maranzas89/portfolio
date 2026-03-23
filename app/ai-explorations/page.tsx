@@ -79,7 +79,7 @@ const EXPLORATIONS = [
       { icon: Eye, label: "Session replay", text: "Reconstructs the user's journey step-by-step — from product browse to checkout crash — with a timeline-synced playback interface." },
       { icon: Shield, label: "Root cause tracing", text: "Connects breadcrumbs, tags, and code snippets to show exactly which coupon code, function, and line number caused the failure." },
     ],
-    href: "/pulse/index.html#/store",
+    href: "/pulse/store",
     figmaHref: "",
   },
   {
