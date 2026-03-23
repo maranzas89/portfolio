@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/pulse/store", "destination": "/pulse/index.html" },
+    { "source": "/pulse/store/:path*", "destination": "/pulse/index.html" },
+    { "source": "/pulse/dashboard", "destination": "/pulse/index.html" },
+    { "source": "/pulse/dashboard/:path*", "destination": "/pulse/index.html" }
+  ]
+}
