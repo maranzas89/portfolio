@@ -3,10 +3,23 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async rewrites() {
     return {
-      // beforeFiles rewrites run before static file serving — this ensures
-      // /pulse/store and /pulse/dashboard resolve to the SPA index.html
-      // while /pulse/assets/* still serves actual static files
       beforeFiles: [
+        // Exclude static assets — these must pass through to public/pulse/assets/
+        {
+          source: "/pulse/assets/:path*",
+          destination: "/pulse/assets/:path*",
+        },
+        {
+          source: "/pulse/favicon.svg",
+          destination: "/pulse/favicon.svg",
+        },
+        {
+          source: "/pulse/icons.svg",
+          destination: "/pulse/icons.svg",
+        },
+      ],
+      afterFiles: [
+        // SPA routes — after static files are checked, rewrite app routes to index.html
         { source: "/pulse", destination: "/pulse/index.html" },
         { source: "/pulse/store", destination: "/pulse/index.html" },
         { source: "/pulse/store/:path*", destination: "/pulse/index.html" },
