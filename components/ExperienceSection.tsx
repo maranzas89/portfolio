@@ -221,7 +221,7 @@ function PdfPreviewContainer() {
   );
 }
 
-const EMAIL = "wenliu.ux@gmail.com";
+const EMAIL = "williamliu_1989@hotmail.com";
 
 function EmailWithCopyButton() {
   const [copied, setCopied] = useState(false);
