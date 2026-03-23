@@ -80,7 +80,7 @@ function AppRoutes() {
 
 export function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/pulse">
       <AppRoutes />
     </BrowserRouter>
   )
