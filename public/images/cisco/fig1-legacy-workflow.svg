@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 900 300">
+  <defs>
+    <style>
+      .st0 { fill: #1a1a1a; }
+      .st0, .st1, .st2, .st3 { isolation: isolate; }
+      .st0, .st2, .st3 { font-family: Helvetica-Bold, Helvetica; font-weight: 700; }
+      .st0, .st3 { font-size: 12px; }
+      .st4 { stroke-width: 1.2px; }
+      .st4, .st5, .st6 { stroke: #dde0e5; }
+      .st4, .st7 { fill: #f5f6f8; }
+      .st2 { font-size: 14px; }
+      .st2, .st3 { fill: #e74c3c; }
+      .st8 { fill: #717171; }
+      .st9 { fill: #fff; }
+      .st10 { fill: #dde0e5; }
+      .st5 { stroke-dasharray: 6 4; }
+      .st5, .st6 { fill: none; }
+      .st7 { stroke: #e74c3c; stroke-width: 2.3px; }
+      .st6 { stroke-width: 1.5px; }
+    </style>
+  </defs>
+  <rect class="st9" width="900" height="300"/>
+  <!-- Title -->
+  <text x="450" y="28" text-anchor="middle" font-size="13" fill="#717171" font-weight="500" font-family="Helvetica, sans-serif" letter-spacing="0.5">Legacy ACI Troubleshooting Workflow</text>
+  <!-- Node 1: CLI Outputs -->
+  <rect class="st4" x="30" y="90" width="130" height="80" rx="6.9" ry="6.9"/>
+  <text class="st0" x="95" y="127" text-anchor="middle">CLI Outputs</text>
+  <text x="95" y="148" text-anchor="middle" font-size="10" fill="#717171" font-family="Helvetica, sans-serif">APIC Commands</text>
+  <!-- Arrow 1→2 -->
+  <line class="st6" x1="160" y1="130" x2="192" y2="130"/>
+  <polygon class="st10" points="192 125 202 130 192 135"/>
+  <!-- Node 2: APIC Logs -->
+  <rect class="st4" x="202" y="90" width="130" height="80" rx="6.9" ry="6.9"/>
+  <text class="st0" x="267" y="127" text-anchor="middle">APIC Logs</text>
+  <text x="267" y="148" text-anchor="middle" font-size="10" fill="#717171" font-family="Helvetica, sans-serif">Raw Event Data</text>
+  <!-- Arrow 2→3 -->
+  <line class="st6" x1="332" y1="130" x2="364" y2="130"/>
+  <polygon class="st10" points="364 125 374 130 364 135"/>
+  <!-- Node 3: Spreadsheets -->
+  <rect class="st4" x="374" y="90" width="130" height="80" rx="6.9" ry="6.9"/>
+  <text class="st0" x="439" y="127" text-anchor="middle">Spreadsheets</text>
+  <text x="439" y="148" text-anchor="middle" font-size="10" fill="#717171" font-family="Helvetica, sans-serif">CSV Exports</text>
+  <!-- Arrow 3→4 -->
+  <line class="st6" x1="504" y1="130" x2="536" y2="130"/>
+  <polygon class="st10" points="536 125 546 130 536 135"/>
+  <!-- Node 4: Manual Cross-Reference -->
+  <rect class="st4" x="546" y="90" width="145" height="80" rx="6.9" ry="6.9"/>
+  <text class="st0" x="618.5" y="118" text-anchor="middle">Manual</text>
+  <text class="st0" x="618.5" y="134" text-anchor="middle">Cross-Reference</text>
+  <text x="618.5" y="155" text-anchor="middle" font-size="10" fill="#717171" font-family="Helvetica, sans-serif">Comparison &amp; Match</text>
+  <!-- Arrow 4→5 -->
+  <line class="st6" x1="691" y1="130" x2="718" y2="130"/>
+  <polygon class="st10" points="718 125 728 130 718 135"/>
+  <!-- Node 5: Missed Violations (red border) -->
+  <rect class="st7" x="728" y="90" width="142" height="80" rx="6.9" ry="6.9"/>
+  <text class="st3" x="799" y="118" text-anchor="middle">Missed</text>
+  <text class="st3" x="799" y="134" text-anchor="middle">Violations</text>
+  <text x="799" y="155" text-anchor="middle" font-size="10" fill="#717171" font-family="Helvetica, sans-serif">Gaps Overlooked</text>
+  <!-- Dashed line -->
+  <line class="st5" x1="30" y1="195" x2="870" y2="195"/>
+  <rect class="st9" x="305" y="183" width="290" height="24" rx="4" ry="4"/>
+  <text x="450" y="199" text-anchor="middle" font-size="12" fill="#717171" font-family="Helvetica, sans-serif" font-style="italic">~30+ minutes per triage cycle</text>
+  <!-- Bottom red text -->
+  <text class="st2" x="450" y="250" text-anchor="middle">Days to detect critical misconfigurations</text>
+  <text x="450" y="272" text-anchor="middle" font-size="11" fill="#717171" font-family="Helvetica, sans-serif">No unified view — engineers switch 4+ tools per incident</text>
+</svg>

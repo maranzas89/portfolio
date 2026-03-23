@@ -181,7 +181,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
                   setMobileMenuOpen(false);
                 }}
               >
-                EXPLORATIONS
+                AI EXPLORATIONS
               </a>
               <div className="flex flex-col gap-8 ml-4 border-l-2 border-gray-200 pl-5">
                 {AI_SUB_LINKS.map(({ href, label }) => {

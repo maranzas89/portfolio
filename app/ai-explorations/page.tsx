@@ -34,6 +34,9 @@ import {
   FileSearch,
   Target,
   Coins,
+  Activity,
+  Shield,
+  Bug,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -60,6 +63,25 @@ const AiMarketLandscapeWhiteModule = dynamic(
 import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSubnav";
 
 const EXPLORATIONS = [
+  {
+    id: 11,
+    title: "Pulse — Error Monitoring",
+    category: "Developer Tool",
+    description:
+      "An application monitoring prototype featuring real-time error capture, session replay, and end-to-end root cause tracing.",
+    icon: Activity,
+    gradient: "from-violet-500/20 to-fuchsia-500/20",
+    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=500&fit=crop",
+    mobileImageClass: "object-cover object-center",
+    backText: "",
+    backHighlights: [
+      { icon: Bug, label: "Live error capture", text: "Triggers a real JavaScript error in a storefront checkout flow, then surfaces it in a Sentry-style dashboard with full stack trace and context." },
+      { icon: Eye, label: "Session replay", text: "Reconstructs the user's journey step-by-step — from product browse to checkout crash — with a timeline-synced playback interface." },
+      { icon: Shield, label: "Root cause tracing", text: "Connects breadcrumbs, tags, and code snippets to show exactly which coupon code, function, and line number caused the failure." },
+    ],
+    href: "/pulse",
+    figmaHref: "",
+  },
   {
     id: 10,
     title: "Project Liquid Glass",
@@ -148,24 +170,6 @@ const EXPLORATIONS = [
     href: "/ai-explorations/synchronize-orientation",
     figmaHref: "",
   },
-  {
-    id: 8,
-    title: "Dialpad Modal",
-    category: "Staff Portal",
-    description:
-      "A staff portal dialpad prototype exploring in-context calling, call summaries, and next-step guidance.",
-    icon: Phone,
-    gradient: "from-teal-500/20 to-blue-500/20",
-    image: "/images/4q.png",
-    backText: "",
-    backHighlights: [
-      { icon: PhoneCall, label: "Direct calling", text: "A fully interactive dialpad modal enabling staff to call students directly from the portal without switching tools or losing context." },
-      { icon: Contact, label: "Recent contacts", text: "Supports quick access to recent contacts and contextual student info, streamlining follow-ups and case management." },
-      { icon: Workflow, label: "Workflow integration", text: "Designed to reduce task-switching by keeping outreach actions embedded within the staff portal experience." },
-    ],
-    href: "/ai-explorations/dialpad-modal",
-    figmaHref: "",
-  },
 ];
 
 export default function AIExplorationsPage() {
@@ -221,7 +225,7 @@ export default function AIExplorationsPage() {
                 </h2>
               </div>
               <h3 className="mb-4 text-2xl font-semibold text-text md:text-4xl">
-                Prototypes for Testing Product Directions
+                AI Prototypes for Testing Product Directions
               </h3>
               <p className="max-w-5xl text-base text-slate-600 md:text-lg">
                 Working prototypes that test workflow assumptions and product behavior.

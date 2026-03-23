@@ -82,7 +82,7 @@ export default function AiExplorationsSubnav() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            Explorations
+            AI Explorations
           </Link>
         </nav>
         <div className="flex items-center justify-end gap-0">

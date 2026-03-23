@@ -45,6 +45,19 @@ export const DIDI_SECTIONS: SectionItem[] = [
   { id: "reflection", label: "11. Reflection" },
 ];
 
+export const CISCO_SECTIONS: SectionItem[] = [
+  { id: "challenge", label: "01. Challenge" },
+  { id: "system-thinking", label: "02. System Thinking" },
+  { id: "approach-ia", label: "03. Approach & IA" },
+  { id: "data-viz", label: "04. Data Visualization" },
+  { id: "design-system", label: "05. Design System" },
+  { id: "solutions", label: "06. Solutions" },
+  { id: "key-decisions", label: "07. Key Decisions" },
+  { id: "usability", label: "08. Usability Validation" },
+  { id: "impact", label: "09. Impact" },
+  { id: "reflection", label: "10. Reflection" },
+];
+
 export const AI_EXPLORATIONS_SECTIONS: SectionItem[] = [
   { id: "ai-design-workflow", label: "01. Design Workflow" },
   { id: "ai-capability-benchmark", label: "02. Research & Benchmarks" },

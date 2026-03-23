@@ -64,7 +64,7 @@ export default function Page() {
               Projects
             </a>
             <Link href="/ai-explorations" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
-              EXPLORATIONS
+              AI EXPLORATIONS
             </Link>
             <Link href="/experience" className="nav-link-underline text-muted hover:text-gray-700 transition-colors">
               ABOUT ME
@@ -130,7 +130,7 @@ export default function Page() {
                   className="font-accent text-muted font-semibold uppercase tracking-widest text-base hover:text-gray-700 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  EXPLORATIONS
+                  AI EXPLORATIONS
                 </Link>
                 <div className="flex flex-col gap-8 ml-4 border-l-2 border-gray-200 pl-5">
                   {AI_SUB_LINKS.map(({ href, label }) => (
@@ -281,7 +281,7 @@ export default function Page() {
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                 <div className="min-w-0">
                   <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5 leading-snug">
-                    Shaping a More Guided Student Portal Experience
+                    Calbright · Shaping a More Guided Student Portal Experience
                   </h3>
                   <p className="text-muted font-light text-base md:text-lg leading-relaxed">
                     Designing a supportive student experience around clarity, action, and progress.
@@ -313,7 +313,7 @@ export default function Page() {
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                 <div className="min-w-0">
                   <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5 leading-snug">
-                    Shaping the Staff Portal for Operational Workflows
+                    Calbright · Shaping the Staff Portal for Operational Workflows
                   </h3>
                   <p className="text-muted font-light text-base md:text-lg leading-relaxed">
                     Designed a 0-to-1 staff platform to support cross-functional workflows.
@@ -330,7 +330,39 @@ export default function Page() {
               </div>
             </a>
 
-            {/* Project 4: AI Explorations (image dominant) */}
+            {/* Project 4: Cisco NAE (image dominant) */}
+            <a
+              href="/work/cisco"
+              className="feature-card bg-card rounded-[40px] p-6 md:p-8 lg:p-10 flex flex-col cursor-pointer group transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-gray-400 block"
+            >
+              <div className="w-full bg-[#1B2A3D] rounded-[24px] overflow-hidden aspect-[16/9] relative mb-6">
+                <img
+                  src="/images/cisco/cisco-cover-mockup.png"
+                  alt="Cisco NAE Security Adherence dashboard"
+                  className="absolute inset-0 w-full h-auto m-auto object-contain object-center group-hover:scale-[1.03] transition-transform duration-500"
+                />
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5 leading-snug">
+                    Cisco · Network Assurance Security Platform
+                  </h3>
+                  <p className="text-muted font-light text-base md:text-lg leading-relaxed">
+                    Designed the security compliance dashboard for enterprise network monitoring at scale.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="font-accent text-5xl md:text-6xl font-medium tracking-tighter leading-none text-text">
+                    $15M+
+                  </span>
+                  <span className="text-sm text-muted max-w-[140px] leading-snug block">
+                    Product revenue generated
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            {/* Project 5: AI Explorations (image dominant) */}
             <a
               href="/ai-explorations"
               className="feature-card bg-card rounded-[40px] p-6 md:p-8 lg:p-10 flex flex-col cursor-pointer group transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-gray-400 block"
@@ -345,7 +377,7 @@ export default function Page() {
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                 <div className="min-w-0">
                   <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5 leading-snug">
-                    Shaping Product Direction Through AI Prototyping
+                    AI · Shaping Product Direction Through Prototyping
                   </h3>
                   <p className="text-muted font-light text-base md:text-lg leading-relaxed">
                     Turned early ideas into testable concepts through rapid explorations, interface prototypes, and workflow experiments.
