@@ -450,7 +450,7 @@ export default function Page() {
           <div className="sm:hidden font-accent text-sm font-semibold uppercase tracking-widest text-white/60 flex justify-between items-end">
             <div>
               <p>2026</p>
-              <p>WenLiu</p>
+              <p>Wen Liu</p>
             </div>
             <div className="text-right">
               <p>Shaped with</p>
