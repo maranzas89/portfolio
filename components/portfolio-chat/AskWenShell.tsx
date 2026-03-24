@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Compass } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import AskWenPanel from "./AskWenPanel";
 
 export default function AskWenShell({
@@ -30,7 +30,7 @@ export default function AskWenShell({
             }`}
             aria-label="Ask Wen's AI"
           >
-            <Compass className="h-4 w-4 text-blue-400" strokeWidth={2.5} />
+            <Sparkles className="h-4 w-4 text-blue-400" strokeWidth={2.5} />
             <span className="hidden sm:inline">Ask Wen&apos;s AI</span>
             <span className="sm:hidden">Ask Wen</span>
           </button>,
