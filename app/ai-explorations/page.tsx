@@ -72,7 +72,7 @@ const EXPLORATIONS = [
       "Walk through a real threat investigation — from morning dashboard to incident containment. Six screens, one unified SOC workflow.",
     icon: Shield,
     gradient: "from-blue-500/20 to-indigo-500/20",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=500&fit=crop&q=80",
+    image: "/images/007.png",
     mobileImageClass: "object-cover object-center",
     backText: "",
     backHighlights: [
