@@ -37,6 +37,7 @@ import {
   Activity,
   Shield,
   Bug,
+  Zap,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -63,6 +64,44 @@ const AiMarketLandscapeWhiteModule = dynamic(
 import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSubnav";
 
 const EXPLORATIONS = [
+  {
+    id: 13,
+    title: "PRISM Demo",
+    category: "Interactive Prototype",
+    description:
+      "Walk through a real threat investigation — from morning dashboard to incident containment. Six screens, one unified SOC workflow.",
+    icon: Shield,
+    gradient: "from-blue-500/20 to-indigo-500/20",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=500&fit=crop&q=80",
+    mobileImageClass: "object-cover object-center",
+    backText: "",
+    backHighlights: [
+      { icon: Shield, label: "Full SOC workflow", text: "Six interactive screens covering detection, investigation, ATT&CK mapping, automated response, summary generation, and case closure." },
+      { icon: Target, label: "Automated response", text: "Watch the system execute a five-step response playbook in real time — credentials reset, sessions revoked, device isolated, indicators blocked." },
+      { icon: Zap, label: "Production-grade UI", text: "Built as a working prototype with sidebar navigation, real-time status updates, and enterprise-level information density." },
+    ],
+    href: "/ai-explorations/prism-demo",
+    figmaHref: "",
+  },
+  {
+    id: 12,
+    title: "PRISM Case Study",
+    category: "Cybersecurity Platform",
+    description:
+      "The systems thinking behind PRISM — how MITRE ATT&CK becomes architecture, not decoration, in a unified SOC investigation surface.",
+    icon: Shield,
+    gradient: "from-blue-500/20 to-indigo-500/20",
+    image: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=800&h=500&fit=crop&q=80",
+    mobileImageClass: "object-cover object-center",
+    backText: "",
+    backHighlights: [
+      { icon: Shield, label: "MITRE ATT&CK mapping", text: "Maps attack chains to the MITRE framework as the structural backbone — not labels, but the organizing principle for layered investigation." },
+      { icon: Target, label: "Unified SOC workflow", text: "Connects detection, investigation, and response into a single surface — eliminating tool fragmentation and context loss." },
+      { icon: Zap, label: "AI-powered triage", text: "Generates risk summaries, recommends response actions, and produces incident reports to compress analyst time-to-action." },
+    ],
+    href: "/ai-explorations/prism",
+    figmaHref: "",
+  },
   {
     id: 11,
     title: "Pulse — Error Monitoring",
@@ -265,7 +304,7 @@ export default function AIExplorationsPage() {
                           {item.description}
                         </p>
                         <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
-                          View Demo →
+                          {item.id === 12 ? "View Case Study →" : item.id === 13 ? "Try Demo →" : "View Demo →"}
                         </p>
                       </div>
                     </Link>

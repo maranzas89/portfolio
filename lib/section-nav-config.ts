@@ -64,6 +64,14 @@ export const AI_EXPLORATIONS_SECTIONS: SectionItem[] = [
   { id: "ai-product-experiments", label: "03. Showcase" },
 ];
 
+export const PRISM_SECTIONS: SectionItem[] = [
+  { id: "overview", label: "01. Overview" },
+  { id: "problem", label: "02. Problem" },
+  { id: "approach", label: "03. Approach" },
+  { id: "prototype", label: "04. Prototype" },
+  { id: "reflection", label: "05. Reflection" },
+];
+
 export const EXPERIENCE_SECTIONS: SectionItem[] = [
   { id: "summary", label: "02. Summary" },
   { id: "core-competencies", label: "03. Core Competencies" },
