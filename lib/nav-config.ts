@@ -13,6 +13,7 @@ export const WORK_SUB_LINKS = [
 ] as const;
 
 export const AI_SUB_LINKS = [
+  { href: "/ai-explorations#ai-latest-work", label: "Latest Work" },
   { href: "/ai-explorations#ai-design-workflow", label: "Design Workflow" },
   { href: "/ai-explorations#ai-capability-benchmark", label: "Research & Benchmarks" },
   { href: "/ai-explorations#ai-product-experiments", label: "Showcase" },

@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState, useCallback, useEffect, useRef } from "react";
+import Link from "next/link";
 import {
   Shield, LayoutDashboard, AlertTriangle, Target, Clock, User, Monitor,
   ChevronRight, CheckCircle, Copy, ArrowLeft, Activity, Server, Lock,
   Zap, FileText, RotateCcw, UserX, Wifi, ArrowUpRight, Search, Bell,
   Settings, Grid3X3, Box, Mail, Globe, MapPin, Loader2, ChevronDown,
-  ExternalLink, Send, XCircle, Crosshair, Eye, X,
+  ExternalLink, Send, XCircle, Crosshair, Eye, X, Menu,
 } from "lucide-react";
 
 /* ================================================================== */
@@ -1441,9 +1442,21 @@ const SEARCH_ITEMS = [
   { label: "T1078 — Valid Accounts", category: "Techniques", screen: 3 as Screen },
 ];
 
+const MOBILE_NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/ai-explorations", label: "AI Explorations" },
+  { href: "/ai-explorations/prism", label: "PRISM Case Study" },
+  { href: "/work/didi", label: "DiDi EagleEye" },
+  { href: "/work/calbright/student-portal", label: "Student Portal" },
+  { href: "/work/calbright/staff-portal", label: "Staff Portal" },
+  { href: "/work/cisco", label: "Cisco NAE" },
+  { href: "/experience", label: "About Me" },
+];
+
 function TopBar({ onReset, isDark, onToggleTheme, onNav }: { onReset: () => void; isDark: boolean; onToggleTheme: () => void; onNav: (s: Screen) => void }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -1473,8 +1486,12 @@ function TopBar({ onReset, isDark, onToggleTheme, onNav }: { onReset: () => void
   };
 
   return (
+    <>
     <div className="flex items-center justify-between px-5 py-3 topbar-surface">
-      <div className="flex items-center gap-2 md:hidden">
+      <div className="flex items-center gap-3 md:hidden">
+        <button onClick={() => setMobileNavOpen(true)} className="cursor-pointer" aria-label="Open navigation">
+          <Menu className={`w-5 h-5 ${isDark ? "text-slate-300" : "text-slate-600"}`} />
+        </button>
         <Shield className="w-4 h-4 text-blue-500" />
         <span className={`text-sm font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>PRISM</span>
       </div>
@@ -1538,6 +1555,33 @@ function TopBar({ onReset, isDark, onToggleTheme, onNav }: { onReset: () => void
         <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold ${isDark ? "bg-blue-500/20 text-blue-400" : "bg-blue-100 text-blue-600"}`}>WL</div>
       </div>
     </div>
+    {/* Mobile nav overlay */}
+    {mobileNavOpen && (
+      <div className="md:hidden fixed inset-0 z-[999] bg-white">
+        <button
+          type="button"
+          className="absolute top-4 right-4 p-2 -m-2 text-slate-900 hover:text-slate-500 transition-colors z-10"
+          onClick={() => setMobileNavOpen(false)}
+          aria-label="Close menu"
+        >
+          <X className="w-7 h-7" />
+        </button>
+        <div className="h-full overflow-y-auto flex flex-col pt-16 px-6 gap-6">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Navigate</p>
+          {MOBILE_NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-base font-semibold text-slate-700 hover:text-blue-600 transition-colors"
+              onClick={() => setMobileNavOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 
