@@ -6,7 +6,7 @@ import {
   ChevronRight, CheckCircle, Copy, ArrowLeft, Activity, Server, Lock,
   Zap, FileText, RotateCcw, UserX, Wifi, ArrowUpRight, Search, Bell,
   Settings, Grid3X3, Box, Mail, Globe, MapPin, Loader2, ChevronDown,
-  ExternalLink, Send, XCircle, Crosshair, Eye,
+  ExternalLink, Send, XCircle, Crosshair, Eye, X,
 } from "lucide-react";
 
 /* ================================================================== */
@@ -32,15 +32,15 @@ interface Incident {
 /* ================================================================== */
 
 const MITRE_COLORS: Record<string, string> = {
-  "Initial Access": "bg-red-500/20 text-red-400 border-red-500/30",
-  "Credential Access": "bg-amber-500/20 text-amber-400 border-amber-500/30",
-  "Lateral Movement": "bg-purple-500/20 text-purple-400 border-purple-500/30",
-  Collection: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
-  Persistence: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-  Execution: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-  Exfiltration: "bg-rose-500/20 text-rose-400 border-rose-500/30",
-  "Defense Evasion": "bg-slate-500/20 text-slate-400 border-slate-500/30",
-  Impact: "bg-pink-500/20 text-pink-400 border-pink-500/30",
+  "Initial Access": "",
+  "Credential Access": "",
+  "Lateral Movement": "",
+  Collection: "",
+  Persistence: "",
+  Execution: "",
+  Exfiltration: "",
+  "Defense Evasion": "",
+  Impact: "",
 };
 
 const SEVERITY_COLORS: Record<string, string> = {
@@ -122,23 +122,58 @@ No evidence of data exfiltration. Recommended: forensic review of finance-server
 
 Analyst: Wen Liu \u00b7 Closed: 11:42 AM`;
 
+const INCIDENT_SUMMARIES: Record<number, string> = {
+  1042: SUMMARY_TEXT,
+  1038: `Incident #1038 \u2014 Contained
+Timeline: 8:12 AM - 9:45 AM (1h 33m)
+
+Attack Summary: Anomalous DNS queries detected from k.patel's workstation (DESKTOP-KP3351) resolving suspicious domain c2-relay.darknet.xyz. Traffic pattern consistent with beaconing behavior at 30-second intervals. Investigation revealed a browser extension (PDF Helper Pro) was compromised in a supply chain attack, injecting DNS-based C2 communication.
+
+MITRE ATT&CK Techniques: T1071.004 (DNS), T1195.002 (Supply Chain)
+
+Response Actions Taken:
+\u2022 Malicious browser extension removed from DESKTOP-KP3351 \u2014 9:15 AM
+\u2022 DNS sinkhole rule added for c2-relay.darknet.xyz \u2014 9:18 AM
+\u2022 Full endpoint scan completed, no persistence found \u2014 9:30 AM
+\u2022 Browser extension blocklist updated org-wide \u2014 9:40 AM
+
+No lateral movement or data exfiltration detected. Recommended: audit all browser extensions across endpoints, notify vendor of compromised extension.
+
+Analyst: M. Wong \u00b7 Closed: 9:45 AM`,
+  1037: `Incident #1037 \u2014 Contained
+Timeline: 2:30 PM - 3:15 PM (45m)
+
+Attack Summary: Unauthorized access attempt detected on HR file share. User t.wilson@acme.com attempted to access restricted directories outside their permission scope. Investigation revealed t.wilson's account was used from an unusual IP after hours. User confirmed they were not logged in \u2014 credential compromise suspected via session token theft from an unsecured shared workstation.
+
+MITRE ATT&CK Techniques: T1021.002 (SMB/Windows Admin Shares)
+
+Response Actions Taken:
+\u2022 t.wilson password reset and MFA re-enrolled \u2014 2:50 PM
+\u2022 Shared workstation DESK-LOBBY-03 isolated for forensics \u2014 2:55 PM
+\u2022 HR file share access logs exported for review \u2014 3:00 PM
+\u2022 No files were successfully accessed or modified \u2014 confirmed via audit log
+
+No data breach. Recommended: disable auto-login on shared workstations, enforce session timeout policy.
+
+Analyst: S. Park \u00b7 Closed: 3:15 PM`,
+};
+
 /* ================================================================== */
 /*  SHARED UI                                                          */
 /* ================================================================== */
 
 function MitreTag({ tactic }: { tactic: string }) {
-  const c = MITRE_COLORS[tactic] || "bg-slate-500/20 text-slate-400 border-slate-500/30";
-  return <span className={`inline-flex items-center px-2 py-0.5 rounded-none text-[11px] font-extrabold uppercase tracking-wider border ${c}`}>{tactic}</span>;
+  return <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mitre-tag">{tactic}</span>;
 }
 
 function SeverityBadge({ severity }: { severity: string }) {
-  return <span className={`inline-flex items-center px-2 py-0.5 rounded-none text-[11px] font-extrabold uppercase tracking-wider border ${SEVERITY_COLORS[severity] || ""}`}>{severity}</span>;
+  return <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider ${SEVERITY_COLORS[severity] || ""}`}>{severity}</span>;
 }
 
 function StatusDot({ status }: { status: string }) {
   return (
-    <span className={`inline-flex items-center gap-1.5 text-xs font-bold ${STATUS_COLORS[status] || ""}`}>
-      <span className={`w-1.5 h-1.5 rounded-none ${STATUS_DOT[status] || ""}`} />
+    <span className={`inline-flex items-center gap-1.5 text-sm font-normal ${STATUS_COLORS[status] || ""}`}>
+      <span className={`w-2 h-2 rounded-full ${STATUS_DOT[status] || ""}`} />
       {status}
     </span>
   );
@@ -163,10 +198,10 @@ function Screen1({ incidents, onSelect }: { incidents: Incident[]; onSelect: (id
           { label: "Avg Response", value: "34m", icon: Clock, accent: "" },
           { label: "ATT&CK Coverage", value: "73%", icon: Grid3X3, accent: "text-blue-400" },
         ].map((s) => (
-          <div key={s.label} className="bg-[#141b2d] border border-white/[0.06] rounded-none p-4">
+          <div key={s.label} className="card-surface  rounded-none p-4">
             <div className="flex items-center gap-1.5 mb-1.5">
               <s.icon className={`w-3.5 h-3.5 ${s.accent || "text-slate-300"}`} />
-              <span className="text-[11px] font-bold uppercase tracking-widest text-slate-300">{s.label}</span>
+              <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-300">{s.label}</span>
             </div>
             <p className={`text-2xl font-bold ${s.accent || "text-white"}`}>{s.value}</p>
           </div>
@@ -175,23 +210,23 @@ function Screen1({ incidents, onSelect }: { incidents: Incident[]; onSelect: (id
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Needs Attention */}
-        <div className="lg:col-span-2 space-y-3">
-          <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-300 mb-2">Needs Attention</h3>
-          {incidents.slice(0, 4).map((inc) => {
-            const isOpen = inc.status !== "Contained";
+        <div className="lg:col-span-2 space-y-5">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-300 mb-2">Needs Attention</h3>
+          {incidents.filter((inc) => inc.status !== "Contained").slice(0, 4).map((inc) => {
+            const isOpen = true;
             return (
               <button
                 key={inc.id}
                 onClick={isOpen ? () => onSelect(inc.id) : undefined}
-                className={`w-full text-left p-5 rounded-none border transition-all group cursor-pointer ${isOpen ? "bg-[#141b2d] border-white/[0.06] hover:border-blue-500/50" : "bg-[#141b2d] border-white/[0.04] opacity-70"}`}
+                className={`w-full text-left rounded-none transition-colors group cursor-pointer ${isOpen ? "card-surface" : "card-surface opacity-70"}`} style={{ padding: 30 }}
               >
                 <div className="flex items-center gap-2.5 mb-3 flex-wrap">
-                  <span className="text-xs font-mono font-bold text-slate-300">#{inc.id}</span>
+                  <span className="text-xs font-mono font-normal text-slate-300">#{inc.id}</span>
                   <SeverityBadge severity={inc.severity} />
                   <StatusDot status={inc.status} />
-                  {isOpen && <span className="ml-auto text-xs text-blue-400 font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">Investigate &rarr;</span>}
+                  {isOpen && <span className="ml-auto text-xs text-blue-400 font-normal uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">Investigate &rarr;</span>}
                 </div>
-                <h4 className={`text-base font-extrabold mb-3 transition-colors ${isOpen ? "text-white group-hover:text-blue-400" : "text-white/60"}`}>{inc.title}</h4>
+                <h4 className={`text-base font-semibold mb-3 transition-colors ${isOpen ? "group-hover:text-blue-500" : "opacity-60"}`}>{inc.title}</h4>
                 <div className="flex flex-wrap gap-1.5 mb-3">{inc.mitre.map((t) => <MitreTag key={t} tactic={t} />)}</div>
                 <div className="flex items-center gap-4 text-sm text-slate-300">
                   <span className="flex items-center gap-1.5"><User className="w-3.5 h-3.5" />{inc.user}</span>
@@ -205,32 +240,32 @@ function Screen1({ incidents, onSelect }: { incidents: Incident[]; onSelect: (id
 
         {/* Right sidebar */}
         <div className="space-y-3">
-          <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-300 mb-2">Overview</h3>
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-300 mb-2">Overview</h3>
           {/* ATT&CK heatmap mini */}
-          <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-4">
-            <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-300 mb-3">ATT&CK Activity This Week</h3>
+          <div className="card-surface  rounded-none p-4">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-300 mb-3">ATT&CK Activity This Week</h3>
             <div className="grid grid-cols-7 gap-1">
               {ATTACK_TACTICS.map((t) => {
                 const active = ["Initial Access", "Execution", "Credential Access"].includes(t);
                 const medium = ["Lateral Movement", "Collection", "Persistence"].includes(t);
                 return (
                   <div key={t} className="group relative">
-                    <div className={`aspect-square rounded-none ${active ? "bg-red-500/40" : medium ? "bg-amber-500/20" : "bg-white/[0.04]"}`} />
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 bg-slate-800 text-[9px] text-white rounded-none whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">{t}</div>
+                    <div className={`aspect-square rounded-none heatmap-cell ${active ? "heatmap-high" : medium ? "heatmap-med" : "heatmap-low"}`} />
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 heatmap-tooltip text-sm font-normal rounded-none whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">{t}</div>
                   </div>
                 );
               })}
             </div>
-            <div className="flex items-center gap-3 mt-3 text-[10px] text-slate-300">
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-none bg-red-500/40" />High</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-none bg-amber-500/20" />Medium</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-none bg-white/[0.04]" />Low</span>
+            <div className="flex items-center gap-4 mt-4 text-sm font-normal text-slate-200">
+              <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-none heatmap-high" />High</span>
+              <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-none heatmap-med" />Medium</span>
+              <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-none heatmap-low" />Low</span>
             </div>
           </div>
 
           {/* Recent activity */}
-          <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-4">
-            <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-300 mb-3">Recent Activity</h3>
+          <div className="card-surface  rounded-none p-4">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-300 mb-3">Recent Activity</h3>
             <div className="space-y-3">
               {(incidents.some((i) => i.status === "Contained" && INCIDENTS.find((o) => o.id === i.id)?.status !== "Contained")
                 ? [
@@ -247,8 +282,8 @@ function Screen1({ incidents, onSelect }: { incidents: Incident[]; onSelect: (id
                 <div key={i} className="flex items-start gap-3">
                   <span className={`w-2 h-2 rounded-none mt-2 shrink-0 ${a.dot}`} />
                   <div>
-                    <p className="text-sm font-bold text-slate-200">{a.text}</p>
-                    <p className="text-xs font-bold text-slate-400">{a.time}</p>
+                    <p className="text-sm font-normal text-slate-200">{a.text}</p>
+                    <p className="text-xs font-normal text-slate-400">{a.time}</p>
                   </div>
                 </div>
               ))}
@@ -264,69 +299,35 @@ function Screen1({ incidents, onSelect }: { incidents: Incident[]; onSelect: (id
 /*  SCREEN 2 — Incident Detail (Timeline)                              */
 /* ================================================================== */
 
-function Screen2({ incident, onBack, onAttackMap, onResponse, assigned, onAssign }: { incident: Incident; onBack: () => void; onAttackMap: () => void; onResponse: () => void; assigned: boolean; onAssign: () => void }) {
-  const [activeTab, setActiveTab] = useState<"timeline" | "attack" | "response">("timeline");
-
-  const handleTab = (tab: "timeline" | "attack" | "response") => {
-    if (tab === "attack") { onAttackMap(); return; }
-    if (tab === "response") { onResponse(); return; }
-    setActiveTab(tab);
-  };
-
+function Screen2Content() {
   return (
-    <div className="space-y-5 animate-fadeIn">
-      <button onClick={onBack} className="flex items-center gap-1 text-xs text-slate-300 hover:text-white transition-colors"><ArrowLeft className="w-3.5 h-3.5" />Back to Dashboard</button>
-
-      {/* Header */}
-      <div>
-        <div className="flex flex-wrap items-center gap-2 mb-2">
-          <span className="text-sm font-mono font-bold text-slate-300">#{incident.id}</span>
-          <SeverityBadge severity={incident.severity} />
-          <StatusDot status={incident.status} />
-        </div>
-        <h2 className="text-xl md:text-2xl font-extrabold text-white mb-2">{incident.title}</h2>
-        <div className="flex flex-wrap items-center gap-3 text-xs text-slate-300">
-          <span>Assigned to: {assigned ? <span className="text-blue-400">Wen Liu</span> : <button onClick={onAssign} className="text-blue-400 hover:underline">Assign to me</button>}</span>
-          <span>Created: 2h ago</span>
-          <span>Last activity: 23m ago</span>
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex gap-0 border-b border-white/[0.06]">
-        {(["timeline", "attack", "response"] as const).map((tab) => (
-          <button key={tab} onClick={() => handleTab(tab)} className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors border-b-2 -mb-px ${activeTab === tab ? "text-blue-400 border-blue-400" : "text-slate-300 border-transparent hover:text-white"}`}>
-            {tab === "timeline" ? "Timeline" : tab === "attack" ? "ATT&CK Map" : "Response"}
-          </button>
-        ))}
-      </div>
-
-      {/* Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-5">
+          <div className="card-surface rounded-none p-6">
             {TIMELINE.map((step, i) => {
               const Icon = step.icon;
-              const tacticColor = step.tactic === "Initial Access" ? "bg-red-400" : step.tactic === "Execution" ? "bg-orange-400" : step.tactic === "Credential Access" ? "bg-amber-400" : step.tactic === "Lateral Movement" ? "bg-purple-400" : "bg-cyan-400";
+              // Red gradient: light to deep based on timeline position
+              const dotColors = ["bg-red-300", "bg-red-400", "bg-red-500", "bg-red-500", "bg-red-600", "bg-red-700"];
+              const tacticColor = dotColors[i] || "bg-red-500";
               return (
-                <div key={i} className="flex gap-4">
+                <div key={i} className="flex gap-5">
                   <div className="flex flex-col items-center">
-                    <div className={`w-3 h-3 rounded-none ${tacticColor} ring-4 ring-[#141b2d] shrink-0 mt-1.5`} />
-                    {i < TIMELINE.length - 1 && <div className="w-px flex-1 bg-white/[0.06] my-1" />}
+                    <div className={`w-3.5 h-3.5 rounded-full ${tacticColor} shrink-0 mt-2`} />
+                    {i < TIMELINE.length - 1 && <div className="w-0.5 flex-1 timeline-line my-1" />}
                   </div>
-                  <div className="pb-5 min-w-0 flex-1">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-[11px] font-mono text-slate-300">{step.time}</span>
+                  <div className="pb-7 min-w-0 flex-1">
+                    <div className="flex items-center gap-3 mb-2 flex-wrap">
+                      <span className="text-sm font-mono font-semibold text-slate-400">{step.time}</span>
                       <MitreTag tactic={step.tactic} />
-                      <span className="text-[10px] font-mono text-slate-400">{step.technique}</span>
+                      <span className="text-sm font-mono font-normal text-slate-400">{step.technique}</span>
                     </div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <Icon className="w-4 h-4 text-slate-400 shrink-0" />
-                      <p className="text-sm font-bold text-white">{step.title}</p>
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <Icon className="w-5 h-5 text-slate-400 shrink-0" />
+                      <p className="text-base font-semibold">{step.title}</p>
                     </div>
-                    <p className="text-xs text-slate-400 leading-relaxed mb-1">{step.detail}</p>
-                    <div className="flex gap-3 text-[10px] text-slate-400">
-                      <span>Confidence: <span className={step.confidence === "High" ? "text-emerald-400" : "text-amber-400"}>{step.confidence}</span></span>
+                    <p className="text-sm text-slate-400 leading-relaxed mb-2">{step.detail}</p>
+                    <div className="flex gap-4 text-sm text-slate-400 font-normal">
+                      <span>Confidence: <span className={step.confidence === "High" ? "text-emerald-500" : "text-amber-500"}>{step.confidence}</span></span>
                       <span>Source: {step.source}</span>
                     </div>
                   </div>
@@ -337,87 +338,137 @@ function Screen2({ incident, onBack, onAttackMap, onResponse, assigned, onAssign
         </div>
 
         {/* Right sidebar */}
-        <div className="space-y-4">
-          <div className="bg-[#141b2d] border border-blue-500/20 rounded-none p-4">
-            <div className="flex items-center gap-1.5 mb-2"><Zap className="w-3.5 h-3.5 text-blue-400" /><span className="text-[11px] font-extrabold uppercase tracking-widest text-blue-400">AI Summary</span></div>
-            <p className="text-xs text-slate-300 leading-relaxed">This is a coordinated attack chain. An attacker sent a targeted phishing email to j.chen in the finance department. After harvesting credentials through a fake SSO page, the attacker logged in from a Tor exit node and moved laterally to finance-server-02, where they began staging sensitive financial documents. No exfiltration detected yet, but the attack is still active. Immediate credential reset and device isolation strongly recommended.</p>
+        <div className="space-y-5">
+          <div className="card-surface rounded-none p-5">
+            <div className="flex items-center gap-2 mb-3"><Zap className="w-4 h-4 text-blue-500" /><span className="text-sm font-semibold uppercase tracking-widest text-blue-500">AI Summary</span></div>
+            <p className="text-sm text-slate-400 leading-relaxed font-normal">This is a coordinated attack chain. An attacker sent a targeted phishing email to j.chen in the finance department. After harvesting credentials through a fake SSO page, the attacker logged in from a Tor exit node and moved laterally to finance-server-02, where they began staging sensitive financial documents. No exfiltration detected yet, but the attack is still active. Immediate credential reset and device isolation strongly recommended.</p>
           </div>
-          <div className="bg-[#141b2d] border border-red-500/20 rounded-none p-4">
-            <div className="flex items-center justify-between mb-1"><span className="text-[11px] font-extrabold uppercase tracking-widest text-slate-300">Risk Score</span></div>
+          <div className="card-surface rounded-none p-5">
+            <span className="text-sm font-semibold uppercase tracking-widest text-slate-400 block mb-2">Risk Score</span>
             <div className="flex items-end gap-2">
-              <span className="text-3xl font-bold text-red-400">94</span><span className="text-xs text-slate-300 pb-1">/100</span>
+              <span className="text-4xl font-semibold text-red-400">94</span><span className="text-base font-normal text-slate-400 pb-1">/100</span>
             </div>
-            <div className="w-full h-1.5 bg-white/[0.06] rounded-none mt-2 overflow-hidden"><div className="h-full bg-gradient-to-r from-red-500 to-red-400 rounded-none" style={{ width: "94%" }} /></div>
+            <div className="w-full h-2 bg-white/[0.06] rounded-full mt-3 overflow-hidden"><div className="h-full bg-gradient-to-r from-red-500 to-red-400 rounded-full" style={{ width: "94%" }} /></div>
           </div>
-          <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-4">
-            <span className="text-[11px] font-extrabold uppercase tracking-widest text-slate-300 mb-2 block">Affected Assets</span>
+          <div className="card-surface rounded-none p-5">
+            <span className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3 block">Affected Assets</span>
             {[
               { name: "j.chen@acme.com", type: "User \u00b7 Finance Dept", icon: User },
               { name: "DESKTOP-JC2847", type: "Workstation \u00b7 Windows 11", icon: Monitor },
               { name: "finance-server-02", type: "Server \u00b7 Windows Server 2022", icon: Server },
             ].map((a) => (
-              <div key={a.name} className="flex items-center gap-2.5 py-2 border-b border-white/[0.04] last:border-0">
-                <a.icon className="w-3.5 h-3.5 text-slate-300" />
-                <div><p className="text-xs text-white font-bold">{a.name}</p><p className="text-[10px] text-slate-400">{a.type}</p></div>
+              <div key={a.name} className="py-5 border-b border-white/[0.04] last:border-0">
+                <p className="text-base font-semibold">{a.name}</p><p className="text-sm font-normal text-slate-400 mt-1">{a.type}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
 /* ================================================================== */
-/*  SCREEN 3 — ATT&CK Map                                             */
+/*  SCREEN 3 — ATT&CK Map (content only)                              */
 /* ================================================================== */
 
-function Screen3({ incident, onBack, onResponse }: { incident: Incident; onBack: () => void; onResponse: () => void }) {
+function Screen3Content({ incident }: { incident: Incident }) {
+  const phases = ATTACK_TACTICS.map((t, i) => {
+    const techs = ACTIVE_TECHNIQUES[t];
+    const isActive = !!techs;
+    const isPredicted = PREDICTED_NEXT.some((p) => p.tactic === t);
+    return { name: t, index: i, techs, isActive, isPredicted };
+  });
+  const activePhases = phases.filter((p) => p.isActive);
+  const predictedPhases = phases.filter((p) => p.isPredicted && !p.isActive);
+
   return (
-    <div className="space-y-5 animate-fadeIn">
-      <button onClick={onBack} className="flex items-center gap-1 text-xs text-slate-300 hover:text-white transition-colors"><ArrowLeft className="w-3.5 h-3.5" />Back to Incident</button>
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-extrabold text-white mb-1">ATT&CK Map &mdash; Incident #{incident.id}</h2>
-          <p className="text-xs text-slate-300">Techniques involved in this attack chain highlighted below</p>
+    <div className="space-y-8">
+      {/* === ATTACK CHAIN — horizontal connected flow === */}
+      <div className="card-surface rounded-none p-8">
+        <h3 className="text-sm font-bold uppercase tracking-widest mb-2">MITRE ATT&CK Kill Chain</h3>
+        <p className="text-sm text-slate-400 mb-8">Full 14-tactic attack lifecycle. Highlighted tactics were observed in this incident.</p>
+
+        {/* Full 14-node chain — single grid, ball + label per column */}
+        <div className="pb-4">
+          <div className="grid" style={{ gridTemplateColumns: `repeat(${phases.length}, 1fr)`, gap: 0 }}>
+            {/* Row 1: Balls with connecting arrows via border trick */}
+            {phases.map((phase, i) => (
+              <div key={phase.name} className="flex items-center justify-center relative" style={{ height: 52 }}>
+                {/* Left half connector line */}
+                {i > 0 && <div className="absolute left-0 top-1/2 w-[calc(50%-26px)] h-px bg-slate-400/30" />}
+                {/* Right half connector line */}
+                {i < phases.length - 1 && (
+                  <div className="absolute right-0 top-1/2 w-[calc(50%-26px)] h-px bg-slate-400/30" />
+                )}
+                {/* Ball with tooltip */}
+                <div className="relative z-10 group/ball">
+                  <div className={`w-[52px] h-[52px] rounded-full flex items-center justify-center text-sm font-semibold shrink-0 ${phase.isActive ? "bg-blue-500 force-white cursor-pointer" : phase.isPredicted ? "bg-amber-500/15 text-amber-500 border-2 border-dashed border-amber-500/30 cursor-pointer" : "bg-white/[0.04] text-slate-400"}`}>
+                    {phase.index + 1}
+                  </div>
+                  {phase.techs && phase.techs.length > 0 && (
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2 hidden group-hover/ball:block z-50">
+                      <div className="tech-tooltip rounded-lg shadow-xl px-4 py-3 whitespace-nowrap select-text cursor-text">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">Techniques</p>
+                        {phase.techs.map((tech) => (
+                          <p key={tech} className="text-sm font-normal py-0.5">{tech}</p>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+            {/* Row 2: Labels — perfectly aligned under each ball */}
+            {phases.map((phase) => (
+              <div key={phase.name + "-l"} className="flex flex-col items-center text-center pt-4 px-1">
+                <p className={`text-sm font-semibold leading-tight ${phase.isActive ? "text-blue-500" : phase.isPredicted ? "text-amber-500" : "text-slate-400"}`}>{phase.name}</p>
+                {phase.isPredicted && !phase.isActive && <span className="text-sm font-normal text-amber-500/60 mt-0.5">predicted</span>}
+              </div>
+            ))}
+          </div>
         </div>
-        <button onClick={onResponse} className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold rounded-none transition-colors uppercase tracking-wider">Take Action</button>
+
+        {/* Legend */}
+        <div className="flex items-center gap-6 mt-4 pt-5 border-t border-white/[0.04]">
+          <div className="flex items-center gap-2"><div className="w-4 h-4 rounded-full bg-blue-500" /><span className="text-sm font-normal">Detected</span></div>
+          <div className="flex items-center gap-2"><div className="w-4 h-4 rounded-full bg-amber-500/30 border-2 border-dashed border-amber-500/30" /><span className="text-sm font-normal">Predicted</span></div>
+          <div className="flex items-center gap-2"><div className="w-4 h-4 rounded-full bg-white/[0.04]" /><span className="text-sm font-normal text-slate-400">Not observed</span></div>
+        </div>
       </div>
 
-      {/* Matrix */}
-      <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-5 overflow-x-auto">
-        <div className="grid gap-px" style={{ gridTemplateColumns: `repeat(${ATTACK_TACTICS.length}, minmax(80px, 1fr))` }}>
-          {ATTACK_TACTICS.map((t) => (
-            <div key={t} className="text-center px-1 pb-2 border-b border-white/[0.06]">
-              <span className="text-[9px] font-bold uppercase tracking-wider text-slate-300 leading-tight block">{t}</span>
+      {/* === Full ATT&CK Coverage Grid === */}
+      <div className="card-surface rounded-none p-8">
+        <h3 className="text-sm font-bold uppercase tracking-widest mb-6">Full ATT&CK Coverage Map</h3>
+        <div className="grid grid-cols-7 gap-3">
+          {phases.map((phase) => (
+            <div key={phase.name + "-grid"} className={`relative p-4 text-center transition-all ${phase.isActive ? "attack-chain-active" : phase.isPredicted ? "attack-chain-predicted" : ""}`}>
+              <div className={`w-full h-1.5 rounded-full mb-3 ${phase.isActive ? "bg-blue-500" : phase.isPredicted ? "bg-amber-500/40" : "bg-white/[0.06]"}`} />
+              <p className={`text-sm font-semibold uppercase tracking-wider leading-tight ${phase.isActive ? "text-blue-500" : phase.isPredicted ? "text-amber-500" : "text-slate-400"}`}>
+                {phase.name}
+              </p>
+              {phase.techs && (
+                <p className="text-sm font-semibold text-blue-500/60 mt-1">{phase.techs.length} technique{phase.techs.length > 1 ? "s" : ""}</p>
+              )}
             </div>
           ))}
-          {ATTACK_TACTICS.map((t) => {
-            const techs = ACTIVE_TECHNIQUES[t];
-            return (
-              <div key={t + "-cell"} className="p-1 min-h-[60px]">
-                {techs ? techs.map((tech) => (
-                  <div key={tech} className="bg-blue-500/20 border border-blue-500/40 rounded-none px-1.5 py-1 mb-1 text-center">
-                    <span className="text-[9px] font-bold text-blue-400 block">{tech}</span>
-                  </div>
-                )) : (
-                  <div className="bg-white/[0.02] rounded-none h-8" />
-                )}
-              </div>
-            );
-          })}
         </div>
       </div>
 
-      {/* Predicted next */}
-      <div className="bg-[#141b2d] border border-amber-500/20 rounded-none p-5">
-        <div className="flex items-center gap-1.5 mb-3"><Eye className="w-3.5 h-3.5 text-amber-400" /><span className="text-[11px] font-extrabold uppercase tracking-widest text-amber-400">Predicted Next Steps</span></div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      {/* === Predicted Next Steps === */}
+      <div className="card-surface rounded-none p-8">
+        <div className="flex items-center gap-2.5 mb-6">
+          <Eye className="w-5 h-5 text-amber-500" />
+          <span className="text-sm font-semibold uppercase tracking-widest text-amber-500">Predicted Next Steps</span>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {PREDICTED_NEXT.map((p) => (
-            <div key={p.technique} className="bg-white/[0.02] border border-white/[0.04] rounded-none p-3">
-              <div className="flex items-center gap-1.5 mb-1"><MitreTag tactic={p.tactic} /><span className="text-[10px] font-mono text-slate-400">{p.technique}</span></div>
-              <p className="text-xs text-white font-bold mb-1">{p.name}</p>
-              <p className="text-[11px] text-slate-300 leading-relaxed">{p.desc}</p>
+            <div key={p.technique} className="bg-white/[0.02] rounded-none p-6">
+              <div className="flex items-center gap-2.5 mb-3">
+                <MitreTag tactic={p.tactic} />
+                <span className="text-sm font-mono font-normal text-slate-400">{p.technique}</span>
+              </div>
+              <p className="text-lg font-semibold mb-2">{p.name}</p>
+              <p className="text-sm text-slate-400 leading-relaxed">{p.desc}</p>
             </div>
           ))}
         </div>
@@ -457,46 +508,46 @@ function Screen4({ onBack, onComplete }: { onBack: () => void; onComplete: () =>
   const progress = executing ? Math.min(((completedIdx + 1) / RESPONSE_ACTIONS.length) * 100, 100) : 0;
 
   return (
-    <div className="space-y-5 animate-fadeIn">
-      <button onClick={onBack} className="flex items-center gap-1 text-xs text-slate-300 hover:text-white transition-colors"><ArrowLeft className="w-3.5 h-3.5" />Back to Incident</button>
-      <h2 className="text-xl font-extrabold text-white">Respond to Incident #1042</h2>
+    <div className="space-y-5">
 
       {executing && (
-        <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-4">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-400">{allDone ? "Response playbook complete" : "Executing response playbook..."}</span>
-            <span className="text-xs font-mono text-slate-300">{Math.round(progress)}%</span>
+        <div className="card-surface  rounded-none p-6">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-base font-bold">{allDone ? "Response playbook complete" : "Executing response playbook..."}</span>
+            <span className="text-base font-bold font-mono">{Math.round(progress)}%</span>
           </div>
-          <div className="w-full h-2 bg-white/[0.06] rounded-none overflow-hidden">
-            <div className={`h-full rounded-none transition-all duration-500 ${allDone ? "bg-emerald-500" : "bg-blue-500"}`} style={{ width: `${progress}%` }} />
+          <div className="w-full h-3 bg-white/[0.06] rounded-full overflow-hidden">
+            <div className={`h-full rounded-full transition-all duration-500 ${allDone ? "bg-emerald-500" : "bg-blue-500"}`} style={{ width: `${progress}%` }} />
           </div>
         </div>
       )}
 
       {allDone && (
-        <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-none p-4 flex items-center gap-3">
+        <div className="bg-emerald-500/10  rounded-none p-4 flex items-center gap-3">
           <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
-          <p className="text-sm text-emerald-300 font-bold">All response actions completed successfully &mdash; 5/5 executed in 16 seconds</p>
+          <p className="text-sm text-emerald-300 font-normal">All response actions completed successfully &mdash; 5/5 executed in 16 seconds</p>
         </div>
       )}
 
-      <div className="bg-[#141b2d] border border-white/[0.06] rounded-none divide-y divide-white/[0.04]">
+      <div className="card-surface  rounded-none response-divider">
         {RESPONSE_ACTIONS.map((action, i) => {
           const Icon = action.icon;
           const done = i <= completedIdx;
           const running = executing && i === completedIdx + 1 && !allDone;
           return (
-            <div key={i} className="flex items-start gap-3 p-4">
-              <div className="mt-0.5 shrink-0">
-                {done ? <CheckCircle className="w-5 h-5 text-emerald-400" /> : running ? <Loader2 className="w-5 h-5 text-blue-400 animate-spin" /> : <div className="w-5 h-5 rounded-none border-2 border-white/[0.1]" />}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <Icon className="w-3.5 h-3.5 text-slate-300" />
-                  <p className={`text-sm font-bold ${done ? "text-white" : "text-slate-300"}`}>{done ? action.completedText : action.label}</p>
+            <div key={i} className="flex items-center gap-4 p-5">
+              {(done || running) && (
+                <div className="shrink-0">
+                  {done ? <CheckCircle className="w-5 h-5 text-emerald-400" /> : <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />}
                 </div>
-                {!done && !running && <p className="text-xs text-slate-400 mt-0.5">{action.desc}</p>}
-                {done && <p className="text-[10px] text-slate-400 mt-0.5">{action.time}</p>}
+              )}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2.5">
+                  <Icon className="w-5 h-5" />
+                  <p className={`text-base font-bold`}>{done ? action.completedText : action.label}</p>
+                </div>
+                {!done && !running && <p className="text-sm text-slate-400 mt-1">{action.desc}</p>}
+                {done && <p className="text-xs text-slate-400 mt-1">{action.time}</p>}
               </div>
             </div>
           );
@@ -504,10 +555,10 @@ function Screen4({ onBack, onComplete }: { onBack: () => void; onComplete: () =>
       </div>
 
       {!executing && (
-        <button onClick={handleExecute} className="w-full py-3.5 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold rounded-none transition-colors uppercase tracking-wider">Execute All Actions</button>
+        <button onClick={handleExecute} className="w-full py-4 bg-blue-500 hover:bg-blue-600 force-white text-sm font-bold rounded-full transition-colors uppercase tracking-wide cursor-pointer text-center">Execute All Actions</button>
       )}
       {allDone && (
-        <button onClick={onComplete} className="w-full py-3.5 bg-[#141b2d] border border-white/[0.08] hover:border-blue-500/40 text-white text-sm font-bold rounded-none transition-colors">Continue to Summary &rarr;</button>
+        <button onClick={onComplete} className="w-full py-4 card-surface summary-action-btn border border-white/[0.08] rounded-full text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">Continue to Summary &rarr;</button>
       )}
     </div>
   );
@@ -527,36 +578,38 @@ function Screen5({ incident, onClose }: { incident: Incident; onClose: () => voi
 
   return (
     <div className="space-y-5 animate-fadeIn">
-      <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-none p-5">
+      <div className="bg-emerald-500/10  rounded-none p-5">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-none bg-emerald-500/20 flex items-center justify-center"><CheckCircle className="w-5 h-5 text-emerald-400" /></div>
-          <div><h2 className="text-base font-extrabold text-white">Incident #{incident.id} &mdash; Contained</h2><p className="text-sm text-emerald-400 font-bold">All response actions completed &middot; Ready to close</p></div>
+          <div><h2 className="text-base font-semibold text-white">Incident #{incident.id} &mdash; Contained</h2><p className="text-sm text-emerald-400 font-normal">All response actions completed &middot; Ready to close</p></div>
         </div>
       </div>
 
-      <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-5">
-        <h3 className="text-xs font-bold uppercase tracking-widest text-slate-300 mb-3">Incident Summary</h3>
-        <pre className="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap font-sans">{SUMMARY_TEXT}</pre>
+      <div className="card-surface  rounded-none p-6">
+        <h3 className="text-sm font-bold uppercase tracking-widest mb-4">Incident Summary</h3>
+        <pre className="text-sm leading-relaxed whitespace-pre-wrap font-sans">{SUMMARY_TEXT}</pre>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <button onClick={handleCopy} className="flex items-center justify-center gap-2 py-3 bg-[#141b2d] border border-white/[0.06] hover:border-blue-500/40 rounded-none text-xs font-bold text-slate-300 transition-colors">
-          {copied ? <><CheckCircle className="w-3.5 h-3.5 text-emerald-400" />Copied!</> : <><Copy className="w-3.5 h-3.5" />Copy Summary</>}
+        <button onClick={handleCopy} className="flex items-center justify-center gap-2 py-3.5 card-surface summary-action-btn rounded-full text-sm font-bold transition-colors cursor-pointer">
+          {copied ? <><CheckCircle className="w-4 h-4 text-emerald-400" />Copied!</> : <><Copy className="w-4 h-4" />Copy Summary</>}
         </button>
-        <button className="flex items-center justify-center gap-2 py-3 bg-[#141b2d] border border-white/[0.06] hover:border-blue-500/40 rounded-none text-xs font-bold text-slate-300 transition-colors"><Send className="w-3.5 h-3.5" />Send to Slack</button>
-        <button className="flex items-center justify-center gap-2 py-3 bg-[#141b2d] border border-white/[0.06] hover:border-blue-500/40 rounded-none text-xs font-bold text-slate-300 transition-colors"><ArrowUpRight className="w-3.5 h-3.5" />Escalate</button>
-        <button onClick={() => setShowModal(true)} className="flex items-center justify-center gap-2 py-3 bg-blue-500 hover:bg-blue-600 rounded-none text-xs font-bold text-white transition-colors"><XCircle className="w-3.5 h-3.5" />Close Incident</button>
+        <button className="flex items-center justify-center gap-2 py-3.5 card-surface summary-action-btn rounded-full text-sm font-bold transition-colors cursor-pointer"><Send className="w-4 h-4" />Send to Slack</button>
+        <button className="flex items-center justify-center gap-2 py-3.5 card-surface summary-action-btn rounded-full text-sm font-bold transition-colors cursor-pointer"><ArrowUpRight className="w-4 h-4" />Escalate</button>
+        <button onClick={() => setShowModal(true)} className="flex items-center justify-center gap-2 py-3.5 bg-blue-500 hover:bg-blue-600 rounded-full text-sm font-bold force-white transition-colors cursor-pointer"><XCircle className="w-4 h-4" />Close Incident</button>
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowModal(false)}>
-          <div className="bg-[#1a2236] border border-white/[0.1] rounded-none p-6 max-w-sm w-full mx-4 text-center" onClick={(e) => e.stopPropagation()}>
-            <XCircle className="w-10 h-10 text-blue-400 mx-auto mb-3" />
-            <h3 className="text-base font-extrabold text-white mb-2">Close Incident #1042?</h3>
-            <p className="text-xs text-slate-400 mb-5">This will mark the incident as resolved and notify all stakeholders.</p>
-            <div className="flex gap-3">
-              <button onClick={() => setShowModal(false)} className="flex-1 py-2.5 bg-white/[0.06] hover:bg-white/[0.1] rounded-none text-xs font-bold text-slate-300 transition-colors">Cancel</button>
-              <button onClick={() => { setShowModal(false); onClose(); }} className="flex-1 py-2.5 bg-blue-500 hover:bg-blue-600 rounded-none text-xs font-bold text-white transition-colors">Close Incident</button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md" onClick={() => setShowModal(false)}>
+          <div className="close-modal-surface rounded-2xl px-10 py-10 max-w-md w-full mx-4 text-center shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-6">
+              <XCircle className="w-8 h-8 text-blue-500" />
+            </div>
+            <h3 className="text-xl font-bold mb-3">Close Incident #1042?</h3>
+            <p className="text-base text-slate-400 mb-8 leading-relaxed">This will mark the incident as resolved and notify all stakeholders.</p>
+            <div className="flex gap-4">
+              <button onClick={() => setShowModal(false)} className="flex-1 py-3.5 rounded-full text-sm font-semibold transition-colors cursor-pointer cancel-btn">Cancel</button>
+              <button onClick={() => { setShowModal(false); onClose(); }} className="flex-1 py-3.5 bg-blue-500 hover:bg-blue-600 rounded-full text-sm font-semibold force-white transition-colors cursor-pointer">Close Incident</button>
             </div>
           </div>
         </div>
@@ -569,7 +622,7 @@ function Screen5({ incident, onClose }: { incident: Incident; onClose: () => voi
 /*  SIDEBAR & TOP BAR                                                  */
 /* ================================================================== */
 
-function Sidebar({ screen, onNav }: { screen: Screen; onNav: (s: Screen) => void }) {
+function Sidebar({ screen, onNav, isDark }: { screen: Screen; onNav: (s: Screen) => void; isDark: boolean }) {
   const items: { icon: typeof LayoutDashboard; label: string; target: Screen; active: boolean }[] = [
     { icon: LayoutDashboard, label: "Dashboard", target: 1, active: screen === 1 || screen === 6 },
     { icon: AlertTriangle, label: "Incidents", target: "incidents", active: screen === "incidents" || (typeof screen === "number" && screen >= 2 && screen <= 5) },
@@ -578,46 +631,137 @@ function Sidebar({ screen, onNav }: { screen: Screen; onNav: (s: Screen) => void
     { icon: Settings, label: "Settings", target: "settings", active: screen === "settings" },
   ];
   return (
-    <aside className="hidden md:flex flex-col w-[220px] bg-[#0d1221] border-r border-white/[0.06] shrink-0">
-      <div className="flex items-center gap-2.5 px-5 py-4 border-b border-white/[0.06]">
-        <Shield className="w-5 h-5 text-blue-400" />
-        <span className="text-base font-extrabold text-white tracking-wide">PRISM</span>
+    <aside className="hidden md:flex flex-col w-[220px] sidebar-surface shrink-0">
+      <div className={`flex items-center gap-2.5 px-5 py-4 ${isDark ? "border-b border-white/[0.06]" : "border-b border-slate-200"}`}>
+        <Shield className="w-5 h-5 text-blue-500" />
+        <span className={`text-base font-semibold tracking-wide ${isDark ? "text-white" : "text-slate-900"}`}>PRISM</span>
       </div>
       <nav className="flex-1 py-3">
         {items.map((it) => (
-          <button key={it.label} onClick={() => onNav(it.target)} className={`w-full flex items-center gap-2.5 px-5 py-3 mx-2 rounded-none text-sm font-bold transition-colors cursor-pointer ${it.active ? "bg-blue-500/10 text-blue-400" : "text-slate-400 hover:text-white hover:bg-white/[0.03]"}`} style={{ maxWidth: "calc(100% - 16px)" }}>
+          <button key={it.label} onClick={() => onNav(it.target)} className={`w-full flex items-center gap-3 px-5 py-3.5 my-2 mx-2 rounded-full text-sm font-semibold transition-colors cursor-pointer ${it.active ? (isDark ? "bg-blue-500/10 text-blue-400" : "bg-blue-50 text-blue-600") : (isDark ? "text-slate-400 hover:text-white hover:bg-white/[0.03]" : "text-slate-500 hover:text-slate-900 hover:bg-slate-100")}`} style={{ maxWidth: "calc(100% - 16px)" }}>
             <it.icon className="w-4.5 h-4.5" />
             {it.label}
           </button>
         ))}
       </nav>
-      <div className="px-5 py-4 border-t border-white/[0.06]">
-        <p className="text-[11px] text-slate-400 uppercase tracking-wider font-bold">Portfolio Demo</p>
-        <p className="text-[11px] text-slate-400">wensproject.com</p>
+      <div className={`px-5 py-4 ${isDark ? "border-t border-white/[0.06]" : "border-t border-slate-200"}`}>
+        <p className={`text-[11px] uppercase tracking-wider font-normal ${isDark ? "text-slate-400" : "text-slate-400"}`}>Portfolio Demo</p>
+        <p className={`text-[11px] ${isDark ? "text-slate-400" : "text-slate-400"}`}>wensproject.com</p>
       </div>
     </aside>
   );
 }
 
-function TopBar({ onReset }: { onReset: () => void }) {
+const SEARCH_ITEMS = [
+  { label: "Incident #1042 — Suspected Phishing", category: "Incidents", screen: 2 as Screen },
+  { label: "Incident #1041 — Unusual outbound traffic", category: "Incidents", screen: "incidents" as Screen },
+  { label: "Incident #1040 — Failed login brute force", category: "Incidents", screen: "incidents" as Screen },
+  { label: "j.chen@acme.com", category: "Users", screen: 2 as Screen },
+  { label: "m.rodriguez@acme.com", category: "Users", screen: "assets" as Screen },
+  { label: "DESKTOP-JC2847", category: "Assets", screen: "assets" as Screen },
+  { label: "finance-server-02", category: "Assets", screen: "assets" as Screen },
+  { label: "185.220.101.42 (Tor exit node)", category: "IOCs", screen: 2 as Screen },
+  { label: "login-acme.attacker.com", category: "IOCs", screen: 2 as Screen },
+  { label: "ATT&CK Coverage Map", category: "Pages", screen: "attack-coverage" as Screen },
+  { label: "T1566.001 — Spearphishing Attachment", category: "Techniques", screen: 3 as Screen },
+  { label: "T1078 — Valid Accounts", category: "Techniques", screen: 3 as Screen },
+];
+
+function TopBar({ onReset, isDark, onToggleTheme, onNav }: { onReset: () => void; isDark: boolean; onToggleTheme: () => void; onNav: (s: Screen) => void }) {
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const filtered = query.trim()
+    ? SEARCH_ITEMS.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()))
+    : SEARCH_ITEMS.slice(0, 6);
+
+  useEffect(() => {
+    if (searchOpen) inputRef.current?.focus();
+  }, [searchOpen]);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setSearchOpen(false);
+        setQuery("");
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  const handleSelect = (screen: Screen) => {
+    onNav(screen);
+    setSearchOpen(false);
+    setQuery("");
+  };
+
   return (
-    <div className="flex items-center justify-between px-5 py-3 bg-[#0d1221] border-b border-white/[0.06]">
+    <div className="flex items-center justify-between px-5 py-3 topbar-surface">
       <div className="flex items-center gap-2 md:hidden">
-        <Shield className="w-4 h-4 text-blue-400" />
-        <span className="text-sm font-extrabold text-white">PRISM</span>
+        <Shield className="w-4 h-4 text-blue-500" />
+        <span className={`text-sm font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>PRISM</span>
       </div>
-      <div className="hidden md:flex items-center gap-2 bg-white/[0.04] rounded-none px-3 py-2 w-72">
-        <Search className="w-4 h-4 text-slate-300" />
-        <span className="text-sm text-slate-400 font-bold">Search incidents, assets, IOCs...</span>
+      {/* Search */}
+      <div ref={containerRef} className="hidden md:block relative">
+        <div
+          onClick={() => setSearchOpen(true)}
+          className={`flex items-center gap-2 rounded-full px-4 py-2 w-[520px] cursor-pointer transition-all ${searchOpen ? "ring-2 ring-blue-500" : isDark ? "bg-white/[0.04] hover:ring-2 hover:ring-blue-500/50" : "bg-slate-100 hover:ring-2 hover:ring-blue-500/50"}`}
+        >
+          <Search className="w-4 h-4 text-slate-400 shrink-0" />
+          {searchOpen ? (
+            <input
+              ref={inputRef}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search incidents, assets, IOCs..."
+              className="flex-1 bg-transparent text-sm outline-none placeholder:text-slate-400"
+            />
+          ) : (
+            <span className={`text-sm font-normal ${isDark ? "text-slate-400" : "text-slate-500"}`}>Search incidents, assets, IOCs...</span>
+          )}
+          {searchOpen && query && (
+            <button onClick={(e) => { e.stopPropagation(); setQuery(""); }} className="cursor-pointer">
+              <X className="w-4 h-4 text-slate-400 hover:text-slate-200" />
+            </button>
+          )}
+        </div>
+        {/* Dropdown */}
+        {searchOpen && (
+          <div className={`absolute top-full left-0 mt-2 w-[520px] rounded-lg shadow-xl z-50 border py-3 ${isDark ? "bg-[#141b2d] border-white/[0.08]" : "bg-white border-slate-200"}`}>
+            <div className={`px-6 py-3 text-xs font-semibold uppercase tracking-wider ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+              {query ? `Results for "${query}"` : "Recent & Suggested"}
+            </div>
+            {filtered.length === 0 ? (
+              <div className={`px-4 py-6 text-center text-sm ${isDark ? "text-slate-500" : "text-slate-400"}`}>No results found</div>
+            ) : (
+              filtered.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => handleSelect(item.screen)}
+                  className={`w-full text-left px-6 py-4 flex items-center justify-between transition-colors cursor-pointer ${isDark ? "hover:bg-white/[0.04]" : "hover:bg-slate-50"}`}
+                >
+                  <span className={`text-sm ${isDark ? "text-slate-200" : "text-slate-700"}`}>{item.label}</span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${isDark ? "bg-white/[0.06] text-slate-400" : "bg-slate-100 text-slate-500"}`}>{item.category}</span>
+                </button>
+              ))
+            )}
+          </div>
+        )}
       </div>
-      <div className="flex items-center gap-3">
-        <button onClick={onReset} className="px-3 py-1.5 rounded-none bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-xs font-bold text-slate-400 hover:text-white transition-colors flex items-center gap-1.5" title="Reset demo to initial state">
-          <RotateCcw className="w-3.5 h-3.5" />Reset
+      <div className="flex items-center gap-4">
+        <button onClick={onReset} className={`px-4 py-2 rounded-full text-sm font-normal transition-colors flex items-center gap-2 cursor-pointer ${isDark ? "bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white" : "bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900"}`} title="Reset demo">
+          <RotateCcw className="w-4 h-4" />Reset
+        </button>
+        <button onClick={onToggleTheme} className={`px-4 py-2 rounded-full text-sm font-normal transition-colors flex items-center gap-2 cursor-pointer ${isDark ? "bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white" : "bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900"}`} title="Toggle theme">
+          {isDark ? "Light" : "Dark"}
         </button>
         <div className="cursor-pointer">
-          <Bell className="w-4.5 h-4.5 text-slate-300" />
+          <Bell className={`w-5 h-5 ${isDark ? "text-slate-300" : "text-slate-500"}`} />
         </div>
-        <div className="w-8 h-8 rounded-none bg-blue-500/20 flex items-center justify-center text-xs font-extrabold text-blue-400">WL</div>
+        <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold ${isDark ? "bg-blue-500/20 text-blue-400" : "bg-blue-100 text-blue-600"}`}>WL</div>
       </div>
     </div>
   );
@@ -628,29 +772,70 @@ function TopBar({ onReset }: { onReset: () => void }) {
 /* ================================================================== */
 
 function IncidentsPage({ incidents, onSelect }: { incidents: Incident[]; onSelect: (id: number) => void }) {
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const active = incidents.filter((i) => i.status !== "Contained");
+  const contained = incidents.filter((i) => i.status === "Contained");
+
+  const cols = "grid-cols-[80px_1.5fr_0.8fr_0.8fr_0.8fr_140px]";
+
   return (
-    <div className="space-y-6 animate-fadeIn">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-extrabold text-white">All Incidents</h2>
-        <span className="text-base font-bold text-slate-300">{incidents.length} total</span>
-      </div>
-      <div className="bg-[#141b2d] border border-white/[0.06] rounded-none overflow-hidden">
-        <div className="grid grid-cols-[70px_1fr_110px_110px_130px] gap-3 px-6 py-4 border-b border-white/[0.06] text-sm font-extrabold uppercase tracking-widest text-slate-400">
-          <span>ID</span><span>Title</span><span>Severity</span><span>Status</span><span>Time</span>
+    <div className="space-y-10 animate-fadeIn">
+      {/* Active Incidents */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-2xl font-semibold">Active Incidents</h2>
         </div>
-        {incidents.map((inc) => {
-          const isOpen = inc.status !== "Contained";
-          return (
-          <button key={inc.id} onClick={isOpen ? () => onSelect(inc.id) : undefined} className={`w-full grid grid-cols-[70px_1fr_110px_110px_130px] gap-3 px-6 py-5 border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors text-left items-center cursor-pointer ${!isOpen ? "opacity-60" : ""}`}>
-            <span className="text-sm font-mono font-bold text-slate-300">#{inc.id}</span>
-            <span className="text-base font-bold text-white truncate">{inc.title}</span>
-            <SeverityBadge severity={inc.severity} />
-            <StatusDot status={inc.status} />
-            <span className="text-sm font-bold text-slate-400">{inc.time}</span>
-          </button>
-          );
-        })}
+        <div className="card-surface rounded-none overflow-hidden !border-0">
+          <div className={`grid ${cols} gap-3 px-6 py-4 border-b border-white/[0.06] text-sm font-semibold uppercase tracking-widest text-slate-400`}>
+            <span>ID</span><span>Title</span><span>Severity</span><span>Status</span><span>Time</span><span>Action</span>
+          </div>
+          {active.map((inc) => (
+            <button key={inc.id} onClick={() => onSelect(inc.id)} className={`w-full grid ${cols} gap-3 px-6 py-5 border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors text-left items-center cursor-pointer`}>
+              <span className="text-sm font-mono font-normal text-slate-300">#{inc.id}</span>
+              <span className="text-base font-normal truncate">{inc.title}</span>
+              <div><SeverityBadge severity={inc.severity} /></div>
+              <div><StatusDot status={inc.status} /></div>
+              <span className="text-sm font-normal text-slate-400">{inc.time}</span>
+              <span className="text-sm font-semibold text-blue-500">Investigate</span>
+            </button>
+          ))}
+        </div>
       </div>
+
+      {/* Contained Incidents */}
+      {contained.length > 0 && (
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-semibold">Contained</h2>
+          </div>
+          <div className="card-surface rounded-none overflow-hidden !border-0">
+            <div className={`grid ${cols} gap-3 px-6 py-4 border-b border-white/[0.06] text-sm font-semibold uppercase tracking-widest text-slate-400`}>
+              <span>ID</span><span>Title</span><span>Severity</span><span>Status</span><span>Time</span><span>Action</span>
+            </div>
+            {contained.map((inc) => (
+              <div key={inc.id}>
+                <button onClick={() => setExpandedId(expandedId === inc.id ? null : inc.id)} className={`w-full grid ${cols} gap-3 px-6 py-5 border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors text-left items-center cursor-pointer`}>
+                  <span className="text-sm font-mono font-normal text-slate-300">#{inc.id}</span>
+                  <span className="text-base font-normal truncate">{inc.title}</span>
+                  <div><SeverityBadge severity={inc.severity} /></div>
+                  <div><StatusDot status={inc.status} /></div>
+                  <span className="text-sm font-normal text-slate-400">{inc.time}</span>
+                  <span className="text-sm font-semibold text-blue-500">{expandedId === inc.id ? "Close" : "View Summary"}</span>
+                </button>
+                {expandedId === inc.id && (
+                  <div className="px-6 py-6 border-b border-white/[0.03] bg-white/[0.01]">
+                    <div className="flex items-center gap-3 mb-4">
+                      <CheckCircle className="w-5 h-5 text-emerald-400" />
+                      <h3 className="text-base font-bold">Incident #{inc.id} &mdash; Contained</h3>
+                    </div>
+                    <pre className="text-sm leading-relaxed whitespace-pre-wrap font-sans text-slate-400">{INCIDENT_SUMMARIES[inc.id] || `Incident #${inc.id} \u2014 Contained\n\nNo detailed summary available for this incident.`}</pre>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -671,38 +856,38 @@ function AttackCoveragePage() {
     { tactic: "Impact", coverage: 22, detections: 2 },
   ];
   return (
-    <div className="space-y-8 animate-fadeIn">
+    <div className="space-y-6 animate-fadeIn">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-extrabold text-white mb-2">ATT&CK Coverage</h2>
-          <p className="text-base font-bold text-slate-300">Detection coverage mapped to MITRE ATT&CK framework</p>
+          <h2 className="text-2xl font-semibold text-white mb-2">ATT&CK Coverage</h2>
+          <p className="text-base font-normal text-slate-300">Detection coverage mapped to MITRE ATT&CK framework</p>
         </div>
         <div className="text-right">
-          <p className="text-4xl font-extrabold text-blue-400">73%</p>
-          <p className="text-sm font-bold text-slate-400 uppercase tracking-wider">Overall Coverage</p>
+          <p className="text-4xl font-semibold text-blue-400">73%</p>
+          <p className="text-sm font-normal text-slate-400 uppercase tracking-wider">Overall Coverage</p>
         </div>
       </div>
-      <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-6 space-y-5">
-        {coverageData.map((item) => (
-          <div key={item.tactic} className="flex items-center gap-5">
-            <span className="text-base font-bold text-slate-200 w-52 shrink-0">{item.tactic}</span>
-            <div className="flex-1 h-3.5 bg-white/[0.04] rounded-none overflow-hidden">
-              <div className={`h-full rounded-none ${item.coverage > 70 ? "bg-emerald-500" : item.coverage > 50 ? "bg-blue-500" : item.coverage > 35 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${item.coverage}%` }} />
-            </div>
-            <span className="text-sm font-extrabold text-white w-12 text-right">{item.coverage}%</span>
-            <span className="text-xs font-bold text-slate-400 w-20 text-right">{item.detections} rules</span>
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-6">
         {[
           { label: "Total Detection Rules", value: "121", accent: "" },
           { label: "Techniques Covered", value: "87 / 201", accent: "" },
           { label: "Gaps Identified", value: "18", accent: "text-amber-400" },
         ].map((s) => (
-          <div key={s.label} className="bg-[#141b2d] border border-white/[0.06] rounded-none p-4">
-            <p className="text-[11px] font-extrabold uppercase tracking-widest text-slate-400 mb-1">{s.label}</p>
-            <p className={`text-2xl font-extrabold ${s.accent || "text-white"}`}>{s.value}</p>
+          <div key={s.label} className="card-surface  rounded-none p-4">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-1">{s.label}</p>
+            <p className={`text-2xl font-semibold ${s.accent || "text-white"}`}>{s.value}</p>
+          </div>
+        ))}
+      </div>
+      <div className="card-surface  rounded-none p-6 space-y-8">
+        {coverageData.map((item) => (
+          <div key={item.tactic} className="flex items-center gap-5">
+            <span className="text-base font-normal text-slate-200 w-52 shrink-0">{item.tactic}</span>
+            <div className="flex-1 h-3.5 bg-white/[0.04] rounded-full overflow-hidden">
+              <div className={`h-full rounded-full ${item.coverage > 70 ? "bg-emerald-500" : item.coverage > 50 ? "bg-blue-500" : item.coverage > 35 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${item.coverage}%` }} />
+            </div>
+            <span className="text-sm font-semibold text-white w-12 text-right">{item.coverage}%</span>
+            <span className="text-sm font-normal text-slate-400 w-20 text-right">{item.detections} rules</span>
           </div>
         ))}
       </div>
@@ -728,32 +913,22 @@ function AssetsPage() {
     <div className="space-y-5 animate-fadeIn">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-extrabold text-white mb-1">Assets</h2>
-          <p className="text-sm font-bold text-slate-300">Managed endpoints, servers, and network devices</p>
-        </div>
-        <div className="flex gap-3">
-          <div className="bg-[#141b2d] border border-white/[0.06] rounded-none px-4 py-2 text-center">
-            <p className="text-lg font-extrabold text-white">847</p>
-            <p className="text-[10px] font-bold text-slate-400 uppercase">Total Assets</p>
-          </div>
-          <div className="bg-[#141b2d] border border-red-500/20 rounded-none px-4 py-2 text-center">
-            <p className="text-lg font-extrabold text-red-400">2</p>
-            <p className="text-[10px] font-bold text-slate-400 uppercase">Isolated</p>
-          </div>
+          <h2 className="text-xl font-semibold text-white mb-1">Assets</h2>
+          <p className="text-sm font-normal text-slate-300">Managed endpoints, servers, and network devices</p>
         </div>
       </div>
-      <div className="bg-[#141b2d] border border-white/[0.06] rounded-none overflow-hidden">
-        <div className="grid grid-cols-[1fr_100px_120px_100px_80px_80px] gap-2 px-5 py-3 border-b border-white/[0.06] text-[11px] font-extrabold uppercase tracking-widest text-slate-400">
+      <div className="card-surface  rounded-none overflow-hidden !border-0">
+        <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.8fr] gap-4 px-6 py-4 border-b border-white/[0.06] text-xs font-semibold uppercase tracking-widest text-slate-400">
           <span>Name</span><span>Type</span><span>OS</span><span>User</span><span>Status</span><span>Risk</span>
         </div>
         {assets.map((a) => (
-          <div key={a.name} className="grid grid-cols-[1fr_100px_120px_100px_80px_80px] gap-2 px-5 py-3 border-b border-white/[0.03] items-center">
-            <span className="text-sm font-bold text-white flex items-center gap-2"><Server className="w-3.5 h-3.5 text-slate-300" />{a.name}</span>
-            <span className="text-xs font-bold text-slate-400">{a.type}</span>
-            <span className="text-xs font-bold text-slate-300">{a.os}</span>
-            <span className="text-xs font-bold text-slate-300">{a.user}</span>
-            <span className={`text-xs font-bold ${statusColors[a.status] || ""}`}>{a.status}</span>
-            <span className={`text-xs font-bold ${riskColors[a.risk] || ""}`}>{a.risk}</span>
+          <div key={a.name} className="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.8fr] gap-4 px-6 py-5 border-b border-white/[0.03] items-center">
+            <span className="text-base font-normal text-white flex items-center gap-2.5"><Server className="w-4 h-4 text-slate-300" />{a.name}</span>
+            <span className="text-sm font-normal text-slate-400">{a.type}</span>
+            <span className="text-sm font-normal text-slate-300">{a.os}</span>
+            <span className="text-sm font-normal text-slate-300">{a.user}</span>
+            <span className={`text-sm font-normal ${statusColors[a.status] || ""}`}>{a.status}</span>
+            <span className={`text-sm font-normal ${riskColors[a.risk] || ""}`}>{a.risk}</span>
           </div>
         ))}
       </div>
@@ -764,10 +939,10 @@ function AssetsPage() {
 function SettingsPage() {
   return (
     <div className="space-y-6 animate-fadeIn">
-      <h2 className="text-xl font-extrabold text-white">Settings</h2>
+      <h2 className="text-xl font-semibold text-white">Settings</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-5 space-y-4">
-          <h3 className="text-base font-extrabold text-white">General</h3>
+        <div className="card-surface  rounded-none p-5 space-y-4">
+          <h3 className="text-base font-semibold text-white">General</h3>
           {[
             { label: "Organization", value: "Acme Corp" },
             { label: "Timezone", value: "America / Los Angeles (PST)" },
@@ -775,13 +950,13 @@ function SettingsPage() {
             { label: "Session Timeout", value: "30 minutes" },
           ].map((s) => (
             <div key={s.label} className="flex items-center justify-between py-2 border-b border-white/[0.04] last:border-0">
-              <span className="text-sm font-bold text-slate-400">{s.label}</span>
-              <span className="text-sm font-bold text-white">{s.value}</span>
+              <span className="text-sm font-normal text-slate-400">{s.label}</span>
+              <span className="text-sm font-normal text-white">{s.value}</span>
             </div>
           ))}
         </div>
-        <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-5 space-y-4">
-          <h3 className="text-base font-extrabold text-white">Notifications</h3>
+        <div className="card-surface  rounded-none p-5 space-y-4">
+          <h3 className="text-base font-semibold text-white">Notifications</h3>
           {[
             { label: "Critical Alerts", enabled: true },
             { label: "New Incident Assignment", enabled: true },
@@ -789,15 +964,15 @@ function SettingsPage() {
             { label: "Weekly Digest", enabled: false },
           ].map((s) => (
             <div key={s.label} className="flex items-center justify-between py-2 border-b border-white/[0.04] last:border-0">
-              <span className="text-sm font-bold text-slate-400">{s.label}</span>
-              <div className={`w-10 h-5 rounded-none relative cursor-pointer ${s.enabled ? "bg-blue-500" : "bg-white/[0.1]"}`}>
-                <div className={`absolute top-0.5 w-4 h-4 rounded-none bg-white transition-transform ${s.enabled ? "left-[22px]" : "left-0.5"}`} />
+              <span className="text-sm font-normal text-slate-400">{s.label}</span>
+              <div className={`w-10 h-5 rounded-full relative cursor-pointer ${s.enabled ? "bg-blue-500" : "bg-white/[0.1]"}`}>
+                <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${s.enabled ? "left-[22px]" : "left-0.5"}`} />
               </div>
             </div>
           ))}
         </div>
-        <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-5 space-y-4">
-          <h3 className="text-base font-extrabold text-white">Integrations</h3>
+        <div className="card-surface  rounded-none p-5 space-y-4">
+          <h3 className="text-base font-semibold text-white">Integrations</h3>
           {[
             { name: "CrowdStrike Falcon", status: "Connected", color: "text-emerald-400" },
             { name: "Microsoft Sentinel", status: "Connected", color: "text-emerald-400" },
@@ -805,19 +980,19 @@ function SettingsPage() {
             { name: "Palo Alto Cortex", status: "Disconnected", color: "text-red-400" },
           ].map((s) => (
             <div key={s.name} className="flex items-center justify-between py-2 border-b border-white/[0.04] last:border-0">
-              <span className="text-sm font-bold text-slate-300">{s.name}</span>
-              <span className={`text-xs font-bold ${s.color}`}>{s.status}</span>
+              <span className="text-sm font-normal text-slate-300">{s.name}</span>
+              <span className={`text-xs font-normal ${s.color}`}>{s.status}</span>
             </div>
           ))}
         </div>
-        <div className="bg-[#141b2d] border border-white/[0.06] rounded-none p-5 space-y-4">
-          <h3 className="text-base font-extrabold text-white">User Profile</h3>
+        <div className="card-surface  rounded-none p-5 space-y-4">
+          <h3 className="text-base font-semibold text-white">User Profile</h3>
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-none bg-blue-500/20 flex items-center justify-center text-lg font-extrabold text-blue-400">WL</div>
+            <div className="w-14 h-14 rounded-none bg-blue-500/20 flex items-center justify-center text-lg font-semibold text-blue-400">WL</div>
             <div>
-              <p className="text-base font-extrabold text-white">Wen Liu</p>
-              <p className="text-sm font-bold text-slate-300">Tier 1 SOC Analyst</p>
-              <p className="text-xs font-bold text-slate-400">wen.liu@acme.com</p>
+              <p className="text-base font-semibold text-white">Wen Liu</p>
+              <p className="text-sm font-normal text-slate-300">Tier 1 SOC Analyst</p>
+              <p className="text-xs font-normal text-slate-400">wen.liu@acme.com</p>
             </div>
           </div>
         </div>
@@ -835,6 +1010,12 @@ export default function PrismDemoPage() {
   const [incidents, setIncidents] = useState<Incident[]>(INCIDENTS);
   const [assigned, setAssigned] = useState(false);
   const [activeIncidentId, setActiveIncidentId] = useState<number>(1042);
+
+  // Light mode: 7am-6pm, Dark mode: 6pm-7am
+  const [isDark, setIsDark] = useState(() => {
+    const h = new Date().getHours();
+    return h < 7 || h >= 18;
+  });
 
   const handleSelectIncident = useCallback((id: number) => {
     setActiveIncidentId(id);
@@ -858,20 +1039,132 @@ export default function PrismDemoPage() {
 
   const activeIncident = incidents.find((i) => i.id === activeIncidentId) || incidents[0];
 
+  // Theme tokens
+  const t = isDark
+    ? { bg: "bg-[#0a0f1a]", sidebar: "bg-[#0d1221]", card: "card-surface", topbar: "bg-[#0d1221]", text: "text-white", textSec: "text-slate-300", textMuted: "text-slate-400", border: "border-white/[0.06]", hoverBg: "hover:bg-white/[0.03]", inputBg: "bg-white/[0.04]", cardHover: "hover:bg-white/[0.02]", activeNav: "bg-blue-500/10 text-blue-400", mode: "dark" as const }
+    : { bg: "bg-white", sidebar: "bg-white", card: "bg-white", topbar: "bg-white", text: "text-slate-900", textSec: "text-slate-600", textMuted: "text-slate-500", border: "border-slate-200", hoverBg: "hover:bg-slate-50", inputBg: "bg-slate-100", cardHover: "hover:bg-slate-50", activeNav: "bg-blue-50 text-blue-600", mode: "light" as const };
+
   return (
-    <div className="h-screen flex flex-col bg-[#0a0f1a] text-white overflow-hidden">
+    <div className={`h-screen flex flex-col ${t.bg} ${t.text} overflow-hidden`} data-theme={t.mode}>
       <style>{`
+        :root { --ring-bg: #141b2d; }
         .animate-fadeIn { animation: fadeIn .3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        [data-theme="dark"] { --ring-bg: #141b2d; }
+        [data-theme="dark"] .card-surface { background: #141b2d; }
+        [data-theme="dark"] .sidebar-surface { background: #0d1221; border-right: 1px solid rgba(255,255,255,0.06); }
+        [data-theme="dark"] .topbar-surface { background: #0d1221; border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+        [data-theme="light"] { --ring-bg: #ffffff; }
+        [data-theme="light"] .card-surface { background: #ffffff; color: #0f172a; border: 1px solid #e2e8f0; }
+        [data-theme="light"] .sidebar-surface { background: #ffffff; border-right: 1px solid #e2e8f0; }
+        [data-theme="light"] .topbar-surface { background: #ffffff; border-bottom: 1px solid #e2e8f0; }
+
+        /* Light mode: override all white text to dark */
+        [data-theme="light"] .text-white { color: #0f172a; }
+        /* Force white text on blue buttons in both modes */
+        .force-white { color: #ffffff !important; }
+        [data-theme="light"] .text-slate-200 { color: #334155; }
+        [data-theme="light"] .text-slate-300 { color: #475569; }
+        [data-theme="light"] .text-slate-400 { color: #64748b; }
+        [data-theme="light"] .hover\\:text-white:hover { color: #0f172a; }
+
+        /* Light mode: fix backgrounds */
+        [data-theme="light"] .bg-white\\/\\[0\\.04\\] { background: #f1f5f9; }
+        [data-theme="light"] .bg-white\\/\\[0\\.02\\] { background: #f8fafc; }
+        [data-theme="light"] .bg-white\\/\\[0\\.03\\] { background: #f1f5f9; }
+        [data-theme="light"] .hover\\:bg-white\\/\\[0\\.02\\]:hover { background: #f1f5f9; }
+        [data-theme="light"] .hover\\:bg-white\\/\\[0\\.03\\]:hover { background: #e2e8f0; }
+        [data-theme="light"] .hover\\:bg-white\\/\\[0\\.04\\]:hover { background: #e2e8f0; }
+        [data-theme="light"] .bg-blue-500\\/10 { background: #eff6ff; }
+
+        /* Light mode: borders */
+        [data-theme="light"] .border-white\\/\\[0\\.06\\] { border-color: #e2e8f0; }
+        [data-theme="light"] .border-white\\/\\[0\\.04\\] { border-color: #f1f5f9; }
+        [data-theme="light"] .border-white\\/\\[0\\.03\\] { border-color: #f1f5f9; }
+        [data-theme="light"] .border-b.border-white\\/\\[0\\.06\\] { border-color: #e2e8f0; }
+        [data-theme="light"] .divide-white\\/\\[0\\.04\\] > * + * { border-color: #f1f5f9; }
+
+        /* Attack chain cards */
+        [data-theme="dark"] .attack-chain-active { background: rgba(59,130,246,0.06); }
+        [data-theme="dark"] .attack-chain-predicted { background: rgba(245,158,11,0.04); }
+        [data-theme="dark"] .attack-chain-inactive { background: transparent; }
+        [data-theme="light"] .attack-chain-active { background: rgba(59,130,246,0.06); }
+        [data-theme="light"] .attack-chain-predicted { background: rgba(245,158,11,0.05); }
+        [data-theme="light"] .attack-chain-inactive { background: transparent; }
+        [data-theme="light"] .border-l-white\\/\\[0\\.06\\] { border-left-color: #e2e8f0; }
+        [data-theme="light"] .bg-white\\/\\[0\\.06\\] { background: #e2e8f0; }
+
+        /* Timeline line */
+        [data-theme="dark"] .timeline-line { background: rgba(255,255,255,0.1); }
+        [data-theme="light"] .timeline-line { background: #e2e8f0; }
+
+        [data-theme="dark"] .response-divider > * + * { border-top: 1px solid rgba(255,255,255,0.06); }
+        [data-theme="light"] .response-divider > * + * { border-top: 1px solid #e2e8f0; }
+
+        [data-theme="dark"] .tech-tooltip { background: #1e293b; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); }
+        [data-theme="light"] .tech-tooltip { background: #ffffff; color: #0f172a; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+        [data-theme="dark"] .summary-action-btn:hover { background: rgba(255,255,255,0.08) !important; }
+        [data-theme="light"] .summary-action-btn:hover { background: #e2e8f0 !important; }
+
+        [data-theme="dark"] .close-modal-surface { background: #1a2236; border: 1px solid rgba(255,255,255,0.08); color: #f1f5f9; }
+        [data-theme="light"] .close-modal-surface { background: #ffffff; border: 1px solid #e2e8f0; color: #0f172a; }
+        [data-theme="dark"] .cancel-btn { background: rgba(255,255,255,0.06); color: #94a3b8; }
+        [data-theme="dark"] .cancel-btn:hover { background: rgba(255,255,255,0.12); color: #e2e8f0; }
+        [data-theme="light"] .cancel-btn { background: #f1f5f9; color: #475569; }
+        [data-theme="light"] .cancel-btn:hover { background: #e2e8f0; color: #0f172a; }
+
+        /* MITRE tags - uniform tab style */
+        [data-theme="dark"] .mitre-tag { background: rgba(255,255,255,0.06); color: #cbd5e1; }
+        [data-theme="light"] .mitre-tag { background: #f1f5f9; color: #475569; }
+
+        /* Heatmap tooltip */
+        [data-theme="dark"] .heatmap-tooltip { background: #1e293b; color: #f1f5f9; }
+        [data-theme="light"] .heatmap-tooltip { background: #ffffff; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+
+        /* Heatmap cells */
+        [data-theme="dark"] .heatmap-high { background: rgba(239,68,68,0.4); }
+        [data-theme="dark"] .heatmap-med { background: rgba(245,158,11,0.2); }
+        [data-theme="dark"] .heatmap-low { background: rgba(255,255,255,0.04); }
+        [data-theme="light"] .heatmap-high { background: #fecaca; }
+        [data-theme="light"] .heatmap-med { background: #fef3c7; }
+        [data-theme="light"] .heatmap-low { background: #f1f5f9; }
       `}</style>
-      <TopBar onReset={handleReset} />
+      <TopBar onReset={handleReset} isDark={isDark} onToggleTheme={() => setIsDark((d) => !d)} onNav={handleNav} />
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar screen={screen} onNav={handleNav} />
+        <Sidebar screen={screen} onNav={handleNav} isDark={isDark} />
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
           {screen === 1 && <Screen1 incidents={incidents} onSelect={handleSelectIncident} />}
-          {screen === 2 && <Screen2 incident={activeIncident} onBack={goScreen1} onAttackMap={goScreen3} onResponse={goScreen4} assigned={assigned} onAssign={() => setAssigned(true)} />}
-          {screen === 3 && <Screen3 incident={activeIncident} onBack={() => setScreen(2)} onResponse={goScreen4} />}
-          {screen === 4 && <Screen4 onBack={() => setScreen(2)} onComplete={goScreen5} />}
+          {(screen === 2 || screen === 3 || screen === 4) && (
+            <div className="space-y-6 animate-fadeIn">
+              <button onClick={goScreen1} className={`flex items-center gap-2 text-base font-bold hover:text-blue-500 transition-colors cursor-pointer ${isDark ? "text-slate-400" : "text-slate-500"}`}><ArrowLeft className="w-4 h-4" />Back to Dashboard</button>
+              <div>
+                <div className="flex flex-wrap items-center gap-3 mb-3">
+                  <span className="text-base font-mono font-semibold text-slate-400">#{activeIncident.id}</span>
+                  <SeverityBadge severity={activeIncident.severity} />
+                  <StatusDot status={activeIncident.status} />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-semibold mb-3">{activeIncident.title}</h2>
+                <div className="flex flex-wrap items-center gap-4 text-sm font-normal text-slate-400">
+                  <span>Assigned to: {assigned ? <span className="text-blue-500 font-semibold">Wen Liu</span> : <button onClick={() => setAssigned(true)} className="text-blue-500 hover:underline cursor-pointer font-semibold">Assign to me</button>}</span>
+                  <span>Created: 2h ago</span>
+                  <span>Last activity: 23m ago</span>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                {([{key: 2, label: "Timeline"}, {key: 3, label: "ATT&CK Map"}, {key: 4, label: "Response"}] as const).map((tab) => (
+                  <button key={tab.key} onClick={() => setScreen(tab.key as Screen)} className={`px-5 py-2.5 text-sm font-semibold uppercase tracking-wider transition-colors rounded-full cursor-pointer ${screen === tab.key ? "bg-blue-500 force-white" : isDark ? "bg-[#141b2d] text-slate-400 hover:bg-white/[0.08] hover:text-white" : "bg-white text-slate-400 hover:!bg-slate-200 hover:text-slate-700"}`}>
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+              {screen === 2 && <Screen2Content />}
+              {screen === 3 && <Screen3Content incident={activeIncident} />}
+              {screen === 4 && <Screen4 onBack={() => setScreen(2)} onComplete={goScreen5} />}
+            </div>
+          )}
           {screen === 5 && <Screen5 incident={activeIncident} onClose={goScreen6} />}
           {screen === 6 && <Screen1 incidents={incidents} onSelect={handleSelectIncident} />}
           {screen === "incidents" && <IncidentsPage incidents={incidents} onSelect={handleSelectIncident} />}
