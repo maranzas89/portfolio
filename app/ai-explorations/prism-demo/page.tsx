@@ -1631,11 +1631,12 @@ function IncidentsPage({ incidents, onSelect }: { incidents: Incident[]; onSelec
           <span className="text-sm text-slate-400 font-semibold">{active.length} incident{active.length !== 1 ? "s" : ""}</span>
         </div>
         <div className="card-surface rounded-none overflow-hidden !border-0">
-          <div className={`grid ${cols} gap-3 px-6 py-4 border-b border-white/[0.06] text-sm font-semibold uppercase tracking-widest text-slate-400`}>
+          {/* Desktop table */}
+          <div className={`hidden md:grid ${cols} gap-3 px-6 py-4 border-b border-white/[0.06] text-sm font-semibold uppercase tracking-widest text-slate-400`}>
             <span>ID</span><span>Title</span><span>Severity</span><span>Status</span><span>Time</span><span>Action</span>
           </div>
           {pagedActive.map((inc) => (
-            <button key={inc.id} onClick={() => onSelect(inc.id)} className={`w-full grid ${cols} gap-3 px-6 py-5 border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors text-left items-center cursor-pointer`}>
+            <button key={inc.id} onClick={() => onSelect(inc.id)} className={`w-full text-left cursor-pointer transition-colors hover:bg-white/[0.02] border-b border-white/[0.03] hidden md:grid ${cols} gap-3 px-6 py-5 items-center`}>
               <span className="text-sm font-mono font-normal text-slate-300">#{inc.id}</span>
               <span className="text-base font-normal truncate">{inc.title}</span>
               <div><SeverityBadge severity={inc.severity} /></div>
@@ -1644,6 +1645,25 @@ function IncidentsPage({ incidents, onSelect }: { incidents: Incident[]; onSelec
               <span className="text-sm font-semibold text-blue-500">Investigate</span>
             </button>
           ))}
+          {/* Mobile cards */}
+          <div className="md:hidden divide-y divide-white/[0.04]">
+            {pagedActive.map((inc) => (
+              <button key={inc.id} onClick={() => onSelect(inc.id)} className="w-full text-left px-4 py-4 cursor-pointer transition-colors hover:bg-white/[0.02]">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono text-slate-400">#{inc.id}</span>
+                    <SeverityBadge severity={inc.severity} />
+                  </div>
+                  <span className="text-xs text-slate-400">{inc.time}</span>
+                </div>
+                <p className="text-sm font-semibold mb-2">{inc.title}</p>
+                <div className="flex items-center justify-between">
+                  <StatusDot status={inc.status} />
+                  <span className="text-xs font-semibold text-blue-500">Investigate &rarr;</span>
+                </div>
+              </button>
+            ))}
+          </div>
           <Pagination current={activePage} total={activePages} onChange={setActivePage} />
         </div>
       </div>
@@ -1656,12 +1676,14 @@ function IncidentsPage({ incidents, onSelect }: { incidents: Incident[]; onSelec
             <span className="text-sm text-slate-400 font-semibold">{contained.length} incident{contained.length !== 1 ? "s" : ""}</span>
           </div>
           <div className="card-surface rounded-none overflow-hidden !border-0">
-            <div className={`grid ${cols} gap-3 px-6 py-4 border-b border-white/[0.06] text-sm font-semibold uppercase tracking-widest text-slate-400`}>
+            {/* Desktop table */}
+            <div className={`hidden md:grid ${cols} gap-3 px-6 py-4 border-b border-white/[0.06] text-sm font-semibold uppercase tracking-widest text-slate-400`}>
               <span>ID</span><span>Title</span><span>Severity</span><span>Status</span><span>Time</span><span>Action</span>
             </div>
             {pagedContained.map((inc) => (
               <div key={inc.id}>
-                <button onClick={() => setExpandedId(expandedId === inc.id ? null : inc.id)} className={`w-full grid ${cols} gap-3 px-6 py-5 border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors text-left items-center cursor-pointer`}>
+                {/* Desktop row */}
+                <button onClick={() => setExpandedId(expandedId === inc.id ? null : inc.id)} className={`w-full hidden md:grid ${cols} gap-3 px-6 py-5 border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors text-left items-center cursor-pointer`}>
                   <span className="text-sm font-mono font-normal text-slate-300">#{inc.id}</span>
                   <span className="text-base font-normal truncate">{inc.title}</span>
                   <div><SeverityBadge severity={inc.severity} /></div>
@@ -1669,17 +1691,32 @@ function IncidentsPage({ incidents, onSelect }: { incidents: Incident[]; onSelec
                   <span className="text-sm font-normal text-slate-400">{inc.time}</span>
                   <span className="text-sm font-semibold text-blue-500">{expandedId === inc.id ? "Close" : "View Summary"}</span>
                 </button>
+                {/* Mobile card */}
+                <button onClick={() => setExpandedId(expandedId === inc.id ? null : inc.id)} className="md:hidden w-full text-left px-4 py-4 border-b border-white/[0.04] cursor-pointer transition-colors hover:bg-white/[0.02]">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono text-slate-400">#{inc.id}</span>
+                      <SeverityBadge severity={inc.severity} />
+                    </div>
+                    <span className="text-xs text-slate-400">{inc.time}</span>
+                  </div>
+                  <p className="text-sm font-semibold mb-2">{inc.title}</p>
+                  <div className="flex items-center justify-between">
+                    <StatusDot status={inc.status} />
+                    <span className="text-xs font-semibold text-blue-500">{expandedId === inc.id ? "Close" : "View Summary"}</span>
+                  </div>
+                </button>
                 {expandedId === inc.id && (
-                  <div className="px-6 py-6 border-b border-white/[0.03] bg-white/[0.01]">
+                  <div className="px-4 md:px-6 py-5 md:py-6 border-b border-white/[0.03] bg-white/[0.01]">
                     <div className="flex items-center gap-3 mb-4">
                       <CheckCircle className="w-5 h-5 text-emerald-400" />
-                      <h3 className="text-base font-bold">Incident #{inc.id} &mdash; Contained</h3>
+                      <h3 className="text-sm md:text-base font-bold">Incident #{inc.id} &mdash; Contained</h3>
                     </div>
-                    <pre className="text-sm leading-relaxed whitespace-pre-wrap font-sans text-slate-400 mb-5">{INCIDENT_SUMMARIES[inc.id]}</pre>
-                    <div className="flex items-center gap-3">
-                      <button className="flex items-center gap-2 px-4 py-2 card-surface summary-action-btn rounded-full text-xs font-bold transition-colors cursor-pointer"><Copy className="w-3.5 h-3.5" />Copy Summary</button>
-                      <button className="flex items-center gap-2 px-4 py-2 card-surface summary-action-btn rounded-full text-xs font-bold transition-colors cursor-pointer"><Send className="w-3.5 h-3.5" />Send to Slack</button>
-                      <button className="flex items-center gap-2 px-4 py-2 card-surface summary-action-btn rounded-full text-xs font-bold transition-colors cursor-pointer"><ArrowUpRight className="w-3.5 h-3.5" />Escalate</button>
+                    <pre className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap font-sans text-slate-400 mb-5">{INCIDENT_SUMMARIES[inc.id]}</pre>
+                    <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                      <button className="flex items-center gap-2 px-3 md:px-4 py-2 card-surface summary-action-btn rounded-full text-xs font-bold transition-colors cursor-pointer"><Copy className="w-3.5 h-3.5" />Copy</button>
+                      <button className="flex items-center gap-2 px-3 md:px-4 py-2 card-surface summary-action-btn rounded-full text-xs font-bold transition-colors cursor-pointer"><Send className="w-3.5 h-3.5" />Slack</button>
+                      <button className="flex items-center gap-2 px-3 md:px-4 py-2 card-surface summary-action-btn rounded-full text-xs font-bold transition-colors cursor-pointer"><ArrowUpRight className="w-3.5 h-3.5" />Escalate</button>
                     </div>
                   </div>
                 )}
@@ -1710,37 +1747,51 @@ function AttackCoveragePage() {
   ];
   return (
     <div className="space-y-6 animate-fadeIn">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-semibold text-white mb-2">ATT&CK Coverage</h2>
-          <p className="text-base font-normal text-slate-300">Detection coverage mapped to MITRE ATT&CK framework</p>
+          <h2 className="text-xl md:text-2xl font-semibold text-white mb-1 md:mb-2">ATT&CK Coverage</h2>
+          <p className="text-sm md:text-base font-normal text-slate-300">Detection coverage mapped to MITRE ATT&CK</p>
         </div>
-        <div className="text-right">
-          <p className="text-4xl font-semibold text-blue-400">73%</p>
-          <p className="text-sm font-normal text-slate-400 uppercase tracking-wider">Overall Coverage</p>
+        <div className="sm:text-right">
+          <p className="text-3xl md:text-4xl font-semibold text-blue-400">73%</p>
+          <p className="text-xs md:text-sm font-normal text-slate-400 uppercase tracking-wider">Overall Coverage</p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-3 gap-3 md:gap-6">
         {[
-          { label: "Total Detection Rules", value: "121", accent: "" },
-          { label: "Techniques Covered", value: "87 / 201", accent: "" },
-          { label: "Gaps Identified", value: "18", accent: "text-amber-400" },
+          { label: "Detection Rules", value: "121", accent: "" },
+          { label: "Techniques", value: "87/201", accent: "" },
+          { label: "Gaps", value: "18", accent: "text-amber-400" },
         ].map((s) => (
-          <div key={s.label} className="card-surface  rounded-none p-4">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-1">{s.label}</p>
-            <p className={`text-2xl font-semibold ${s.accent || "text-white"}`}>{s.value}</p>
+          <div key={s.label} className="card-surface rounded-none p-3 md:p-4">
+            <p className="text-[10px] md:text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-1">{s.label}</p>
+            <p className={`text-lg md:text-2xl font-semibold ${s.accent || "text-white"}`}>{s.value}</p>
           </div>
         ))}
       </div>
-      <div className="card-surface  rounded-none p-6 space-y-8">
+      <div className="card-surface rounded-none p-4 md:p-6 space-y-5 md:space-y-8">
         {coverageData.map((item) => (
-          <div key={item.tactic} className="flex items-center gap-5">
-            <span className="text-base font-normal text-slate-200 w-52 shrink-0">{item.tactic}</span>
-            <div className="flex-1 h-3.5 bg-white/[0.04] rounded-full overflow-hidden">
-              <div className={`h-full rounded-full ${item.coverage > 70 ? "bg-emerald-500" : item.coverage > 50 ? "bg-blue-500" : item.coverage > 35 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${item.coverage}%` }} />
+          <div key={item.tactic}>
+            {/* Desktop */}
+            <div className="hidden md:flex items-center gap-5">
+              <span className="text-base font-normal text-slate-200 w-52 shrink-0">{item.tactic}</span>
+              <div className="flex-1 h-3.5 bg-white/[0.04] rounded-full overflow-hidden">
+                <div className={`h-full rounded-full ${item.coverage > 70 ? "bg-emerald-500" : item.coverage > 50 ? "bg-blue-500" : item.coverage > 35 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${item.coverage}%` }} />
+              </div>
+              <span className="text-sm font-semibold text-white w-12 text-right">{item.coverage}%</span>
+              <span className="text-sm font-normal text-slate-400 w-20 text-right">{item.detections} rules</span>
             </div>
-            <span className="text-sm font-semibold text-white w-12 text-right">{item.coverage}%</span>
-            <span className="text-sm font-normal text-slate-400 w-20 text-right">{item.detections} rules</span>
+            {/* Mobile */}
+            <div className="md:hidden">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-sm font-normal text-slate-200">{item.tactic}</span>
+                <span className="text-sm font-semibold text-white">{item.coverage}%</span>
+              </div>
+              <div className="w-full h-2.5 bg-white/[0.04] rounded-full overflow-hidden">
+                <div className={`h-full rounded-full ${item.coverage > 70 ? "bg-emerald-500" : item.coverage > 50 ? "bg-blue-500" : item.coverage > 35 ? "bg-amber-500" : "bg-red-500"}`} style={{ width: `${item.coverage}%` }} />
+              </div>
+              <span className="text-xs font-normal text-slate-400 mt-1 block">{item.detections} rules</span>
+            </div>
           </div>
         ))}
       </div>
@@ -1762,6 +1813,8 @@ function AssetsPage() {
   const riskColors: Record<string, string> = { Critical: "text-red-400", Major: "text-orange-400", Minor: "text-yellow-400", Warning: "text-blue-400", Info: "text-slate-400" };
   const statusColors: Record<string, string> = { Active: "text-emerald-400", Isolated: "text-red-400", Monitoring: "text-amber-400" };
 
+  const assetCols = "grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.8fr]";
+
   return (
     <div className="space-y-5 animate-fadeIn">
       <div className="flex items-center justify-between">
@@ -1770,18 +1823,41 @@ function AssetsPage() {
           <p className="text-sm font-normal text-slate-300">Managed endpoints, servers, and network devices</p>
         </div>
       </div>
-      <div className="card-surface  rounded-none overflow-hidden !border-0">
-        <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.8fr] gap-4 px-6 py-4 border-b border-white/[0.06] text-xs font-semibold uppercase tracking-widest text-slate-400">
+      <div className="card-surface rounded-none overflow-hidden !border-0">
+        {/* Desktop table */}
+        <div className={`hidden md:grid ${assetCols} gap-4 px-6 py-4 border-b border-white/[0.06] text-xs font-semibold uppercase tracking-widest text-slate-400`}>
           <span>Name</span><span>Type</span><span>OS</span><span>User</span><span>Status</span><span>Risk</span>
         </div>
         {assets.map((a) => (
-          <div key={a.name} className="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.8fr] gap-4 px-6 py-5 border-b border-white/[0.03] items-center">
-            <span className="text-base font-normal text-white flex items-center gap-2.5"><Server className="w-4 h-4 text-slate-300" />{a.name}</span>
-            <span className="text-sm font-normal text-slate-400">{a.type}</span>
-            <span className="text-sm font-normal text-slate-300">{a.os}</span>
-            <span className="text-sm font-normal text-slate-300">{a.user}</span>
-            <span className={`text-sm font-normal ${statusColors[a.status] || ""}`}>{a.status}</span>
-            <span className={`text-sm font-normal ${riskColors[a.risk] || ""}`}>{a.risk}</span>
+          <div key={a.name}>
+            {/* Desktop row */}
+            <div className={`hidden md:grid ${assetCols} gap-4 px-6 py-5 border-b border-white/[0.03] items-center`}>
+              <span className="text-base font-normal text-white flex items-center gap-2.5"><Server className="w-4 h-4 text-slate-300" />{a.name}</span>
+              <span className="text-sm font-normal text-slate-400">{a.type}</span>
+              <span className="text-sm font-normal text-slate-300">{a.os}</span>
+              <span className="text-sm font-normal text-slate-300">{a.user}</span>
+              <span className={`text-sm font-normal ${statusColors[a.status] || ""}`}>{a.status}</span>
+              <span className={`text-sm font-normal ${riskColors[a.risk] || ""}`}>{a.risk}</span>
+            </div>
+            {/* Mobile card */}
+            <div className="md:hidden px-4 py-4 border-b border-white/[0.04]">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Server className="w-4 h-4 text-slate-400 shrink-0" />
+                  <span className="text-sm font-semibold text-white truncate">{a.name}</span>
+                </div>
+                <span className={`text-xs font-semibold shrink-0 ml-2 ${riskColors[a.risk] || ""}`}>{a.risk}</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
+                <span>{a.type}</span>
+                <span>&middot;</span>
+                <span>{a.os}</span>
+                <span>&middot;</span>
+                <span>{a.user}</span>
+                <span>&middot;</span>
+                <span className={statusColors[a.status] || ""}>{a.status}</span>
+              </div>
+            </div>
           </div>
         ))}
       </div>

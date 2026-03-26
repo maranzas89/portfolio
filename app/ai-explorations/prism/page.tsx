@@ -580,7 +580,7 @@ export default function PrismPage() {
               </p>
             </ScrollReveal>
             <ScrollReveal direction="up" delay={400}>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-5xl">
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 max-w-5xl">
                 {[
                   { icon: Shield, label: "Role", value: "Staff-Level Concept" },
                   { icon: Layers, label: "Framework", value: "MITRE ATT&CK" },
