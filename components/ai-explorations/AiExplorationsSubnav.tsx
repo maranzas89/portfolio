@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
 const SUBNAV_ITEMS = [
+  { id: "ai-latest-work", label: "Latest Work" },
   { id: "ai-design-workflow", label: "Design Workflow" },
   { id: "ai-capability-benchmark", label: "Research & Benchmarks" },
   { id: "ai-product-experiments", label: "Showcase" },

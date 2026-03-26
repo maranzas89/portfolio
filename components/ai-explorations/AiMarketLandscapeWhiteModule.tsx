@@ -997,8 +997,8 @@ export default function AiMarketLandscapeWhiteModule() {
                 <div className="mb-2 flex items-center gap-2">
                   <Layout className="h-4 w-4 shrink-0 text-blue-600" />
                   <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                    <span className="md:hidden">01. Design Workflow</span>
-                    <span className="hidden md:inline">01. Design Workflow</span>
+                    <span className="md:hidden">02. Design Workflow</span>
+                    <span className="hidden md:inline">02. Design Workflow</span>
                   </h2>
                 </div>
                 <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">
@@ -1020,7 +1020,7 @@ export default function AiMarketLandscapeWhiteModule() {
               <div className="mb-2 flex items-center gap-2">
               <Layout className="h-4 w-4 shrink-0 text-blue-600" />
               <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                02. Research & Benchmarks
+                03. Research & Benchmarks
               </h2>
             </div>
             <h3 className="mb-4 text-3xl font-semibold text-slate-900 md:text-4xl">

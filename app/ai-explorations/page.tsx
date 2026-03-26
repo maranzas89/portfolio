@@ -66,8 +66,8 @@ import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSub
 const EXPLORATIONS = [
   {
     id: 13,
-    title: "PRISM Demo",
-    category: "Interactive Prototype",
+    title: "Prototype Based on MITRE ATT&CK Framework",
+    category: "Early Prototype Experiments",
     description:
       "Walk through a real threat investigation — from morning dashboard to incident containment. Six screens, one unified SOC workflow.",
     icon: Shield,
@@ -252,28 +252,89 @@ export default function AIExplorationsPage() {
       </PageHero>
 
       <main className="bg-white">
-        <AiMarketLandscapeWhiteModule />
         <div className="max-w-[1600px] mx-auto px-5 md:px-16 lg:px-24">
-          {/* Showcase grid */}
-          <section className="pt-12 md:pt-24 pb-[80px] md:pb-[146px]">
+
+          {/* Latest Work */}
+          <section className="pt-12 md:pt-24 pb-[60px] md:pb-[80px]">
+            <ScrollReveal direction="up" className="mb-10 md:mb-16">
+              <div id="ai-latest-work" className="mb-2 flex items-center gap-2 scroll-mt-[190px]">
+                <Zap className="h-4 w-4 shrink-0 text-blue-600" />
+                <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
+                  01. Latest Work
+                </h2>
+              </div>
+              <h3 className="mb-4 text-2xl font-semibold text-text md:text-4xl">
+                What I&apos;ve Been Building
+              </h3>
+              <p className="max-w-5xl text-base text-slate-600 md:text-lg">
+                The most recent prototypes — built to push boundaries and test new product directions.
+              </p>
+            </ScrollReveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              {EXPLORATIONS.slice(0, 2).map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <ScrollReveal key={item.id} direction="up" delay={i * 50} className="h-full">
+                    <Link
+                      href={item.href}
+                      className="group flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm transition-[transform,box-shadow] duration-300 hover:shadow-xl hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 no-underline hover:no-underline active:no-underline"
+                      style={{ WebkitTapHighlightColor: 'transparent', textDecoration: 'none' }}
+                    >
+                      {item.image ? (
+                        <div className="h-[200px] md:h-[280px] overflow-hidden shrink-0">
+                          <img src={item.image} alt={item.title} className={`w-full h-full md:object-cover md:object-center transition-transform duration-500 group-hover:scale-105 ${item.mobileImageClass || "object-cover object-top"}`} />
+                        </div>
+                      ) : (
+                        <div className={`h-[200px] md:h-[280px] bg-gradient-to-br ${item.gradient} flex items-center justify-center shrink-0`}>
+                          <Icon className="w-14 h-14 md:w-16 md:h-16 text-text/40" />
+                        </div>
+                      )}
+                      <div className="px-5 pt-5 pb-6 md:p-8 flex flex-col flex-1">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="text-xs font-semibold uppercase tracking-widest text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">{item.category}</span>
+                          <span className="text-xs font-semibold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">New</span>
+                        </div>
+                        <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-text mb-3 flex items-center gap-2">
+                          <Icon className="h-5 w-5 shrink-0 text-text" strokeWidth={2.5} />
+                          {item.title}
+                        </h3>
+                        <p className="text-muted text-sm md:text-base leading-relaxed flex-1">
+                          {item.description}
+                        </p>
+                        <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest group-hover:translate-x-1 transition-transform">
+                          {item.id === 12 ? "View Case Study →" : item.id === 13 ? "Try Demo →" : "View Demo →"}
+                        </p>
+                      </div>
+                    </Link>
+                  </ScrollReveal>
+                );
+              })}
+            </div>
+          </section>
+        </div>
+
+        <AiMarketLandscapeWhiteModule />
+
+        <div className="max-w-[1600px] mx-auto px-5 md:px-16 lg:px-24">
+          {/* Full Showcase */}
+          <section className="pt-8 md:pt-16 pb-[80px] md:pb-[146px]">
             <ScrollReveal direction="up" className="mb-10 md:mb-16">
               <div id="ai-product-experiments" className="mb-2 flex items-center gap-2 scroll-mt-[190px]">
                 <Layout className="h-4 w-4 shrink-0 text-blue-600" />
                 <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
-                  03. Showcase
+                  04. Showcase
                 </h2>
               </div>
               <h3 className="mb-4 text-2xl font-semibold text-text md:text-4xl">
-                AI Prototypes for Testing Product Directions
+                Earlier Explorations
               </h3>
               <p className="max-w-5xl text-base text-slate-600 md:text-lg">
-                Working prototypes that test workflow assumptions and product behavior.
+                Past explorations across workflow design, data visualization, and product concepts — each one testing a different hypothesis.
               </p>
             </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {EXPLORATIONS.map((item, i) => {
+              {EXPLORATIONS.slice(2).map((item, i) => {
                 const Icon = item.icon;
-
                 return (
                   <ScrollReveal key={item.id} direction="up" delay={i * 50} className="h-full">
                     <Link
@@ -283,12 +344,10 @@ export default function AIExplorationsPage() {
                     >
                       {item.image ? (
                         <div className="h-[180px] md:h-[240px] overflow-hidden shrink-0">
-                          <img src={item.image} alt={item.title} className={`w-full h-full md:object-cover md:object-center ${"mobileImageClass" in item && item.mobileImageClass ? item.mobileImageClass : "object-cover object-top"}`} />
+                          <img src={item.image} alt={item.title} className={`w-full h-full md:object-cover md:object-center ${item.mobileImageClass || "object-cover object-top"}`} />
                         </div>
                       ) : (
-                        <div
-                          className={`h-[160px] md:h-[240px] bg-gradient-to-br ${item.gradient} flex items-center justify-center shrink-0`}
-                        >
+                        <div className={`h-[160px] md:h-[240px] bg-gradient-to-br ${item.gradient} flex items-center justify-center shrink-0`}>
                           <Icon className="w-12 h-12 md:w-14 md:h-14 text-text/40" />
                         </div>
                       )}
@@ -304,7 +363,7 @@ export default function AIExplorationsPage() {
                           {item.description}
                         </p>
                         <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
-                          {item.id === 12 ? "View Case Study →" : item.id === 13 ? "Try Demo →" : "View Demo →"}
+                          View Demo →
                         </p>
                       </div>
                     </Link>

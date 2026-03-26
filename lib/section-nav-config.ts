@@ -59,9 +59,10 @@ export const CISCO_SECTIONS: SectionItem[] = [
 ];
 
 export const AI_EXPLORATIONS_SECTIONS: SectionItem[] = [
-  { id: "ai-design-workflow", label: "01. Design Workflow" },
-  { id: "ai-capability-benchmark", label: "02. Research & Benchmarks" },
-  { id: "ai-product-experiments", label: "03. Showcase" },
+  { id: "ai-latest-work", label: "01. Latest Work" },
+  { id: "ai-design-workflow", label: "02. Design Workflow" },
+  { id: "ai-capability-benchmark", label: "03. Research & Benchmarks" },
+  { id: "ai-product-experiments", label: "04. Showcase" },
 ];
 
 export const PRISM_SECTIONS: SectionItem[] = [

@@ -87,9 +87,11 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
         <div className="font-accent hidden md:flex items-center gap-8 lg:gap-12 text-sm lg:text-base font-semibold uppercase tracking-widest text-muted shrink-0">
           {NAV_LINKS.map(({ href, label }) => {
             const isWork = href === "/#work";
+            const isAiExplorations = href === "/ai-explorations";
             const isActive =
               (isWork && pathname.startsWith("/work/")) ||
-              (!isWork && href.startsWith("/") && pathname === href);
+              (isAiExplorations && pathname.startsWith("/ai-explorations")) ||
+              (!isWork && !isAiExplorations && href.startsWith("/") && pathname === href);
             return (
               <Link
                 key={href}
