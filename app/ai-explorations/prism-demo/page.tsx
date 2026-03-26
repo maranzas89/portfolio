@@ -1442,18 +1442,8 @@ const SEARCH_ITEMS = [
   { label: "T1078 — Valid Accounts", category: "Techniques", screen: 3 as Screen },
 ];
 
-const MOBILE_NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/ai-explorations", label: "AI Explorations" },
-  { href: "/ai-explorations/prism", label: "PRISM Case Study" },
-  { href: "/work/didi", label: "DiDi EagleEye" },
-  { href: "/work/calbright/student-portal", label: "Student Portal" },
-  { href: "/work/calbright/staff-portal", label: "Staff Portal" },
-  { href: "/work/cisco", label: "Cisco NAE" },
-  { href: "/experience", label: "About Me" },
-];
 
-function TopBar({ onReset, isDark, onToggleTheme, onNav }: { onReset: () => void; isDark: boolean; onToggleTheme: () => void; onNav: (s: Screen) => void }) {
+function TopBar({ onReset, isDark, onToggleTheme, onNav, screen }: { onReset: () => void; isDark: boolean; onToggleTheme: () => void; onNav: (s: Screen) => void; screen: Screen }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -1555,29 +1545,40 @@ function TopBar({ onReset, isDark, onToggleTheme, onNav }: { onReset: () => void
         <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold ${isDark ? "bg-blue-500/20 text-blue-400" : "bg-blue-100 text-blue-600"}`}>WL</div>
       </div>
     </div>
-    {/* Mobile nav overlay */}
+    {/* Mobile nav overlay — mirrors desktop Sidebar */}
     {mobileNavOpen && (
-      <div className="md:hidden fixed inset-0 z-[999] bg-white">
-        <button
-          type="button"
-          className="absolute top-4 right-4 p-2 -m-2 text-slate-900 hover:text-slate-500 transition-colors z-10"
-          onClick={() => setMobileNavOpen(false)}
-          aria-label="Close menu"
-        >
-          <X className="w-7 h-7" />
-        </button>
-        <div className="h-full overflow-y-auto flex flex-col pt-16 px-6 gap-6">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Navigate</p>
-          {MOBILE_NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-base font-semibold text-slate-700 hover:text-blue-600 transition-colors"
-              onClick={() => setMobileNavOpen(false)}
+      <div className={`md:hidden fixed inset-0 z-[999] ${isDark ? "bg-[#0d1221]" : "bg-white"}`}>
+        <div className="flex items-center justify-between px-5 py-4 border-b ${isDark ? 'border-white/[0.06]' : 'border-slate-200'}">
+          <div className="flex items-center gap-2.5">
+            <Shield className="w-5 h-5 text-blue-500" />
+            <span className={`text-base font-semibold tracking-wide ${isDark ? "text-white" : "text-slate-900"}`}>PRISM</span>
+          </div>
+          <button onClick={() => setMobileNavOpen(false)} className="cursor-pointer" aria-label="Close menu">
+            <X className={`w-6 h-6 ${isDark ? "text-slate-300" : "text-slate-600"}`} />
+          </button>
+        </div>
+        <nav className="flex flex-col py-4 px-3 gap-1">
+          {([
+            { icon: LayoutDashboard, label: "Dashboard", target: 1 as Screen, active: screen === 1 || screen === 6 },
+            { icon: AlertTriangle, label: "Incidents", target: "incidents" as Screen, active: screen === "incidents" || (typeof screen === "number" && screen >= 2 && screen <= 5) },
+            { icon: Grid3X3, label: "ATT&CK Coverage", target: "attack-coverage" as Screen, active: screen === "attack-coverage" },
+            { icon: Box, label: "Assets", target: "assets" as Screen, active: screen === "assets" },
+            { icon: Settings, label: "Settings", target: "settings" as Screen, active: screen === "settings" },
+          ]).map((it) => (
+            <button
+              key={it.label}
+              onClick={() => { onNav(it.target); setMobileNavOpen(false); }}
+              className={`w-full flex items-center gap-3 px-5 py-4 rounded-xl text-sm font-semibold transition-colors cursor-pointer ${it.active ? (isDark ? "bg-blue-500/10 text-blue-400" : "bg-blue-50 text-blue-600") : (isDark ? "text-slate-400 hover:text-white hover:bg-white/[0.03]" : "text-slate-500 hover:text-slate-900 hover:bg-slate-50")}`}
             >
-              {link.label}
-            </Link>
+              <it.icon className="w-5 h-5" />
+              {it.label}
+            </button>
           ))}
+        </nav>
+        <div className={`mx-5 my-4 pt-4 border-t ${isDark ? "border-white/[0.06]" : "border-slate-200"}`}>
+          <Link href="/ai-explorations" className="flex items-center gap-2 text-sm font-semibold text-blue-500 hover:text-blue-600 transition-colors" onClick={() => setMobileNavOpen(false)}>
+            <ArrowLeft className="w-4 h-4" /> Back to AI Explorations
+          </Link>
         </div>
       </div>
     )}
@@ -1997,7 +1998,7 @@ export default function PrismDemoPage() {
         [data-theme="light"] .heatmap-warning { background: #dbeafe; }
         [data-theme="light"] .heatmap-info { background: #f1f5f9; }
       `}</style>
-      <TopBar onReset={handleReset} isDark={isDark} onToggleTheme={() => setIsDark((d) => !d)} onNav={handleNav} />
+      <TopBar onReset={handleReset} isDark={isDark} onToggleTheme={() => setIsDark((d) => !d)} onNav={handleNav} screen={screen} />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar screen={screen} onNav={handleNav} isDark={isDark} />
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
