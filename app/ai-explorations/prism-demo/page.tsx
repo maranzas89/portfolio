@@ -180,10 +180,317 @@ function StatusDot({ status }: { status: string }) {
 }
 
 /* ================================================================== */
+/*  DATA VISUALIZATION — SVG Charts                                    */
+/* ================================================================== */
+
+// 24-hour alert volume data (hour, critical, high, medium, low)
+const ALERT_VOLUME_BASE = [
+  { hour: "00:00", critical: 0, high: 1, medium: 2, low: 3 },
+  { hour: "02:00", critical: 0, high: 0, medium: 1, low: 2 },
+  { hour: "04:00", critical: 0, high: 0, medium: 1, low: 1 },
+  { hour: "06:00", critical: 0, high: 1, medium: 2, low: 2 },
+  { hour: "08:00", critical: 1, high: 2, medium: 3, low: 4 },
+  { hour: "09:00", critical: 1, high: 3, medium: 4, low: 3 },
+  { hour: "10:00", critical: 2, high: 4, medium: 5, low: 3 },
+  { hour: "11:00", critical: 3, high: 5, medium: 4, low: 2 },
+  { hour: "12:00", critical: 2, high: 4, medium: 3, low: 3 },
+  { hour: "13:00", critical: 2, high: 3, medium: 4, low: 2 },
+  { hour: "14:00", critical: 1, high: 2, medium: 3, low: 3 },
+  { hour: "16:00", critical: 1, high: 2, medium: 2, low: 2 },
+  { hour: "18:00", critical: 0, high: 1, medium: 2, low: 3 },
+  { hour: "20:00", critical: 0, high: 1, medium: 1, low: 2 },
+  { hour: "22:00", critical: 0, high: 0, medium: 1, low: 2 },
+  { hour: "Now", critical: 1, high: 2, medium: 2, low: 1 },
+];
+
+// 7-day risk score data
+const RISK_SCORE_BASE = [
+  { day: "Mon", score: 42 },
+  { day: "Tue", score: 38 },
+  { day: "Wed", score: 55 },
+  { day: "Thu", score: 61 },
+  { day: "Fri", score: 72 },
+  { day: "Sat", score: 48 },
+  { day: "Today", score: 78 },
+];
+
+function AlertVolumeChart({ incidents, isDark }: { incidents: Incident[]; isDark: boolean }) {
+  const containedCount = incidents.filter((i) => i.status === "Contained" && INCIDENTS.find((o) => o.id === i.id)?.status !== "Contained").length;
+  const scale = containedCount > 0 ? Math.max(0.2, 1 - containedCount * 0.3) : 1;
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  const data = ALERT_VOLUME_BASE.map((d) => ({
+    ...d,
+    critical: Math.round(d.critical * scale),
+    high: Math.round(d.high * scale),
+  }));
+
+  const W = 520, H = 55, PX = 16, PY = 4;
+  const plotW = W - PX * 2, plotH = H - PY - 10;
+  const maxVal = Math.max(...data.map((d) => d.critical + d.high + d.medium + d.low), 1);
+  const stepX = plotW / (data.length - 1);
+
+  const makePath = (getValue: (d: typeof data[0]) => number) => {
+    const pts = data.map((d, i) => ({ x: PX + i * stepX, y: PY + plotH - (getValue(d) / maxVal) * plotH }));
+    return pts.map((p, i) => {
+      if (i === 0) return `M${p.x},${p.y}`;
+      const prev = pts[i - 1];
+      const cpx = (prev.x + p.x) / 2;
+      return `C${cpx},${prev.y} ${cpx},${p.y} ${p.x},${p.y}`;
+    }).join(" ");
+  };
+
+  const makeArea = (getValue: (d: typeof data[0]) => number) => {
+    const line = makePath(getValue);
+    const lastPt = data.length - 1;
+    return `${line} L${PX + lastPt * stepX},${PY + plotH} L${PX},${PY + plotH} Z`;
+  };
+
+  const totalLine = (d: typeof data[0]) => d.critical + d.high + d.medium + d.low;
+  const critHighLine = (d: typeof data[0]) => d.critical + d.high;
+  const critLine = (d: typeof data[0]) => d.critical;
+
+  const gridLines = [0, 0.5, 1].map((pct) => PY + plotH * (1 - pct));
+  const textColor = isDark ? "fill-slate-500" : "fill-slate-400";
+  const gridColor = isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.06)";
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const rect = svg.getBoundingClientRect();
+    const svgX = ((e.clientX - rect.left) / rect.width) * W;
+    const idx = Math.round((svgX - PX) / stepX);
+    setHoverIdx(Math.max(0, Math.min(data.length - 1, idx)));
+  }, [data.length, stepX]);
+
+  const hd = hoverIdx !== null ? data[hoverIdx] : null;
+  const hx = hoverIdx !== null ? PX + hoverIdx * stepX : 0;
+
+  return (
+    <div className="card-surface rounded-none p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-300">Alert Volume — 24h</h3>
+        <div className="flex items-center gap-4 text-[10px] font-semibold uppercase tracking-wider">
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-red-500" />Critical</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-orange-500" />High</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-blue-400/60" />Med+Low</span>
+        </div>
+      </div>
+      <div className="relative">
+        <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet" onMouseMove={handleMouseMove} onMouseLeave={() => setHoverIdx(null)}>
+          <defs>
+            <linearGradient id="grad-total" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={isDark ? "rgba(96,165,250,0.15)" : "rgba(96,165,250,0.12)"} />
+              <stop offset="100%" stopColor="rgba(96,165,250,0)" />
+            </linearGradient>
+            <linearGradient id="grad-crithigh" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={isDark ? "rgba(249,115,22,0.25)" : "rgba(249,115,22,0.18)"} />
+              <stop offset="100%" stopColor="rgba(249,115,22,0)" />
+            </linearGradient>
+            <linearGradient id="grad-crit" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={isDark ? "rgba(239,68,68,0.35)" : "rgba(239,68,68,0.25)"} />
+              <stop offset="100%" stopColor="rgba(239,68,68,0)" />
+            </linearGradient>
+          </defs>
+          {/* Grid */}
+          {gridLines.map((y, i) => (
+            <line key={i} x1={PX} y1={y} x2={W - PX} y2={y} stroke={gridColor} strokeWidth="0.2" />
+          ))}
+          {/* X labels */}
+          {data.filter((_, i) => i % 3 === 0 || i === data.length - 1).map((d, idx) => {
+            const i = data.indexOf(d);
+            return <text key={idx} x={PX + i * stepX} y={H - 2} textAnchor="middle" className={`text-[3.5px] font-bold ${textColor}`}>{d.hour}</text>;
+          })}
+          {/* Area fills */}
+          <path d={makeArea(totalLine)} fill="url(#grad-total)" />
+          <path d={makeArea(critHighLine)} fill="url(#grad-crithigh)" />
+          <path d={makeArea(critLine)} fill="url(#grad-crit)" />
+          {/* Lines */}
+          <path d={makePath(totalLine)} fill="none" stroke={isDark ? "rgba(96,165,250,0.4)" : "rgba(96,165,250,0.5)"} strokeWidth="0.2" />
+          <path d={makePath(critHighLine)} fill="none" stroke={isDark ? "rgba(249,115,22,0.6)" : "rgba(249,115,22,0.7)"} strokeWidth="0.2" />
+          <path d={makePath(critLine)} fill="none" stroke={isDark ? "rgba(239,68,68,0.8)" : "rgba(239,68,68,0.9)"} strokeWidth="0.25" />
+          {/* Hover crosshair */}
+          {hoverIdx !== null && (
+            <>
+              <line x1={hx} y1={PY} x2={hx} y2={PY + plotH} stroke={isDark ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.15)"} strokeWidth="0.5" strokeDasharray="2 1.5" />
+              {[
+                { fn: totalLine, color: "rgb(96,165,250)" },
+                { fn: critHighLine, color: "rgb(249,115,22)" },
+                { fn: critLine, color: "rgb(239,68,68)" },
+              ].map(({ fn, color }, idx) => {
+                const cy = PY + plotH - (fn(data[hoverIdx]) / maxVal) * plotH;
+                return <circle key={idx} cx={hx} cy={cy} r="1.5" fill={color} />;
+              })}
+            </>
+          )}
+        </svg>
+        {/* Tooltip */}
+        {hoverIdx !== null && hd && (
+          <div
+            className={`absolute z-50 pointer-events-none px-3 py-2.5 rounded-lg shadow-xl text-xs ${isDark ? "bg-[#1a2236] border border-white/10" : "bg-white border border-slate-200 shadow-lg"}`}
+            style={{ left: `${(hx / W) * 100}%`, top: 0, transform: "translateX(-50%) translateY(-110%)" }}
+          >
+            <p className={`font-bold mb-1.5 ${isDark ? "text-white" : "text-slate-900"}`}>{hd.hour}</p>
+            <div className="space-y-1">
+              <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-red-500" />Critical</span><span className="font-bold tabular-nums">{hd.critical}</span></div>
+              <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-orange-500" />High</span><span className="font-bold tabular-nums">{hd.high}</span></div>
+              <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-400" />Medium</span><span className="font-bold tabular-nums">{hd.medium}</span></div>
+              <div className="flex items-center justify-between gap-4"><span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-300/60" />Low</span><span className="font-bold tabular-nums">{hd.low}</span></div>
+            </div>
+            <div className={`mt-1.5 pt-1.5 text-[10px] font-semibold tabular-nums ${isDark ? "border-t border-white/10 text-slate-400" : "border-t border-slate-200 text-slate-500"}`}>
+              Total: {hd.critical + hd.high + hd.medium + hd.low}
+            </div>
+          </div>
+        )}
+      </div>
+      {containedCount > 0 && (
+        <div className="mt-3 flex items-center gap-2 text-xs text-emerald-400 font-semibold">
+          <CheckCircle className="w-3.5 h-3.5" />
+          Alert volume dropping — {containedCount} incident{containedCount > 1 ? "s" : ""} contained
+        </div>
+      )}
+    </div>
+  );
+}
+
+function RiskTrendChart({ incidents, isDark }: { incidents: Incident[]; isDark: boolean }) {
+  const containedCount = incidents.filter((i) => i.status === "Contained" && INCIDENTS.find((o) => o.id === i.id)?.status !== "Contained").length;
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  const data = RISK_SCORE_BASE.map((d, i) => ({
+    ...d,
+    score: i === RISK_SCORE_BASE.length - 1 && containedCount > 0
+      ? Math.max(15, d.score - containedCount * 22)
+      : d.score,
+  }));
+
+  const currentScore = data[data.length - 1].score;
+  const prevScore = RISK_SCORE_BASE[RISK_SCORE_BASE.length - 1].score;
+  const delta = currentScore - prevScore;
+
+  const W = 280, H = 130, PX = 16, PY = 14;
+  const plotW = W - PX * 2, plotH = H - PY * 2;
+  const maxVal = 100;
+  const stepX = plotW / (data.length - 1);
+
+  const pts = data.map((d, i) => ({
+    x: PX + i * stepX,
+    y: PY + plotH - (d.score / maxVal) * plotH,
+  }));
+
+  const linePath = pts.map((p, i) => {
+    if (i === 0) return `M${p.x},${p.y}`;
+    const prev = pts[i - 1];
+    const cpx = (prev.x + p.x) / 2;
+    return `C${cpx},${prev.y} ${cpx},${p.y} ${p.x},${p.y}`;
+  }).join(" ");
+
+  const areaPath = `${linePath} L${pts[pts.length - 1].x},${PY + plotH} L${pts[0].x},${PY + plotH} Z`;
+
+  const riskColor = currentScore >= 70 ? "rgb(239,68,68)" : currentScore >= 50 ? "rgb(245,158,11)" : "rgb(34,197,94)";
+  const riskLabel = currentScore >= 70 ? "High" : currentScore >= 50 ? "Elevated" : "Low";
+  const textColor = isDark ? "fill-slate-500" : "fill-slate-400";
+  const gridColor = isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.06)";
+
+  const riskLevel = (s: number) => s >= 70 ? "High" : s >= 50 ? "Elevated" : s >= 30 ? "Moderate" : "Low";
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const rect = svg.getBoundingClientRect();
+    const svgX = ((e.clientX - rect.left) / rect.width) * W;
+    const idx = Math.round((svgX - PX) / stepX);
+    setHoverIdx(Math.max(0, Math.min(data.length - 1, idx)));
+  }, [data.length, stepX]);
+
+  const hoveredPt = hoverIdx !== null ? pts[hoverIdx] : null;
+  const hoveredData = hoverIdx !== null ? data[hoverIdx] : null;
+
+  return (
+    <div className="card-surface rounded-none p-4">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-300">Risk Score — 7 Days</h3>
+        <div className="flex items-center gap-2">
+          <span className="text-lg font-bold" style={{ color: riskColor }}>{currentScore}</span>
+          <span className="text-[10px] font-semibold uppercase px-1.5 py-0.5 rounded" style={{ background: `${riskColor}20`, color: riskColor }}>{riskLabel}</span>
+        </div>
+      </div>
+      <div className="relative">
+        <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="xMidYMid meet" onMouseMove={handleMouseMove} onMouseLeave={() => setHoverIdx(null)}>
+          <defs>
+            <linearGradient id="grad-risk" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={`${riskColor}`} stopOpacity={isDark ? "0.2" : "0.15"} />
+              <stop offset="100%" stopColor={riskColor} stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {/* Grid */}
+          {[0, 50, 100].map((val) => {
+            const y = PY + plotH - (val / maxVal) * plotH;
+            return <line key={val} x1={PX} y1={y} x2={W - PX} y2={y} stroke={gridColor} strokeWidth="0.2" />;
+          })}
+          {/* Threshold line */}
+          <line x1={PX} y1={PY + plotH - (70 / maxVal) * plotH} x2={W - PX} y2={PY + plotH - (70 / maxVal) * plotH} stroke="rgba(239,68,68,0.3)" strokeWidth="0.8" strokeDasharray="4 3" />
+          {/* X labels */}
+          {data.map((d, i) => (
+            <text key={i} x={PX + i * stepX} y={H - 2} textAnchor="middle" className={`text-[5.5px] font-bold ${textColor}`}>{d.day}</text>
+          ))}
+          {/* Area + Line */}
+          <path d={areaPath} fill="url(#grad-risk)" />
+          <path d={linePath} fill="none" stroke={riskColor} strokeWidth="0.25" strokeLinecap="round" />
+          {/* Data points */}
+          {pts.map((p, i) => (
+            <circle key={i} cx={p.x} cy={p.y} r={2} fill={riskColor} opacity={hoverIdx === i ? 1 : i === pts.length - 1 ? 1 : 0.5} />
+          ))}
+          {/* Hover crosshair */}
+          {hoveredPt && (
+            <>
+              <line x1={hoveredPt.x} y1={PY} x2={hoveredPt.x} y2={PY + plotH} stroke={isDark ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.15)"} strokeWidth="0.5" strokeDasharray="2 1.5" />
+              <circle cx={hoveredPt.x} cy={hoveredPt.y} r="3" fill={riskColor} opacity="0.25" />
+            </>
+          )}
+          {/* Pulse on last point (only when not hovering) */}
+          {hoverIdx === null && (
+            <circle cx={pts[pts.length - 1].x} cy={pts[pts.length - 1].y} r="3.5" fill={riskColor} opacity="0.3">
+              <animate attributeName="r" values="3.5;8;3.5" dur="2s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite" />
+            </circle>
+          )}
+        </svg>
+        {/* Tooltip */}
+        {hoveredPt && hoveredData && (
+          <div
+            className={`absolute z-50 pointer-events-none px-3 py-2 rounded-lg shadow-xl text-xs ${isDark ? "bg-[#1a2236] border border-white/10" : "bg-white border border-slate-200 shadow-lg"}`}
+            style={{ left: `${(hoveredPt.x / W) * 100}%`, top: 0, transform: "translateX(-50%) translateY(-110%)" }}
+          >
+            <p className={`font-bold mb-1 ${isDark ? "text-white" : "text-slate-900"}`}>{hoveredData.day}</p>
+            <div className="flex items-center justify-between gap-3">
+              <span className={isDark ? "text-slate-400" : "text-slate-500"}>Score</span>
+              <span className="font-bold tabular-nums" style={{ color: riskColor }}>{hoveredData.score}</span>
+            </div>
+            <div className="flex items-center justify-between gap-3">
+              <span className={isDark ? "text-slate-400" : "text-slate-500"}>Level</span>
+              <span className="font-bold" style={{ color: hoveredData.score >= 70 ? "rgb(239,68,68)" : hoveredData.score >= 50 ? "rgb(245,158,11)" : "rgb(34,197,94)" }}>{riskLevel(hoveredData.score)}</span>
+            </div>
+          </div>
+        )}
+      </div>
+      {delta < 0 && (
+        <div className="mt-2 flex items-center gap-2 text-xs text-emerald-400 font-semibold">
+          <CheckCircle className="w-3.5 h-3.5" />
+          Risk score dropped {Math.abs(delta)} pts after containment
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ================================================================== */
 /*  SCREEN 1 — Dashboard                                               */
 /* ================================================================== */
 
-function Screen1({ incidents, onSelect }: { incidents: Incident[]; onSelect: (id: number) => void }) {
+function Screen1({ incidents, onSelect, isDark }: { incidents: Incident[]; onSelect: (id: number) => void; isDark: boolean }) {
   const critical = incidents.filter((i) => i.severity === "Critical").length;
   const open = incidents.filter((i) => i.status === "Open").length;
 
@@ -199,18 +506,20 @@ function Screen1({ incidents, onSelect }: { incidents: Incident[]; onSelect: (id
           { label: "ATT&CK Coverage", value: "73%", icon: Grid3X3, accent: "text-blue-400" },
         ].map((s) => (
           <div key={s.label} className="card-surface  rounded-none p-4">
-            <div className="flex items-center gap-1.5 mb-1.5">
-              <s.icon className={`w-3.5 h-3.5 ${s.accent || "text-slate-300"}`} />
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-300">{s.label}</span>
+            <div className="flex items-center gap-2 mb-2">
+              <s.icon className={`w-5 h-5 ${s.accent || "text-slate-300"}`} />
+              <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">{s.label}</span>
             </div>
-            <p className={`text-2xl font-bold ${s.accent || "text-white"}`}>{s.value}</p>
+            <p className={`text-3xl font-bold ${s.accent || "text-white"}`}>{s.value}</p>
           </div>
         ))}
       </div>
 
+      <AlertVolumeChart incidents={incidents} isDark={isDark} />
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Needs Attention */}
-        <div className="lg:col-span-2 space-y-5">
+        <div className="lg:col-span-2 space-y-6">
           <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-300 mb-2">Needs Attention</h3>
           {incidents.filter((inc) => inc.status !== "Contained").slice(0, 4).map((inc) => {
             const isOpen = true;
@@ -239,8 +548,9 @@ function Screen1({ incidents, onSelect }: { incidents: Incident[]; onSelect: (id
         </div>
 
         {/* Right sidebar */}
-        <div className="space-y-3">
+        <div className="space-y-6">
           <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-300 mb-2">Overview</h3>
+          <RiskTrendChart incidents={incidents} isDark={isDark} />
           {/* ATT&CK heatmap mini */}
           <div className="card-surface  rounded-none p-4">
             <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-300 mb-3">ATT&CK Activity This Week</h3>
@@ -752,10 +1062,10 @@ function TopBar({ onReset, isDark, onToggleTheme, onNav }: { onReset: () => void
         )}
       </div>
       <div className="flex items-center gap-4">
-        <button onClick={onReset} className={`px-4 py-2 rounded-full text-sm font-normal transition-colors flex items-center gap-2 cursor-pointer ${isDark ? "bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white" : "bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900"}`} title="Reset demo">
+        <button onClick={onReset} className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors flex items-center gap-2 cursor-pointer ${isDark ? "bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white" : "bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900"}`} title="Reset demo">
           <RotateCcw className="w-4 h-4" />Reset
         </button>
-        <button onClick={onToggleTheme} className={`px-4 py-2 rounded-full text-sm font-normal transition-colors flex items-center gap-2 cursor-pointer ${isDark ? "bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white" : "bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900"}`} title="Toggle theme">
+        <button onClick={onToggleTheme} className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors flex items-center gap-2 cursor-pointer ${isDark ? "bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white" : "bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900"}`} title="Toggle theme">
           {isDark ? "Light" : "Dark"}
         </button>
         <div className="cursor-pointer">
@@ -1136,7 +1446,7 @@ export default function PrismDemoPage() {
       <div className="flex flex-1 overflow-hidden">
         <Sidebar screen={screen} onNav={handleNav} isDark={isDark} />
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
-          {screen === 1 && <Screen1 incidents={incidents} onSelect={handleSelectIncident} />}
+          {screen === 1 && <Screen1 incidents={incidents} onSelect={handleSelectIncident} isDark={isDark} />}
           {(screen === 2 || screen === 3 || screen === 4) && (
             <div className="space-y-6 animate-fadeIn">
               <button onClick={goScreen1} className={`flex items-center gap-2 text-base font-bold hover:text-blue-500 transition-colors cursor-pointer ${isDark ? "text-slate-400" : "text-slate-500"}`}><ArrowLeft className="w-4 h-4" />Back to Dashboard</button>
@@ -1166,7 +1476,7 @@ export default function PrismDemoPage() {
             </div>
           )}
           {screen === 5 && <Screen5 incident={activeIncident} onClose={goScreen6} />}
-          {screen === 6 && <Screen1 incidents={incidents} onSelect={handleSelectIncident} />}
+          {screen === 6 && <Screen1 incidents={incidents} onSelect={handleSelectIncident} isDark={isDark} />}
           {screen === "incidents" && <IncidentsPage incidents={incidents} onSelect={handleSelectIncident} />}
           {screen === "attack-coverage" && <AttackCoveragePage />}
           {screen === "assets" && <AssetsPage />}
