@@ -341,7 +341,7 @@ export default function AIExplorationsPage() {
                 const Icon = item.icon;
                 return (
                   <ScrollReveal key={item.id} direction="up" delay={i * 50} className="h-full">
-                    <div className="flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm">
+                    <div className="flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden">
                       {item.image ? (
                         <div className="h-[180px] md:h-[240px] overflow-hidden shrink-0">
                           <img src={item.image} alt={item.title} className={`w-full h-full md:object-cover md:object-center ${item.mobileImageClass || "object-cover object-top"}`} />
