@@ -299,11 +299,11 @@ export default function AIExplorationsPage() {
                           {item.description}
                         </p>
                         <div className="mt-4 flex items-center justify-between">
-                          <Link href={item.href} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-gray-100 px-3 py-1.5 rounded-md transition-all no-underline hover:no-underline">
+                          <Link href={item.href} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#eff3f8] px-3 py-1.5 rounded-md transition-all no-underline hover:no-underline">
                             {item.id === 12 ? "View Case Study →" : item.id === 13 ? "Try Demo →" : "View Demo →"}
                           </Link>
                           {item.prdHref && (
-                            <Link href={item.prdHref} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-gray-100 px-3 py-1.5 rounded-md transition-all no-underline hover:no-underline">
+                            <Link href={item.prdHref} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#eff3f8] px-3 py-1.5 rounded-md transition-all no-underline hover:no-underline">
                               View PRD →
                             </Link>
                           )}
@@ -363,11 +363,11 @@ export default function AIExplorationsPage() {
                           {item.description}
                         </p>
                         <div className="mt-4 flex items-center justify-between">
-                          <Link href={item.href} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-gray-100 px-3 py-1.5 rounded-md transition-all no-underline hover:no-underline">
+                          <Link href={item.href} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#eff3f8] px-3 py-1.5 rounded-md transition-all no-underline hover:no-underline">
                             View Demo →
                           </Link>
                           {item.prdHref && (
-                            <Link href={item.prdHref} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-gray-100 px-3 py-1.5 rounded-md transition-all no-underline hover:no-underline">
+                            <Link href={item.prdHref} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 hover:bg-[#eff3f8] px-3 py-1.5 rounded-md transition-all no-underline hover:no-underline">
                               View PRD →
                             </Link>
                           )}
