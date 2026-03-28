@@ -19,6 +19,9 @@ const nextConfig: NextConfig = {
         },
       ],
       afterFiles: [
+        // PRD Hub — proxy to separate Vercel deployment
+        { source: "/prd", destination: "https://prd-hub-chi.vercel.app/" },
+        { source: "/prd/:path*", destination: "https://prd-hub-chi.vercel.app/:path*" },
         // SPA routes — after static files are checked, rewrite app routes to index.html
         { source: "/pulse", destination: "/pulse/index.html" },
         { source: "/pulse/store", destination: "/pulse/index.html" },
