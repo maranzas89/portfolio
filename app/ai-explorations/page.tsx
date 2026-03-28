@@ -101,7 +101,6 @@ const EXPLORATIONS = [
       { icon: Zap, label: "AI-powered triage", text: "Generates risk summaries, recommends response actions, and produces incident reports to compress analyst time-to-action." },
     ],
     href: "/ai-explorations/prism",
-    prdHref: "/prd/prism/prd_v1.0.html",
     figmaHref: "",
   },
   {
