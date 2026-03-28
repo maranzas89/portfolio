@@ -66,7 +66,7 @@ import AiExplorationsSubnav from "@/components/ai-explorations/AiExplorationsSub
 const EXPLORATIONS = [
   {
     id: 13,
-    title: "Prototype Based on MITRE ATT&CK Framework",
+    title: "PRISM Prototype (MITRE ATT&CK Framework)",
     category: "Early Prototype Experiments",
     description:
       "Walk through a real threat investigation — from morning dashboard to incident containment. Six screens, one unified SOC workflow.",
@@ -81,6 +81,7 @@ const EXPLORATIONS = [
       { icon: Zap, label: "Production-grade UI", text: "Built as a working prototype with sidebar navigation, real-time status updates, and enterprise-level information density." },
     ],
     href: "/ai-explorations/prism-demo",
+    prdHref: "/prd/prism/prd_v1.0.html",
     figmaHref: "",
   },
   {
@@ -100,6 +101,7 @@ const EXPLORATIONS = [
       { icon: Zap, label: "AI-powered triage", text: "Generates risk summaries, recommends response actions, and produces incident reports to compress analyst time-to-action." },
     ],
     href: "/ai-explorations/prism",
+    prdHref: "/prd/prism/prd_v1.0.html",
     figmaHref: "",
   },
   {
@@ -255,8 +257,8 @@ export default function AIExplorationsPage() {
         <div className="max-w-[1600px] mx-auto px-5 md:px-16 lg:px-24">
 
           {/* Latest Work */}
-          <section className="pt-12 md:pt-24 pb-[60px] md:pb-[80px]">
-            <ScrollReveal direction="up" className="mb-10 md:mb-16">
+          <section className="pt-12 md:pt-16 pb-[60px] md:pb-[80px]">
+            <ScrollReveal direction="up" className="mb-6 md:mb-8">
               <div id="ai-latest-work" className="mb-2 flex items-center gap-2 scroll-mt-[190px]">
                 <Zap className="h-4 w-4 shrink-0 text-blue-600" />
                 <h2 className="text-sm font-semibold uppercase tracking-widest text-blue-600">
@@ -275,14 +277,10 @@ export default function AIExplorationsPage() {
                 const Icon = item.icon;
                 return (
                   <ScrollReveal key={item.id} direction="up" delay={i * 50} className="h-full">
-                    <Link
-                      href={item.href}
-                      className="group flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm transition-[transform,box-shadow] duration-300 hover:shadow-xl hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 no-underline hover:no-underline active:no-underline"
-                      style={{ WebkitTapHighlightColor: 'transparent', textDecoration: 'none' }}
-                    >
+                    <div className="flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden">
                       {item.image ? (
                         <div className="h-[200px] md:h-[280px] overflow-hidden shrink-0">
-                          <img src={item.image} alt={item.title} className={`w-full h-full md:object-cover md:object-center transition-transform duration-500 group-hover:scale-105 ${item.mobileImageClass || "object-cover object-top"}`} />
+                          <img src={item.image} alt={item.title} className={`w-full h-full md:object-cover md:object-center ${item.mobileImageClass || "object-cover object-top"}`} />
                         </div>
                       ) : (
                         <div className={`h-[200px] md:h-[280px] bg-gradient-to-br ${item.gradient} flex items-center justify-center shrink-0`}>
@@ -301,11 +299,18 @@ export default function AIExplorationsPage() {
                         <p className="text-muted text-sm md:text-base leading-relaxed flex-1">
                           {item.description}
                         </p>
-                        <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest group-hover:translate-x-1 transition-transform">
-                          {item.id === 12 ? "View Case Study →" : item.id === 13 ? "Try Demo →" : "View Demo →"}
-                        </p>
+                        <div className="mt-4 flex items-center gap-6">
+                          <Link href={item.href} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 transition-colors no-underline hover:no-underline">
+                            {item.id === 12 ? "View Case Study →" : item.id === 13 ? "Try Demo →" : "View Demo →"}
+                          </Link>
+                          {item.prdHref && (
+                            <Link href={item.prdHref} className="text-sm font-semibold text-slate-500 uppercase tracking-widest hover:text-blue-600 transition-colors no-underline hover:no-underline">
+                              View PRD →
+                            </Link>
+                          )}
+                        </div>
                       </div>
-                    </Link>
+                    </div>
                   </ScrollReveal>
                 );
               })}
@@ -337,11 +342,7 @@ export default function AIExplorationsPage() {
                 const Icon = item.icon;
                 return (
                   <ScrollReveal key={item.id} direction="up" delay={i * 50} className="h-full">
-                    <Link
-                      href={item.href}
-                      className="flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm transition-[transform,box-shadow] duration-300 hover:shadow-lg hover:-translate-y-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 no-underline hover:no-underline active:no-underline"
-                      style={{ WebkitTapHighlightColor: 'transparent', textDecoration: 'none' }}
-                    >
+                    <div className="flex flex-col h-full rounded-2xl bg-[#fafbfc] overflow-hidden shadow-sm">
                       {item.image ? (
                         <div className="h-[180px] md:h-[240px] overflow-hidden shrink-0">
                           <img src={item.image} alt={item.title} className={`w-full h-full md:object-cover md:object-center ${item.mobileImageClass || "object-cover object-top"}`} />
@@ -362,11 +363,18 @@ export default function AIExplorationsPage() {
                         <p className="text-muted text-sm md:text-base leading-relaxed flex-1">
                           {item.description}
                         </p>
-                        <p className="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-widest">
-                          View Demo →
-                        </p>
+                        <div className="mt-4 flex items-center gap-6">
+                          <Link href={item.href} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 transition-colors no-underline hover:no-underline">
+                            View Demo →
+                          </Link>
+                          {item.prdHref && (
+                            <Link href={item.prdHref} className="text-sm font-semibold text-slate-500 uppercase tracking-widest hover:text-blue-600 transition-colors no-underline hover:no-underline">
+                              View PRD →
+                            </Link>
+                          )}
+                        </div>
                       </div>
-                    </Link>
+                    </div>
                   </ScrollReveal>
                 );
               })}
