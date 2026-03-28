@@ -303,7 +303,7 @@ export default function AIExplorationsPage() {
                             {item.id === 12 ? "View Case Study →" : item.id === 13 ? "Try Demo →" : "View Demo →"}
                           </Link>
                           {item.prdHref && (
-                            <Link href={item.prdHref} className="text-sm font-semibold text-slate-500 uppercase tracking-widest hover:text-blue-600 transition-colors no-underline hover:no-underline">
+                            <Link href={item.prdHref} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 transition-colors no-underline hover:no-underline">
                               View PRD →
                             </Link>
                           )}
@@ -367,7 +367,7 @@ export default function AIExplorationsPage() {
                             View Demo →
                           </Link>
                           {item.prdHref && (
-                            <Link href={item.prdHref} className="text-sm font-semibold text-slate-500 uppercase tracking-widest hover:text-blue-600 transition-colors no-underline hover:no-underline">
+                            <Link href={item.prdHref} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 transition-colors no-underline hover:no-underline">
                               View PRD →
                             </Link>
                           )}
