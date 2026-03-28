@@ -226,7 +226,7 @@ function DashboardScreen({ incidents, onSelectIncident }: { incidents: Incident[
                     <SeverityBadge severity={incident.severity} />
                     <StatusBadge status={incident.status} />
                   </div>
-                  <h4 className="text-sm md:text-base font-semibold text-white mb-2 group-hover:text-blue-600 transition-colors">
+                  <h4 className="text-sm md:text-base font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
                     {incident.title}
                   </h4>
                   <div className="flex flex-wrap gap-1.5 mb-2">
