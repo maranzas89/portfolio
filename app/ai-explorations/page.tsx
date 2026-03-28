@@ -299,7 +299,7 @@ export default function AIExplorationsPage() {
                         <p className="text-muted text-sm md:text-base leading-relaxed flex-1">
                           {item.description}
                         </p>
-                        <div className="mt-4 flex items-center gap-6">
+                        <div className="mt-4 flex items-center justify-between">
                           <Link href={item.href} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 transition-colors no-underline hover:no-underline">
                             {item.id === 12 ? "View Case Study →" : item.id === 13 ? "Try Demo →" : "View Demo →"}
                           </Link>
@@ -363,7 +363,7 @@ export default function AIExplorationsPage() {
                         <p className="text-muted text-sm md:text-base leading-relaxed flex-1">
                           {item.description}
                         </p>
-                        <div className="mt-4 flex items-center gap-6">
+                        <div className="mt-4 flex items-center justify-between">
                           <Link href={item.href} className="text-sm font-semibold text-blue-600 uppercase tracking-widest hover:text-blue-700 transition-colors no-underline hover:no-underline">
                             View Demo →
                           </Link>
