@@ -691,6 +691,7 @@ function AiDesignWorkflowExplorationsSection() {
                   key={step.id}
                   type="button"
                   onClick={() => setSelectedWorkflowStepId(step.id)}
+                  onMouseEnter={() => setSelectedWorkflowStepId(step.id)}
                   className={cn(
                     "w-full cursor-pointer rounded-[8px] p-4 text-left transition-all duration-300 outline-none focus:outline-none focus-visible:outline-none",
                     active
