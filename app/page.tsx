@@ -4,7 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import PlaybookMethodology from "@/components/PlaybookMethodology";
-import HeroBackgroundFX from "@/components/HeroBackgroundFX";
+import dynamic from "next/dynamic";
+const HeroBackgroundFX = dynamic(() => import("@/components/HeroBackgroundFX"), {
+  ssr: false,
+  loading: () => null,
+});
 
 import { WORK_SUB_LINKS, AI_SUB_LINKS, MAILTO_LETS_CONNECT } from "@/lib/nav-config";
 import { ResumeLink } from "@/components/ResumeLink";

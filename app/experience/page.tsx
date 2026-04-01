@@ -23,11 +23,11 @@ export default function ExperiencePage() {
 
       <PageHero
         eyebrow={<>Think deeply. Build fast.<br className="md:hidden" /> Ship with purpose.</>}
-        avatar="/images/avatar.png"
+        avatar="/avatar.jpeg"
         headline="Designing enterprise products, workflows, and implementation-aware experiences"
         paragraph="Product designer with 10+ years of experience turning ambiguity into clear product direction across enterprise SaaS, education platforms, and operational systems."
         paragraphVariant="compact"
-        primaryCta={{ label: "View Work", href: "/#work" }}
+        primaryCta={{ label: "View Projects", href: "/#work" }}
         secondaryCta={{ label: "Download Resume", href: "/FJ/WenLiu_Resume.pdf", download: "WenLiu_Resume.pdf" }}
       />
 

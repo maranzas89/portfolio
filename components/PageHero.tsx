@@ -3,8 +3,15 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import HeroBackgroundFXEditorial from "@/components/HeroBackgroundFXEditorial";
-import HeroBackgroundFXAI from "@/components/HeroBackgroundFXAI";
+import dynamic from "next/dynamic";
+const HeroBackgroundFXEditorial = dynamic(() => import("@/components/HeroBackgroundFXEditorial"), {
+  ssr: false,
+  loading: () => null,
+});
+const HeroBackgroundFXAI = dynamic(() => import("@/components/HeroBackgroundFXAI"), {
+  ssr: false,
+  loading: () => null,
+});
 import HeroCube from "@/components/HeroCube";
 import { CONTENT_CONTAINER_CLASS } from "@/lib/layout";
 import { Download } from "lucide-react";
