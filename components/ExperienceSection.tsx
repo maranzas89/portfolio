@@ -213,7 +213,7 @@ function PdfPreviewContainer() {
   return (
     <div className="bg-white rounded-2xl overflow-hidden aspect-[3/4] max-h-[1100px] min-h-[600px] mb-8">
       <iframe
-        src="/FJ/William_Liu_Resume.pdf"
+        src="/FJ/WenLiu_Resume.pdf"
         title="Resume preview"
         className="w-full h-full min-h-[600px] border-0"
       />
@@ -278,7 +278,7 @@ export default function ExperienceSection() {
             <span>Career Profile</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-6">
-            William Liu
+            Wen Liu
           </h2>
           <p className="text-lg text-slate-500 max-w-4xl leading-relaxed">
             Senior Product Designer — Complex Enterprise Systems · Workflow Architecture · Product Strategy

@@ -69,7 +69,7 @@ const UNSUPPORTED: RegExp[] = [
 ];
 
 export const OUT_OF_SCOPE_REPLY =
-  "I'm here to help you navigate William's portfolio. Feel free to ask about projects, design decisions, impact, AI workflow, or methodology.";
+  "I'm here to help you navigate Wen's portfolio. Feel free to ask about projects, design decisions, impact, AI workflow, or methodology.";
 
 // Strong portfolio signals — entity names and design-specific concepts
 // that should always override off-topic classification

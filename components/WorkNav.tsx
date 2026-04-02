@@ -80,7 +80,7 @@ export default function WorkNav({ embed = false }: { embed?: boolean }) {
             href="/"
             className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight uppercase text-text transition-colors hover:text-blue-600 shrink-0"
           >
-            William Liu
+            Wen Liu
           </Link>
         </div>
         {/* Desktop nav - hidden below 768px */}

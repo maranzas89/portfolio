@@ -11,7 +11,7 @@ type Message = {
 
 const PRESET_CHIPS = [
   "Tell me about Calbright",
-  "What did William do at Didi?",
+  "What did Wen do at Didi?",
   "Show me product design work",
   "Which case studies show impact?",
 ];
@@ -19,7 +19,7 @@ const PRESET_CHIPS = [
 const INITIAL_MESSAGE: Message = {
   role: "assistant",
   content:
-    "Quickly explore William's work across product design, enterprise systems, and shipped experiences. Ask about projects, decisions, or impact.",
+    "Quickly explore Wen's work across product design, enterprise systems, and shipped experiences. Ask about projects, decisions, or impact.",
 };
 
 // --- Storage keys ---
@@ -317,7 +317,7 @@ export default function AskWenPanel({
             <div className="flex items-center gap-2.5">
               <Compass className="h-5 w-5 text-blue-400" strokeWidth={2.5} />
               <h2 className="text-lg font-bold text-white tracking-[-0.01em]">
-                Ask William&apos;s AI
+                Ask Wen&apos;s AI
               </h2>
             </div>
           </div>

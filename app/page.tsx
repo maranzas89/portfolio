@@ -67,10 +67,10 @@ export default function Page() {
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-          {/* Desktop: William Liu on left */}
+          {/* Desktop: william on left */}
           <div className="hidden md:flex items-center gap-3 shrink-0">
-            <a href="#" className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight text-text shrink-0">
-              William Liu
+            <a href="#" className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight uppercase text-text shrink-0">
+              Wen Liu
             </a>
           </div>
           {/* Desktop nav */}
@@ -88,9 +88,9 @@ export default function Page() {
               Kind Words
             </Link>
           </div>
-          {/* Mobile: William Liu on right, visible below 768px */}
-          <a href="#" className="md:hidden text-lg sm:text-xl font-semibold tracking-tight text-text shrink-0">
-            William Liu
+          {/* Mobile: william on right, visible below 768px */}
+          <a href="#" className="md:hidden text-lg sm:text-xl font-semibold tracking-tight uppercase text-text shrink-0">
+            Wen Liu
           </a>
         </div>
         {/* Mobile menu - full-page overlay when open (md:hidden) */}
@@ -189,7 +189,7 @@ export default function Page() {
                 Systems Thinking. Product Judgment. Fast Prototyping.
               </p>
               <h1 className="text-white text-3xl md:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold leading-[1.2] tracking-[-0.04em] mb-0">
-                Hi, I&apos;m William, a product designer<br />
+                Hi, I&apos;m Wen, a product designer<br />
                 for complex systems and enterprise workflows
               </h1>
             </div>
@@ -447,14 +447,14 @@ export default function Page() {
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
           {/* Desktop: single row */}
           <div className="hidden sm:flex font-accent justify-between items-center text-sm font-semibold uppercase tracking-widest text-white/60">
-            <p>© 2026 William Liu</p>
+            <p>© 2026 Wen Liu</p>
             <p>Shaped with craft, systems thinking, and product judgment</p>
           </div>
           {/* Mobile: stacked layout */}
           <div className="sm:hidden font-accent text-sm font-semibold uppercase tracking-widest text-white/60 flex justify-between items-end">
             <div>
               <p>2026</p>
-              <p>William Liu</p>
+              <p>Wen Liu</p>
             </div>
             <div className="text-right">
               <p>Shaped with</p>

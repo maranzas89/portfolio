@@ -1,5 +1,5 @@
 export const BLOCKED_REPLY =
-  "I'm here to help with portfolio-related questions about William Liu's work, projects, and background. I'm not able to respond to that, but I'd be happy to help with something related to the portfolio.";
+  "I'm here to help with portfolio-related questions about Wen Liu's work, projects, and background. I'm not able to respond to that, but I'd be happy to help with something related to the portfolio.";
 
 const BLOCKED_PATTERNS: RegExp[] = [
   // Profanity / abusive insults
