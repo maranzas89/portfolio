@@ -3,7 +3,7 @@
 import React from "react";
 import { useIsMobile } from "@/lib/hooks/useIsMobile";
 
-const RESUME_HREF = "/FJ/WenLiu_Resume.pdf";
+const RESUME_HREF = "/FJ/William_Liu_Resume.pdf";
 
 type ResumeLinkProps = {
   children: React.ReactNode;
@@ -16,7 +16,7 @@ export function ResumeLink({ children, className = "" }: ResumeLinkProps) {
   return (
     <a
       href={RESUME_HREF}
-      download={isMobile ? undefined : "WenLiu_Resume.pdf"}
+      download={isMobile ? undefined : "William_Liu_Resume.pdf"}
       target="_blank"
       rel="noopener noreferrer"
       className={className}

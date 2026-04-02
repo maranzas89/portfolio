@@ -26,7 +26,7 @@ const ALIAS_MAP: Record<string, string> = {
   "liquid-glass": "liquid glass",
   "student-portal": "student portal",
   "staff-portal": "staff portal",
-  "ask-wen": "ask wen",
+  "ask-william": "ask william",
   "world-cup": "world cup",
   "data-lab": "data lab",
   "worldcup": "world cup",

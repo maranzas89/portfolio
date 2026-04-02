@@ -35,7 +35,7 @@ export default function PageFooter() {
       </div>
       <div className="max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24">
         <div className="font-accent flex justify-between items-center text-sm font-semibold uppercase tracking-widest text-white/60">
-          <p>© 2026 Wen Liu</p>
+          <p>© 2026 William Liu</p>
           <p className="font-accent">Shaped with AI, craft, and product thinking</p>
         </div>
       </div>

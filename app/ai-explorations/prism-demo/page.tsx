@@ -381,7 +381,7 @@ Response Actions Taken:
 
 No evidence of data exfiltration. Recommended: forensic review of finance-server-02, security awareness training for j.chen, review email gateway rules for .exe attachments.
 
-Analyst: Wen Liu \u00b7 Closed: 11:42 AM`;
+Analyst: William Liu \u00b7 Closed: 11:42 AM`;
 
 const INCIDENT_SUMMARIES: Record<number, string> = {
   1042: SUMMARY_TEXT,
@@ -401,7 +401,7 @@ Response Actions Taken:
 
 Staging data only \u2014 no production data exposed. Recommended: rotate all CI/CD secrets, enforce least-privilege for service accounts, enable pipeline signing.
 
-Analyst: Wen Liu \u00b7 Closed: 3:02 PM`,
+Analyst: William Liu \u00b7 Closed: 3:02 PM`,
   1040: `Incident #1040 \u2014 Contained
 Timeline: 4:30 AM - 5:15 AM (45m)
 
@@ -1038,7 +1038,7 @@ function Screen1({ incidents, onSelect, isDark }: { incidents: Incident[]; onSel
             <div className="space-y-3">
               {(incidents.some((i) => i.status === "Contained" && INCIDENTS.find((o) => o.id === i.id)?.status !== "Contained")
                 ? [
-                    { text: "Incident #1042 contained by Wen Liu", time: "2 min ago", dot: "bg-emerald-400" },
+                    { text: "Incident #1042 contained by William Liu", time: "2 min ago", dot: "bg-emerald-400" },
                     { text: "New detection rule deployed", time: "1h ago", dot: "bg-blue-400" },
                     { text: "Incident #1038 contained by m.wong", time: "3h ago", dot: "bg-emerald-400" },
                   ]
@@ -1919,7 +1919,7 @@ function SettingsPage() {
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-none bg-blue-500/20 flex items-center justify-center text-lg font-semibold text-blue-400">WL</div>
             <div>
-              <p className="text-base font-semibold text-white">Wen Liu</p>
+              <p className="text-base font-semibold text-white">William Liu</p>
               <p className="text-sm font-normal text-slate-300">Tier 1 SOC Analyst</p>
               <p className="text-xs font-normal text-slate-400">wen.liu@acme.com</p>
             </div>
@@ -2090,7 +2090,7 @@ export default function PrismDemoPage() {
                 </div>
                 <h2 className="text-2xl md:text-3xl font-semibold mb-3">{activeIncident.title}</h2>
                 <div className="flex flex-wrap items-center gap-4 text-sm font-normal text-slate-400">
-                  <span>Assigned to: {assigned ? <span className="text-blue-500 font-semibold">Wen Liu</span> : <button onClick={() => setAssigned(true)} className="text-blue-500 hover:underline cursor-pointer font-semibold">Assign to me</button>}</span>
+                  <span>Assigned to: {assigned ? <span className="text-blue-500 font-semibold">William Liu</span> : <button onClick={() => setAssigned(true)} className="text-blue-500 hover:underline cursor-pointer font-semibold">Assign to me</button>}</span>
                   <span>Created: 2h ago</span>
                   <span>Last activity: 23m ago</span>
                 </div>

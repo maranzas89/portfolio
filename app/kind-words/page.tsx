@@ -9,35 +9,35 @@ import { Quote, Palette, GitBranch, Users, Award } from "lucide-react";
 const FEATURED_QUOTES = [
   {
     quote:
-      "Wen Liu has reported directly to me for the past 3 years at Calbright College. He serves as a Senior UI/UX Designer on our Student and Staff Portal initiatives. Wen played a central role in designing both systems from the ground up, partnering with product managers and engineers to translate complex academic and operational requirements into intuitive, user-centered experiences.\n\nHe has a strong ability to organize complicated workflows into clear information architecture and thoughtful interaction models. Wen brings a calm, methodical approach to ambiguous problems, quickly identifying the critical interactions that most elevate usability. His designs consistently balance user needs, business goals, and technical realities.\n\nMore recently, Wen has started leveraging AI tools strategically to accelerate ideation and iteration cycles without sacrificing rigor or quality. He works collaboratively with engineering to ensure high-fidelity implementation and strong execution.\n\nWen is a highly capable product and interaction designer with strong systems thinking and execution discipline and would be an asset for an organization.",
+      "William Liu has reported directly to me for the past 3 years at Calbright College. He serves as a Senior UI/UX Designer on our Student and Staff Portal initiatives. William played a central role in designing both systems from the ground up, partnering with product managers and engineers to translate complex academic and operational requirements into intuitive, user-centered experiences.\n\nHe has a strong ability to organize complicated workflows into clear information architecture and thoughtful interaction models. William brings a calm, methodical approach to ambiguous problems, quickly identifying the critical interactions that most elevate usability. His designs consistently balance user needs, business goals, and technical realities.\n\nMore recently, William has started leveraging AI tools strategically to accelerate ideation and iteration cycles without sacrificing rigor or quality. He works collaboratively with engineering to ensure high-fidelity implementation and strong execution.\n\nWilliam is a highly capable product and interaction designer with strong systems thinking and execution discipline and would be an asset for an organization.",
     name: "Shelly Gupta",
     role: "Director of Product Management, Calbright College",
     relationship: "Director of Product Management, Calbright College",
   },
   {
     quote:
-      "I had the pleasure to work with Wen for one year at Cisco Learning Network department in Cisco. As mentioned by others, Wen has a warm personality that allows anyone to easily pull up a chair to discuss the work he's doing for or with you. Sometimes you could feel the pressure in the room as deadlines approached but Wen was always optimistic and hard working. He does great work and is a creative guy. I believe he's right where he belongs, in the creative industry and always growing.",
+      "I had the pleasure to work with William for one year at Cisco Learning Network department in Cisco. As mentioned by others, William has a warm personality that allows anyone to easily pull up a chair to discuss the work he's doing for or with you. Sometimes you could feel the pressure in the room as deadlines approached but William was always optimistic and hard working. He does great work and is a creative guy. I believe he's right where he belongs, in the creative industry and always growing.",
     name: "Keith Bosworth",
     role: "Project Manager, Cisco",
     relationship: "Project Manager, Cisco",
   },
   {
     quote:
-      "Wen is a great visual, interaction and the truly outstanding UI/UX designers. We worked together on various projects at Cisco. He was a great resource to bounce ideas off of, easy to collaborate with and splitting up the work load which helped complete the project earlier than the deadline. He is extremely bright and easy to get along with, an ideal addition to any creative team.",
+      "William is a great visual, interaction and the truly outstanding UI/UX designers. We worked together on various projects at Cisco. He was a great resource to bounce ideas off of, easy to collaborate with and splitting up the work load which helped complete the project earlier than the deadline. He is extremely bright and easy to get along with, an ideal addition to any creative team.",
     name: "Madhukar Madicheeti",
     role: "Project Manager, Cisco",
     relationship: "Project Manager, Cisco",
   },
   {
     quote:
-      "Wen did an exceptional job on the recent project where he worked on visual design and motion graphics. As I remember, Wen was a very productive person. Wen is a loyal, innovative, well educated and strong expert. Deadline oriented and insightful designer with a very strong problem solving skills.",
+      "William did an exceptional job on the recent project where he worked on visual design and motion graphics. As I remember, William was a very productive person. William is a loyal, innovative, well educated and strong expert. Deadline oriented and insightful designer with a very strong problem solving skills.",
     name: "Daniel Samson Joseph",
     role: "UI Engineer, Cisco",
     relationship: "UI Engineer, Cisco",
   },
   {
     quote:
-      "Wen Liu is fantastic Visual/UI designer who ensures that he completely understands the entire user \"story\" and then translates those users' needs into a design/implementation. Wen handled everything from reviewing the users' needs, wire-framing ideas complete with all necessary styling to implementing the UX for our project team to wire into our platform. In a relatively short period of time, Wen was able to help take our project from a \"prototype\" state to one that exceeds all our expectations and our users love.\n\nWhile you will be thrilled with all of his skill sets, it is his caring and dedication that set him apart from everyone else. He took great pride and ownership of everything he did, and worked his tail off throughout. My one regret is that we did not have the ability to pull him in full time at the end of the project!\n\nI highly recommend Wen and would be happy to provide additional information on his performance if needed.",
+      "William Liu is fantastic Visual/UI designer who ensures that he completely understands the entire user \"story\" and then translates those users' needs into a design/implementation. William handled everything from reviewing the users' needs, wire-framing ideas complete with all necessary styling to implementing the UX for our project team to wire into our platform. In a relatively short period of time, William was able to help take our project from a \"prototype\" state to one that exceeds all our expectations and our users love.\n\nWhile you will be thrilled with all of his skill sets, it is his caring and dedication that set him apart from everyone else. He took great pride and ownership of everything he did, and worked his tail off throughout. My one regret is that we did not have the ability to pull him in full time at the end of the project!\n\nI highly recommend William and would be happy to provide additional information on his performance if needed.",
     name: "Jun Oh",
     role: "Senior Manager, Cisco",
     relationship: "Senior Manager, Cisco",
@@ -54,7 +54,7 @@ const CARD_6 = {
 
 const CARD_2_NEW = {
   quote:
-    "Wen Liu not only can complete the visual design excellently, but also has a deep accumulation of product interaction friendliness and security product design logic. He has a good sense of service and actively helped me solve many problems in the product design of Eagle Eye",
+    "William Liu not only can complete the visual design excellently, but also has a deep accumulation of product interaction friendliness and security product design logic. He has a good sense of service and actively helped me solve many problems in the product design of Eagle Eye",
   name: "Feng Zhang",
   role: "Director of Product Manager, SSTG, DiDi",
   relationship: "Director of Product Manager, SSTG, DiDi",
@@ -70,7 +70,7 @@ const CARD_3_NEW = {
 
 const CARD_4_NEW = {
   quote:
-    "Thanks to Wen Liu for supporting the IDR platform project, helping the platform to standardize a unified visual style, improving the platform user experience, and adding support for internationalization. Looking forward to the continued cooperation in the subsequent platform UI improvements",
+    "Thanks to William Liu for supporting the IDR platform project, helping the platform to standardize a unified visual style, improving the platform user experience, and adding support for internationalization. Looking forward to the continued cooperation in the subsequent platform UI improvements",
   name: "Xiaofeng Liu",
   role: "Product Lead, SecOps, DiDi",
   relationship: "Product Lead, SecOps, DiDi",
@@ -78,7 +78,7 @@ const CARD_4_NEW = {
 
 const CARD_5_NEW = {
   quote:
-    "From the international privacy platform to the domestic privacy center product build, Wen not only has continuous high-quality design output, but also led the team to build UI design specifications to provide strong support for compliance work, and all teams are very recognized.",
+    "From the international privacy platform to the domestic privacy center product build, William not only has continuous high-quality design output, but also led the team to build UI design specifications to provide strong support for compliance work, and all teams are very recognized.",
   name: "Huichao Huo",
   role: "Product Lead, SecOps, DiDi",
   relationship: "Product Lead, SecOps, DiDi",

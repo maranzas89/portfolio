@@ -1,5 +1,5 @@
 export const portfolioProfile = {
-  name: "Wen Liu",
+  name: "William Liu",
   title: "Senior Product Designer",
   summary:
     "I design product experiences across complex systems, enterprise workflows, and education platforms.",
@@ -115,7 +115,7 @@ export const projects = [
     impact:
       "Created a testable product direction that turns static portfolio content into a guided, navigable knowledge retrieval experience with source-grounded answers and conversation continuity.",
     tools: ["Next.js", "TypeScript", "AI-assisted prototyping", "sessionStorage"],
-    tags: ["ask wen", "knowledge retrieval", "chatbot", "ai assistant", "portfolio"],
+    tags: ["ask william", "knowledge retrieval", "chatbot", "ai assistant", "portfolio"],
     url: "",
   },
 ];
@@ -126,7 +126,7 @@ export const projects = [
 // ============================================================
 
 export const faqEntries = [
-  // 0. About me — personal introduction / who is Wen
+  // 0. About me — personal introduction / who is William
   {
     id: "about-me",
     triggers: [
@@ -138,7 +138,7 @@ export const faqEntries = [
       "what should i know about you", "know about you",
     ],
     answer:
-      "Wen is a Senior Product Designer with 10+ years across enterprise SaaS, education, and cybersecurity. His work focuses on complex systems, workflow design, and turning ambiguity into clear product direction. He's worked at Calbright College, Didi, and Cisco.",
+      "William is a Senior Product Designer with 10+ years across enterprise SaaS, education, and cybersecurity. His work focuses on complex systems, workflow design, and turning ambiguity into clear product direction. He's worked at Calbright College, Didi, and Cisco.",
     relatedProjectSlug: null,
   },
   // 0b. Favorite / preferred AI project
@@ -218,7 +218,7 @@ export const faqEntries = [
       "what is special about", "how are you different",
     ],
     answer:
-      "Wen focuses beyond interface polish — on workflow logic, product clarity, and how people move through complex systems. The work is intuitive at the surface and structurally sound underneath.",
+      "William focuses beyond interface polish — on workflow logic, product clarity, and how people move through complex systems. The work is intuitive at the surface and structurally sound underneath.",
     relatedProjectSlug: null,
   },
   // F1. AI at Calbright (context-specific — matched before generic AI workflow)
@@ -230,7 +230,7 @@ export const faqEntries = [
       "ai in your calbright work", "used ai at calbright",
     ],
     answer:
-      "At Calbright, Wen uses AI to speed up exploration and early prototyping — ideation, content framing, and workflow exploration — especially for complex portal experiences. It supports the process but doesn't define the work.",
+      "At Calbright, William uses AI to speed up exploration and early prototyping — ideation, content framing, and workflow exploration — especially for complex portal experiences. It supports the process but doesn't define the work.",
     relatedProjectSlug: "calbright-student-portal",
   },
   // F2. AI at Didi
@@ -242,7 +242,7 @@ export const faqEntries = [
       "ai show up in your didi", "used ai at didi",
     ],
     answer:
-      "At Didi, the work centered on complex workflows, operational clarity, and enterprise-scale product thinking. That experience deeply shaped how Wen approaches systems, scale, and reducing complexity in product design.",
+      "At Didi, the work centered on complex workflows, operational clarity, and enterprise-scale product thinking. That experience deeply shaped how William approaches systems, scale, and reducing complexity in product design.",
     relatedProjectSlug: "didi",
   },
   // F3. AI at Cisco
@@ -254,7 +254,7 @@ export const faqEntries = [
       "used ai at cisco", "ai connect to your cisco",
     ],
     answer:
-      "At Cisco, Wen led UX for the Network Assurance Engine — telemetry dashboards and model-driven alert systems for anomaly detection. The design system he built accelerated feature deployment by 30% and contributed to $15M+ in revenue impact.",
+      "At Cisco, William led UX for the Network Assurance Engine — telemetry dashboards and model-driven alert systems for anomaly detection. The design system he built accelerated feature deployment by 30% and contributed to $15M+ in revenue impact.",
     relatedProjectSlug: null,
   },
   // F4. AI in my career
@@ -267,7 +267,7 @@ export const faqEntries = [
       "ai impact on your career",
     ],
     answer:
-      "AI accelerates ideation, prototyping, and concept testing. Wen uses it to explore more broadly and move faster — but design judgment, systems thinking, and cross-functional execution drive the final decisions.",
+      "AI accelerates ideation, prototyping, and concept testing. William uses it to explore more broadly and move faster — but design judgment, systems thinking, and cross-functional execution drive the final decisions.",
     relatedProjectSlug: null,
   },
   // F5. AI in my life
@@ -279,7 +279,7 @@ export const faqEntries = [
       "ai help you in daily", "ai day to day life",
     ],
     answer:
-      "Wen uses AI as a practical everyday tool — for thinking, organizing, learning, and exploring ideas. It's a faster way to work through questions and structure information.",
+      "William uses AI as a practical everyday tool — for thinking, organizing, learning, and exploring ideas. It's a faster way to work through questions and structure information.",
     relatedProjectSlug: null,
   },
   // F. How I use AI (generic — matched after context-specific AI entries above)
@@ -292,7 +292,7 @@ export const faqEntries = [
       "how are you ai-native", "ai in your design",
     ],
     answer:
-      "AI accelerates ideation, interaction exploration, and prototyping. The core of Wen's work is product judgment, systems thinking, and cross-functional execution — AI supports the process, it doesn't define it.",
+      "AI accelerates ideation, interaction exploration, and prototyping. The core of William's work is product judgment, systems thinking, and cross-functional execution — AI supports the process, it doesn't define it.",
     relatedProjectSlug: "ai-explorations",
   },
   // G. Which project to start with
@@ -318,7 +318,7 @@ export const faqEntries = [
       "what did enterprise teach",
     ],
     answer:
-      "Enterprise work taught Wen that usability goes beyond screens — it's about how complex systems support real workflows under pressure. That deepened his ability to think through edge cases, hierarchy, and system behavior at scale.",
+      "Enterprise work taught William that usability goes beyond screens — it's about how complex systems support real workflows under pressure. That deepened his ability to think through edge cases, hierarchy, and system behavior at scale.",
     relatedProjectSlug: "didi",
   },
   // I. AI-native thinking
@@ -354,7 +354,7 @@ export const faqEntries = [
       "your responsibility", "your contribution", "tell me about your role",
     ],
     answer:
-      "Product strategy, workflow design, interface direction, and prototyping. Wen frames problems, shapes UX direction, and aligns design decisions with measurable outcomes.",
+      "Product strategy, workflow design, interface direction, and prototyping. William frames problems, shapes UX direction, and aligns design decisions with measurable outcomes.",
     relatedProjectSlug: null,
   },
   // L. General impact
@@ -369,17 +369,17 @@ export const faqEntries = [
       "Impact shows up as usability improvements, workflow efficiency gains, better onboarding, and stronger operational support. Key metrics: +75% trial conversion (Didi), 4.6/5 satisfaction (Calbright), $15M+ revenue impact (Cisco).",
     relatedProjectSlug: null,
   },
-  // M. What is this assistant / Ask Wen
+  // M. What is this assistant / Ask William
   {
     id: "what-is-ask-wen",
     triggers: [
-      "what is this assistant", "what is ask wen", "how does this work",
+      "what is this assistant", "what is ask william", "how does this work",
       "what is this chatbot", "tell me about this assistant",
       "how was this built", "what powers this", "is this ai",
-      "what is this chat", "how does ask wen work",
+      "what is this chat", "how does ask william work",
     ],
     answer:
-      "A portfolio guide Wen designed and built. Ask natural questions and get grounded answers from project content — with context awareness and session persistence. It's a working prototype, not a generic chatbot.",
+      "A portfolio guide William designed and built. Ask natural questions and get grounded answers from project content — with context awareness and session persistence. It's a working prototype, not a generic chatbot.",
     relatedProjectSlug: "ask-wen",
   },
   // N. Compare two AI projects
@@ -579,7 +579,7 @@ export const contentChunks: ContentChunk[] = [
     section: "summary",
     title: "Didi",
     content:
-      "At Didi, Wen designed enterprise operational tools for fleet management, driver operations, and business workflows at massive scale. This was the internal platform powering operations, not the consumer app.",
+      "At Didi, William designed enterprise operational tools for fleet management, driver operations, and business workflows at massive scale. This was the internal platform powering operations, not the consumer app.",
     keywords: ["didi", "enterprise", "overview", "summary", "platform", "mobility", "ride-hailing", "fleet", "operations"],
   },
   {
@@ -588,7 +588,7 @@ export const contentChunks: ContentChunk[] = [
     section: "role",
     title: "Didi — Role",
     content:
-      "At Didi, Wen designed operational dashboards, driver management workflows, and system-level product thinking. He collaborated with PMs, engineers, and operations teams to translate complex business logic into usable interfaces.",
+      "At Didi, William designed operational dashboards, driver management workflows, and system-level product thinking. He collaborated with PMs, engineers, and operations teams to translate complex business logic into usable interfaces.",
     keywords: ["didi", "role", "contribution", "enterprise", "system design", "product designer", "dashboards", "driver management"],
   },
   {
@@ -997,7 +997,7 @@ export const contentChunks: ContentChunk[] = [
   },
 
   // ============================
-  // Ask Wen — AI Knowledge Retrieval Assistant
+  // Ask William — AI Knowledge Retrieval Assistant
   // ============================
   {
     id: "ask-wen-summary",
@@ -1005,8 +1005,8 @@ export const contentChunks: ContentChunk[] = [
     section: "summary",
     title: "Portfolio Guide",
     content:
-      "Portfolio guide designed and built by Wen. Helps visitors explore projects through natural questions with context awareness and session persistence.",
-    keywords: ["ask wen", "assistant", "chatbot", "knowledge retrieval", "portfolio", "conversational"],
+      "Portfolio guide designed and built by William. Helps visitors explore projects through natural questions with context awareness and session persistence.",
+    keywords: ["ask william", "assistant", "chatbot", "knowledge retrieval", "portfolio", "conversational"],
   },
   {
     id: "ask-wen-problem",
@@ -1015,7 +1015,7 @@ export const contentChunks: ContentChunk[] = [
     title: "Portfolio Guide — Problem",
     content:
       "Portfolio visitors scan without finding relevant content. Static navigation requires guesswork and doesn't adapt to what someone is looking for.",
-    keywords: ["ask wen", "problem", "navigation", "discoverability", "scanning", "static content"],
+    keywords: ["ask william", "problem", "navigation", "discoverability", "scanning", "static content"],
   },
   {
     id: "ask-wen-approach",
@@ -1024,7 +1024,7 @@ export const contentChunks: ContentChunk[] = [
     title: "Portfolio Guide — Approach",
     content:
       "Retrieval-oriented conversation with intent detection, entity-aware scoring, context boosting, and conversation memory. Answers grounded in real portfolio content.",
-    keywords: ["ask wen", "approach", "retrieval", "intent detection", "scoring", "context", "architecture"],
+    keywords: ["ask william", "approach", "retrieval", "intent detection", "scoring", "context", "architecture"],
   },
   {
     id: "ask-wen-role",
@@ -1033,7 +1033,7 @@ export const contentChunks: ContentChunk[] = [
     title: "Portfolio Guide — Role",
     content:
       "Full design and prototype ownership: conversation flow, retrieval UX, knowledge architecture, interaction modeling, and implementation.",
-    keywords: ["ask wen", "role", "design", "prototyping", "information architecture", "implementation"],
+    keywords: ["ask william", "role", "design", "prototyping", "information architecture", "implementation"],
   },
   {
     id: "ask-wen-product-behavior",
@@ -1042,7 +1042,7 @@ export const contentChunks: ContentChunk[] = [
     title: "Portfolio Guide — Product Behavior",
     content:
       "Retrieves section-level content, not full pages. Intent detection, entity boosts, page-level context, and conversation memory. Asks for clarification when uncertain.",
-    keywords: ["ask wen", "product behavior", "retrieval", "section level", "intent", "disambiguation", "trust"],
+    keywords: ["ask william", "product behavior", "retrieval", "section level", "intent", "disambiguation", "trust"],
   },
   {
     id: "ask-wen-impact",
@@ -1051,6 +1051,6 @@ export const contentChunks: ContentChunk[] = [
     title: "Portfolio Guide — Impact",
     content:
       "Turns static portfolio content into a guided, navigable experience. Working prototype with real retrieval logic and implementation-aware interaction design.",
-    keywords: ["ask wen", "impact", "product direction", "knowledge access", "testable", "retrieval"],
+    keywords: ["ask william", "impact", "product direction", "knowledge access", "testable", "retrieval"],
   },
 ];

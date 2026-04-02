@@ -19,7 +19,7 @@ const PORTFOLIO_SIGNALS: RegExp[] = [
   /\bcalbright\b|\bstudent portal\b|\bstaff portal\b|\bdidi\b|\bcisco\b/i,
   /\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bjob hatch\b/i,
   /\bworld cup\b|\bdata lab\b|\bdialpad\b|\bsynchronize\b|\bliquid glass\b/i,
-  /\bask wen\b|\bthis assistant\b|\bthis chatbot\b/i,
+  /\bask william\b|\bthis assistant\b|\bthis chatbot\b/i,
 
   // Design / portfolio concepts
   /\bdesign\b|\bportfolio\b|\bproject\b|\bcase study\b|\bwork\b/i,
@@ -29,7 +29,7 @@ const PORTFOLIO_SIGNALS: RegExp[] = [
   /\bexperience\b|\bbackground\b|\beducation\b|\bskill\b|\bstrength\b/i,
   /\bai\b.*\b(tool|workflow|native|assisted|design)\b/i,
   /\b(tool|workflow|native|assisted|design)\b.*\bai\b/i,
-  /\bwen\b|\bwen liu\b/i,
+  /\bwilliam\b|\bwilliam liu\b/i,
   /\bresume\b|\bhire\b|\brecruit\b/i,
 
   // Common portfolio questions
@@ -69,7 +69,7 @@ const UNSUPPORTED: RegExp[] = [
 ];
 
 export const OUT_OF_SCOPE_REPLY =
-  "I'm here to help you navigate Wen's portfolio. Feel free to ask about projects, design decisions, impact, AI workflow, or methodology.";
+  "I'm here to help you navigate William's portfolio. Feel free to ask about projects, design decisions, impact, AI workflow, or methodology.";
 
 // Strong portfolio signals — entity names and design-specific concepts
 // that should always override off-topic classification
@@ -78,8 +78,8 @@ const STRONG_PORTFOLIO_SIGNALS: RegExp[] = [
   /\bcalbright\b|\bstudent portal\b|\bstaff portal\b|\bdidi\b|\bcisco\b/i,
   /\bai explorations?\b|\bai projects?\b|\bjobhatch\b|\bjob hatch\b/i,
   /\bworld cup\b|\bdata lab\b|\bdialpad\b|\bsynchronize\b|\bliquid glass\b/i,
-  /\bask wen\b|\bthis assistant\b|\bthis chatbot\b/i,
-  /\bwen liu\b/i,
+  /\bask william\b|\bthis assistant\b|\bthis chatbot\b/i,
+  /\bwilliam liu\b/i,
 
   // Design-specific terms
   /\bux\b|\bui\b|\bprototyp\b|\bwireframe\b/i,

@@ -1,5 +1,5 @@
 /**
- * Regression tests for Ask Wen assistant routing and responses.
+ * Regression tests for Ask William assistant routing and responses.
  *
  * Run with: npx tsx scripts/test-chat-regression.ts
  *
