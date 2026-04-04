@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 
 /* ─── Constants ─── */
-const TOTAL_SLIDES = 22;
+const TOTAL_SLIDES = 21;
 const IMG_BASE = "https://www.wensproject.com/images/";
 const BLUE = "#0073BB";
 const GREEN = "#037F0C";
@@ -319,8 +319,8 @@ export default function AmazonInterviewDeck() {
 
   /* Section color for progress bar */
   function sectionColor(idx: number): string {
-    if (idx >= 2 && idx <= 11) return BLUE; // EagleEye slides
-    if (idx >= 12 && idx <= 19) return GREEN; // Calbright slides
+    if (idx >= 2 && idx <= 10) return BLUE; // EagleEye slides
+    if (idx >= 11 && idx <= 18) return GREEN; // Calbright slides
     return TEXT_SECONDARY; // intro / closing
   }
 
@@ -429,17 +429,17 @@ export default function AmazonInterviewDeck() {
                   className="text-2xl font-extrabold mb-3"
                   style={{ color: TEXT_PRIMARY }}
                 >
-                  DiDi EagleEye
+                  DiDi EagleEye Policy Center
                 </p>
                 <p
                   className="text-lg leading-relaxed mb-4"
                   style={{ color: TEXT_SECONDARY }}
                 >
-                  Evolved a single DLP tool into a five-hub enterprise security
-                  platform. Drove +75% trial conversion and $6M revenue.
+                  Redesigned a fragmented policy system from the ground up.
+                  Cut task time by 65%, drove $6M revenue.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {["Platform Scale", "Design System", "Data-Dense UI"].map(
+                  {["Systems Thinking", "User Research", "Governance Design"].map(
                     (t) => (
                       <span
                         key={t}
@@ -498,10 +498,10 @@ export default function AmazonInterviewDeck() {
               className="text-[56px] font-extrabold mb-5"
               style={{ color: TEXT_PRIMARY }}
             >
-              DiDi EagleEye
+              DiDi EagleEye Policy Center
             </h1>
             <p className="text-2xl mb-12 max-w-3xl text-center" style={{ color: TEXT_SECONDARY }}>
-              From a single DLP tool to a five-hub enterprise security platform
+              Redesigning a fragmented policy system from the ground up
             </p>
             <div className="flex gap-12 text-base" style={{ color: TEXT_SECONDARY }}>
               {[
@@ -522,138 +522,178 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 4: EagleEye — Challenge ── */}
+          {/* ── Slide 4: Step 1 — Problem ── */}
           <Slide visible={current === 3}>
-            <SectionLabel color={BLUE}>01 · Challenge</SectionLabel>
-            <SlideTitle>Fragmented. Error-prone.</SlideTitle>
+            <SectionLabel color={BLUE}>01 · Problem</SectionLabel>
+            <SlideTitle>Fragmented policy, broken workflow</SlideTitle>
             <div className="flex gap-5 mb-6">
-              <MetricCard value="40%" label="Task abandonment rate" desc="Users dropped off mid-configuration" color={RED} />
-              <MetricCard value="4 days" label="Setup time" desc="Multi-day process with manual validation" color={RED} />
-              <MetricCard value="10+" label="Errors per user" desc="Policy conflicts and logic clashes" color={RED} />
+              <MetricCard value="Fragmented" label="Policy system" desc="Device-centric architecture with no structural relationships" color={RED} />
+              <MetricCard value="4 days" label="To finish a task" desc="Users needed multiple sessions to complete configuration" color={RED} />
+              <MetricCard value="40%" label="Abandonment rate" desc="Users gave up mid-configuration" color={RED} />
             </div>
             <div className="border border-[#E9EBED] rounded-xl overflow-hidden">
-              <SlideImage src="didi/pdfpage17.svg" alt="Legacy workflow diagram showing fragmented configuration process" className="w-full" />
+              <SlideImage src="didi/pdfpage17.svg" alt="Legacy workflow diagram showing fragmented, device-centric policy system" className="w-full" />
             </div>
           </Slide>
 
-          {/* ── Slide 5: System Thinking ── */}
+          {/* ── Slide 5: Step 2 — Initial Define with Quick Fix ── */}
           <Slide visible={current === 4}>
-            <SectionLabel color={BLUE}>02 · System Thinking</SectionLabel>
-            <SlideTitle>Re-architecting governance</SlideTitle>
-            <p className="text-xl leading-relaxed mb-8" style={{ color: TEXT_SECONDARY }}>
-              Legacy systems mapped policies to devices, causing clashes at scale. I introduced an
-              &quot;Aggregated Policies&quot; framework — shifting from device-centric to people-centric architecture.
-            </p>
-            <div className="border border-[#E9EBED] rounded-xl overflow-hidden">
-              <SlideImage src="didi/pdfpage14.svg" alt="Aggregated Policies framework diagram" className="w-full" />
+            <SectionLabel color={BLUE}>02 · Initial Define</SectionLabel>
+            <SlideTitle>Started with a quick UI mock</SlideTitle>
+            <div className="flex gap-5 mb-6">
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-3" style={{ color: TEXT_PRIMARY }}>Duplicate Warnings</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Added alerts when users created overlapping policies for the same device
+                </p>
+              </Card>
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-3" style={{ color: TEXT_PRIMARY }}>Aggregated Table Rows</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Consolidated rows for the same device to reduce visual noise in the policy list
+                </p>
+              </Card>
+            </div>
+            <div className="rounded-xl px-6 py-4 text-center" style={{ backgroundColor: CARD_BG, color: TEXT_SECONDARY, border: `1px solid ${BORDER}` }}>
+              <p className="text-lg">Quick UI-level solution — tested internally as a fast mock to see if it could work</p>
             </div>
           </Slide>
 
-          {/* ── Slide 6: Approach & IA ── */}
+          {/* ── Slide 6: Step 3 — Initial Design Review ── */}
           <Slide visible={current === 5}>
-            <SectionLabel color={BLUE}>03 · Approach &amp; IA</SectionLabel>
-            <SlideTitle>Prioritization at scale</SlideTitle>
+            <SectionLabel color={BLUE}>03 · Initial Design Review</SectionLabel>
+            <SlideTitle>Talked to users, set hypothesis</SlideTitle>
+            <p className="text-xl leading-relaxed mb-6" style={{ color: TEXT_SECONDARY }}>
+              Brought the quick-fix mock to users to validate whether it actually solved their problem. Set hypotheses and collected feedback.
+            </p>
             <div className="flex gap-5 mb-6">
               <Card className="flex-1">
-                <p className="text-xl font-extrabold mb-2" style={{ color: TEXT_PRIMARY }}>UX Benchmarking</p>
-                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>HEART model baseline score: 4.12</p>
+                <p className="text-lg font-extrabold mb-2" style={{ color: RED }}>Afraid to delete</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Users kept old policies &quot;just in case&quot; — no confidence in what was safe to remove
+                </p>
               </Card>
               <Card className="flex-1">
-                <p className="text-xl font-extrabold mb-2" style={{ color: TEXT_PRIMARY }}>P0/P1/P2 Hierarchy</p>
-                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>Strict element categorization reducing cognitive load</p>
+                <p className="text-lg font-extrabold mb-2" style={{ color: RED }}>Warnings felt annoying</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Duplicate alerts were dismissed — users saw them as noise, not useful guidance
+                </p>
               </Card>
               <Card className="flex-1">
-                <p className="text-xl font-extrabold mb-2" style={{ color: TEXT_PRIMARY }}>Unified Hub</p>
-                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>Consolidated device IDs into departmental structures</p>
+                <p className="text-lg font-extrabold mb-2" style={{ color: RED }}>Data redundancy grew</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Policies kept accumulating — the system became harder to manage over time
+                </p>
               </Card>
             </div>
-            <div className="border border-[#E9EBED] rounded-xl overflow-hidden">
-              <SlideImage src="didi/pdfpage15.svg" alt="Information architecture and prioritization framework" className="w-full" />
+            <div className="rounded-xl px-6 py-4 text-center" style={{ backgroundColor: "#FEF3F2", color: RED, border: `1px solid #FECDCA` }}>
+              <p className="text-lg font-semibold">Conclusion: the quick fix was treating symptoms, not the root cause</p>
             </div>
           </Slide>
 
-          {/* ── Slide 7: Design System ── */}
+          {/* ── Slide 7: Step 4 — Escalate the Problem ── */}
           <Slide visible={current === 6}>
-            <SectionLabel color={BLUE}>04 · Design System</SectionLabel>
-            <SlideTitle>Systematized for scale</SlideTitle>
+            <SectionLabel color={BLUE}>04 · Escalate the Problem</SectionLabel>
+            <SlideTitle>Reframing to the framework level</SlideTitle>
             <p className="text-xl leading-relaxed mb-8" style={{ color: TEXT_SECONDARY }}>
-              I defined design principles specific to security products: how severity should always be
-              communicated, how destructive actions should behave, what information operators need before
-              acting. These became the decision-making framework for the entire team.
+              Combined three inputs to escalate the problem beyond UI fixes:
             </p>
-            <div className="border border-[#E9EBED] rounded-xl overflow-hidden">
-              <SlideImage src="didi/design-system-model.png" alt="Design system model for security products" className="w-full" />
-            </div>
-          </Slide>
-
-          {/* ── Slide 8: Solutions ── */}
-          <Slide visible={current === 7}>
-            <SectionLabel color={BLUE}>05 · Solutions</SectionLabel>
-            <SlideTitle>From 7 steps to 3</SlideTitle>
             <div className="flex gap-5 mb-6">
-              <div className="flex-1">
-                <p className="text-base font-semibold uppercase tracking-wider mb-3" style={{ color: RED }}>Before — Cluttered &amp; Complex</p>
-                <div className="border border-[#E9EBED] rounded-xl overflow-hidden">
-                  <SlideImage src="didi/pdfpage923.svg" alt="Before: cluttered configuration interface" className="w-full" />
-                </div>
-              </div>
-              <div className="flex-1">
-                <p className="text-base font-semibold uppercase tracking-wider mb-3" style={{ color: GREEN }}>After — Streamlined</p>
-                <div className="border border-[#E9EBED] rounded-xl overflow-hidden">
-                  <SlideImage src="didi/pdfpage20.svg" alt="After: streamlined configuration interface" className="w-full" />
-                </div>
-              </div>
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-2" style={{ color: BLUE }}>User Feedback</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Research confirmed users needed structural clarity, not more surface-level warnings
+                </p>
+              </Card>
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-2" style={{ color: BLUE }}>Cisco Domain Knowledge</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Prior experience with enterprise security policy systems informed the direction
+                </p>
+              </Card>
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-2" style={{ color: BLUE }}>Microsoft GPO Research</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Studied Group Policy Object inheritance as a proven governance model
+                </p>
+              </Card>
             </div>
-            <div className="flex gap-4">
-              <ComparisonPill label="Configuration flow" before="7 steps" after="3 steps" />
-              <ComparisonPill label="Setup time" before="4 days" after="1 session" />
-              <ComparisonPill label="Task completion" before="20 min" after="7 min" />
-            </div>
-          </Slide>
-
-          {/* ── Slide 9: Key Decision ── */}
-          <Slide visible={current === 8}>
-            <SectionLabel color={BLUE}>06 · Key Decision</SectionLabel>
-            <SlideTitle>Navigating organizational pushback</SlideTitle>
-            <div className="flex flex-col gap-5 mt-2">
-              <TimelineItem num={1} color={RED} title="Proposed Restructure" desc="Suggested shifting from device-centric to department-centric model. Got rejected." />
-              <TimelineItem num={2} color="#F79009" title="Found the Data" desc="Pulled analytics showing 40% drop-off was a business problem, not just a UX issue." />
-              <TimelineItem num={3} color={BLUE} title="Pilot Proposal" desc="Proposed trying the new model with one department first to reduce risk." />
-              <TimelineItem num={4} color={GREEN} title="Pilot Success" desc="Pilot department completed setup in 1 session. Stakeholders bought in." />
-              <TimelineItem num={5} color={GREEN} title="Full Deployment" desc="Rolled out platform-wide. Later deployed to external enterprise customers." />
-              <TimelineItem num={6} color={PURPLE} title="Revenue Impact" desc="Platform became SSTG's flagship product. Drove $6M in revenue." />
+            <div className="rounded-xl px-6 py-4 text-center" style={{ backgroundColor: "#EFF8FF", color: BLUE, border: `1px solid #B2DDFF` }}>
+              <p className="text-lg font-semibold">Core insight: the system lacked inheritance relationships — this needed a governance framework, not a UI fix</p>
             </div>
           </Slide>
 
-          {/* ── Slide 10: System Expansion ── */}
-          <Slide visible={current === 9}>
-            <SectionLabel color={BLUE}>07 · System Expansion</SectionLabel>
-            <SlideTitle>Real-time security command</SlideTitle>
-            <p className="text-xl leading-relaxed mb-8" style={{ color: TEXT_SECONDARY }}>
-              Extended the platform logic into a real-time monitoring dashboard — configure, verify,
-              monitor, all in one loop.
-            </p>
+          {/* ── Slide 8: Step 5 — Go Back to Iterate ── */}
+          <Slide visible={current === 7}>
+            <SectionLabel color={BLUE}>05 · Go Back to Iterate</SectionLabel>
+            <SlideTitle>Rebuild from information architecture</SlideTitle>
+            <div className="flex gap-5 mb-6">
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-2" style={{ color: TEXT_PRIMARY }}>Rebuilt I/A</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>Started from scratch — restructured the entire policy hierarchy and navigation</p>
+              </Card>
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-2" style={{ color: TEXT_PRIMARY }}>New Configuration &amp; Policy Creation</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>Rebuilt the configuration flow and policy creation with inheritance baked in</p>
+              </Card>
+            </div>
+            <div className="flex gap-5 mb-6">
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-2" style={{ color: TEXT_PRIMARY }}>Inheritance Model</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>Default Rules (org baselines) + Exception Rules (department-level overrides)</p>
+              </Card>
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-2" style={{ color: TEXT_PRIMARY }}>P0 / P1 / P2 Scoping</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>Prioritized features to ship incrementally and reduce delivery risk</p>
+              </Card>
+            </div>
             <div className="border border-[#E9EBED] rounded-xl overflow-hidden">
-              <SlideImage src="didi/pdfpage28.svg" alt="Real-time security monitoring dashboard" className="w-full" />
+              <SlideImage src="didi/pdfpage14.svg" alt="New information architecture with inheritance model" className="w-full" />
             </div>
           </Slide>
 
-          {/* ── Slide 11: EagleEye Impact ── */}
-          <Slide visible={current === 10}>
-            <SectionLabel color={BLUE}>08 · Impact</SectionLabel>
-            <SlideTitle>Measurable outcomes</SlideTitle>
-            <div className="grid grid-cols-3 gap-4">
-              <MetricCard value="+75%" label="Trial-to-paid conversion" desc="Flagship product for SSTG division" color={BLUE} />
-              <MetricCard value="$6M" label="Revenue driven" desc="Platform became the business engine" color={BLUE} />
-              <MetricCard value="90%" label="Error reduction" desc="10 errors/user → 1 error/user" color={BLUE} />
-              <MetricCard value="4.12 → 7.48" label="UX Score improvement" desc="+81% via HEART framework" color={BLUE} />
-              <MetricCard value="1 → 5" label="Platform modules" desc="DLP expanded to full security suite" color={BLUE} />
-              <MetricCard value="65%" label="Task time reduction" desc="20 min → 7 min per session" color={BLUE} />
+          {/* ── Slide 9: Step 6 — Design Review Again ── */}
+          <Slide visible={current === 8}>
+            <SectionLabel color={BLUE}>06 · Design Review Again</SectionLabel>
+            <SlideTitle>Check back in with users</SlideTitle>
+            <div className="flex flex-col gap-5 mt-2">
+              <TimelineItem num={1} color={BLUE} title="Discussed use cases &amp; hypotheses" desc="Walked through real scenarios with users to validate the new governance model" />
+              <TimelineItem num={2} color={BLUE} title="Interaction pass" desc="Verified single-session completion — users could finish configuration in one sitting" />
+              <TimelineItem num={3} color={GREEN} title="Put everyone on the same page" desc="Aligned stakeholders, PM, and engineering on the validated design direction" />
+              <TimelineItem num={4} color={GREEN} title="Shipped to implementation" desc="Handed off finalized designs with full alignment across teams" />
             </div>
           </Slide>
 
-          {/* ── Slide 12: EagleEye → AGL Bridge ── */}
-          <Slide visible={current === 11} center>
+          {/* ── Slide 10: Step 7 — Testing & Validate ── */}
+          <Slide visible={current === 9}>
+            <SectionLabel color={BLUE}>07 · Testing &amp; Validate</SectionLabel>
+            <SlideTitle>Pilot first, then scale</SlideTitle>
+            <div className="flex gap-5 mb-6">
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-2" style={{ color: TEXT_PRIMARY }}>Interaction &amp; UI Testing</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Verified interactions and UI met the design style guide before deployment
+                </p>
+              </Card>
+              <Card className="flex-1">
+                <p className="text-xl font-extrabold mb-2" style={{ color: TEXT_PRIMARY }}>1-Department Pilot</p>
+                <p className="text-lg" style={{ color: TEXT_SECONDARY }}>
+                  Deployed to one department first — validated single-session completion with real data
+                </p>
+              </Card>
+            </div>
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              <MetricCard value="4.12 → 7.48" label="Survey Score" desc="+81% via HEART framework" color={BLUE} />
+              <MetricCard value="20 → 7 min" label="Task time" desc="-65% per session" color={BLUE} />
+              <MetricCard value="10 → 1" label="Errors per user" desc="-90% reduction" color={BLUE} />
+            </div>
+            <div className="rounded-xl px-6 py-4 text-center" style={{ backgroundColor: "#ECFDF3", color: GREEN, border: `1px solid #ABEFC6` }}>
+              <p className="text-lg font-semibold">Pilot validated → rolled out company-wide → launched to market · $6M revenue · 75% trial conversion · 100K+ endpoints</p>
+            </div>
+          </Slide>
+
+          {/* ── Slide 11: EagleEye → AGL Bridge ── */}
+          <Slide visible={current === 10} center>
             <SlideTitle>How this connects to Amazon Global Logistics</SlideTitle>
             <div className="w-full max-w-3xl mt-4">
               <BridgeRow left="Complex B2B operational tools" right="Seller-facing shipping tools" arrowColor={BLUE} />
@@ -663,8 +703,8 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 13: Calbright Divider ── */}
-          <Slide visible={current === 12} center>
+          {/* ── Slide 12: Calbright Divider ── */}
+          <Slide visible={current === 11} center>
             <SectionLabel color={GREEN}>Project 2</SectionLabel>
             <h1 className="text-[56px] font-extrabold mb-5" style={{ color: TEXT_PRIMARY }}>
               Calbright College
@@ -687,8 +727,8 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 14: Calbright — Context & Challenge ── */}
-          <Slide visible={current === 13}>
+          {/* ── Slide 13: Calbright — Context & Challenge ── */}
+          <Slide visible={current === 12}>
             <SectionLabel color={GREEN}>01 · Context &amp; Challenge</SectionLabel>
             <SlideTitle>Two platforms, two user groups, one designer</SlideTitle>
             <div className="flex gap-5 mb-5">
@@ -716,8 +756,8 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 15: User Research ── */}
-          <Slide visible={current === 14}>
+          {/* ── Slide 14: User Research ── */}
+          <Slide visible={current === 13}>
             <SectionLabel color={GREEN}>02 · User Research</SectionLabel>
             <SlideTitle>Understanding student needs</SlideTitle>
             <div className="flex gap-5 mb-5">
@@ -733,8 +773,8 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 16: Student Journey 2.0 ── */}
-          <Slide visible={current === 15}>
+          {/* ── Slide 15: Student Journey 2.0 ── */}
+          <Slide visible={current === 14}>
             <SectionLabel color={GREEN}>03 · Student Journey 2.0</SectionLabel>
             <SlideTitle>From static homepage to dynamic journey</SlideTitle>
             <div className="flex gap-5 mb-5">
@@ -756,8 +796,8 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 17: Staff Portal ── */}
-          <Slide visible={current === 16}>
+          {/* ── Slide 16: Staff Portal ── */}
+          <Slide visible={current === 15}>
             <SectionLabel color={GREEN}>04 · Staff Portal — 0→1</SectionLabel>
             <SlideTitle>Replacing Salesforce with purpose-built workflows</SlideTitle>
             <div className="flex gap-5 mb-5">
@@ -782,8 +822,8 @@ export default function AmazonInterviewDeck() {
             </p>
           </Slide>
 
-          {/* ── Slide 18: Data-Driven ── */}
-          <Slide visible={current === 17}>
+          {/* ── Slide 17: Data-Driven ── */}
+          <Slide visible={current === 16}>
             <SectionLabel color={GREEN}>05 · Data-Driven Iteration</SectionLabel>
             <SlideTitle>Behavioral signals → design decisions</SlideTitle>
             <div className="flex gap-5 mb-6">
@@ -813,8 +853,8 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 19: Calbright Impact ── */}
-          <Slide visible={current === 18}>
+          {/* ── Slide 18: Calbright Impact ── */}
+          <Slide visible={current === 17}>
             <SectionLabel color={GREEN}>06 · Impact</SectionLabel>
             <SlideTitle>Measurable outcomes</SlideTitle>
             <div className="grid grid-cols-3 gap-4">
@@ -827,8 +867,8 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 20: Calbright → AGL Bridge ── */}
-          <Slide visible={current === 19} center>
+          {/* ── Slide 19: Calbright → AGL Bridge ── */}
+          <Slide visible={current === 18} center>
             <SlideTitle>How this connects to Amazon Global Logistics</SlideTitle>
             <div className="w-full max-w-3xl mt-4">
               <BridgeRow left="0→1 from scratch under constraints" right="Building new logistics tools end-to-end" arrowColor={GREEN} />
@@ -838,8 +878,8 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 21: Why AGL ── */}
-          <Slide visible={current === 20} center>
+          {/* ── Slide 20: Why AGL ── */}
+          <Slide visible={current === 19} center>
             <SectionLabel color={TEXT_SECONDARY}>Why AGL</SectionLabel>
             <h2 className="text-[52px] font-extrabold mb-12 text-center max-w-4xl" style={{ color: TEXT_PRIMARY }}>
               Making global logistics{" "}
@@ -865,8 +905,8 @@ export default function AmazonInterviewDeck() {
             </div>
           </Slide>
 
-          {/* ── Slide 22: Thank You ── */}
-          <Slide visible={current === 21} center>
+          {/* ── Slide 21: Thank You ── */}
+          <Slide visible={current === 20} center>
             <h1 className="text-[56px] font-extrabold mb-4" style={{ color: TEXT_PRIMARY }}>
               Thank You
             </h1>
