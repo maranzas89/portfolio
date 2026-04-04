@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import ConditionalAnalytics from "@/components/ConditionalAnalytics";
 import ClarityAnalytics from "@/components/ClarityAnalytics";
-import { Inter, Quantico, Geist_Mono } from "next/font/google";
+import { Inter, Quantico, Geist_Mono, Open_Sans } from "next/font/google";
 import AskWenShell from "@/components/portfolio-chat/AskWenShell";
 import "./globals.css";
 
@@ -29,6 +29,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const openSans = Open_Sans({
+  variable: "--font-open-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Wen's Portfolio",
   description: "Wen Liu's design portfolio",
@@ -42,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${quantico.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${inter.variable} ${quantico.variable} ${geistMono.variable} ${openSans.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
         <Script
