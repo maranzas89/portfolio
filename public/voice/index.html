@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speech to Text — 实时语音转文字</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --border: #e5e5e5;
+    --border-strong: #d4d4d4;
+    --text: #0a0a0a;
+    --text-muted: #737373;
+    --text-faint: #a3a3a3;
+    --accent: #0a0a0a;
+    --accent-hover: #262626;
+    --danger: #dc2626;
+    --success: #16a34a;
+    --interim: #a3a3a3;
+  }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .app {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 6px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-faint);
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .dot.live {
+    background: var(--danger);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); }
+    50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+  }
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  button, select {
+    font: inherit;
+    font-size: 14px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  button:hover:not(:disabled) {
+    border-color: var(--text);
+    transform: translateY(-1px);
+  }
+  button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  button.primary {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  button.primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+  }
+  button.danger {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
+  }
+  select {
+    padding-right: 32px;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%23737373' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    appearance: none;
+  }
+  .spacer { flex: 1; }
+  .transcript-wrap {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    overflow: hidden;
+  }
+  .transcript-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .transcript {
+    flex: 1;
+    padding: 16px 24px;
+    overflow-y: auto;
+    font-size: 16px;
+    line-height: 1.85;
+    word-break: break-word;
+  }
+  .placeholder {
+    color: var(--text-faint);
+    font-style: italic;
+    padding: 8px 4px;
+    display: block;
+  }
+  .segment {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-top: 1px dashed transparent;
+  }
+  .segment + .segment {
+    border-top-color: var(--border);
+  }
+  .segment-ts {
+    flex-shrink: 0;
+    width: 52px;
+    font-family: "SF Mono", "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--text-faint);
+    padding-top: 4px;
+    user-select: none;
+    text-align: right;
+  }
+  .segment-text {
+    flex: 1;
+    white-space: pre-wrap;
+  }
+  .interim {
+    color: var(--interim);
+    font-style: italic;
+  }
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s;
+    z-index: 100;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .tips {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .tips strong { color: var(--text); }
+  .tips kbd {
+    background: #f0f0f0;
+    border: 1px solid var(--border-strong);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", monospace;
+    font-size: 11px;
+  }
+  .error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    display: none;
+  }
+  .error.show { display: block; }
+  .mic-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .mic-bar label {
+    color: var(--text-muted);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .mic-bar select {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 28px 6px 10px;
+    font-size: 13px;
+  }
+  .level-wrap {
+    flex: 1;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    min-width: 120px;
+  }
+  .level-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #16a34a 0%, #16a34a 60%, #eab308 80%, #dc2626 100%);
+    transition: width 0.06s linear;
+    border-radius: 4px;
+  }
+  .level-hint {
+    font-size: 11px;
+    color: var(--text-faint);
+    min-width: 60px;
+    text-align: right;
+  }
+  @media (max-width: 600px) {
+    .app { padding: 20px 16px; }
+    h1 { font-size: 18px; }
+    .transcript { padding: 18px 20px; font-size: 15px; }
+    button { padding: 10px 14px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <h1>🎙️ Speech to Text</h1>
+      <div class="subtitle">实时语音转文字 · 纯浏览器运行 · 零上传</div>
+    </div>
+    <div class="status">
+      <span class="dot" id="statusDot"></span>
+      <span id="statusText">待命</span>
+    </div>
+  </header>
+
+  <div class="error" id="errorBox"></div>
+
+  <div class="mic-bar">
+    <label>🎤 麦克风</label>
+    <select id="micSelect"><option value="">默认（系统设置）</option></select>
+    <div class="level-wrap"><div class="level-bar" id="levelBar"></div></div>
+    <span class="level-hint" id="levelHint">未检测</span>
+  </div>
+
+  <div class="mic-bar" id="diagBar" style="display:none">
+    <label>🔍 诊断</label>
+    <span id="diagText" style="flex:1; font-size:12px; color:var(--text-muted); font-family:'SF Mono',monospace;">等待事件…</span>
+  </div>
+
+  <div class="toolbar">
+    <button class="primary" id="startBtn">● 开始录音</button>
+    <button id="stopBtn" disabled>■ 停止</button>
+    <select id="langSelect" title="识别语言">
+      <option value="zh-CN">中文（普通话）</option>
+      <option value="en-US">English (US)</option>
+      <option value="en-GB">English (UK)</option>
+      <option value="zh-HK">中文（粤语）</option>
+      <option value="ja-JP">日本語</option>
+      <option value="ko-KR">한국어</option>
+    </select>
+    <label style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--text-muted); padding: 0 4px;">
+      分段停顿
+      <select id="gapSelect" style="padding: 6px 24px 6px 10px; font-size:13px;">
+        <option value="1500">1.5 秒</option>
+        <option value="3000" selected>3 秒</option>
+        <option value="5000">5 秒</option>
+        <option value="8000">8 秒</option>
+      </select>
+    </label>
+    <span class="spacer"></span>
+    <button id="copyBtn">复制</button>
+    <button id="downloadBtn">下载 .txt</button>
+    <button id="clearBtn">清空</button>
+  </div>
+
+  <div class="transcript-wrap">
+    <div class="transcript-header">
+      <span>📝 文字记录</span>
+      <span class="meta">
+        <span id="wordCount">0 字</span>
+        <span id="duration">00:00</span>
+      </span>
+    </div>
+    <div class="transcript" id="transcript"></div>
+  </div>
+
+  <div class="tips">
+    <strong>💡 用法提示：</strong>
+    ① 浏览器用 <strong>Chrome 或 Edge</strong>（Safari 不稳定）。
+    ② 首次会弹出麦克风授权，允许即可。
+    ③ 要转写 <strong>Zoom 里别人的声音</strong>，Mac 装 <a href="https://existential.audio/blackhole/" target="_blank">BlackHole</a> 虚拟声卡，把系统输出路由到麦克风；或者直接把电脑外放让麦克风听。
+    ④ 快捷键：<kbd>空格</kbd> 开始/停止，<kbd>⌘C</kbd> 复制，<kbd>⌘K</kbd> 清空。
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const startBtn = document.getElementById('startBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const langSelect = document.getElementById('langSelect');
+  const gapSelect = document.getElementById('gapSelect');
+  const transcriptEl = document.getElementById('transcript');
+  const statusDot = document.getElementById('statusDot');
+  const statusText = document.getElementById('statusText');
+  const wordCountEl = document.getElementById('wordCount');
+  const durationEl = document.getElementById('duration');
+  const errorBox = document.getElementById('errorBox');
+  const toast = document.getElementById('toast');
+  const micSelect = document.getElementById('micSelect');
+  const levelBar = document.getElementById('levelBar');
+  const levelHint = document.getElementById('levelHint');
+  const diagBar = document.getElementById('diagBar');
+  const diagText = document.getElementById('diagText');
+
+  let lastResultAt = 0;
+  let noResultWatchdog = null;
+
+  function diag(msg) {
+    diagBar.style.display = 'flex';
+    const ts = new Date().toLocaleTimeString('en-US', { hour12: false });
+    diagText.textContent = `[${ts}] ${msg}`;
+    console.log('[STT]', msg);
+  }
+
+  const PLACEHOLDER = '点击 "开始录音" 后说话，文字会实时出现在这里…';
+
+  const placeholderSpan = document.createElement('span');
+  placeholderSpan.className = 'placeholder';
+  placeholderSpan.textContent = PLACEHOLDER;
+
+  const savedGap = localStorage.getItem('stt_gap');
+  if (savedGap) gapSelect.value = savedGap;
+  gapSelect.addEventListener('change', () => localStorage.setItem('stt_gap', gapSelect.value));
+
+  if (!SpeechRecognition) {
+    errorBox.classList.add('show');
+    errorBox.textContent = '⚠️ 你的浏览器不支持 Web Speech API。请用最新版 Chrome 或 Edge。';
+    startBtn.disabled = true;
+    return;
+  }
+
+  let recognition = null;
+  let isListening = false;
+  let shouldContinue = false;
+  let segments = [];
+  let interimTranscript = '';
+  let startTime = null;
+  let recordingStartMs = null;
+  let durationTimer = null;
+  let audioCtx = null;
+  let analyser = null;
+  let micStream = null;
+  let levelRAF = null;
+  let silentFrames = 0;
+  let lastHeardAt = 0;
+
+  async function startLevelMeter() {
+    try {
+      stopLevelMeter();
+      const constraints = {
+        audio: micSelect.value ? { deviceId: { exact: micSelect.value } } : true
+      };
+      micStream = await navigator.mediaDevices.getUserMedia(constraints);
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const src = audioCtx.createMediaStreamSource(micStream);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 512;
+      src.connect(analyser);
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      const tick = () => {
+        analyser.getByteTimeDomainData(data);
+        let sum = 0;
+        for (let i = 0; i < data.length; i++) {
+          const v = (data[i] - 128) / 128;
+          sum += v * v;
+        }
+        const rms = Math.sqrt(sum / data.length);
+        const pct = Math.min(100, Math.round(rms * 400));
+        levelBar.style.width = pct + '%';
+        if (pct < 2) {
+          silentFrames++;
+          levelHint.textContent = silentFrames > 60 ? '听不到' : '安静';
+        } else {
+          silentFrames = 0;
+          lastHeardAt = Date.now();
+          levelHint.textContent = pct > 40 ? '很响' : (pct > 15 ? '正常' : '有声');
+        }
+        levelRAF = requestAnimationFrame(tick);
+      };
+      tick();
+      await populateMics();
+    } catch (e) {
+      showError('无法访问麦克风：' + e.message);
+    }
+  }
+
+  function stopLevelMeter() {
+    if (levelRAF) cancelAnimationFrame(levelRAF);
+    levelRAF = null;
+    if (micStream) micStream.getTracks().forEach(t => t.stop());
+    micStream = null;
+    if (audioCtx) audioCtx.close().catch(() => {});
+    audioCtx = null;
+    analyser = null;
+    levelBar.style.width = '0%';
+    levelHint.textContent = '未检测';
+  }
+
+  async function populateMics() {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const mics = devices.filter(d => d.kind === 'audioinput');
+      const currentValue = micSelect.value;
+      while (micSelect.options.length > 1) micSelect.remove(1);
+      mics.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.deviceId;
+        opt.textContent = d.label || `麦克风 ${d.deviceId.slice(0, 6)}`;
+        micSelect.appendChild(opt);
+      });
+      const savedMic = localStorage.getItem('stt_mic');
+      if (savedMic && [...micSelect.options].some(o => o.value === savedMic)) {
+        micSelect.value = savedMic;
+      } else if (currentValue) {
+        micSelect.value = currentValue;
+      }
+    } catch (_) {}
+  }
+
+  const saved = localStorage.getItem('stt_lang');
+  if (saved && [...langSelect.options].some(o => o.value === saved)) {
+    langSelect.value = saved;
+  } else if (saved) {
+    localStorage.removeItem('stt_lang');
+  }
+
+  const savedSegments = localStorage.getItem('stt_segments');
+  if (savedSegments) {
+    try { segments = JSON.parse(savedSegments) || []; } catch (_) { segments = []; }
+  }
+  render();
+
+  function createRecognition() {
+    const r = new SpeechRecognition();
+    r.continuous = true;
+    r.interimResults = true;
+    r.lang = langSelect.value;
+    r.maxAlternatives = 1;
+
+    r.onstart = () => {
+      isListening = true;
+      setStatus('live', '录音中…');
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+      if (!startTime) {
+        startTime = Date.now();
+        durationTimer = setInterval(updateDuration, 500);
+      }
+      diag('识别器启动成功，等待结果…');
+      clearTimeout(noResultWatchdog);
+      noResultWatchdog = setTimeout(() => {
+        if (isListening && !lastResultAt) {
+          showError('启动 10 秒仍未收到识别结果。可能原因：(1) 网络连不通 Google 语音服务（需要梯子）(2) 中文说太轻 (3) 换个语言试试。打开控制台 (⌥⌘I) 看更多日志。');
+        }
+      }, 10000);
+    };
+
+    r.onaudiostart = () => diag('音频采集开始');
+    r.onsoundstart = () => diag('检测到声音');
+    r.onspeechstart = () => diag('检测到说话');
+    r.onspeechend = () => diag('说话结束');
+    r.onsoundend = () => diag('声音结束');
+    r.onaudioend = () => diag('音频采集结束');
+
+    r.onresult = (e) => {
+      const now = Date.now();
+      const gap = now - (lastResultAt || now);
+      const threshold = parseInt(gapSelect.value, 10) || 3000;
+      lastResultAt = now;
+      diag(`收到结果 (${e.results.length} 条)`);
+      interimTranscript = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const result = e.results[i];
+        const text = result[0].transcript;
+        if (result.isFinal) {
+          const trimmed = text.trim();
+          if (!trimmed) continue;
+          const last = segments[segments.length - 1];
+          const shouldNewSeg = !last || gap > threshold;
+          if (shouldNewSeg) {
+            const relSec = recordingStartMs ? Math.max(0, Math.floor((now - recordingStartMs) / 1000)) : (last ? last.at + 1 : 0);
+            segments.push({ at: relSec, text: trimmed });
+          } else {
+            last.text += (last.text ? ' ' : '') + trimmed;
+          }
+        } else {
+          interimTranscript += text;
+        }
+      }
+      render();
+      persist();
+    };
+
+    r.onerror = (e) => {
+      diag(`错误: ${e.error}`);
+      if (e.error === 'aborted') return;
+      if (e.error === 'no-speech') {
+        levelHint.textContent = '没听到声音';
+        return;
+      }
+      if (e.error === 'not-allowed') {
+        showError('麦克风权限被拒绝。请在浏览器地址栏左侧点击锁图标重新授权。');
+        shouldContinue = false;
+      } else if (e.error === 'network') {
+        showError('网络错误。Web Speech API 需要联网（连不上 Google 识别服务）。检查网络或梯子。');
+      } else if (e.error === 'audio-capture') {
+        showError('采集不到音频。系统设置里检查麦克风输入，或换一个麦克风试试。');
+      } else {
+        showError('识别错误：' + e.error);
+      }
+    };
+
+    r.onend = () => {
+      diag('识别器已停止' + (shouldContinue ? '（尝试重启）' : ''));
+      isListening = false;
+      if (shouldContinue) {
+        try { r.start(); } catch (_) { setTimeout(() => { try { r.start(); } catch (_) {} }, 200); }
+      } else {
+        setStatus('idle', '待命');
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+        clearInterval(durationTimer);
+        durationTimer = null;
+        startTime = null;
+        interimTranscript = '';
+        render();
+      }
+    };
+
+    return r;
+  }
+
+  async function start() {
+    errorBox.classList.remove('show');
+    lastResultAt = 0;
+    shouldContinue = true;
+    if (!recordingStartMs) recordingStartMs = Date.now();
+    diag('请求麦克风…');
+    try {
+      const probe = await navigator.mediaDevices.getUserMedia({
+        audio: micSelect.value ? { deviceId: { exact: micSelect.value } } : true
+      });
+      probe.getTracks().forEach(t => t.stop());
+      await populateMics();
+    } catch (e) {
+      showError('麦克风请求失败：' + e.message);
+      shouldContinue = false;
+      return;
+    }
+    await startLevelMeter();
+    recognition = createRecognition();
+    try {
+      recognition.start();
+      diag('调用 recognition.start()');
+    } catch (e) {
+      showError('无法启动：' + e.message);
+      diag('start() 异常: ' + e.message);
+      shouldContinue = false;
+    }
+  }
+
+  function stop() {
+    shouldContinue = false;
+    if (recognition && isListening) {
+      try { recognition.stop(); } catch (_) {}
+    }
+    stopLevelMeter();
+    levelHint.textContent = '未检测';
+  }
+
+  function formatTS(sec) {
+    const m = Math.floor(sec / 60).toString().padStart(2, '0');
+    const s = (sec % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  function render() {
+    while (transcriptEl.firstChild) transcriptEl.removeChild(transcriptEl.firstChild);
+    if (!segments.length && !interimTranscript) {
+      transcriptEl.appendChild(placeholderSpan);
+    } else {
+      segments.forEach((seg, i) => {
+        const row = document.createElement('div');
+        row.className = 'segment';
+        const ts = document.createElement('span');
+        ts.className = 'segment-ts';
+        ts.textContent = formatTS(seg.at);
+        const txt = document.createElement('span');
+        txt.className = 'segment-text';
+        const isLast = i === segments.length - 1;
+        if (isLast && interimTranscript) {
+          txt.textContent = seg.text;
+          const it = document.createElement('span');
+          it.className = 'interim';
+          it.textContent = (seg.text ? ' ' : '') + interimTranscript;
+          txt.appendChild(it);
+        } else {
+          txt.textContent = seg.text;
+        }
+        row.appendChild(ts);
+        row.appendChild(txt);
+        transcriptEl.appendChild(row);
+      });
+      if (!segments.length && interimTranscript) {
+        const row = document.createElement('div');
+        row.className = 'segment';
+        const ts = document.createElement('span');
+        ts.className = 'segment-ts';
+        ts.textContent = formatTS(0);
+        const txt = document.createElement('span');
+        txt.className = 'segment-text interim';
+        txt.textContent = interimTranscript;
+        row.appendChild(ts);
+        row.appendChild(txt);
+        transcriptEl.appendChild(row);
+      }
+    }
+    transcriptEl.scrollTop = transcriptEl.scrollHeight;
+    updateWordCount();
+  }
+
+  function transcriptPlain(withTimestamps) {
+    return segments
+      .map(s => withTimestamps ? `[${formatTS(s.at)}] ${s.text}` : s.text)
+      .join('\n');
+  }
+
+  function updateWordCount() {
+    const text = segments.map(s => s.text).join(' ') + ' ' + interimTranscript;
+    const chars = text.replace(/\s/g, '').length;
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const isCJK = /[\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff]/.test(text);
+    wordCountEl.textContent = isCJK ? `${chars} 字 · ${segments.length} 段` : `${words} words · ${segments.length} segs`;
+  }
+
+  function updateDuration() {
+    if (!startTime) return;
+    const s = Math.floor((Date.now() - startTime) / 1000);
+    const m = Math.floor(s / 60);
+    const ss = (s % 60).toString().padStart(2, '0');
+    durationEl.textContent = `${m.toString().padStart(2,'0')}:${ss}`;
+  }
+
+  function setStatus(state, text) {
+    statusDot.className = 'dot' + (state === 'live' ? ' live' : '');
+    statusText.textContent = text;
+  }
+
+  function showError(msg) {
+    errorBox.classList.add('show');
+    errorBox.textContent = '⚠️ ' + msg;
+  }
+
+  function persist() {
+    try { localStorage.setItem('stt_segments', JSON.stringify(segments)); } catch (_) {}
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  startBtn.addEventListener('click', start);
+  stopBtn.addEventListener('click', stop);
+
+  langSelect.addEventListener('change', () => {
+    localStorage.setItem('stt_lang', langSelect.value);
+    if (isListening) {
+      stop();
+      setTimeout(start, 300);
+    }
+  });
+
+  micSelect.addEventListener('change', () => {
+    localStorage.setItem('stt_mic', micSelect.value);
+    if (isListening) {
+      stop();
+      setTimeout(start, 300);
+    }
+  });
+
+  navigator.mediaDevices.addEventListener?.('devicechange', populateMics);
+  populateMics();
+
+  copyBtn.addEventListener('click', async (e) => {
+    if (!segments.length && !interimTranscript) { showToast('没有内容可复制'); return; }
+    const withTS = !e.shiftKey;
+    const text = transcriptPlain(withTS);
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast(`✓ 已复制 ${segments.length} 段${withTS ? '（带时间戳）' : '（纯文本）'}`);
+    } catch (_) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('✓ 已复制');
+    }
+  });
+  copyBtn.title = '点击复制（带时间戳） / Shift+点击复制纯文本';
+
+  downloadBtn.addEventListener('click', (e) => {
+    if (!segments.length) { showToast('没有内容可下载'); return; }
+    const withTS = !e.shiftKey;
+    const text = transcriptPlain(withTS);
+    const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `transcript-${stamp}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('✓ 已下载');
+  });
+  downloadBtn.title = '点击下载（带时间戳） / Shift+点击下载纯文本';
+
+  clearBtn.addEventListener('click', () => {
+    if (!segments.length && !interimTranscript) return;
+    if (!confirm('确定清空所有文字记录？')) return;
+    segments = [];
+    interimTranscript = '';
+    recordingStartMs = null;
+    localStorage.removeItem('stt_segments');
+    render();
+    showToast('已清空');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const tag = e.target.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    if (e.code === 'Space' && !e.metaKey && !e.ctrlKey) {
+      e.preventDefault();
+      isListening ? stop() : start();
+    } else if ((e.metaKey || e.ctrlKey) && e.key === 'c' && !window.getSelection().toString()) {
+      e.preventDefault();
+      copyBtn.click();
+    } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      clearBtn.click();
+    }
+  });
+
+  window.addEventListener('beforeunload', (e) => {
+    if (isListening) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
+})();
+</script>
+</body>
+</html>

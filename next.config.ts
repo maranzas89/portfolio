@@ -28,6 +28,8 @@ const nextConfig: NextConfig = {
         { source: "/pulse/store/:path*", destination: "/pulse/index.html" },
         { source: "/pulse/dashboard", destination: "/pulse/index.html" },
         { source: "/pulse/dashboard/:path*", destination: "/pulse/index.html" },
+        // Voice — speech-to-text tool
+        { source: "/voice", destination: "/voice/index.html" },
       ],
     };
   },
