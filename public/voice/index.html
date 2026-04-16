@@ -285,11 +285,86 @@
     min-width: 60px;
     text-align: right;
   }
+  /* Bilingual (translation) layout */
+  .transcript.bilingual {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+  }
+  .transcript.bilingual .col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .transcript.bilingual .col + .col {
+    border-left: 1px solid var(--border);
+  }
+  .col-head {
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    background: #fafafa;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .col-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 20px;
+  }
+  .transcript.bilingual .col-translation .col-body {
+    font-size: 20px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  .transcript.bilingual .col-translation .segment-text {
+    font-weight: 500;
+  }
+  .transcript.bilingual .col-original .col-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+  .seg-loading {
+    color: var(--text-faint);
+    font-style: italic;
+    font-size: 0.75em;
+  }
+  .seg-fail {
+    color: #b91c1c;
+    font-style: italic;
+    font-size: 0.8em;
+  }
+  @media (max-width: 720px) {
+    .transcript.bilingual {
+      flex-direction: column;
+    }
+    .transcript.bilingual .col + .col {
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+    .transcript.bilingual .col-translation .col-body {
+      font-size: 22px;
+    }
+    .transcript.bilingual .col-body {
+      max-height: 50vh;
+    }
+  }
   @media (max-width: 600px) {
-    .app { padding: 20px 16px; }
+    .app { padding: 20px 16px; gap: 14px; }
     h1 { font-size: 18px; }
     .transcript { padding: 18px 20px; font-size: 15px; }
+    .transcript.bilingual { padding: 0; }
     button { padding: 10px 14px; font-size: 13px; }
+    .toolbar { gap: 6px; }
+    .mic-bar { flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -332,6 +407,16 @@
       <option value="ko-KR">한국어</option>
     </select>
     <label style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--text-muted); padding: 0 4px;">
+      🌐 翻译成
+      <select id="translateSelect" style="padding: 6px 24px 6px 10px; font-size:13px;" title="实时翻译(适合老人)">
+        <option value="">关闭</option>
+        <option value="zh-CN">中文</option>
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+      </select>
+    </label>
+    <label style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--text-muted); padding: 0 4px;">
       分段停顿
       <select id="gapSelect" style="padding: 6px 24px 6px 10px; font-size:13px;">
         <option value="1500">1.5 秒</option>
@@ -362,7 +447,8 @@
     ① 浏览器用 <strong>Chrome 或 Edge</strong>（Safari 不稳定）。
     ② 首次会弹出麦克风授权，允许即可。
     ③ 要转写 <strong>Zoom 里别人的声音</strong>，Mac 装 <a href="https://existential.audio/blackhole/" target="_blank">BlackHole</a> 虚拟声卡，把系统输出路由到麦克风；或者直接把电脑外放让麦克风听。
-    ④ 快捷键：<kbd>空格</kbd> 开始/停止，<kbd>⌘C</kbd> 复制，<kbd>⌘K</kbd> 清空。
+    ④ <strong>🌐 翻译成</strong>：给英文不好的家人看，选「中文」即可同步显示翻译。手机上会自动上下分栏。
+    ⑤ 快捷键：<kbd>空格</kbd> 开始/停止，<kbd>⌘C</kbd> 复制，<kbd>⌘K</kbd> 清空。
   </div>
 </div>
 
@@ -390,9 +476,67 @@
   const levelHint = document.getElementById('levelHint');
   const diagBar = document.getElementById('diagBar');
   const diagText = document.getElementById('diagText');
+  const translateSelect = document.getElementById('translateSelect');
 
   let lastResultAt = 0;
   let noResultWatchdog = null;
+  const translateTimers = new Map(); // segIndex -> timeout handle
+
+  const LANG_LABELS = {
+    'zh-CN': '中文', 'en-US': 'English', 'en-GB': 'English',
+    'zh-HK': '粤语', 'ja-JP': '日本語', 'ko-KR': '한국어'
+  };
+  const TRANS_LABELS = {
+    'zh-CN': '中文', 'en': 'English', 'ja': '日本語', 'ko': '한국어'
+  };
+  function langLabel(code) { return LANG_LABELS[code] || code; }
+  function translateLabel(code) { return TRANS_LABELS[code] || code; }
+  function sourceFromLang(lang) {
+    if (!lang) return 'auto';
+    if (lang === 'zh-HK') return 'zh-TW';
+    return lang.split('-')[0];
+  }
+
+  async function translateText(text, source, target) {
+    if (!target || !text.trim()) return null;
+    const src = source || 'auto';
+    if (src === target || src === target.split('-')[0]) return null;
+    try {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${src}&tl=${target}&dt=t&q=${encodeURIComponent(text)}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('http ' + res.status);
+      const data = await res.json();
+      if (!Array.isArray(data) || !Array.isArray(data[0])) throw new Error('bad response');
+      return data[0].map(chunk => chunk[0]).filter(Boolean).join('');
+    } catch (e) {
+      console.warn('[translate]', e);
+      return null;
+    }
+  }
+
+  function scheduleTranslate(segIndex) {
+    const target = translateSelect.value;
+    if (!target) return;
+    if (translateTimers.has(segIndex)) clearTimeout(translateTimers.get(segIndex));
+    const t = setTimeout(async () => {
+      translateTimers.delete(segIndex);
+      const seg = segments[segIndex];
+      if (!seg) return;
+      const snapshot = seg.text;
+      seg.translating = true;
+      render();
+      const translated = await translateText(snapshot, sourceFromLang(langSelect.value), target);
+      const cur = segments[segIndex];
+      if (cur && cur.text === snapshot) {
+        cur.translated = translated || '';
+        cur.translateFailed = !translated;
+        cur.translating = false;
+        persist();
+        render();
+      }
+    }, 400);
+    translateTimers.set(segIndex, t);
+  }
 
   function diag(msg) {
     diagBar.style.display = 'flex';
@@ -571,7 +715,9 @@
             segments.push({ at: relSec, text: trimmed });
           } else {
             last.text += (last.text ? ' ' : '') + trimmed;
+            delete last.translated; // force re-translate on append
           }
+          scheduleTranslate(segments.length - 1);
         } else {
           interimTranscript += text;
         }
@@ -663,32 +809,92 @@
     return `${m}:${s}`;
   }
 
+  function makeStatusSpan(className, text) {
+    const s = document.createElement('span');
+    s.className = className;
+    s.textContent = text;
+    return s;
+  }
+
+  function buildSegmentRow(seg, isLast, kind) {
+    const row = document.createElement('div');
+    row.className = 'segment';
+    const ts = document.createElement('span');
+    ts.className = 'segment-ts';
+    ts.textContent = formatTS(seg.at);
+    const txt = document.createElement('span');
+    txt.className = 'segment-text';
+    if (kind === 'translation') {
+      if (seg.translated) {
+        txt.textContent = seg.translated;
+      } else if (seg.translating) {
+        txt.appendChild(makeStatusSpan('seg-loading', '翻译中…'));
+      } else if (seg.translateFailed) {
+        txt.appendChild(makeStatusSpan('seg-fail', '翻译失败（检查网络）'));
+      } else {
+        txt.appendChild(makeStatusSpan('seg-loading', '…'));
+      }
+    } else {
+      if (isLast && interimTranscript) {
+        txt.textContent = seg.text;
+        const it = document.createElement('span');
+        it.className = 'interim';
+        it.textContent = (seg.text ? ' ' : '') + interimTranscript;
+        txt.appendChild(it);
+      } else {
+        txt.textContent = seg.text;
+      }
+    }
+    row.appendChild(ts);
+    row.appendChild(txt);
+    return row;
+  }
+
   function render() {
     while (transcriptEl.firstChild) transcriptEl.removeChild(transcriptEl.firstChild);
+    const target = translateSelect.value;
+    transcriptEl.classList.toggle('bilingual', !!target);
+
     if (!segments.length && !interimTranscript) {
       transcriptEl.appendChild(placeholderSpan);
+      updateWordCount();
+      return;
+    }
+
+    if (target) {
+      const colTrans = document.createElement('div');
+      colTrans.className = 'col col-translation';
+      const hTrans = document.createElement('div');
+      hTrans.className = 'col-head';
+      hTrans.textContent = `🌐 ${translateLabel(target)}（翻译）`;
+      const bTrans = document.createElement('div');
+      bTrans.className = 'col-body';
+      colTrans.appendChild(hTrans);
+      colTrans.appendChild(bTrans);
+
+      const colOrig = document.createElement('div');
+      colOrig.className = 'col col-original';
+      const hOrig = document.createElement('div');
+      hOrig.className = 'col-head';
+      hOrig.textContent = `📝 ${langLabel(langSelect.value)}（原文）`;
+      const bOrig = document.createElement('div');
+      bOrig.className = 'col-body';
+      colOrig.appendChild(hOrig);
+      colOrig.appendChild(bOrig);
+
+      segments.forEach((seg, i) => {
+        const isLast = i === segments.length - 1;
+        bTrans.appendChild(buildSegmentRow(seg, isLast, 'translation'));
+        bOrig.appendChild(buildSegmentRow(seg, isLast, 'original'));
+      });
+
+      transcriptEl.appendChild(colTrans);
+      transcriptEl.appendChild(colOrig);
+      bTrans.scrollTop = bTrans.scrollHeight;
+      bOrig.scrollTop = bOrig.scrollHeight;
     } else {
       segments.forEach((seg, i) => {
-        const row = document.createElement('div');
-        row.className = 'segment';
-        const ts = document.createElement('span');
-        ts.className = 'segment-ts';
-        ts.textContent = formatTS(seg.at);
-        const txt = document.createElement('span');
-        txt.className = 'segment-text';
-        const isLast = i === segments.length - 1;
-        if (isLast && interimTranscript) {
-          txt.textContent = seg.text;
-          const it = document.createElement('span');
-          it.className = 'interim';
-          it.textContent = (seg.text ? ' ' : '') + interimTranscript;
-          txt.appendChild(it);
-        } else {
-          txt.textContent = seg.text;
-        }
-        row.appendChild(ts);
-        row.appendChild(txt);
-        transcriptEl.appendChild(row);
+        transcriptEl.appendChild(buildSegmentRow(seg, i === segments.length - 1, 'original'));
       });
       if (!segments.length && interimTranscript) {
         const row = document.createElement('div');
@@ -703,14 +909,22 @@
         row.appendChild(txt);
         transcriptEl.appendChild(row);
       }
+      transcriptEl.scrollTop = transcriptEl.scrollHeight;
     }
-    transcriptEl.scrollTop = transcriptEl.scrollHeight;
     updateWordCount();
   }
 
   function transcriptPlain(withTimestamps) {
     return segments
-      .map(s => withTimestamps ? `[${formatTS(s.at)}] ${s.text}` : s.text)
+      .map(s => {
+        const prefix = withTimestamps ? `[${formatTS(s.at)}] ` : '';
+        const base = `${prefix}${s.text}`;
+        if (s.translated) {
+          const indent = withTimestamps ? '        ' : '';
+          return `${base}\n${indent}→ ${s.translated}`;
+        }
+        return base;
+      })
       .join('\n');
   }
 
@@ -760,6 +974,21 @@
       stop();
       setTimeout(start, 300);
     }
+  });
+
+  const savedTrans = localStorage.getItem('stt_translate');
+  if (savedTrans && [...translateSelect.options].some(o => o.value === savedTrans)) {
+    translateSelect.value = savedTrans;
+    render();
+  }
+  translateSelect.addEventListener('change', () => {
+    localStorage.setItem('stt_translate', translateSelect.value);
+    if (translateSelect.value) {
+      segments.forEach((_, i) => {
+        if (!segments[i].translated) scheduleTranslate(i);
+      });
+    }
+    render();
   });
 
   micSelect.addEventListener('change', () => {
